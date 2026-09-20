@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Supervisor Profile</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="supervisor-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="supervisor-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="supervisor-students.html">
+                    My Students
+                </a>
+
+                <a
+                    href="supervisor-profile.html"
+                    class="active"
+                >
+                    Profile
+                </a>
+
+                <a
+                    href="#"
+                    class="logout"
+                    id="logoutLink"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="supervisor-profile-page">
+
+        <section class="supervisor-profile-header">
+
+            <div>
+
+                <p class="profile-label">
+                    SUPERVISOR PROFILE
+                </p>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    Manage your supervisor information and account details.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PROFILE CARD ================= -->
+
+        <section class="supervisor-profile-card">
+
+            <div class="supervisor-profile-top">
+
+                <div
+                    class="supervisor-avatar"
+                    id="supervisorAvatar"
+                >
+                    --
+                </div>
+
+
+                <div>
+
+                    <h2 id="displayName">
+                        Loading...
+                    </h2>
+
+                    <p>
+                        University Internship Supervisor
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= FORM ================= -->
+
+            <div class="supervisor-form">
+
+
+                <!-- FULL NAME -->
+
+                <div class="profile-field">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="profile-field">
+
+                    <label for="email">
+                        University Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                    >
+
+                </div>
+
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="profile-field">
+
+                    <label for="department">
+                        Department
+                    </label>
+
+                    <input
+                        type="text"
+                        id="department"
+                    >
+
+                </div>
+
+
+
+                <!-- SPECIALIZATION -->
+
+                <div class="profile-field">
+
+                    <label for="specialization">
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="specialization"
+                    >
+
+                </div>
+
+
+
+                <!-- PHONE -->
+
+                <div class="profile-field">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                    >
+
+                </div>
+
+
+
+                <!-- STUDENTS -->
+
+                <div class="profile-field">
+
+                    <label for="students">
+                        Students Under Supervision
+                    </label>
+
+                    <input
+                        type="text"
+                        id="students"
+                        readonly
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= BUTTONS ================= -->
+
+            <div class="supervisor-profile-actions">
+
+                <a
+                    href="supervisor-dashboard.html"
+                    class="profile-cancel"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="button"
+                    class="profile-save"
+                    id="saveButton"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let currentUser = null;
+
+
+
+        // =========================================
+        // GET INITIALS
+        // =========================================
+
+        function getInitials(name) {
+
+            if (!name) {
+                return "--";
+            }
+
+            const words =
+                name
+                    .trim()
+                    .split(/\s+/);
+
+
+            if (words.length === 1) {
+
+                return words[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                words[0][0] +
+                words[words.length - 1][0]
+            ).toUpperCase();
+
+        }
+
+
+
+        // =========================================
+        // LOAD SUPERVISOR PROFILE
+        // =========================================
+
+        async function loadProfile() {
+
+            const {
+                data: {
+                    user
+                },
+                error: authError
+            } = await db.auth.getUser();
+
+
+            // -----------------------------------------
+            // CHECK LOGIN
+            // -----------------------------------------
+
+            if (authError || !user) {
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            currentUser = user;
+
+
+
+            // =========================================
+            // GET PROFILE DATA
+            // =========================================
+
+            const {
+                data: profile,
+                error: profileError
+            } = await db
+
+                .from("profiles")
+
+                .select(`
+                    id,
+                    full_name,
+                    username,
+                    email,
+                    phone,
+                    role
+                `)
+
+                .eq("id", user.id)
+
+                .eq("role", "supervisor")
+
+                .maybeSingle();
+
+
+
+            if (profileError) {
+
+                console.error(
+                    "Profile error:",
+                    profileError
+                );
+
+                alert(
+                    "Unable to load your profile."
+                );
+
+                return;
+
+            }
+
+
+
+            if (!profile) {
+
+                alert(
+                    "Supervisor profile was not found."
+                );
+
+                return;
+
+            }
+
+
+
+            // =========================================
+            // GET SUPERVISOR DATA
+            // =========================================
+
+            const {
+                data: supervisor,
+                error: supervisorError
+            } = await db
+
+                .from("supervisors")
+
+                .select(`
+                    id,
+                    department,
+                    specialization,
+                    phone
+                `)
+
+                .eq("id", user.id)
+
+                .maybeSingle();
+
+
+
+            if (supervisorError) {
+
+                console.error(
+                    "Supervisor data error:",
+                    supervisorError
+                );
+
+                alert(
+                    "Unable to load supervisor information."
+                );
+
+                return;
+
+            }
+
+
+
+            // =========================================
+            // GET NUMBER OF STUDENTS
+            // =========================================
+
+            const {
+                count: studentCount,
+                error: studentsError
+            } = await db
+
+                .from("students")
+
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                )
+
+                .eq(
+                    "supervisor_id",
+                    user.id
+                );
+
+
+
+            if (studentsError) {
+
+                console.error(
+                    "Students count error:",
+                    studentsError
+                );
+
+            }
+
+
+
+            // =========================================
+            // DISPLAY PROFILE DATA
+            // =========================================
+
+            const fullName =
+                profile.full_name ||
+                "Supervisor";
+
+
+            document.getElementById(
+                "displayName"
+            ).textContent =
+                fullName;
+
+
+            document.getElementById(
+                "supervisorAvatar"
+            ).textContent =
+                getInitials(fullName);
+
+
+
+            // -----------------------------------------
+            // FULL NAME
+            // -----------------------------------------
+
+            document.getElementById(
+                "fullName"
+            ).value =
+                profile.full_name || "";
+
+
+
+            // -----------------------------------------
+            // EMAIL
+            // -----------------------------------------
+
+            document.getElementById(
+                "email"
+            ).value =
+                profile.email ||
+                user.email ||
+                "";
+
+
+
+            // -----------------------------------------
+            // DEPARTMENT
+            // -----------------------------------------
+
+            document.getElementById(
+                "department"
+            ).value =
+                supervisor?.department || "";
+
+
+
+            // -----------------------------------------
+            // SPECIALIZATION
+            // -----------------------------------------
+
+            document.getElementById(
+                "specialization"
+            ).value =
+                supervisor?.specialization || "";
+
+
+
+            // -----------------------------------------
+            // PHONE
+            //
+            // First check supervisors.phone
+            // Then profiles.phone
+            // -----------------------------------------
+
+            document.getElementById(
+                "phone"
+            ).value =
+                supervisor?.phone ||
+                profile.phone ||
+                "";
+
+
+
+            // -----------------------------------------
+            // STUDENTS COUNT
+            // -----------------------------------------
+
+            document.getElementById(
+                "students"
+            ).value =
+                `${studentCount || 0} Students`;
+
+        }
+
+
+
+        // =========================================
+        // SAVE PROFILE
+        // =========================================
+
+        async function saveProfile() {
+
+            if (!currentUser) {
+
+                return;
+
+            }
+
+
+
+            // =========================================
+            // GET FORM VALUES
+            // =========================================
+
+            const fullName =
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+
+            const department =
+                document
+                    .getElementById("department")
+                    .value
+                    .trim();
+
+
+            const specialization =
+                document
+                    .getElementById("specialization")
+                    .value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
+
+
+
+            // =========================================
+            // VALIDATION
+            // =========================================
+
+            if (!fullName) {
+
+                alert(
+                    "Full Name is required."
+                );
+
+                return;
+
+            }
+
+
+
+            // =========================================
+            // BUTTON
+            // =========================================
+
+            const saveButton =
+                document.getElementById(
+                    "saveButton"
+                );
+
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                "Saving...";
+
+
+
+            try {
+
+
+                // =====================================
+                // UPDATE PROFILES
+                // =====================================
+
+                const {
+                    error: profileError
+                } = await db
+
+                    .from("profiles")
+
+                    .update({
+
+                        full_name:
+                            fullName,
+
+                        email:
+                            email || null,
+
+                        phone:
+                            phone || null
+
+                    })
+
+                    .eq(
+                        "id",
+                        currentUser.id
+                    );
+
+
+
+                if (profileError) {
+
+                    throw profileError;
+
+                }
+
+
+
+                // =====================================
+                // INSERT OR UPDATE SUPERVISORS
+                // =====================================
+
+                const {
+                    error: supervisorError
+                } = await db
+
+                    .from("supervisors")
+
+                    .upsert(
+
+                        {
+
+                            id:
+                                currentUser.id,
+
+                            department:
+                                department || null,
+
+                            specialization:
+                                specialization || null,
+
+                            phone:
+                                phone || null
+
+                        },
+
+                        {
+
+                            onConflict:
+                                "id"
+
+                        }
+
+                    );
+
+
+
+                if (supervisorError) {
+
+                    throw supervisorError;
+
+                }
+
+
+
+                // =====================================
+                // UPDATE AUTH EMAIL
+                // =====================================
+
+                const authEmail =
+                    currentUser.email || "";
+
+
+                if (
+                    email &&
+                    email !== authEmail
+                ) {
+
+                    const {
+                        error: emailError
+                    } = await db.auth.updateUser({
+
+                        email:
+                            email
+
+                    });
+
+
+                    if (emailError) {
+
+                        throw emailError;
+
+                    }
+
+                }
+
+
+
+                // =====================================
+                // UPDATE PAGE
+                // =====================================
+
+                document.getElementById(
+                    "displayName"
+                ).textContent =
+                    fullName;
+
+
+                document.getElementById(
+                    "supervisorAvatar"
+                ).textContent =
+                    getInitials(fullName);
+
+
+
+                // =====================================
+                // SUCCESS
+                // =====================================
+
+                alert(
+                    "Profile updated successfully!"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Save profile error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to update your profile. Please try again."
+                );
+
+
+            } finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.textContent =
+                    "Save Changes";
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
+        async function logout() {
+
+            const {
+                error
+            } = await db.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+                alert(
+                    "Unable to log out."
+                );
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+
+        // =========================================
+        // EVENTS
+        // =========================================
+
+        document
+            .getElementById("saveButton")
+            .addEventListener(
+                "click",
+                saveProfile
+            );
+
+
+
+        document
+            .getElementById("logoutLink")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    logout();
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOAD PAGE
+        // =========================================
+
+        loadProfile();
+
+    </script>
+
+
+</body>
+
+</html>

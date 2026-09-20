@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Company Profile - Internship Management System</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         COMPANY PROFILE PAGE
+    ========================================== -->
+
+    <div class="home-page">
+
+
+        <!-- =====================================
+             NAVBAR
+        ====================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- Logo -->
+
+                <a href="company-dashboard.html" class="brand">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- Navigation -->
+
+                <nav class="nav-links">
+
+                    <a href="company-dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a href="applicants.html">
+                        Applicants
+                    </a>
+
+                    <a
+                        href="company-profile.html"
+                        class="active"
+                    >
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                        id="logoutLink"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="company-profile-page">
+
+
+            <!-- =================================
+                 PAGE HEADER
+            ================================== -->
+
+            <section class="company-profile-header">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        COMPANY PROFILE
+                    </span>
+
+                    <h1>
+                        Company Information
+                    </h1>
+
+                    <p>
+                        Manage your company information
+                        and contact details.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 PROFILE CARD
+            ================================== -->
+
+            <section class="company-profile-card">
+
+
+                <!-- Company Logo -->
+
+                <div class="profile-logo-section">
+
+                    <div class="profile-company-logo">
+
+                        <img
+                            id="companyLogo"
+                            src="./images/ooredoo.png"
+                            alt="Company Logo"
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <h2 id="companyTitle">
+                            Loading...
+                        </h2>
+
+                        <p id="companyField">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Company Information -->
+
+                <div class="profile-information">
+
+
+                    <!-- Company Name -->
+
+                    <div class="profile-field">
+
+                        <label for="companyName">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyName"
+                            placeholder="Company Name"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Email -->
+
+                    <div class="profile-field">
+
+                        <label for="companyEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="companyEmail"
+                            placeholder="Company Email"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Phone -->
+
+                    <div class="profile-field">
+
+                        <label for="companyPhone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="companyPhone"
+                            placeholder="Phone Number"
+                        >
+
+                    </div>
+
+
+
+                    <!-- City -->
+
+                    <div class="profile-field">
+
+                        <label for="companyCity">
+                            City
+                        </label>
+
+                        <select id="companyCity">
+
+                            <option value="">
+                                Select City
+                            </option>
+
+                            <option value="Ramallah">
+                                Ramallah
+                            </option>
+
+                            <option value="Nablus">
+                                Nablus
+                            </option>
+
+                            <option value="Hebron">
+                                Hebron
+                            </option>
+
+                            <option value="Bethlehem">
+                                Bethlehem
+                            </option>
+
+                            <option value="Jerusalem">
+                                Jerusalem
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Website -->
+
+                    <div class="profile-field full-width">
+
+                        <label for="companyWebsite">
+                            Website
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyWebsite"
+                            placeholder="Company Website"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Description -->
+
+                    <div class="profile-field full-width">
+
+                        <label for="companyDescription">
+                            Company Description
+                        </label>
+
+                        <textarea
+                            id="companyDescription"
+                            rows="5"
+                            placeholder="Company Description"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Save Message -->
+
+                <p
+                    id="saveMessage"
+                    class="error-message"
+                    style="text-align: center; margin-top: 20px;"
+                ></p>
+
+
+
+                <!-- Buttons -->
+
+                <div class="profile-actions">
+
+                    <a
+                        href="company-dashboard.html"
+                        class="profile-cancel-button"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="button"
+                        class="profile-save-button"
+                        id="saveButton"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <script>
+
+        /* =========================================
+           GET ELEMENTS
+        ========================================== */
+
+        const companyName =
+            document.getElementById("companyName");
+
+        const companyEmail =
+            document.getElementById("companyEmail");
+
+        const companyPhone =
+            document.getElementById("companyPhone");
+
+        const companyCity =
+            document.getElementById("companyCity");
+
+        const companyWebsite =
+            document.getElementById("companyWebsite");
+
+        const companyDescription =
+            document.getElementById("companyDescription");
+
+        const companyTitle =
+            document.getElementById("companyTitle");
+
+        const companyField =
+            document.getElementById("companyField");
+
+        const companyLogo =
+            document.getElementById("companyLogo");
+
+        const saveButton =
+            document.getElementById("saveButton");
+
+        const saveMessage =
+            document.getElementById("saveMessage");
+
+
+        /* =========================================
+           STORE ORIGINAL DATA
+        ========================================== */
+
+        let originalData = {
+            name: "",
+            email: "",
+            phone: "",
+            city: "",
+            website: "",
+            description: ""
+        };
+
+
+        /* =========================================
+           LOAD COMPANY PROFILE
+        ========================================== */
+
+        async function loadCompanyProfile() {
+
+            saveMessage.textContent = "";
+
+            try {
+
+                /* Get logged-in user */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+                /* Get company connected to this account */
+
+                const {
+                    data: company,
+                    error: companyError
+                } = await db
+                    .from("companies")
+                    .select(`
+                        id,
+                        profile_id,
+                        name,
+                        email,
+                        phone,
+                        city,
+                        field,
+                        website,
+                        logo_url,
+                        description
+                    `)
+                    .eq("profile_id", user.id)
+                    .maybeSingle();
+
+
+                /* Company not found */
+
+                if (companyError) {
+
+                    console.error(companyError);
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Unable to load company information.";
+
+                    return;
+
+                }
+
+
+                if (!company) {
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Company profile was not found.";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   DISPLAY DATA
+                ================================= */
+
+
+                companyName.value =
+                    company.name || "";
+
+                companyEmail.value =
+                    company.email || "";
+
+                companyPhone.value =
+                    company.phone || "";
+
+                companyCity.value =
+                    company.city || "";
+
+                companyWebsite.value =
+                    company.website || "";
+
+                companyDescription.value =
+                    company.description || "";
+
+
+                /* =================================
+                   STORE ORIGINAL DATA
+                ================================= */
+
+                originalData = {
+
+                    name:
+                        company.name || "",
+
+                    email:
+                        company.email || "",
+
+                    phone:
+                        company.phone || "",
+
+                    city:
+                        company.city || "",
+
+                    website:
+                        company.website || "",
+
+                    description:
+                        company.description || ""
+
+                };
+
+
+                /* =================================
+                   HEADER
+                ================================= */
+
+                companyTitle.textContent =
+                    company.name || "Company";
+
+                companyField.textContent =
+                    company.field || "Technology";
+
+
+                /* =================================
+                   LOGO
+                ================================= */
+
+                if (company.logo_url) {
+
+                    companyLogo.src =
+                        company.logo_url;
+
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                saveMessage.style.color =
+                    "#b00020";
+
+                saveMessage.textContent =
+                    "Something went wrong while loading your profile.";
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SAVE COMPANY PROFILE
+        ========================================== */
+
+        saveButton.addEventListener(
+            "click",
+            async function () {
+
+                saveMessage.textContent = "";
+
+
+                /* =================================
+                   GET CURRENT VALUES
+                ================================= */
+
+                const currentData = {
+
+                    name:
+                        companyName.value.trim(),
+
+                    email:
+                        companyEmail.value.trim(),
+
+                    phone:
+                        companyPhone.value.trim(),
+
+                    city:
+                        companyCity.value,
+
+                    website:
+                        companyWebsite.value.trim(),
+
+                    description:
+                        companyDescription.value.trim()
+
+                };
+
+
+                /* =================================
+                   CHECK IF ANYTHING CHANGED
+                ================================= */
+
+                const hasChanges =
+                    currentData.name !== originalData.name ||
+                    currentData.email !== originalData.email ||
+                    currentData.phone !== originalData.phone ||
+                    currentData.city !== originalData.city ||
+                    currentData.website !== originalData.website ||
+                    currentData.description !== originalData.description;
+
+
+                /* =================================
+                   NO CHANGES
+                ================================= */
+
+                if (!hasChanges) {
+
+                    saveMessage.style.color =
+                        "#315B66";
+
+                    saveMessage.textContent =
+                        "No changes to save.";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   START SAVING
+                ================================= */
+
+                saveButton.disabled = true;
+
+                saveButton.textContent =
+                    "Saving...";
+
+
+                try {
+
+                    /* Get logged-in user */
+
+                    const {
+                        data: {
+                            user
+                        },
+                        error: userError
+                    } = await db.auth.getUser();
+
+
+                    if (userError || !user) {
+
+                        saveMessage.style.color =
+                            "#b00020";
+
+                        saveMessage.textContent =
+                            "Your session has expired. Please login again.";
+
+                        saveButton.disabled = false;
+
+                        saveButton.textContent =
+                            "Save Changes";
+
+                        return;
+
+                    }
+
+
+                    /* =================================
+                       UPDATE DATABASE
+                    ================================= */
+
+                    const {
+                        error: updateError
+                    } = await db
+                        .from("companies")
+                        .update({
+
+                            name:
+                                currentData.name,
+
+                            email:
+                                currentData.email || null,
+
+                            phone:
+                                currentData.phone || null,
+
+                            city:
+                                currentData.city || null,
+
+                            website:
+                                currentData.website || null,
+
+                            description:
+                                currentData.description || null
+
+                        })
+                        .eq("profile_id", user.id);
+
+
+                    /* =================================
+                       UPDATE ERROR
+                    ================================= */
+
+                    if (updateError) {
+
+                        console.error(updateError);
+
+                        saveMessage.style.color =
+                            "#b00020";
+
+                        saveMessage.textContent =
+                            "Unable to save changes. Please try again.";
+
+                        saveButton.disabled = false;
+
+                        saveButton.textContent =
+                            "Save Changes";
+
+                        return;
+
+                    }
+
+
+                    /* =================================
+                       UPDATE ORIGINAL DATA
+                    ================================= */
+
+                    originalData = {
+                        ...currentData
+                    };
+
+
+                    /* =================================
+                       UPDATE HEADER
+                    ================================= */
+
+                    companyTitle.textContent =
+                        currentData.name || "Company";
+
+
+                    /* =================================
+                       SUCCESS
+                    ================================= */
+
+                    saveMessage.style.color =
+                        "#315B66";
+
+                    saveMessage.textContent =
+                        "Changes saved successfully!";
+
+
+                    saveButton.disabled = false;
+
+                    saveButton.textContent =
+                        "Save Changes";
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Something went wrong. Please try again.";
+
+                    saveButton.disabled = false;
+
+                    saveButton.textContent =
+                        "Save Changes";
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
+           LOGOUT
+        ========================================== */
+
+        document
+            .getElementById("logoutLink")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+                    await db.auth.signOut();
+
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("role");
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        /* =========================================
+           LOAD PROFILE
+        ========================================== */
+
+        loadCompanyProfile();
+
+    </script>
+
+
+</body>
+
+</html>

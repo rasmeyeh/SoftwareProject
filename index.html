@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Internship Management System</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <main class="login-page">
+
+        <!-- Background Overlay -->
+        <div class="overlay"></div>
+
+
+        <!-- Login Container -->
+        <section class="login-container">
+
+            <div class="login-box">
+
+
+                <!-- Logo -->
+
+                <div class="logo-container">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                </div>
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter your username"
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="toggle-password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Options -->
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+                    <a href="#">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- Login Button -->
+
+                <button
+                    type="button"
+                    class="login-button"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+
+                <!-- Error Message -->
+
+                <p
+                    id="errorMessage"
+                    class="error-message"
+                ></p>
+
+
+                <!-- Register -->
+
+                <p class="register">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create a new one
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+    <script>
+
+        /* ===============================
+           SHOW / HIDE PASSWORD
+        =============================== */
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                if (passwordInput.type === "password") {
+
+                    passwordInput.type = "text";
+
+                    togglePassword.textContent = "🙈";
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    togglePassword.textContent = "👁";
+
+                }
+
+            }
+        );
+
+
+        /* ===============================
+           LOGIN
+        =============================== */
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+        loginButton.addEventListener(
+            "click",
+            async function () {
+
+                const username =
+                    document
+                        .getElementById("username")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value
+                        .trim();
+
+
+                /* ===============================
+                   VALIDATION
+                =============================== */
+
+                if (
+                    username === "" ||
+                    password === ""
+                ) {
+
+                    errorMessage.textContent =
+                        "Please enter your username and password.";
+
+                    return;
+
+                }
+
+
+                errorMessage.textContent = "";
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+
+                try {
+
+                    /* ===============================
+                       FIND USERNAME
+                    =============================== */
+
+                    const { data: profile, error: profileError } =
+                        await db
+                            .from("profiles")
+                            .select("email, role")
+                            .eq("username", username)
+                            .maybeSingle();
+
+
+                    /* ===============================
+                       USERNAME NOT FOUND
+                    =============================== */
+
+                    if (profileError) {
+
+                        console.error(profileError);
+
+                        errorMessage.textContent =
+                            "Unable to find your account.";
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    if (!profile) {
+
+                        errorMessage.textContent =
+                            "Username or password is incorrect.";
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    /* ===============================
+                       LOGIN WITH EMAIL + PASSWORD
+                    =============================== */
+
+                    const { data, error } =
+                        await db.auth.signInWithPassword({
+
+                            email: profile.email,
+
+                            password: password
+
+                        });
+
+
+                    /* ===============================
+                       LOGIN ERROR
+                    =============================== */
+
+                    if (error) {
+
+                        console.error(error);
+
+                        errorMessage.textContent =
+                            "Username or password is incorrect.";
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    /* ===============================
+                       SAVE USER INFORMATION
+                    =============================== */
+
+                    localStorage.setItem(
+                        "username",
+                        username
+                    );
+
+                    localStorage.setItem(
+                        "role",
+                        profile.role
+                    );
+
+
+                    /* ===============================
+                       LOGIN SUCCESS
+                    =============================== */
+
+                    errorMessage.style.color =
+                        "#315B66";
+
+                    errorMessage.textContent =
+                        "Login successful!";
+
+
+                    /* ===============================
+                       REDIRECT BASED ON ROLE
+                    =============================== */
+
+                    setTimeout(function () {
+
+                        if (profile.role === "student") {
+
+                            window.location.href =
+                                "home.html";
+
+                        } else if (profile.role === "company") {
+
+                            window.location.href =
+                                "company-dashboard.html";
+
+                        } else if (profile.role === "supervisor") {
+
+                            window.location.href =
+                                "supervisor-dashboard.html";
+
+                        } else if (profile.role === "admin") {
+
+                            window.location.href =
+                                "admin-dashboard.html";
+
+                        }
+
+                    }, 500);
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    errorMessage.textContent =
+                        "Something went wrong. Please try again.";
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

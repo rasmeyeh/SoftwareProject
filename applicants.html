@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Applicants - Internship Management System</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           REVIEW MODAL
+        ========================================== */
+
+        .review-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .review-modal.show {
+            display: flex;
+        }
+
+        .review-modal-content {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #f3eee6;
+            border-radius: 18px;
+            padding: 30px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .review-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            border: none;
+            background: transparent;
+            font-size: 28px;
+            cursor: pointer;
+            color: #234b57;
+        }
+
+        .review-modal-content h2 {
+            margin-top: 0;
+            color: #234b57;
+            margin-bottom: 8px;
+        }
+
+        .review-modal-subtitle {
+            margin-top: 0;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .review-detail {
+            margin-bottom: 18px;
+        }
+
+        .review-detail span {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .review-detail strong {
+            color: #234b57;
+            font-size: 16px;
+        }
+
+        .review-cover-letter {
+            background: #f7fafa;
+            border-radius: 10px;
+            padding: 15px;
+            line-height: 1.6;
+            color: #444;
+            white-space: pre-wrap;
+            min-height: 70px;
+        }
+
+        .review-cv-link {
+            display: inline-block;
+            margin-top: 5px;
+            color: #315b66;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .review-cv-link:hover {
+            text-decoration: underline;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(35, 75, 87, 0.15);
+        }
+
+        .review-action-button {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .accept-button {
+            background: #315b66;
+            color: white;
+        }
+
+        .reject-button {
+            background: #8a4b4b;
+            color: white;
+        }
+
+        .cancel-button {
+            background: #ddd;
+            color: #333;
+        }
+
+        .review-action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .review-status-message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a
+                    href="company-dashboard.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="company-dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a
+                        href="applicants.html"
+                        class="active"
+                    >
+                        Applicants
+                    </a>
+
+                    <a href="company-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <main class="company-dashboard">
+
+
+            <section class="company-welcome">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        APPLICANTS
+                    </span>
+
+                    <h1>
+                        Student Applications
+                    </h1>
+
+                    <p>
+                        Review students who applied
+                        for your internship opportunities.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 FILTER SECTION
+            ====================================== -->
+
+            <section class="applicants-filter">
+
+                <div class="applicants-search">
+
+                    <span>
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="applicantSearch"
+                        placeholder="Search by student name..."
+                    >
+
+                </div>
+
+
+                <select id="statusFilter">
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="accepted">
+                        Accepted
+                    </option>
+
+                    <option value="rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <!-- =====================================
+                 APPLICATIONS
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Applications
+                        </h2>
+
+                        <p>
+                            Review and manage student applications.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="applicantsList">
+
+                    <!-- Real applications will appear here -->
+
+                </div>
+
+
+                <div
+                    id="applicantsMessage"
+                    style="
+                        text-align: center;
+                        padding: 30px;
+                    "
+                >
+
+                    Loading applications...
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- =========================================
+             REVIEW MODAL
+        ========================================== -->
+
+        <div
+            class="review-modal"
+            id="reviewModal"
+        >
+
+            <div class="review-modal-content">
+
+                <button
+                    type="button"
+                    class="review-modal-close"
+                    id="closeReviewModal"
+                >
+                    ×
+                </button>
+
+
+                <h2>
+                    Review Application
+                </h2>
+
+
+                <p class="review-modal-subtitle">
+                    Review the student's application before making a decision.
+                </p>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Student Name
+                    </span>
+
+                    <strong id="reviewStudentName">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Major
+                    </span>
+
+                    <strong id="reviewStudentMajor">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Internship
+                    </span>
+
+                    <strong id="reviewInternship">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Applied
+                    </span>
+
+                    <strong id="reviewAppliedDate">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong id="reviewEmail">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Phone
+                    </span>
+
+                    <strong id="reviewPhone">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        Cover Letter
+                    </span>
+
+                    <div
+                        class="review-cover-letter"
+                        id="reviewCoverLetter"
+                    >
+                        No cover letter provided.
+                    </div>
+
+                </div>
+
+
+                <div class="review-detail">
+
+                    <span>
+                        CV
+                    </span>
+
+                    <div id="reviewCV">
+                        No CV available.
+                    </div>
+
+                </div>
+
+
+                <div class="review-actions">
+
+                    <button
+                        type="button"
+                        class="review-action-button cancel-button"
+                        id="cancelReviewButton"
+                    >
+                        Close
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="review-action-button reject-button"
+                        id="rejectButton"
+                    >
+                        Reject
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="review-action-button accept-button"
+                        id="acceptButton"
+                    >
+                        Accept
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="review-status-message"
+                    id="reviewStatusMessage"
+                >
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+    <!-- =========================================
+         APPLICANTS SCRIPT
+    ========================================== -->
+
+    <script>
+
+        const applicantSearch =
+            document.getElementById("applicantSearch");
+
+
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+
+        const applicantsList =
+            document.getElementById("applicantsList");
+
+
+        const applicantsMessage =
+            document.getElementById("applicantsMessage");
+
+
+        /* =========================================
+           REVIEW MODAL ELEMENTS
+        ========================================== */
+
+        const reviewModal =
+            document.getElementById("reviewModal");
+
+
+        const closeReviewModal =
+            document.getElementById("closeReviewModal");
+
+
+        const cancelReviewButton =
+            document.getElementById("cancelReviewButton");
+
+
+        const acceptButton =
+            document.getElementById("acceptButton");
+
+
+        const rejectButton =
+            document.getElementById("rejectButton");
+
+
+        const reviewStatusMessage =
+            document.getElementById("reviewStatusMessage");
+
+
+        let allApplicants = [];
+
+        let selectedApplication = null;
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================== */
+
+        function escapeHTML(value) {
+
+            return String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =========================================
+           FORMAT DATE
+        ========================================== */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "Date not available";
+
+            }
+
+            return new Date(
+                dateValue
+            ).toLocaleDateString(
+                "en-US",
+                {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           GET CURRENT COMPANY
+        ========================================== */
+
+        async function getCurrentCompany() {
+
+            const {
+                data: userData,
+                error: userError
+            } = await db.auth.getUser();
+
+
+            if (
+                userError ||
+                !userData.user
+            ) {
+
+                throw new Error(
+                    "Please log in."
+                );
+
+            }
+
+
+            const user =
+                userData.user;
+
+
+            const {
+                data: company,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name,
+                    profile_id
+                `)
+                .eq(
+                    "profile_id",
+                    user.id
+                )
+                .maybeSingle();
+
+
+            if (companyError) {
+
+                console.error(
+                    "Company error:",
+                    companyError
+                );
+
+                throw new Error(
+                    "Unable to load company information."
+                );
+
+            }
+
+
+            if (!company) {
+
+                throw new Error(
+                    "Company account is not linked to a company."
+                );
+
+            }
+
+
+            return company;
+
+        }
+
+
+        /* =========================================
+           LOAD APPLICANTS
+        ========================================== */
+
+        async function loadApplicants() {
+
+            try {
+
+                const company =
+                    await getCurrentCompany();
+
+
+                /* =================================
+                   GET INTERNSHIPS
+                ================================== */
+
+                const {
+                    data: internships,
+                    error: internshipError
+                } = await db
+                    .from("internships")
+                    .select(`
+                        id,
+                        title,
+                        field,
+                        company_id
+                    `)
+                    .eq(
+                        "company_id",
+                        company.id
+                    );
+
+
+                if (internshipError) {
+
+                    throw internshipError;
+
+                }
+
+
+                if (
+                    !internships ||
+                    internships.length === 0
+                ) {
+
+                    applicantsList.innerHTML = "";
+
+                    applicantsMessage.style.display =
+                        "block";
+
+                    applicantsMessage.textContent =
+                        "No internship opportunities found.";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   INTERNSHIP IDS
+                ================================== */
+
+                const internshipIds =
+                    internships.map(
+                        internship =>
+                            internship.id
+                    );
+
+
+                /* =================================
+                   APPLICATIONS
+                ================================== */
+
+                const {
+                    data: applications,
+                    error: applicationError
+                } = await db
+                    .from("applications")
+                    .select(`
+                        id,
+                        student_id,
+                        internship_id,
+                        status,
+                        applied_at,
+                        cover_letter,
+                        major
+                    `)
+                    .in(
+                        "internship_id",
+                        internshipIds
+                    )
+                    .order(
+                        "applied_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+                if (applicationError) {
+
+                    throw applicationError;
+
+                }
+
+
+                if (
+                    !applications ||
+                    applications.length === 0
+                ) {
+
+                    applicantsList.innerHTML = "";
+
+                    applicantsMessage.style.display =
+                        "block";
+
+                    applicantsMessage.textContent =
+                        "No students have applied yet.";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   STUDENT IDS
+                ================================== */
+
+                const studentIds =
+                    [
+                        ...new Set(
+                            applications.map(
+                                application =>
+                                    application.student_id
+                            )
+                        )
+                    ];
+
+
+                /* =================================
+                   STUDENTS
+                ================================== */
+
+                const {
+                    data: students,
+                    error: studentError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        major,
+                        cv_url
+                    `)
+                    .in(
+                        "id",
+                        studentIds
+                    );
+
+
+                if (studentError) {
+
+                    throw studentError;
+
+                }
+
+
+                /* =================================
+                   PROFILES
+                ================================== */
+
+                const {
+                    data: profiles,
+                    error: profileError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        email,
+                        phone
+                    `)
+                    .in(
+                        "id",
+                        studentIds
+                    );
+
+
+                if (profileError) {
+
+                    throw profileError;
+
+                }
+
+
+                /* =================================
+                   CREATE MAPS
+                ================================== */
+
+                const internshipMap = {};
+
+
+                internships.forEach(
+                    internship => {
+
+                        internshipMap[
+                            internship.id
+                        ] =
+                            internship;
+
+                    }
+                );
+
+
+                const studentMap = {};
+
+
+                (students || []).forEach(
+                    student => {
+
+                        studentMap[
+                            student.id
+                        ] =
+                            student;
+
+                    }
+                );
+
+
+                const profileMap = {};
+
+
+                (profiles || []).forEach(
+                    profile => {
+
+                        profileMap[
+                            profile.id
+                        ] =
+                            profile;
+
+                    }
+                );
+
+
+                /* =================================
+                   COMBINE DATA
+                ================================== */
+
+                allApplicants =
+                    applications.map(
+                        application => {
+
+                            const internship =
+                                internshipMap[
+                                    application.internship_id
+                                ];
+
+
+                            const student =
+                                studentMap[
+                                    application.student_id
+                                ];
+
+
+                            const profile =
+                                profileMap[
+                                    application.student_id
+                                ];
+
+
+                            return {
+
+                                ...application,
+
+                                internship:
+                                    internship,
+
+                                student:
+                                    student,
+
+                                profile:
+                                    profile
+
+                            };
+
+                        }
+                    );
+
+
+                applicantsMessage.style.display =
+                    "none";
+
+
+                displayApplicants();
+
+            } catch (error) {
+
+                console.error(
+                    "Load applicants error:",
+                    error
+                );
+
+
+                applicantsList.innerHTML =
+                    "";
+
+
+                applicantsMessage.style.display =
+                    "block";
+
+
+                applicantsMessage.textContent =
+                    error.message ||
+                    "Unable to load applications.";
+
+            }
+
+        }
+
+
+        /* =========================================
+           DISPLAY APPLICANTS
+        ========================================== */
+
+        function displayApplicants() {
+
+            const searchValue =
+                applicantSearch.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const selectedStatus =
+                statusFilter.value;
+
+
+            const filteredApplicants =
+                allApplicants.filter(
+                    application => {
+
+                        const studentName =
+                            (
+                                application.profile
+                                    ?.full_name ||
+                                ""
+                            )
+                            .toLowerCase();
+
+
+                        const status =
+                            application.status ||
+                            "pending";
+
+
+                        const matchesSearch =
+                            studentName.includes(
+                                searchValue
+                            );
+
+
+                        const matchesStatus =
+                            selectedStatus === "" ||
+                            status === selectedStatus;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesStatus
+                        );
+
+                    }
+                );
+
+
+            applicantsList.innerHTML =
+                "";
+
+
+            if (
+                filteredApplicants.length === 0
+            ) {
+
+                applicantsList.innerHTML =
+                    `
+                    <div
+                        style="
+                            text-align: center;
+                            padding: 30px;
+                        "
+                    >
+                        No applications match your search.
+                    </div>
+                    `;
+
+                return;
+
+            }
+
+
+            filteredApplicants.forEach(
+                application => {
+
+                    const profile =
+                        application.profile ||
+                        {};
+
+
+                    const student =
+                        application.student ||
+                        {};
+
+
+                    const internship =
+                        application.internship ||
+                        {};
+
+
+                    const name =
+                        profile.full_name ||
+                        "Student";
+
+
+                    const major =
+                        student.major ||
+                        application.major ||
+                        "Major not available";
+
+
+                    const status =
+                        application.status ||
+                        "pending";
+
+
+                    const firstLetter =
+                        name
+                            .charAt(0)
+                            .toUpperCase();
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "applicant-card";
+
+
+                    card.dataset.status =
+                        status;
+
+
+                    card.innerHTML =
+                        `
+
+                        <div class="student-avatar">
+
+                            ${escapeHTML(
+                                firstLetter
+                            )}
+
+                        </div>
+
+
+                        <div class="applicant-info">
+
+                            <h3>
+                                ${escapeHTML(
+                                    name
+                                )}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(
+                                    major
+                                )}
+                            </p>
+
+                        </div>
+
+
+                        <div class="applicant-internship">
+
+                            <span>
+                                Internship
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(
+                                    internship.title ||
+                                    "Internship"
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="applicant-date">
+
+                            <span>
+                                Applied
+                            </span>
+
+                            <strong>
+                                ${formatDate(
+                                    application.applied_at
+                                )}
+                            </strong>
+
+                        </div>
+
+
+                        <span
+                            class="application-status ${escapeHTML(
+                                status
+                            )}"
+                        >
+
+                            ${escapeHTML(
+                                status.charAt(0).toUpperCase() +
+                                status.slice(1)
+                            )}
+
+                        </span>
+
+
+                        <button
+                            class="review-button"
+                            type="button"
+                            data-application-id="${escapeHTML(
+                                application.id
+                            )}"
+                        >
+                            Review
+                        </button>
+
+                        `;
+
+
+                    applicantsList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           GET CV STORAGE PATH
+        ========================================== */
+
+        function getCVStoragePath(cvUrl) {
+
+            if (!cvUrl) {
+
+                return null;
+
+            }
+
+
+            const value =
+                cvUrl.trim();
+
+
+            /*
+             * If cv_url is already a storage path:
+             *
+             * 049d20a9-.../CV.pdf
+             *
+             * return it directly.
+             */
+
+            if (
+                !value.includes("/storage/v1/object/")
+            ) {
+
+                return value;
+
+            }
+
+
+            /*
+             * Current database value is a full URL:
+             *
+             * https://project.supabase.co/
+             * storage/v1/object/public/cvs/
+             * student-id/file.pdf
+             *
+             * Extract only:
+             *
+             * student-id/file.pdf
+             */
+
+            const marker =
+                "/storage/v1/object/public/cvs/";
+
+
+            const markerIndex =
+                value.indexOf(marker);
+
+
+            if (markerIndex === -1) {
+
+                return null;
+
+            }
+
+
+            const path =
+                value.substring(
+                    markerIndex + marker.length
+                );
+
+
+            try {
+
+                return decodeURIComponent(
+                    path
+                );
+
+            } catch (error) {
+
+                return path;
+
+            }
+
+        }
+
+
+        /* =========================================
+           CREATE SIGNED CV URL
+        ========================================== */
+
+        async function getCVSignedUrl(cvUrl) {
+
+            const cvPath =
+                getCVStoragePath(cvUrl);
+
+
+            if (!cvPath) {
+
+                throw new Error(
+                    "Invalid CV path."
+                );
+
+            }
+
+
+            const {
+                data,
+                error
+            } = await db.storage
+                .from("cvs")
+                .createSignedUrl(
+                    cvPath,
+                    3600
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "CV signed URL error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            if (
+                !data ||
+                !data.signedUrl
+            ) {
+
+                throw new Error(
+                    "Unable to create CV link."
+                );
+
+            }
+
+
+            return data.signedUrl;
+
+        }
+
+
+        /* =========================================
+           OPEN REVIEW MODAL
+        ========================================== */
+
+        async function openReviewModal(
+            applicationId
+        ) {
+
+            const application =
+                allApplicants.find(
+                    item =>
+                        item.id === applicationId
+                );
+
+
+            if (!application) {
+
+                return;
+
+            }
+
+
+            selectedApplication =
+                application;
+
+
+            const profile =
+                application.profile ||
+                {};
+
+
+            const student =
+                application.student ||
+                {};
+
+
+            const internship =
+                application.internship ||
+                {};
+
+
+            /* =====================================
+               FILL MODAL DATA
+            ====================================== */
+
+            document.getElementById(
+                "reviewStudentName"
+            ).textContent =
+                profile.full_name ||
+                "Student";
+
+
+            document.getElementById(
+                "reviewStudentMajor"
+            ).textContent =
+                student.major ||
+                application.major ||
+                "Major not available";
+
+
+            document.getElementById(
+                "reviewInternship"
+            ).textContent =
+                internship.title ||
+                "Internship";
+
+
+            document.getElementById(
+                "reviewAppliedDate"
+            ).textContent =
+                formatDate(
+                    application.applied_at
+                );
+
+
+            document.getElementById(
+                "reviewEmail"
+            ).textContent =
+                profile.email ||
+                "Not available";
+
+
+            document.getElementById(
+                "reviewPhone"
+            ).textContent =
+                profile.phone ||
+                "Not available";
+
+
+            /* =====================================
+               COVER LETTER
+            ====================================== */
+
+            document.getElementById(
+                "reviewCoverLetter"
+            ).textContent =
+                application.cover_letter &&
+                application.cover_letter.trim()
+                    ? application.cover_letter
+                    : "No cover letter provided.";
+
+
+            /* =====================================
+               CV
+            ====================================== */
+
+            const cvContainer =
+                document.getElementById(
+                    "reviewCV"
+                );
+
+
+            cvContainer.innerHTML =
+                "";
+
+
+            if (
+                student.cv_url &&
+                student.cv_url.trim()
+            ) {
+
+                cvContainer.innerHTML = `
+                    <span>
+                        Preparing CV...
+                    </span>
+                `;
+
+
+                try {
+
+                    const signedUrl =
+                        await getCVSignedUrl(
+                            student.cv_url
+                        );
+
+
+                    cvContainer.innerHTML = `
+
+                        <a
+                            href="${escapeHTML(
+                                signedUrl
+                            )}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="review-cv-link"
+                        >
+                            View Student CV
+                        </a>
+
+                    `;
+
+                } catch (error) {
+
+                    console.error(
+                        "Unable to load CV:",
+                        error
+                    );
+
+
+                    cvContainer.innerHTML = `
+
+                        <span>
+                            Unable to load CV.
+                        </span>
+
+                    `;
+
+                }
+
+            } else {
+
+                cvContainer.textContent =
+                    "No CV available.";
+
+            }
+
+
+            /* =====================================
+               BUTTONS
+            ====================================== */
+
+            const currentStatus =
+                application.status ||
+                "pending";
+
+
+            if (
+                currentStatus === "accepted"
+            ) {
+
+                acceptButton.disabled =
+                    true;
+
+                rejectButton.disabled =
+                    false;
+
+            } else if (
+                currentStatus === "rejected"
+            ) {
+
+                acceptButton.disabled =
+                    false;
+
+                rejectButton.disabled =
+                    true;
+
+            } else {
+
+                acceptButton.disabled =
+                    false;
+
+                rejectButton.disabled =
+                    false;
+
+            }
+
+
+            reviewStatusMessage.textContent =
+                "";
+
+
+            reviewModal.classList.add(
+                "show"
+            );
+
+        }
+
+
+        /* =========================================
+           CLOSE REVIEW MODAL
+        ========================================== */
+
+        function closeModal() {
+
+            reviewModal.classList.remove(
+                "show"
+            );
+
+
+            selectedApplication =
+                null;
+
+
+            reviewStatusMessage.textContent =
+                "";
+
+        }
+
+
+        /* =========================================
+           UPDATE APPLICATION STATUS
+        ========================================== */
+
+        async function updateApplicationStatus(
+            newStatus
+        ) {
+
+            if (!selectedApplication) {
+
+                return;
+
+            }
+
+
+            const applicationId =
+                selectedApplication.id;
+
+
+            acceptButton.disabled =
+                true;
+
+
+            rejectButton.disabled =
+                true;
+
+
+            reviewStatusMessage.textContent =
+                "Updating application...";
+
+
+            try {
+
+                const {
+                    error
+                } = await db
+                    .from("applications")
+                    .update({
+                        status: newStatus
+                    })
+                    .eq(
+                        "id",
+                        applicationId
+                    );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                /* =================================
+                   UPDATE LOCAL DATA
+                ================================== */
+
+                const applicantIndex =
+                    allApplicants.findIndex(
+                        application =>
+                            application.id ===
+                            applicationId
+                    );
+
+
+                if (
+                    applicantIndex !== -1
+                ) {
+
+                    allApplicants[
+                        applicantIndex
+                    ].status =
+                        newStatus;
+
+                }
+
+
+                reviewStatusMessage.textContent =
+                    newStatus === "accepted"
+                        ? "Application accepted successfully."
+                        : "Application rejected successfully.";
+
+
+                displayApplicants();
+
+
+                setTimeout(
+                    () => {
+
+                        closeModal();
+
+                    },
+                    800
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Update application error:",
+                    error
+                );
+
+
+                reviewStatusMessage.textContent =
+                    error.message ||
+                    "Unable to update application.";
+
+
+                acceptButton.disabled =
+                    false;
+
+
+                rejectButton.disabled =
+                    false;
+
+            }
+
+        }
+
+
+        /* =========================================
+           REVIEW BUTTON EVENT
+        ========================================== */
+
+        applicantsList.addEventListener(
+            "click",
+            function (event) {
+
+                const reviewButton =
+                    event.target.closest(
+                        ".review-button"
+                    );
+
+
+                if (!reviewButton) {
+
+                    return;
+
+                }
+
+
+                const applicationId =
+                    reviewButton.dataset
+                        .applicationId;
+
+
+                openReviewModal(
+                    applicationId
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           ACCEPT
+        ========================================== */
+
+        acceptButton.addEventListener(
+            "click",
+            function () {
+
+                updateApplicationStatus(
+                    "accepted"
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           REJECT
+        ========================================== */
+
+        rejectButton.addEventListener(
+            "click",
+            function () {
+
+                updateApplicationStatus(
+                    "rejected"
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           CLOSE BUTTONS
+        ========================================== */
+
+        closeReviewModal.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        cancelReviewButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        /* =========================================
+           CLOSE WHEN CLICKING OUTSIDE MODAL
+        ========================================== */
+
+        reviewModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    reviewModal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           FILTER
+        ========================================== */
+
+        applicantSearch.addEventListener(
+            "input",
+            displayApplicants
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            displayApplicants
+        );
+
+
+        /* =========================================
+           START
+        ========================================== */
+
+        loadApplicants();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Supervisor Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="home-page">
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a
+                href="supervisor-dashboard.html"
+                class="brand"
+            >
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System Logo"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a
+                    href="supervisor-dashboard.html"
+                    class="active"
+                >
+                    Dashboard
+                </a>
+
+                <a href="supervisor-students.html">
+                    My Students
+                </a>
+
+                <a href="supervisor-profile.html">
+                    Profile
+                </a>
+
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutLink"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         SUPERVISOR DASHBOARD
+    ========================== -->
+
+    <main class="supervisor-dashboard">
+
+
+        <!-- =========================
+             WELCOME
+        ========================== -->
+
+        <section class="supervisor-welcome">
+
+            <div>
+
+                <span class="dashboard-label">
+                    SUPERVISOR DASHBOARD
+                </span>
+
+                <h1 id="welcomeMessage">
+                    Welcome 👋
+                </h1>
+
+                <p>
+                    Monitor your students' internships and review their
+                    training progress.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <section class="supervisor-stats">
+
+
+            <!-- Students -->
+
+            <div class="supervisor-stat-card">
+
+                <span class="stat-title">
+                    Students Under Supervision
+                </span>
+
+                <strong id="studentsCount">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Currently assigned
+                </span>
+
+            </div>
+
+
+
+            <!-- Active Internships -->
+
+            <div class="supervisor-stat-card">
+
+                <span class="stat-title">
+                    Active Internships
+                </span>
+
+                <strong id="activeInternshipsCount">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Currently training
+                </span>
+
+            </div>
+
+
+
+            <!-- Submitted Evaluations -->
+
+            <div class="supervisor-stat-card">
+
+                <span class="stat-title">
+                    Submitted Evaluations
+                </span>
+
+                <strong id="submittedEvaluationsCount">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Received from companies
+                </span>
+
+            </div>
+
+
+
+            <!-- Completed Internships -->
+
+            <div class="supervisor-stat-card">
+
+                <span class="stat-title">
+                    Completed Internships
+                </span>
+
+                <strong id="completedInternshipsCount">
+                    0
+                </strong>
+
+                <span class="stat-description">
+                    Successfully completed
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             MY STUDENTS
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        My Students
+                    </h2>
+
+                    <p>
+                        Students currently under your supervision.
+                    </p>
+
+                </div>
+
+
+                <a href="supervisor-students.html">
+                    View All
+                </a>
+
+            </div>
+
+
+
+            <!-- Dynamic students -->
+
+            <div id="studentsList">
+
+                <p>
+                    Loading students...
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             SUBMITTED EVALUATIONS
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Submitted Evaluations
+                    </h2>
+
+                    <p>
+                        Evaluation files submitted by companies.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Dynamic evaluations -->
+
+            <div id="evaluationsList">
+
+                <p>
+                    Loading evaluations...
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="home-footer">
+
+        <p>
+            © 2026 Internship Management System
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================
+     SUPABASE
+========================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./js/supabase.js"></script>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    loadSupervisorDashboard();
+
+});
+
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =========================================
+   LOAD SUPERVISOR DASHBOARD
+========================================= */
+
+async function loadSupervisorDashboard() {
+
+    try {
+
+        /* -------------------------------------
+           GET CURRENT USER
+        ------------------------------------- */
+
+        const {
+            data: {
+                user
+            },
+            error: userError
+        } = await db.auth.getUser();
+
+
+        if (userError) {
+            throw userError;
+        }
+
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+            return;
+
+        }
+
+
+
+        /* -------------------------------------
+           GET SUPERVISOR PROFILE
+        ------------------------------------- */
+
+        const {
+            data: profile,
+            error: profileError
+        } = await db
+            .from("profiles")
+            .select("id, full_name, username, email, role")
+            .eq("id", user.id)
+            .eq("role", "supervisor")
+            .maybeSingle();
+
+
+        if (profileError) {
+            throw profileError;
+        }
+
+
+        if (!profile) {
+
+            alert("Supervisor profile was not found.");
+
+            return;
+
+        }
+
+
+
+        /* -------------------------------------
+           WELCOME MESSAGE
+        ------------------------------------- */
+
+        const supervisorName =
+            profile.full_name ||
+            profile.username ||
+            "Supervisor";
+
+
+        document.getElementById("welcomeMessage").textContent =
+            `Welcome, ${supervisorName} 👋`;
+
+
+
+        /* -------------------------------------
+           GET STUDENTS UNDER THIS SUPERVISOR
+        ------------------------------------- */
+
+        const {
+            data: students,
+            error: studentsError
+        } = await db
+            .from("students")
+            .select(`
+                id,
+                major,
+                supervisor_id
+            `)
+            .eq("supervisor_id", user.id);
+
+
+        if (studentsError) {
+            throw studentsError;
+        }
+
+
+        const studentList = students || [];
+
+
+        document.getElementById("studentsCount").textContent =
+            studentList.length;
+
+
+
+        /* -------------------------------------
+           NO STUDENTS
+        ------------------------------------- */
+
+        if (studentList.length === 0) {
+
+            document.getElementById("studentsList").innerHTML = `
+                <p>
+                    No students are currently assigned to you.
+                </p>
+            `;
+
+
+            document.getElementById("activeInternshipsCount").textContent = "0";
+
+            document.getElementById("completedInternshipsCount").textContent = "0";
+
+            document.getElementById("submittedEvaluationsCount").textContent = "0";
+
+
+            document.getElementById("evaluationsList").innerHTML = `
+                <p>
+                    No submitted evaluations yet.
+                </p>
+            `;
+
+            return;
+
+        }
+
+
+
+        /* -------------------------------------
+           GET STUDENT PROFILES
+        ------------------------------------- */
+
+        const studentIds =
+            studentList.map(student => student.id);
+
+
+        const {
+            data: studentProfiles,
+            error: studentProfilesError
+        } = await db
+            .from("profiles")
+            .select(`
+                id,
+                full_name,
+                username,
+                email,
+                phone
+            `)
+            .in("id", studentIds);
+
+
+        if (studentProfilesError) {
+            throw studentProfilesError;
+        }
+
+
+
+        /* -------------------------------------
+           GET APPLICATIONS
+        ------------------------------------- */
+
+        const {
+            data: applications,
+            error: applicationsError
+        } = await db
+            .from("applications")
+            .select(`
+                id,
+                student_id,
+                internship_id,
+                status,
+                applied_at
+            `)
+            .in("student_id", studentIds);
+
+
+        if (applicationsError) {
+            throw applicationsError;
+        }
+
+
+        const applicationList = applications || [];
+
+
+
+        /* -------------------------------------
+           GET INTERNSHIPS
+        ------------------------------------- */
+
+        const internshipIds =
+            [
+                ...new Set(
+                    applicationList
+                        .map(application => application.internship_id)
+                        .filter(Boolean)
+                )
+            ];
+
+
+        let internships = [];
+
+
+        if (internshipIds.length > 0) {
+
+            const {
+                data: internshipData,
+                error: internshipError
+            } = await db
+                .from("internships")
+                .select(`
+                    id,
+                    company_id,
+                    title,
+                    field,
+                    city,
+                    start_date,
+                    end_date,
+                    status
+                `)
+                .in("id", internshipIds);
+
+
+            if (internshipError) {
+                throw internshipError;
+            }
+
+
+            internships = internshipData || [];
+
+        }
+
+
+
+        /* -------------------------------------
+           GET COMPANIES
+        ------------------------------------- */
+
+        const companyIds =
+            [
+                ...new Set(
+                    internships
+                        .map(internship => internship.company_id)
+                        .filter(Boolean)
+                )
+            ];
+
+
+        let companies = [];
+
+
+        if (companyIds.length > 0) {
+
+            const {
+                data: companyData,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name
+                `)
+                .in("id", companyIds);
+
+
+            if (companyError) {
+                throw companyError;
+            }
+
+
+            companies = companyData || [];
+
+        }
+
+
+
+        /* -------------------------------------
+           CREATE LOOKUP OBJECTS
+        ------------------------------------- */
+
+        const profileMap = {};
+
+        (studentProfiles || []).forEach(profile => {
+
+            profileMap[profile.id] = profile;
+
+        });
+
+
+        const internshipMap = {};
+
+        internships.forEach(internship => {
+
+            internshipMap[internship.id] = internship;
+
+        });
+
+
+        const companyMap = {};
+
+        companies.forEach(company => {
+
+            companyMap[company.id] = company;
+
+        });
+
+
+
+        /* -------------------------------------
+           FIND MAIN APPLICATION FOR EACH STUDENT
+        ------------------------------------- */
+
+        const studentRows =
+            studentList.map(student => {
+
+                const profile =
+                    profileMap[student.id] || {};
+
+
+                const studentApplications =
+                    applicationList.filter(
+                        application =>
+                            application.student_id === student.id
+                    );
+
+
+                /*
+                 * Prefer accepted application.
+                 * If there is no accepted application,
+                 * use the latest application.
+                 */
+
+                let application =
+                    studentApplications.find(
+                        item => item.status === "accepted"
+                    );
+
+
+                if (!application && studentApplications.length > 0) {
+
+                    application =
+                        [...studentApplications]
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.applied_at) -
+                                    new Date(a.applied_at)
+                            )[0];
+
+                }
+
+
+                const internship =
+                    application
+                        ? internshipMap[application.internship_id]
+                        : null;
+
+
+                const company =
+                    internship
+                        ? companyMap[internship.company_id]
+                        : null;
+
+
+                return {
+
+                    student,
+                    profile,
+                    application,
+                    internship,
+                    company
+
+                };
+
+            });
+
+
+
+        /* -------------------------------------
+           CALCULATE STATISTICS
+        ------------------------------------- */
+
+        const today =
+            new Date();
+
+
+        let activeCount = 0;
+
+        let completedCount = 0;
+
+
+        studentRows.forEach(row => {
+
+            if (!row.application) {
+                return;
+            }
+
+
+            if (row.application.status !== "accepted") {
+                return;
+            }
+
+
+            if (
+                row.internship &&
+                row.internship.end_date
+            ) {
+
+                const endDate =
+                    new Date(
+                        row.internship.end_date
+                    );
+
+
+                if (endDate < today) {
+
+                    completedCount++;
+
+                } else {
+
+                    activeCount++;
+
+                }
+
+            } else {
+
+                /*
+                 * If there is no end date,
+                 * consider an accepted internship active.
+                 */
+
+                activeCount++;
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "activeInternshipsCount"
+        ).textContent = activeCount;
+
+
+        document.getElementById(
+            "completedInternshipsCount"
+        ).textContent = completedCount;
+
+
+
+        /* -------------------------------------
+           DISPLAY STUDENTS
+        ------------------------------------- */
+
+        renderStudents(studentRows);
+
+
+
+        /* -------------------------------------
+           GET SUBMITTED EVALUATIONS
+        ------------------------------------- */
+
+        const acceptedApplicationIds =
+            applicationList
+                .filter(
+                    application =>
+                        application.status === "accepted"
+                )
+                .map(
+                    application =>
+                        application.id
+                );
+
+
+        let evaluations = [];
+
+
+        if (acceptedApplicationIds.length > 0) {
+
+            const {
+                data: evaluationData,
+                error: evaluationError
+            } = await db
+                .from("evaluations")
+                .select(`
+                    id,
+                    application_id,
+                    pdf_url,
+                    status,
+                    submitted_at
+                `)
+                .in(
+                    "application_id",
+                    acceptedApplicationIds
+                )
+                .eq("status", "submitted");
+
+
+            if (evaluationError) {
+
+                console.error(
+                    "Evaluation error:",
+                    evaluationError
+                );
+
+            } else {
+
+                evaluations =
+                    evaluationData || [];
+
+            }
+
+        }
+
+
+
+        document.getElementById(
+            "submittedEvaluationsCount"
+        ).textContent =
+            evaluations.length;
+
+
+
+        renderEvaluations(
+            evaluations,
+            studentRows
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Supervisor dashboard error:",
+            error
+        );
+
+
+        alert(
+            "Unable to load supervisor dashboard data."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   RENDER STUDENTS
+========================================= */
+
+function renderStudents(studentRows) {
+
+    const container =
+        document.getElementById("studentsList");
+
+
+    if (!studentRows.length) {
+
+        container.innerHTML = `
+            <p>
+                No students are currently assigned to you.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * Show maximum 3 students on dashboard.
+     * "View All" opens the full students page.
+     */
+
+    const visibleStudents =
+        studentRows.slice(0, 3);
+
+
+    container.innerHTML =
+        visibleStudents
+            .map(row => {
+
+
+                const profile =
+                    row.profile || {};
+
+
+                const student =
+                    row.student || {};
+
+
+                const application =
+                    row.application;
+
+
+                const internship =
+                    row.internship;
+
+
+                const company =
+                    row.company;
+
+
+                const name =
+                    profile.full_name ||
+                    profile.username ||
+                    "Student";
+
+
+                const major =
+                    student.major ||
+                    "Major not specified";
+
+
+                const companyName =
+                    company
+                        ? company.name
+                        : "No company assigned";
+
+
+                let statusText =
+                    "Pending";
+
+
+                let statusClass =
+                    "active";
+
+
+                if (
+                    application &&
+                    application.status === "accepted"
+                ) {
+
+                    if (
+                        internship &&
+                        internship.end_date &&
+                        new Date(internship.end_date) < new Date()
+                    ) {
+
+                        statusText =
+                            "Completed";
+
+                        statusClass =
+                            "completed";
+
+                    } else {
+
+                        statusText =
+                            "Active";
+
+                        statusClass =
+                            "active";
+
+                    }
+
+                } else if (
+                    application &&
+                    application.status === "rejected"
+                ) {
+
+                    statusText =
+                        "Rejected";
+
+                    statusClass =
+                        "completed";
+
+                }
+
+
+                const firstLetter =
+                    name
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                return `
+
+                    <div class="supervisor-student-row">
+
+
+                        <div class="student-avatar">
+                            ${escapeHTML(firstLetter)}
+                        </div>
+
+
+                        <div class="student-info">
+
+                            <h3>
+                                ${escapeHTML(name)}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(major)}
+                            </p>
+
+                        </div>
+
+
+                        <div class="student-company">
+
+                            <span>
+                                Company
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(companyName)}
+                            </strong>
+
+                        </div>
+
+
+                        <span class="internship-status ${statusClass}">
+                            ${escapeHTML(statusText)}
+                        </span>
+
+
+                        <a
+                            href="student-progress.html?id=${encodeURIComponent(student.id)}"
+                            class="review-button"
+                        >
+                            View
+                        </a>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+
+/* =========================================
+   RENDER EVALUATIONS
+========================================= */
+
+function renderEvaluations(
+    evaluations,
+    studentRows
+) {
+
+    const container =
+        document.getElementById(
+            "evaluationsList"
+        );
+
+
+    if (!evaluations.length) {
+
+        container.innerHTML = `
+            <p>
+                No submitted evaluations yet.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    const applicationMap = {};
+
+
+    studentRows.forEach(row => {
+
+        if (row.application) {
+
+            applicationMap[
+                row.application.id
+            ] = row;
+
+        }
+
+    });
+
+
+    /*
+     * Show maximum 2 evaluations
+     * on the dashboard.
+     */
+
+    const visibleEvaluations =
+        evaluations.slice(0, 2);
+
+
+    container.innerHTML =
+        visibleEvaluations
+            .map(evaluation => {
+
+
+                const row =
+                    applicationMap[
+                        evaluation.application_id
+                    ];
+
+
+                if (!row) {
+                    return "";
+                }
+
+
+                const studentName =
+                    row.profile.full_name ||
+                    row.profile.username ||
+                    "Student";
+
+
+                const companyName =
+                    row.company
+                        ? row.company.name
+                        : "Company";
+
+
+                let pdfButton =
+                    `<span class="review-button">
+                        PDF unavailable
+                    </span>`;
+
+
+                /*
+                 * If pdf_url exists,
+                 * open the stored URL.
+                 *
+                 * The actual private-storage
+                 * signed URL handling can be
+                 * added when evaluation storage
+                 * is implemented.
+                 */
+
+                if (evaluation.pdf_url) {
+
+                    pdfButton = `
+                        <a
+                            href="${escapeHTML(evaluation.pdf_url)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="review-button"
+                        >
+                            View PDF
+                        </a>
+                    `;
+
+                }
+
+
+                return `
+
+                    <div class="evaluation-row">
+
+
+                        <div class="evaluation-icon">
+                            PDF
+                        </div>
+
+
+                        <div class="evaluation-info">
+
+                            <h3>
+                                ${escapeHTML(studentName)}
+                                – 
+                                ${escapeHTML(companyName)}
+                            </h3>
+
+                            <p>
+                                Student Evaluation Form
+                            </p>
+
+                        </div>
+
+
+                        <span class="application-status accepted">
+                            Submitted
+                        </span>
+
+
+                        ${pdfButton}
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+document
+    .getElementById("logoutLink")
+    .addEventListener(
+        "click",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            await db.auth.signOut();
+
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

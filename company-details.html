@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Company Details - Internship Management System</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- Logo -->
+
+                <a href="home.html" class="brand">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- Navigation -->
+
+                <nav class="nav-links">
+
+                    <a href="home.html">
+                        Home
+                    </a>
+
+                    <a href="my-applications.html">
+                        My Internship Applications
+                    </a>
+
+                    <a href="profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             COMPANY DETAILS PAGE
+        ========================================== -->
+
+        <main class="company-details-page">
+
+
+            <!-- BACK TO HOME -->
+
+            <a
+                href="home.html"
+                class="back-button"
+            >
+                ← Back to Home
+            </a>
+
+
+            <!-- =====================================
+                 COMPANY HEADER
+            ====================================== -->
+
+            <section class="company-header">
+
+
+                <!-- Company Logo -->
+
+                <div class="details-logo">
+
+                    <img
+                        id="companyLogo"
+                        src=""
+                        alt="Company Logo"
+                    >
+
+                </div>
+
+
+                <!-- Company Information -->
+
+                <div class="company-header-info">
+
+                    <p class="section-label">
+                        INTERNSHIP OPPORTUNITY
+                    </p>
+
+                    <h1 id="companyName">
+                        Loading...
+                    </h1>
+
+                    <p
+                        class="details-field"
+                        id="companyField"
+                    >
+                        Loading...
+                    </p>
+
+                    <p
+                        class="details-location"
+                        id="companyLocation"
+                    >
+                        📍 Loading...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 DETAILS CONTENT
+            ====================================== -->
+
+            <div class="details-layout">
+
+
+                <!-- =================================
+                     MAIN INFORMATION
+                ================================== -->
+
+                <section class="details-main">
+
+
+                    <!-- ABOUT COMPANY -->
+
+                    <div class="details-card">
+
+                        <h2>
+                            About the Company
+                        </h2>
+
+                        <p id="companyDescription">
+                            Loading...
+                        </p>
+
+                    </div>
+
+
+                    <!-- INTERNSHIP INFORMATION -->
+
+                    <div class="details-card">
+
+                        <h2>
+                            Internship Information
+                        </h2>
+
+                        <div class="info-grid">
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    Field
+                                </span>
+
+                                <strong id="infoField">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    Location
+                                </span>
+
+                                <strong id="infoLocation">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    Start Date
+                                </span>
+
+                                <strong id="infoStartDate">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    End Date
+                                </span>
+
+                                <strong id="infoEndDate">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    Duration
+                                </span>
+
+                                <strong id="infoDuration">
+                                    8 Weeks
+                                </strong>
+
+                            </div>
+
+
+                            <div class="info-item">
+
+                                <span>
+                                    Working Hours
+                                </span>
+
+                                <strong id="infoWorkingHours">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AVAILABLE POSITIONS -->
+
+                    <div class="details-card">
+
+                        <h2>
+                            Available Positions
+                        </h2>
+
+                        <ul
+                            class="details-list"
+                            id="availablePositions"
+                        >
+
+                            <li>
+                                Loading...
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- REQUIREMENTS -->
+
+                    <div class="details-card">
+
+                        <h2>
+                            Requirements
+                        </h2>
+
+                        <ul
+                            class="details-list"
+                            id="companyRequirements"
+                        >
+
+                            <li>
+                                Loading...
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <!-- INTERNSHIP DESCRIPTION -->
+
+                    <div class="details-card">
+
+                        <h2>
+                            Internship Description
+                        </h2>
+
+                        <p id="internshipDescription">
+                            Loading...
+                        </p>
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================
+                     APPLY CARD
+                ================================== -->
+
+                <aside class="apply-card">
+
+
+                    <h2>
+                        Interested in this Internship?
+                    </h2>
+
+
+                    <p>
+
+                        Take the next step in your career
+                        and apply for this internship opportunity.
+
+                    </p>
+
+
+                    <a
+                        id="applyButton"
+                        href="#"
+                        class="apply-button"
+                    >
+                        Apply Now
+                    </a>
+
+
+                    <p class="apply-note">
+
+                        You can review your application
+                        status from My Applications.
+
+                    </p>
+
+
+                </aside>
+
+
+            </div>
+
+
+        </main>
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+    <!-- =========================================
+         LOAD COMPANY + INTERNSHIPS DATA
+    ========================================== -->
+
+    <script>
+
+        async function loadCompany() {
+
+
+            // =====================================
+            // GET COMPANY ID FROM URL
+            // =====================================
+
+            const urlParams =
+                new URLSearchParams(window.location.search);
+
+            const companyId =
+                urlParams.get("id");
+
+
+            if (!companyId) {
+
+                document.getElementById("companyName")
+                    .textContent = "Company not found";
+
+                return;
+            }
+
+
+            // =====================================
+            // LOAD COMPANY
+            // =====================================
+
+            const {
+                data: company,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name,
+                    city,
+                    field,
+                    website,
+                    logo_url,
+                    description
+                `)
+                .eq("id", companyId)
+                .maybeSingle();
+
+
+            if (companyError) {
+
+                console.error(
+                    "Error loading company:",
+                    companyError
+                );
+
+                document.getElementById("companyName")
+                    .textContent =
+                    "Unable to load company";
+
+                return;
+            }
+
+
+            if (!company) {
+
+                document.getElementById("companyName")
+                    .textContent =
+                    "Company not found";
+
+                return;
+            }
+
+
+            // =====================================
+            // DISPLAY COMPANY
+            // =====================================
+
+            document.getElementById("companyName")
+                .textContent =
+                company.name || "Company";
+
+
+            document.getElementById("companyField")
+                .textContent =
+                company.field || "Technology";
+
+
+            document.getElementById("companyLocation")
+                .textContent =
+                "📍 " +
+                (company.city || "Palestine") +
+                ", Palestine";
+
+
+            document.getElementById("companyDescription")
+                .textContent =
+                company.description ||
+                "No company description available.";
+
+
+            // =====================================
+            // COMPANY LOGO
+            // =====================================
+
+            const companyLogo =
+                document.getElementById("companyLogo");
+
+
+            if (company.logo_url) {
+
+                companyLogo.src =
+                    company.logo_url;
+
+                companyLogo.alt =
+                    company.name + " Logo";
+
+                companyLogo.style.display =
+                    "block";
+
+            } else {
+
+                companyLogo.style.display =
+                    "none";
+            }
+
+
+            // =====================================
+            // LOAD INTERNSHIPS
+            // =====================================
+
+            const {
+                data: internships,
+                error: internshipError
+            } = await db
+                .from("internships")
+                .select(`
+                    id,
+                    title,
+                    field,
+                    city,
+                    description,
+                    requirements,
+                    start_date,
+                    end_date,
+                    working_hours,
+                    status,
+                    created_at
+                `)
+                .eq("company_id", company.id)
+                .eq("status", "active")
+                .order("created_at", {
+                    ascending: true
+                });
+
+
+            // =====================================
+            // CHECK ERROR
+            // =====================================
+
+            if (internshipError) {
+
+                console.error(
+                    "Error loading internships:",
+                    internshipError
+                );
+
+                document.getElementById(
+                    "availablePositions"
+                ).innerHTML = `
+                    <li>
+                        Unable to load internship opportunities.
+                    </li>
+                `;
+
+                return;
+            }
+
+
+            // =====================================
+            // AVAILABLE POSITIONS
+            // =====================================
+
+            const positionsList =
+                document.getElementById(
+                    "availablePositions"
+                );
+
+
+            positionsList.innerHTML = "";
+
+
+            // =====================================
+            // NO INTERNSHIPS
+            // =====================================
+
+            if (
+                !internships ||
+                internships.length === 0
+            ) {
+
+                const li =
+                    document.createElement("li");
+
+                li.textContent =
+                    "No internship opportunities are currently available.";
+
+                positionsList.appendChild(li);
+
+
+                document.getElementById(
+                    "infoField"
+                ).textContent =
+                    company.field ||
+                    "Not specified";
+
+
+                document.getElementById(
+                    "infoLocation"
+                ).textContent =
+                    (company.city ||
+                    "Palestine") +
+                    ", Palestine";
+
+
+                document.getElementById(
+                    "infoStartDate"
+                ).textContent =
+                    "Not specified";
+
+
+                document.getElementById(
+                    "infoEndDate"
+                ).textContent =
+                    "Not specified";
+
+
+                document.getElementById(
+                    "infoDuration"
+                ).textContent =
+                    "Not specified";
+
+
+                document.getElementById(
+                    "infoWorkingHours"
+                ).textContent =
+                    "Not specified";
+
+
+                document.getElementById(
+                    "internshipDescription"
+                ).textContent =
+                    "No internship description available.";
+
+
+                const requirementsList =
+                    document.getElementById(
+                        "companyRequirements"
+                    );
+
+
+                requirementsList.innerHTML = "";
+
+
+                const requirement =
+                    document.createElement("li");
+
+
+                requirement.textContent =
+                    "No specific requirements available.";
+
+
+                requirementsList.appendChild(
+                    requirement
+                );
+
+
+                document.getElementById(
+                    "applyButton"
+                ).style.display =
+                    "none";
+
+
+                return;
+            }
+
+
+            // =====================================
+            // FORMAT DATE
+            // =====================================
+
+            function formatDate(dateValue) {
+
+                if (!dateValue) {
+
+                    return "Not specified";
+                }
+
+
+                const date =
+                    new Date(dateValue);
+
+
+                return date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric"
+                    }
+                );
+            }
+
+
+            // =====================================
+            // DISPLAY ONE INTERNSHIP
+            // =====================================
+
+            function displayInternship(
+                internship
+            ) {
+
+
+                // =================================
+                // FIELD
+                // Changes for each internship
+                // =================================
+
+                document.getElementById(
+                    "infoField"
+                ).textContent =
+
+                    internship.field ||
+                    company.field ||
+                    "Not specified";
+
+
+                // =================================
+                // LOCATION
+                // Fixed for this company
+                // =================================
+
+                document.getElementById(
+                    "infoLocation"
+                ).textContent =
+
+                    (
+                        company.city ||
+                        "Palestine"
+                    ) +
+                    ", Palestine";
+
+
+                // =================================
+                // START DATE
+                // Fixed for this company
+                // =================================
+
+                document.getElementById(
+                    "infoStartDate"
+                ).textContent =
+
+                    formatDate(
+                        internships[0].start_date
+                    );
+
+
+                // =================================
+                // END DATE
+                // Fixed for this company
+                // =================================
+
+                document.getElementById(
+                    "infoEndDate"
+                ).textContent =
+
+                    formatDate(
+                        internships[0].end_date
+                    );
+
+
+                // =================================
+                // DURATION
+                // Fixed for this company
+                // =================================
+
+                document.getElementById(
+                    "infoDuration"
+                ).textContent =
+                    "8 Weeks";
+
+
+                // =================================
+                // WORKING HOURS
+                // Fixed for this company
+                // =================================
+
+                document.getElementById(
+                    "infoWorkingHours"
+                ).textContent =
+
+                    internships[0].working_hours ||
+                    "Not specified";
+
+
+                // =================================
+                // REQUIREMENTS
+                // Changes for each internship
+                // =================================
+
+                const requirementsList =
+                    document.getElementById(
+                        "companyRequirements"
+                    );
+
+
+                requirementsList.innerHTML = "";
+
+
+                if (internship.requirements) {
+
+                    const requirements =
+                        internship.requirements
+                            .split("\n")
+                            .map(
+                                item => item.trim()
+                            )
+                            .filter(
+                                item => item !== ""
+                            );
+
+
+                    requirements.forEach(
+                        requirementText => {
+
+                            const li =
+                                document.createElement("li");
+
+
+                            li.textContent =
+                                requirementText;
+
+
+                            requirementsList
+                                .appendChild(li);
+
+                        }
+                    );
+
+                } else {
+
+                    const li =
+                        document.createElement("li");
+
+
+                    li.textContent =
+                        "No specific requirements available.";
+
+
+                    requirementsList
+                        .appendChild(li);
+                }
+
+
+                // =================================
+                // DESCRIPTION
+                // Changes for each internship
+                // =================================
+
+                document.getElementById(
+                    "internshipDescription"
+                ).textContent =
+
+                    internship.description ||
+                    "No internship description available.";
+
+
+                // =================================
+                // APPLY BUTTON
+                // Changes according to selected
+                // internship
+                // =================================
+
+                const applyButton =
+                    document.getElementById(
+                        "applyButton"
+                    );
+
+
+                applyButton.href =
+                    "apply.html?internship_id=" +
+                    encodeURIComponent(
+                        internship.id
+                    );
+
+
+                applyButton.style.display =
+                    "flex";
+
+            }
+
+
+            // =====================================
+            // DISPLAY ALL POSITIONS
+            // =====================================
+
+            internships.forEach(
+                (internship) => {
+
+                    const li =
+                        document.createElement("li");
+
+
+                    li.textContent =
+                        internship.title ||
+                        "Internship Opportunity";
+
+
+                    li.addEventListener(
+                        "click",
+                        function () {
+
+                            displayInternship(
+                                internship
+                            );
+
+                        }
+                    );
+
+
+                    positionsList.appendChild(li);
+
+                }
+            );
+
+
+            // =====================================
+            // SHOW FIRST INTERNSHIP
+            // =====================================
+
+            displayInternship(
+                internships[0]
+            );
+
+        }
+
+
+        // =========================================
+        // START
+        // =========================================
+
+        loadCompany();
+
+    </script>
+
+</body>
+
+</html>

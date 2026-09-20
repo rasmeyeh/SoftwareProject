@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Profile</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="admin-profile.html"
+                    class="active"
+                >
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="admin-profile-page">
+
+
+        <!-- BACK -->
+
+        <a
+            href="admin-dashboard.html"
+            class="admin-back"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+
+        <!-- ================= PAGE HEADER ================= -->
+
+        <div class="admin-profile-header">
+
+            <p class="admin-profile-label">
+                ADMINISTRATOR PROFILE
+            </p>
+
+            <h1>
+                Admin Profile
+            </h1>
+
+            <p>
+                Manage your administrator account information.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= PROFILE CARD ================= -->
+
+        <section class="admin-profile-card">
+
+
+            <!-- PROFILE TOP -->
+
+            <div class="admin-profile-top">
+
+                <div class="admin-profile-avatar">
+                    AD
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        System Administrator
+                    </h2>
+
+                    <p>
+                        Administrator
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= FORM ================= -->
+
+            <form class="admin-profile-form">
+
+
+                <div class="admin-profile-grid">
+
+
+                    <!-- Full Name -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adminName"
+                            value="System Administrator"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Username -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminUsername">
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adminUsername"
+                            value="admin"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Email -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="adminEmail"
+                            value="admin@example.com"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Phone -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminPhone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adminPhone"
+                            value="+970 59 000 0000"
+                        >
+
+                    </div>
+
+
+
+                    <!-- Role -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminRole">
+                            Role
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adminRole"
+                            value="Administrator"
+                            readonly
+                        >
+
+                    </div>
+
+
+
+                    <!-- Status -->
+
+                    <div class="admin-profile-field">
+
+                        <label for="adminStatus">
+                            Account Status
+                        </label>
+
+                        <input
+                            type="text"
+                            id="adminStatus"
+                            value="Active"
+                            readonly
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= ACTIONS ================= -->
+
+                <div class="admin-profile-actions">
+
+                    <a
+                        href="admin-dashboard.html"
+                        class="admin-profile-cancel"
+                    >
+                        Cancel
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="admin-profile-save"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+</body>
+
+</html>

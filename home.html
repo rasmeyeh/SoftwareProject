@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Home - Internship Management System</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         HOME PAGE
+    ========================================== -->
+
+    <div class="home-page">
+
+
+        <!-- =====================================
+             NAVBAR
+        ====================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- Logo -->
+
+                <a href="home.html" class="brand">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- Navigation -->
+
+                <nav class="nav-links">
+
+                    <a
+                        href="home.html"
+                        class="active"
+                    >
+                        Home
+                    </a>
+
+                    <a href="my-applications.html">
+                        My Internship Applications
+                    </a>
+
+                    <a href="profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="home-content">
+
+
+            <!-- =================================
+                 HERO SECTION
+            ================================== -->
+
+            <section class="home-hero">
+
+                <div class="hero-text">
+
+                    <p class="hero-small-title">
+                        Welcome, <span id="welcomeUsername">User</span> 👋
+                    </p>
+
+                    <h1>
+                        Find Your Perfect
+                        <span>Internship</span>
+                    </h1>
+
+                    <p class="hero-description">
+
+                        Explore internship opportunities from
+                        different companies and find the one
+                        that matches your skills and interests.
+
+                    </p>
+
+                </div>
+
+
+                <div class="hero-decoration">
+
+                    <div class="decoration-circle"></div>
+
+                    <div class="decoration-circle small"></div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 SEARCH & FILTER
+            ================================== -->
+
+            <section class="search-section">
+
+                <!-- Search -->
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search for a company or internship..."
+                    >
+
+                </div>
+
+
+                <!-- Field Filter -->
+
+                <select
+                    class="filter-select"
+                    id="fieldFilter"
+                >
+
+                    <option value="">
+                        All Fields
+                    </option>
+
+                    <option value="software">
+                        Software Engineering
+                    </option>
+
+                    <option value="network">
+                        Networking
+                    </option>
+
+                    <option value="electronics">
+                        Electronics
+                    </option>
+
+                    <option value="engineering">
+                        Computer Engineering
+                    </option>
+
+                </select>
+
+
+                <!-- City Filter -->
+
+                <select
+                    class="filter-select"
+                    id="cityFilter"
+                >
+
+                    <option value="">
+                        All Cities
+                    </option>
+
+                    <option value="ramallah">
+                        Ramallah
+                    </option>
+
+                    <option value="nablus">
+                        Nablus
+                    </option>
+
+                    <option value="hebron">
+                        Hebron
+                    </option>
+
+                    <option value="bethlehem">
+                        Bethlehem
+                    </option>
+
+                    <option value="jerusalem">
+                        Jerusalem
+                    </option>
+
+                </select>
+
+            </section>
+
+
+
+            <!-- =================================
+                 COMPANIES SECTION
+            ================================== -->
+
+            <section class="companies-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            EXPLORE
+                        </p>
+
+                        <h2>
+                            Internship Opportunities
+                        </h2>
+
+                    </div>
+
+                    <span class="opportunities-count">
+                        Available Opportunities
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     COMPANIES GRID
+                ================================== -->
+
+                <div class="companies-grid" id="companiesGrid">
+
+                    <!-- Companies will be loaded from Supabase here -->
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         DISPLAY LOGGED-IN USERNAME
+    ========================================== -->
+
+    <script>
+
+        const username =
+            localStorage.getItem("username");
+
+        const welcomeUsername =
+            document.getElementById("welcomeUsername");
+
+
+        if (username) {
+
+            welcomeUsername.textContent =
+                username;
+
+        }
+
+
+    </script>
+        <!-- =========================================
+         SEARCH & FILTER JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const fieldFilter =
+            document.getElementById("fieldFilter");
+
+        const cityFilter =
+            document.getElementById("cityFilter");
+
+        const companiesGrid =
+            document.getElementById("companiesGrid");
+
+
+        let companies = [];
+
+
+        // =========================================
+        // LOAD COMPANIES FROM SUPABASE
+        // =========================================
+
+        async function loadCompanies() {
+
+            const { data, error } =
+                await db
+                    .from("companies")
+                    .select(`
+                        id,
+                        name,
+                        city,
+                        field,
+                        logo_url,
+                        description
+                    `)
+                    .eq("status", "active")
+                    .order("name", {
+                        ascending: true
+                    });
+
+
+            if (error) {
+
+                console.error(
+                    "Error loading companies:",
+                    error
+                );
+
+                companiesGrid.innerHTML = "";
+
+                return;
+            }
+
+
+            companies = data || [];
+
+            displayCompanies(companies);
+
+        }
+
+
+
+        // =========================================
+        // DISPLAY COMPANIES
+        // =========================================
+
+        function displayCompanies(companyList) {
+
+            companiesGrid.innerHTML = "";
+
+
+            companyList.forEach(company => {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "company-card";
+
+
+                card.dataset.city =
+                    normalizeCity(company.city);
+
+                card.dataset.field =
+                    normalizeField(company.field);
+
+
+
+                // Company logo
+
+                const logoHTML =
+                    company.logo_url
+                    ? `
+                        <img
+                            src="${escapeHTML(company.logo_url)}"
+                            alt="${escapeHTML(company.name)} Logo"
+                        >
+                    `
+                    : "";
+
+
+
+                card.innerHTML = `
+
+                    <div class="company-logo">
+
+                        ${logoHTML}
+
+                    </div>
+
+
+                    <div class="company-info">
+
+                        <h3>
+                            ${escapeHTML(
+                                company.name || "Company"
+                            )}
+                        </h3>
+
+
+                        <p class="company-field">
+
+                            ${escapeHTML(
+                                company.field ||
+                                "Technology"
+                            )}
+
+                        </p>
+
+
+                        <p class="company-description">
+
+                            ${escapeHTML(
+                                company.description ||
+                                ""
+                            )}
+
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="company-details.html?id=${encodeURIComponent(company.id)}"
+                        class="details-button"
+                    >
+                        View Details
+                    </a>
+
+                `;
+
+
+                companiesGrid.appendChild(card);
+
+            });
+
+
+            filterCompanies();
+
+        }
+
+
+
+        // =========================================
+        // NORMALIZE CITY
+        // =========================================
+
+        function normalizeCity(city) {
+
+            if (!city) return "";
+
+            return city
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, "-");
+
+        }
+
+
+
+        // =========================================
+        // NORMALIZE FIELD
+        // =========================================
+
+        function normalizeField(field) {
+
+            if (!field) return "";
+
+            const value =
+                field.toLowerCase().trim();
+
+
+            if (value.includes("software")) {
+
+                return "software";
+
+            }
+
+
+            if (value.includes("network")) {
+
+                return "network";
+
+            }
+
+
+            if (value.includes("electronic")) {
+
+                return "electronics";
+
+            }
+
+
+            if (
+                value.includes("computer") ||
+                value.includes("engineering")
+            ) {
+
+                return "engineering";
+
+            }
+
+
+            return value;
+
+        }
+
+
+
+        // =========================================
+        // PROTECT HTML
+        // =========================================
+
+        function escapeHTML(value) {
+
+            return String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        // =========================================
+        // FILTER COMPANIES
+        // =========================================
+
+        function filterCompanies() {
+
+            const searchValue =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const selectedField =
+                fieldFilter.value;
+
+
+            const selectedCity =
+                cityFilter.value;
+
+
+            const companyCards =
+                document.querySelectorAll(
+                    ".company-card"
+                );
+
+
+
+            companyCards.forEach(card => {
+
+                const companyName =
+                    card.querySelector("h3")
+                        .textContent
+                        .toLowerCase();
+
+
+                const companyField =
+                    card.querySelector(
+                        ".company-field"
+                    )
+                    .textContent
+                    .toLowerCase();
+
+
+                const companyDescription =
+                    card.querySelector(
+                        ".company-description"
+                    )
+                    .textContent
+                    .toLowerCase();
+
+
+                const cardCity =
+                    card.dataset.city;
+
+
+                const cardField =
+                    card.dataset.field;
+
+
+
+                // Search condition
+
+                const matchesSearch =
+                    companyName.includes(searchValue) ||
+                    companyField.includes(searchValue) ||
+                    companyDescription.includes(searchValue);
+
+
+
+                // Field condition
+
+                const matchesField =
+                    selectedField === "" ||
+                    cardField === selectedField;
+
+
+
+                // City condition
+
+                const matchesCity =
+                    selectedCity === "" ||
+                    cardCity === selectedCity;
+
+
+
+                // Show / Hide card
+
+                if (
+                    matchesSearch &&
+                    matchesField &&
+                    matchesCity
+                ) {
+
+                    card.style.display = "";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+
+        // =========================================
+        // SEARCH WHILE TYPING
+        // =========================================
+
+        searchInput.addEventListener(
+            "input",
+            filterCompanies
+        );
+
+
+
+        // =========================================
+        // FIELD FILTER
+        // =========================================
+
+        fieldFilter.addEventListener(
+            "change",
+            filterCompanies
+        );
+
+
+
+        // =========================================
+        // CITY FILTER
+        // =========================================
+
+        cityFilter.addEventListener(
+            "change",
+            filterCompanies
+        );
+
+
+
+        // =========================================
+        // LOAD DATA
+        // =========================================
+
+        loadCompanies();
+
+
+    </script>
+
+
+</body>
+
+</html>

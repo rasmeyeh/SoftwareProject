@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Applications</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a
+                    href="home.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="home.html">
+                        Home
+                    </a>
+
+                    <a
+                        href="my-applications.html"
+                        class="active"
+                    >
+                        My Internship Applications
+                    </a>
+
+                    <a href="./profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             MAIN
+        ========================================== -->
+
+        <main class="applications-page">
+
+
+            <!-- HEADER -->
+
+            <div class="applications-header">
+
+                <h1>
+                    My Internship Applications
+                </h1>
+
+                <p>
+                    Track and manage your internship applications.
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 APPLICATIONS
+            ====================================== -->
+
+            <section
+                class="applications-list"
+                id="applicationsList"
+            >
+
+                <!-- Applications will be loaded here -->
+
+            </section>
+
+
+
+            <!-- EMPTY / MESSAGE -->
+
+            <div
+                class="applications-note"
+                id="applicationsMessage"
+            >
+
+                <p>
+                    Loading your applications...
+                </p>
+
+            </div>
+
+
+        </main>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         SCRIPT
+    ========================================== -->
+
+    <script>
+
+        const applicationsList =
+            document.getElementById(
+                "applicationsList"
+            );
+
+
+        const applicationsMessage =
+            document.getElementById(
+                "applicationsMessage"
+            );
+
+
+
+        // =========================================
+        // ESCAPE HTML
+        // =========================================
+
+        function escapeHTML(value) {
+
+            return String(value || "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        // =========================================
+        // FORMAT DATE
+        // =========================================
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "Date not available";
+
+            }
+
+
+            const date =
+                new Date(dateValue);
+
+
+            return date.toLocaleDateString(
+                "en-US",
+                {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+        }
+
+
+
+        // =========================================
+        // LOAD APPLICATIONS
+        // =========================================
+
+        async function loadApplications() {
+
+            const {
+                data: userData,
+                error: userError
+            } = await db.auth.getUser();
+
+
+            if (
+                userError ||
+                !userData.user
+            ) {
+
+                applicationsMessage.innerHTML =
+                    "<p>Please log in to view your applications.</p>";
+
+                return;
+
+            }
+
+
+            const user =
+                userData.user;
+
+
+
+            // =====================================
+            // GET APPLICATIONS
+            // =====================================
+
+            const {
+                data: applications,
+                error
+            } = await db
+                .from("applications")
+                .select(`
+                    id,
+                    status,
+                    applied_at,
+                    cover_letter,
+                    major,
+                    internship_id
+                `)
+                .eq(
+                    "student_id",
+                    user.id
+                )
+                .order(
+                    "applied_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Applications error:",
+                    error
+                );
+
+                applicationsMessage.innerHTML =
+                    "<p>Unable to load your applications.</p>";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // NO APPLICATIONS
+            // =====================================
+
+            if (
+                !applications ||
+                applications.length === 0
+            ) {
+
+                applicationsList.innerHTML = "";
+
+                applicationsMessage.style.display =
+                    "block";
+
+                applicationsMessage.innerHTML =
+                    `
+                    <p>
+                        Your applications will appear here after
+                        you apply for an internship opportunity.
+                    </p>
+                    `;
+
+                return;
+
+            }
+
+
+            applicationsMessage.style.display =
+                "none";
+
+
+
+            // =====================================
+            // GET INTERNSHIP IDs
+            // =====================================
+
+            const internshipIds =
+                applications.map(
+                    application =>
+                        application.internship_id
+                );
+
+
+
+            // =====================================
+            // LOAD INTERNSHIPS
+            // =====================================
+
+            const {
+                data: internships,
+                error: internshipError
+            } = await db
+                .from("internships")
+                .select(`
+                    id,
+                    title,
+                    field,
+                    city,
+                    company_id
+                `)
+                .in(
+                    "id",
+                    internshipIds
+                );
+
+
+            if (internshipError) {
+
+                console.error(
+                    "Internships error:",
+                    internshipError
+                );
+
+                applicationsMessage.style.display =
+                    "block";
+
+                applicationsMessage.innerHTML =
+                    "<p>Unable to load internship information.</p>";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // GET COMPANY IDs
+            // =====================================
+
+            const companyIds =
+                internships.map(
+                    internship =>
+                        internship.company_id
+                );
+
+
+
+            // =====================================
+            // LOAD COMPANIES
+            // =====================================
+
+            const {
+                data: companies,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name,
+                    field,
+                    city,
+                    logo_url
+                `)
+                .in(
+                    "id",
+                    companyIds
+                );
+
+
+            if (companyError) {
+
+                console.error(
+                    "Companies error:",
+                    companyError
+                );
+
+                applicationsMessage.style.display =
+                    "block";
+
+                applicationsMessage.innerHTML =
+                    "<p>Unable to load company information.</p>";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // CREATE LOOKUPS
+            // =====================================
+
+            const internshipMap =
+                {};
+
+
+            internships.forEach(
+                internship => {
+
+                    internshipMap[
+                        internship.id
+                    ] =
+                        internship;
+
+                }
+            );
+
+
+            const companyMap =
+                {};
+
+
+            companies.forEach(
+                company => {
+
+                    companyMap[
+                        company.id
+                    ] =
+                        company;
+
+                }
+            );
+
+
+
+            // =====================================
+            // DISPLAY
+            // =====================================
+
+            applicationsList.innerHTML = "";
+
+
+            applications.forEach(
+                application => {
+
+                    const internship =
+                        internshipMap[
+                            application.internship_id
+                        ];
+
+
+                    if (!internship) {
+
+                        return;
+
+                    }
+
+
+                    const company =
+                        companyMap[
+                            internship.company_id
+                        ];
+
+
+                    if (!company) {
+
+                        return;
+
+                    }
+
+
+
+                    const status =
+                        application.status ||
+                        "pending";
+
+
+                    const statusClass =
+                        status.toLowerCase();
+
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "application-item";
+
+
+
+                    // LOGO
+
+                    let logoHTML = "";
+
+
+                    if (company.logo_url) {
+
+                        logoHTML =
+                            `
+                            <img
+                                src="${escapeHTML(company.logo_url)}"
+                                alt="${escapeHTML(company.name)} Logo"
+                            >
+                            `;
+
+                    } else {
+
+                        logoHTML =
+                            `
+                            <div class="placeholder-logo">
+                                ${escapeHTML(
+                                    company.name
+                                        .charAt(0)
+                                        .toUpperCase()
+                                )}
+                            </div>
+                            `;
+
+                    }
+
+
+
+                    card.innerHTML =
+                        `
+
+                        <div class="application-item-logo">
+
+                            ${logoHTML}
+
+                        </div>
+
+
+                        <div class="application-info">
+
+                            <h2>
+                                ${escapeHTML(
+                                    company.name
+                                )}
+                            </h2>
+
+                            <p class="application-field">
+
+                                ${escapeHTML(
+                                    internship.title
+                                )}
+
+                            </p>
+
+                            <p class="application-date">
+
+                                Applied on
+                                ${formatDate(
+                                    application.applied_at
+                                )}
+
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="application-status ${escapeHTML(
+                                statusClass
+                            )}"
+                        >
+
+                            ${escapeHTML(
+                                status.charAt(0).toUpperCase() +
+                                status.slice(1)
+                            )}
+
+                        </div>
+
+
+                        <a
+                            href="company-details.html?id=${encodeURIComponent(
+                                company.id
+                            )}"
+                            class="view-application-button"
+                        >
+                            View
+                        </a>
+
+                        `;
+
+
+                    applicationsList.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        // =========================================
+        // START
+        // =========================================
+
+        loadApplications();
+
+    </script>
+
+
+</body>
+
+</html>

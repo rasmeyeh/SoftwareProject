@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Supervisors</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>Internship Management System</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= SUPERVISORS PAGE ================= -->
+
+    <main class="admin-supervisors-page">
+      <a href="admin-dashboard.html" class="admin-back">
+    ← Back to Dashboard
+      </a>
+
+        <!-- Page Header -->
+
+        <section class="admin-supervisor-header">
+
+            <p class="admin-section-label">
+                ADMINISTRATION
+            </p>
+
+            <h1>
+                Manage Supervisors
+            </h1>
+
+            <p>
+                View and manage university supervisor accounts.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= SUPERVISORS CARD ================= -->
+
+        <section class="admin-supervisors-card">
+
+
+            <!-- Toolbar -->
+
+            <div class="admin-supervisors-toolbar">
+
+                <div class="admin-supervisor-search">
+
+                    <input
+                        type="text"
+                        id="supervisorSearch"
+                        placeholder="Search supervisors..."
+                    >
+
+                </div>
+
+
+                <div class="admin-supervisor-filter">
+
+                    <select id="supervisorStatus">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= SUPERVISORS LIST ================= -->
+
+            <div class="admin-supervisor-list">
+
+
+                <!-- Supervisor 1 -->
+
+                <div
+                    class="admin-supervisor-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-supervisor-avatar">
+                        DA
+                    </div>
+
+
+                    <div class="admin-supervisor-info">
+
+                        <h3>
+                            Dr. Ahmad
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            ahmad.supervisor@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-students">
+
+                        <strong>
+                            8
+                        </strong>
+
+                        <span>
+                            Students
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-supervisor-actions">
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-supervisor-delete"
+                            onclick="deleteSupervisor(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Supervisor 2 -->
+
+                <div
+                    class="admin-supervisor-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-supervisor-avatar">
+                        MS
+                    </div>
+
+
+                    <div class="admin-supervisor-info">
+
+                        <h3>
+                            Dr. Mohammad
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            mohammad.supervisor@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-students">
+
+                        <strong>
+                            6
+                        </strong>
+
+                        <span>
+                            Students
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-supervisor-actions">
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-supervisor-delete"
+                            onclick="deleteSupervisor(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Supervisor 3 -->
+
+                <div
+                    class="admin-supervisor-item"
+                    data-status="inactive"
+                >
+
+                    <div class="admin-supervisor-avatar">
+                        SA
+                    </div>
+
+
+                    <div class="admin-supervisor-info">
+
+                        <h3>
+                            Dr. Sara
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            sara.supervisor@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-students">
+
+                        <strong>
+                            0
+                        </strong>
+
+                        <span>
+                            Students
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-supervisor-status inactive">
+                        Inactive
+                    </div>
+
+
+                    <div class="admin-supervisor-actions">
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-supervisor-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-supervisor-delete"
+                            onclick="deleteSupervisor(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const supervisorSearch =
+            document.getElementById("supervisorSearch");
+
+        const supervisorStatus =
+            document.getElementById("supervisorStatus");
+
+        const supervisors =
+            document.querySelectorAll(
+                ".admin-supervisor-item"
+            );
+
+
+        function filterSupervisors() {
+
+            const searchValue =
+                supervisorSearch.value.toLowerCase();
+
+            const statusValue =
+                supervisorStatus.value;
+
+
+            supervisors.forEach(supervisor => {
+
+                const supervisorName =
+                    supervisor
+                    .querySelector(
+                        ".admin-supervisor-info h3"
+                    )
+                    .textContent
+                    .toLowerCase();
+
+                const status =
+                    supervisor.dataset.status;
+
+
+                const matchesSearch =
+                    supervisorName.includes(searchValue);
+
+                const matchesStatus =
+                    statusValue === "all" ||
+                    status === statusValue;
+
+
+                if (
+                    matchesSearch &&
+                    matchesStatus
+                ) {
+
+                    supervisor.style.display = "flex";
+
+                } else {
+
+                    supervisor.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        supervisorSearch.addEventListener(
+            "input",
+            filterSupervisors
+        );
+
+
+        supervisorStatus.addEventListener(
+            "change",
+            filterSupervisors
+        );
+
+
+        function deleteSupervisor(button) {
+
+            const supervisor =
+                button.closest(
+                    ".admin-supervisor-item"
+                );
+
+            const supervisorName =
+                supervisor
+                .querySelector(
+                    ".admin-supervisor-info h3"
+                )
+                .textContent;
+
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete " +
+                    supervisorName +
+                    "?"
+                );
+
+
+            if (confirmed) {
+
+                supervisor.remove();
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

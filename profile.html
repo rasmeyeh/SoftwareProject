@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a href="home.html" class="brand">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="home.html">
+                        Home
+                    </a>
+
+                    <a href="my-applications.html">
+                        My Internship Applications
+                    </a>
+
+                    <a
+                        href="profile.html"
+                        class="active"
+                    >
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                        id="logoutButton"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             PROFILE PAGE
+        ========================================== -->
+
+        <main class="profile-page">
+
+
+            <div class="profile-header">
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    View and manage your personal information.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PROFILE CARD
+            ========================================== -->
+
+            <section class="profile-card">
+
+
+                <!-- PROFILE TOP -->
+
+                <div class="profile-top">
+
+                    <div
+                        class="profile-avatar"
+                        id="profileAvatar"
+                    >
+                        U
+                    </div>
+
+
+                    <div class="profile-intro">
+
+                        <h2 id="profileDisplayName">
+                            Loading...
+                        </h2>
+
+                        <p id="profileRoleText">
+                            
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="profile-divider"></div>
+
+
+
+                <!-- =====================================
+                     PERSONAL INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-name"
+                                placeholder="Enter your full name"
+                            >
+
+                        </div>
+
+
+                        <!-- USERNAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-username">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-username"
+                                placeholder="Username"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="profile-email"
+                                placeholder="Email Address"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="profile-phone"
+                                placeholder="Enter your phone number"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACADEMIC INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Academic Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- UNIVERSITY -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-university">
+                                University
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-university"
+                                placeholder="Enter your university"
+                            >
+
+                        </div>
+
+
+                        <!-- MAJOR -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-major">
+                                Major
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-major"
+                                placeholder="Enter your major"
+                            >
+
+                        </div>
+
+
+                        <!-- ACADEMIC YEAR -->
+
+                        <div class="profile-field">
+
+                            <label for="academic-year">
+                                Academic Year
+                            </label>
+
+                            <select id="academic-year">
+
+                                <option value="">
+                                    Select Academic Year
+                                </option>
+
+                                <option value="First Year">
+                                    First Year
+                                </option>
+
+                                <option value="Second Year">
+                                    Second Year
+                                </option>
+
+                                <option value="Third Year">
+                                    Third Year
+                                </option>
+
+                                <option value="Fourth Year">
+                                    Fourth Year
+                                </option>
+
+                                <option value="Fifth Year">
+                                    Fifth Year
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- GPA -->
+
+                        <div class="profile-field">
+
+                            <label for="gpa">
+                                GPA
+                            </label>
+
+                            <input
+                                type="text"
+                                id="gpa"
+                                placeholder="Enter your GPA"
+                            >
+
+                        </div>
+
+
+                        <!-- SUPERVISOR -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-supervisor">
+                                Supervisor
+                            </label>
+
+                            <select id="profile-supervisor">
+
+                                <option value="">
+                                    Loading Supervisors...
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     CV SECTION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        My CV
+                    </h2>
+
+
+                    <div class="cv-box">
+
+                        <div class="cv-icon">
+                            📄
+                        </div>
+
+
+                        <div class="cv-info">
+
+                            <strong id="cvName">
+                                No CV uploaded
+                            </strong>
+
+                            <span id="cvStatus">
+                                PDF Document
+                            </span>
+
+                        </div>
+
+
+                        <!-- Hidden file input -->
+
+                        <input
+                            type="file"
+                            id="cvFileInput"
+                            accept=".pdf,application/pdf"
+                            style="display: none;"
+                        >
+
+
+                        <button
+                            type="button"
+                            class="cv-button"
+                            id="uploadCvButton"
+                        >
+                            Upload CV
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACTIONS
+                ====================================== -->
+
+                <div class="profile-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-profile-button"
+                        id="cancelProfileButton"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="save-profile-button"
+                        id="saveProfileButton"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         PROFILE JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const profileDisplayName =
+            document.getElementById("profileDisplayName");
+
+        const profileAvatar =
+            document.getElementById("profileAvatar");
+
+        const profileName =
+            document.getElementById("profile-name");
+
+        const profileUsername =
+            document.getElementById("profile-username");
+
+        const profileEmail =
+            document.getElementById("profile-email");
+
+        const profilePhone =
+            document.getElementById("profile-phone");
+
+        const profileUniversity =
+            document.getElementById("profile-university");
+
+        const profileMajor =
+            document.getElementById("profile-major");
+
+        const academicYear =
+            document.getElementById("academic-year");
+
+        const gpa =
+            document.getElementById("gpa");
+
+        const profileSupervisor =
+            document.getElementById("profile-supervisor");
+
+        const cvName =
+            document.getElementById("cvName");
+
+        const cvStatus =
+            document.getElementById("cvStatus");
+
+        const cvFileInput =
+            document.getElementById("cvFileInput");
+
+        const uploadCvButton =
+            document.getElementById("uploadCvButton");
+
+
+
+        // =========================================
+        // LOAD SUPERVISORS
+        // =========================================
+
+        async function loadSupervisors(
+            currentSupervisorId = null
+        ) {
+
+            try {
+
+                const {
+                    data: supervisors,
+                    error
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name
+                    `)
+                    .eq("role", "supervisor")
+                    .order("full_name");
+
+
+                if (error) {
+
+                    console.error(
+                        "Supervisors error:",
+                        error
+                    );
+
+                    profileSupervisor.innerHTML =
+                        `<option value="">
+                            No supervisors available
+                        </option>`;
+
+                    profileSupervisor.disabled = true;
+
+                    return;
+
+                }
+
+
+                profileSupervisor.innerHTML = "";
+
+
+                // =====================================
+                // NO SUPERVISORS YET
+                // =====================================
+
+                if (
+                    !supervisors ||
+                    supervisors.length === 0
+                ) {
+
+                    profileSupervisor.innerHTML =
+                        `<option value="">
+                            No supervisors available
+                        </option>`;
+
+                    profileSupervisor.disabled = true;
+
+                    return;
+
+                }
+
+
+                // =====================================
+                // SUPERVISORS AVAILABLE
+                // =====================================
+
+                profileSupervisor.disabled = false;
+
+
+                const defaultOption =
+                    document.createElement("option");
+
+                defaultOption.value = "";
+
+                defaultOption.textContent =
+                    "Select Supervisor";
+
+                profileSupervisor.appendChild(
+                    defaultOption
+                );
+
+
+                supervisors.forEach(
+                    function (supervisor) {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value =
+                            supervisor.id;
+
+                        option.textContent =
+                            supervisor.full_name ||
+                            "Unnamed Supervisor";
+
+                        profileSupervisor.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+                // Select current supervisor
+
+                if (
+                    currentSupervisorId
+                ) {
+
+                    profileSupervisor.value =
+                        currentSupervisorId;
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected supervisor error:",
+                    error
+                );
+
+                profileSupervisor.innerHTML =
+                    `<option value="">
+                        No supervisors available
+                    </option>`;
+
+                profileSupervisor.disabled = true;
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // LOAD PROFILE
+        // =========================================
+
+        async function loadProfile() {
+
+            try {
+
+                // Get logged-in user
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET PROFILE
+                // =====================================
+
+                const {
+                    data: profile,
+                    error: profileError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email,
+                        phone,
+                        role
+                    `)
+                    .eq("id", user.id)
+                    .maybeSingle();
+
+
+                if (profileError) {
+
+                    console.error(
+                        "Profile error:",
+                        profileError
+                    );
+
+                    alert(
+                        "Could not load your profile."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!profile) {
+
+                    alert(
+                        "Profile not found."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // DISPLAY PROFILE
+                // =====================================
+
+                profileDisplayName.textContent =
+                    profile.full_name || "User";
+
+
+                profileAvatar.textContent =
+                    profile.full_name
+                        ? profile.full_name
+                            .charAt(0)
+                            .toUpperCase()
+                        : "U";
+
+
+                profileName.value =
+                    profile.full_name || "";
+
+
+                profileUsername.value =
+                    profile.username || "";
+
+
+                profileEmail.value =
+                    profile.email || "";
+
+
+                profilePhone.value =
+                    profile.phone || "";
+
+
+
+                // =====================================
+                // STUDENT DATA
+                // =====================================
+
+                if (
+                    profile.role === "student"
+                ) {
+
+                    const {
+                        data: student,
+                        error: studentError
+                    } = await db
+                        .from("students")
+                        .select(`
+                            university,
+                            major,
+                            gpa,
+                            academic_year,
+                            cv_url,
+                            supervisor_id
+                        `)
+                        .eq("id", user.id)
+                        .maybeSingle();
+
+
+                    if (studentError) {
+
+                        console.error(
+                            "Student error:",
+                            studentError
+                        );
+
+                        alert(
+                            "Could not load student information."
+                        );
+
+                        return;
+
+                    }
+
+
+                    if (student) {
+
+                        // University
+
+                        profileUniversity.value =
+                            student.university || "";
+
+
+                        // Major
+
+                        profileMajor.value =
+                            student.major || "";
+
+
+                        // GPA
+
+                        gpa.value =
+                            student.gpa || "";
+
+
+                        // Academic Year
+
+                        academicYear.value =
+                            student.academic_year || "";
+
+
+                        // =================================
+                        // CV
+                        // =================================
+
+                        if (
+                            student.cv_url
+                        ) {
+
+                            // Get file name from URL
+
+                            try {
+
+                                const url =
+                                    new URL(
+                                        student.cv_url
+                                    );
+
+                                const pathname =
+                                    url.pathname;
+
+                                const fileName =
+                                    decodeURIComponent(
+                                        pathname
+                                            .split("/")
+                                            .pop()
+                                    );
+
+                                cvName.textContent =
+                                    fileName || "CV Uploaded";
+
+                            } catch (error) {
+
+                                cvName.textContent =
+                                    "CV Uploaded";
+
+                            }
+
+                            cvStatus.textContent =
+                                "PDF Document";
+
+                        } else {
+
+                            cvName.textContent =
+                                "No CV uploaded";
+
+                            cvStatus.textContent =
+                                "PDF Document";
+
+                        }
+
+
+                        // =================================
+                        // SUPERVISOR
+                        // =================================
+
+                        await loadSupervisors(
+                            student.supervisor_id
+                        );
+
+                    } else {
+
+                        await loadSupervisors();
+
+                    }
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected error:",
+                    error
+                );
+
+                alert(
+                    "Something went wrong while loading your profile."
+                );
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // SAVE PROFILE
+        // =========================================
+
+        async function saveProfile() {
+
+            try {
+
+                // Get logged-in user
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // UPDATE PROFILE
+                // =====================================
+
+                const {
+                    error: updateProfileError
+                } = await db
+                    .from("profiles")
+                    .update({
+
+                        full_name:
+                            profileName.value.trim(),
+
+                        phone:
+                            profilePhone.value.trim()
+
+                    })
+                    .eq("id", user.id);
+
+
+                if (updateProfileError) {
+
+                    console.error(
+                        "Profile update error:",
+                        updateProfileError
+                    );
+
+                    alert(
+                        "Could not save personal information."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // UPDATE STUDENT
+                // =====================================
+
+                const {
+                    error: updateStudentError
+                } = await db
+                    .from("students")
+                    .update({
+
+                        university:
+                            profileUniversity.value.trim(),
+
+                        major:
+                            profileMajor.value.trim(),
+
+                        gpa:
+                            gpa.value.trim(),
+
+                        academic_year:
+                            academicYear.value,
+
+                        supervisor_id:
+                            profileSupervisor.disabled
+                                ? null
+                                : (
+                                    profileSupervisor.value ||
+                                    null
+                                )
+
+                    })
+                    .eq("id", user.id);
+
+
+                if (updateStudentError) {
+
+                    console.error(
+                        "Student update error:",
+                        updateStudentError
+                    );
+
+                    alert(
+                        "Personal information was saved, but academic information could not be saved."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // UPDATE DISPLAY
+                // =====================================
+
+                profileDisplayName.textContent =
+                    profileName.value.trim() || "User";
+
+
+                profileAvatar.textContent =
+                    profileName.value.trim()
+                        ? profileName.value
+                            .trim()
+                            .charAt(0)
+                            .toUpperCase()
+                        : "U";
+
+
+                alert(
+                    "Profile updated successfully!"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected error:",
+                    error
+                );
+
+                alert(
+                    "Something went wrong while saving your profile."
+                );
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // UPLOAD CV
+        // =========================================
+
+        uploadCvButton.addEventListener(
+            "click",
+            function () {
+
+                cvFileInput.click();
+
+            }
+        );
+
+
+        cvFileInput.addEventListener(
+            "change",
+            async function () {
+
+                const file =
+                    cvFileInput.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                // =====================================
+                // PDF CHECK
+                // =====================================
+
+                if (
+                    file.type !==
+                    "application/pdf"
+                ) {
+
+                    alert(
+                        "Please upload a PDF file only."
+                    );
+
+                    cvFileInput.value = "";
+
+                    return;
+
+                }
+
+
+                // =====================================
+                // FILE SIZE CHECK
+                // Maximum 5 MB
+                // =====================================
+
+                if (
+                    file.size >
+                    5 * 1024 * 1024
+                ) {
+
+                    alert(
+                        "CV file size must be less than 5 MB."
+                    );
+
+                    cvFileInput.value = "";
+
+                    return;
+
+                }
+
+
+                try {
+
+                    // Get logged-in user
+
+                    const {
+                        data: {
+                            user
+                        },
+                        error: userError
+                    } = await db.auth.getUser();
+
+
+                    if (
+                        userError ||
+                        !user
+                    ) {
+
+                        alert(
+                            "Please login first."
+                        );
+
+                        window.location.href =
+                            "index.html";
+
+                        return;
+
+                    }
+
+
+
+                    // =================================
+                    // FILE PATH
+                    // =================================
+
+                    const filePath =
+                        user.id +
+                        "/" +
+                        file.name;
+
+
+
+                    // =================================
+                    // UPLOAD TO SUPABASE STORAGE
+                    // =================================
+
+                    const {
+                        error: uploadError
+                    } = await db.storage
+                        .from("cvs")
+                        .upload(
+                            filePath,
+                            file,
+                            {
+                                upsert: true,
+                                contentType:
+                                    "application/pdf"
+                            }
+                        );
+
+
+                    if (uploadError) {
+
+                        console.error(
+                            "CV upload error:",
+                            uploadError
+                        );
+
+                        alert(
+                            "Could not upload your CV."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    // =================================
+                    // GET PUBLIC URL
+                    // =================================
+
+                    const {
+                        data: publicUrlData
+                    } = db.storage
+                        .from("cvs")
+                        .getPublicUrl(
+                            filePath
+                        );
+
+
+                    const cvUrl =
+                        publicUrlData.publicUrl;
+
+
+
+                    // =================================
+                    // SAVE URL IN DATABASE
+                    // =================================
+
+                    const {
+                        error: updateError
+                    } = await db
+                        .from("students")
+                        .update({
+
+                            cv_url:
+                                cvUrl
+
+                        })
+                        .eq(
+                            "id",
+                            user.id
+                        );
+
+
+                    if (updateError) {
+
+                        console.error(
+                            "CV database error:",
+                            updateError
+                        );
+
+                        alert(
+                            "CV uploaded, but its information could not be saved."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    // =================================
+                    // DISPLAY FILE NAME
+                    // =================================
+
+                    cvName.textContent =
+                        file.name;
+
+                    cvStatus.textContent =
+                        "PDF Document";
+
+
+                    alert(
+                        "CV uploaded successfully!"
+                    );
+
+
+                    cvFileInput.value = "";
+
+                } catch (error) {
+
+                    console.error(
+                        "Unexpected CV error:",
+                        error
+                    );
+
+                    alert(
+                        "Something went wrong while uploading your CV."
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        // =========================================
+        // SAVE BUTTON
+        // =========================================
+
+        document
+            .getElementById("saveProfileButton")
+            .addEventListener(
+                "click",
+                saveProfile
+            );
+
+
+
+        // =========================================
+        // CANCEL BUTTON
+        // =========================================
+
+        document
+            .getElementById("cancelProfileButton")
+            .addEventListener(
+                "click",
+                loadProfile
+            );
+
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+                    await db.auth.signOut();
+
+                    localStorage.removeItem(
+                        "username"
+                    );
+
+                    localStorage.removeItem(
+                        "role"
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOAD PROFILE ON PAGE OPEN
+        // =========================================
+
+        loadProfile();
+
+    </script>
+
+
+</body>
+
+</html>

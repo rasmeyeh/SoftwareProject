@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Company Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- LOGO -->
+
+                <a href="company-dashboard.html" class="brand">
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="nav-links">
+
+                    <a
+                        href="company-dashboard.html"
+                        class="active"
+                    >
+                        Dashboard
+                    </a>
+
+
+                    <a href="applicants.html">
+                        Applicants
+                    </a>
+
+                    <a href="company-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             COMPANY DASHBOARD
+        ========================================== -->
+
+        <main class="company-dashboard">
+
+
+            <!-- =====================================
+                 WELCOME
+            ====================================== -->
+
+            <section class="company-welcome">
+
+                <div>
+
+                    <span class="dashboard-label">
+                        COMPANY DASHBOARD
+                    </span>
+
+                    <h1 id="welcomeMessage">
+                        Welcome, Company 👋
+                    </h1>
+
+                    <p>
+                        Manage your internship opportunities
+                        and review student applications.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="post-internship.html"
+                    class="dashboard-add-button"
+                >
+                    + Post Internship
+                </a>
+
+            </section>
+
+
+
+            <!-- =====================================
+                 STATISTICS
+            ====================================== -->
+
+            <section class="company-stats">
+
+
+                <div class="company-stat-card">
+
+                    <span class="stat-title">
+                        Active Internships
+                    </span>
+
+                    <strong id="activeInternships">
+                        0
+                    </strong>
+
+                    <span class="stat-description">
+                        Currently available
+                    </span>
+
+                </div>
+
+
+                <div class="company-stat-card">
+
+                    <span class="stat-title">
+                        Applications
+                    </span>
+
+                    <strong id="totalApplications">
+                        0
+                    </strong>
+
+                    <span class="stat-description">
+                        Total received
+                    </span>
+
+                </div>
+
+
+                <div class="company-stat-card">
+
+                    <span class="stat-title">
+                        Accepted
+                    </span>
+
+                    <strong id="acceptedApplications">
+                        0
+                    </strong>
+
+                    <span class="stat-description">
+                        Students accepted
+                    </span>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =====================================
+                 RECENT APPLICATIONS
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Recent Applications
+                        </h2>
+
+                        <p>
+                            Latest students who applied
+                            to your internships.
+                        </p>
+
+                    </div>
+
+
+                    <a href="applicants.html">
+                        View All
+                    </a>
+
+                </div>
+
+
+
+                <!-- DYNAMIC APPLICATIONS -->
+
+                <div id="recentApplications">
+
+                    <div class="dashboard-application">
+
+                        <div class="student-info">
+
+                            <h3>
+                                Loading...
+                            </h3>
+
+                            <p>
+                                Loading applications
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =====================================
+                 ACTIVE INTERNSHIPS
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Your Internship Opportunities
+                        </h2>
+
+                        <p>
+                            Manage the opportunities you
+                            currently offer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="internship-mini-grid"
+                    id="internshipGrid"
+                >
+
+                    <div class="internship-mini-card">
+
+                        <div>
+
+                            <h3>
+                                Loading...
+                            </h3>
+
+                            <p>
+                                Loading internships
+                            </p>
+
+                        </div>
+
+                        <span>
+                            0 Applicants
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         DASHBOARD SCRIPT
+    ========================================== -->
+
+    <script>
+
+        async function loadCompanyDashboard() {
+
+            try {
+
+                /* =====================================
+                   GET CURRENT LOGGED-IN USER
+                ====================================== */
+
+                const {
+                    data: { user },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (userError || !user) {
+
+                    window.location.href = "index.html";
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   GET COMPANY PROFILE
+                ====================================== */
+
+                const {
+                    data: company,
+                    error: companyError
+                } = await db
+                    .from("companies")
+                    .select("id, name")
+                    .eq("profile_id", user.id)
+                    .maybeSingle();
+
+
+                if (companyError) {
+
+                    console.error(
+                        "Company error:",
+                        companyError
+                    );
+
+                    return;
+
+                }
+
+
+                if (!company) {
+
+                    console.error(
+                        "No company profile found for this account."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   WELCOME MESSAGE
+                ====================================== */
+
+                document.getElementById(
+                    "welcomeMessage"
+                ).textContent =
+                    `Welcome, ${company.name} 👋`;
+
+
+
+                /* =====================================
+                   GET COMPANY INTERNSHIPS
+                ====================================== */
+
+                const {
+                    data: internships,
+                    error: internshipsError
+                } = await db
+                    .from("internships")
+                    .select(`
+                        id,
+                        title,
+                        field,
+                        status,
+                        created_at
+                    `)
+                    .eq("company_id", company.id)
+                    .order("created_at", {
+                        ascending: false
+                    });
+
+
+                if (internshipsError) {
+
+                    console.error(
+                        "Internships error:",
+                        internshipsError
+                    );
+
+                    return;
+
+                }
+
+
+                const internshipList =
+                    internships || [];
+
+
+
+                /* =====================================
+                   ACTIVE INTERNSHIPS COUNT
+                ====================================== */
+
+                const activeInternships =
+                    internshipList.filter(
+                        internship =>
+                            internship.status === "active"
+                    );
+
+
+                document.getElementById(
+                    "activeInternships"
+                ).textContent =
+                    activeInternships.length;
+
+
+
+                /* =====================================
+                   GET APPLICATIONS
+                ====================================== */
+
+                const internshipIds =
+                    internshipList.map(
+                        internship => internship.id
+                    );
+
+
+                let applications = [];
+
+
+                if (internshipIds.length > 0) {
+
+                    const {
+                        data: applicationData,
+                        error: applicationsError
+                    } = await db
+                        .from("applications")
+                        .select(`
+                            id,
+                            student_id,
+                            internship_id,
+                            status,
+                            applied_at
+                        `)
+                        .in(
+                            "internship_id",
+                            internshipIds
+                        )
+                        .order("applied_at", {
+                            ascending: false
+                        });
+
+
+                    if (applicationsError) {
+
+                        console.error(
+                            "Applications error:",
+                            applicationsError
+                        );
+
+                        return;
+
+                    }
+
+
+                    applications =
+                        applicationData || [];
+
+                }
+
+
+
+                /* =====================================
+                   TOTAL APPLICATIONS
+                ====================================== */
+
+                document.getElementById(
+                    "totalApplications"
+                ).textContent =
+                    applications.length;
+
+
+
+                /* =====================================
+                   ACCEPTED APPLICATIONS
+                ====================================== */
+
+                const acceptedApplications =
+                    applications.filter(
+                        application =>
+                            application.status === "accepted"
+                    );
+
+
+                document.getElementById(
+                    "acceptedApplications"
+                ).textContent =
+                    acceptedApplications.length;
+
+
+
+                /* =====================================
+                   GET STUDENT PROFILES
+                ====================================== */
+
+                const studentIds =
+                    [
+                        ...new Set(
+                            applications.map(
+                                application =>
+                                    application.student_id
+                            )
+                        )
+                    ];
+
+
+                let students = [];
+
+
+                if (studentIds.length > 0) {
+
+                    const {
+                        data: studentData,
+                        error: studentsError
+                    } = await db
+                        .from("students")
+                        .select(`
+                            id,
+                            major
+                        `)
+                        .in(
+                            "id",
+                            studentIds
+                        );
+
+
+                    if (studentsError) {
+
+                        console.error(
+                            "Students error:",
+                            studentsError
+                        );
+
+                    } else {
+
+                        students =
+                            studentData || [];
+
+                    }
+
+                }
+
+
+
+                /* =====================================
+                   GET STUDENT PROFILES
+                ====================================== */
+
+                let profiles = [];
+
+
+                if (studentIds.length > 0) {
+
+                    const {
+                        data: profileData,
+                        error: profilesError
+                    } = await db
+                        .from("profiles")
+                        .select(`
+                            id,
+                            full_name
+                        `)
+                        .in(
+                            "id",
+                            studentIds
+                        );
+
+
+                    if (profilesError) {
+
+                        console.error(
+                            "Profiles error:",
+                            profilesError
+                        );
+
+                    } else {
+
+                        profiles =
+                            profileData || [];
+
+                    }
+
+                }
+
+
+
+                /* =====================================
+                   CREATE STUDENT MAPS
+                ====================================== */
+
+                const studentMap =
+                    new Map(
+                        students.map(
+                            student => [
+                                student.id,
+                                student
+                            ]
+                        )
+                    );
+
+
+                const profileMap =
+                    new Map(
+                        profiles.map(
+                            profile => [
+                                profile.id,
+                                profile
+                            ]
+                        )
+                    );
+
+
+
+                /* =====================================
+                   RECENT APPLICATIONS
+                ====================================== */
+
+                const recentApplications =
+                    document.getElementById(
+                        "recentApplications"
+                    );
+
+
+                recentApplications.innerHTML = "";
+
+
+
+                const latestApplications =
+                    applications.slice(0, 3);
+
+
+                if (
+                    latestApplications.length === 0
+                ) {
+
+                    recentApplications.innerHTML = `
+
+                        <div class="dashboard-application">
+
+                            <div class="student-info">
+
+                                <h3>
+                                    No applications yet
+                                </h3>
+
+                                <p>
+                                    Students who apply to your
+                                    internships will appear here.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    latestApplications.forEach(
+                        application => {
+
+                            const profile =
+                                profileMap.get(
+                                    application.student_id
+                                );
+
+
+                            const student =
+                                studentMap.get(
+                                    application.student_id
+                                );
+
+
+                            const studentName =
+                                profile?.full_name ||
+                                "Unknown Student";
+
+
+                            const major =
+                                student?.major ||
+                                "Computer Engineering";
+
+
+                            const firstLetter =
+                                studentName
+                                    .charAt(0)
+                                    .toUpperCase();
+
+
+                            const status =
+                                application.status ||
+                                "pending";
+
+
+                            const statusClass =
+                                status.toLowerCase();
+
+
+                            const statusText =
+                                status.charAt(0)
+                                    .toUpperCase()
+                                +
+                                status.slice(1);
+
+
+                            recentApplications.innerHTML += `
+
+                                <div class="dashboard-application">
+
+                                    <div class="student-avatar">
+
+                                        ${firstLetter}
+
+                                    </div>
+
+
+                                    <div class="student-info">
+
+                                        <h3>
+                                            ${studentName}
+                                        </h3>
+
+                                        <p>
+                                            ${major}
+                                        </p>
+
+                                    </div>
+
+
+                                    <span
+                                        class="application-status ${statusClass}"
+                                    >
+                                        ${statusText}
+                                    </span>
+
+
+                                    <a href="applicants.html">
+                                        Review
+                                    </a>
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+                }
+
+
+
+                /* =====================================
+                   INTERNSHIP CARDS
+                ====================================== */
+
+                const internshipGrid =
+                    document.getElementById(
+                        "internshipGrid"
+                    );
+
+
+                internshipGrid.innerHTML = "";
+
+
+                if (
+                    internshipList.length === 0
+                ) {
+
+                    internshipGrid.innerHTML = `
+
+                        <div class="internship-mini-card">
+
+                            <div>
+
+                                <h3>
+                                    No internships yet
+                                </h3>
+
+                                <p>
+                                    Post an internship opportunity
+                                    to see it here.
+                                </p>
+
+                            </div>
+
+                            <span>
+                                0 Applicants
+                            </span>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    internshipList.forEach(
+                        internship => {
+
+                            const applicantCount =
+                                applications.filter(
+                                    application =>
+                                        application.internship_id ===
+                                        internship.id
+                                ).length;
+
+
+                            internshipGrid.innerHTML += `
+
+                                <div class="internship-mini-card">
+
+                                    <div>
+
+                                        <h3>
+                                            ${internship.title}
+                                        </h3>
+
+                                        <p>
+                                            ${internship.field || "Internship"}
+                                        </p>
+
+                                    </div>
+
+                                    <span>
+                                        ${applicantCount}
+                                        Applicant${applicantCount === 1 ? "" : "s"}
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Dashboard error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           LOAD DASHBOARD
+        ========================================== */
+
+        loadCompanyDashboard();
+
+    </script>
+
+
+</body>
+
+</html>

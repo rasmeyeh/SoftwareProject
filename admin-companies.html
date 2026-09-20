@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Companies</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>Internship Management System</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= COMPANIES PAGE ================= -->
+
+    <main class="admin-companies-page">
+<a href="admin-dashboard.html" class="admin-back">
+    ← Back to Dashboard
+</a>
+
+        <!-- Page Header -->
+
+        <section class="admin-company-header">
+
+            <p class="admin-section-label">
+                ADMINISTRATION
+            </p>
+
+            <h1>
+                Manage Companies
+            </h1>
+
+            <p>
+                View and manage registered company accounts.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= COMPANIES CARD ================= -->
+
+        <section class="admin-companies-card">
+
+
+            <!-- Toolbar -->
+
+            <div class="admin-companies-toolbar">
+
+                <div class="admin-company-search">
+
+                    <input
+                        type="text"
+                        id="companySearch"
+                        placeholder="Search companies..."
+                    >
+
+                </div>
+
+
+                <div class="admin-company-filter">
+
+                    <select id="companyStatus">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= COMPANY LIST ================= -->
+
+            <div class="admin-company-list">
+
+
+                <!-- Company 1 -->
+
+                <div
+                    class="admin-company-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-company-logo">
+
+                        <img
+                            src="./images/ooredoo.png"
+                            alt="Ooredoo Palestine"
+                        >
+
+                    </div>
+
+
+                    <div class="admin-company-info">
+
+                        <h3>
+                            Ooredoo Palestine
+                        </h3>
+
+                        <p>
+                            Telecommunications & IT
+                        </p>
+
+                        <span>
+                            ooredoo@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-company-location">
+                        Ramallah
+                    </div>
+
+
+                    <div class="admin-company-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-company-actions">
+
+                        <a
+                            href="#"
+                            class="admin-company-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-company-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-company-delete"
+                            onclick="deleteCompany(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Company 2 -->
+
+                <div
+                    class="admin-company-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-company-logo">
+
+                        <img
+                            src="./images/jawwal.png"
+                            alt="Jawwal"
+                        >
+
+                    </div>
+
+
+                    <div class="admin-company-info">
+
+                        <h3>
+                            Jawwal
+                        </h3>
+
+                        <p>
+                            Telecommunications & IT
+                        </p>
+
+                        <span>
+                            jawwal@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-company-location">
+                        Ramallah
+                    </div>
+
+
+                    <div class="admin-company-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-company-actions">
+
+                        <a
+                            href="#"
+                            class="admin-company-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-company-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-company-delete"
+                            onclick="deleteCompany(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Company 3 -->
+
+                <div
+                    class="admin-company-item"
+                    data-status="pending"
+                >
+
+                    <div class="admin-company-logo">
+
+                        <div class="admin-company-logo-text">
+                            NP
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-company-info">
+
+                        <h3>
+                            Network Pro
+                        </h3>
+
+                        <p>
+                            Networking
+                        </p>
+
+                        <span>
+                            networkpro@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-company-location">
+                        Ramallah
+                    </div>
+
+
+                    <div class="admin-company-status pending">
+                        Pending
+                    </div>
+
+
+                    <div class="admin-company-actions">
+
+                        <a
+                            href="#"
+                            class="admin-company-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-company-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-company-delete"
+                            onclick="deleteCompany(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Company 4 -->
+
+                <div
+                    class="admin-company-item"
+                    data-status="inactive"
+                >
+
+                    <div class="admin-company-logo">
+
+                        <div class="admin-company-logo-text">
+                            EH
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-company-info">
+
+                        <h3>
+                            Electronics Hub
+                        </h3>
+
+                        <p>
+                            Electronics
+                        </p>
+
+                        <span>
+                            electronicshub@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-company-location">
+                        Bethlehem
+                    </div>
+
+
+                    <div class="admin-company-status inactive">
+                        Inactive
+                    </div>
+
+
+                    <div class="admin-company-actions">
+
+                        <a
+                            href="#"
+                            class="admin-company-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-company-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-company-delete"
+                            onclick="deleteCompany(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const companySearch =
+            document.getElementById("companySearch");
+
+        const companyStatus =
+            document.getElementById("companyStatus");
+
+        const companies =
+            document.querySelectorAll(".admin-company-item");
+
+
+        function filterCompanies() {
+
+            const searchValue =
+                companySearch.value.toLowerCase();
+
+            const statusValue =
+                companyStatus.value;
+
+
+            companies.forEach(company => {
+
+                const companyName =
+                    company
+                    .querySelector(".admin-company-info h3")
+                    .textContent
+                    .toLowerCase();
+
+                const status =
+                    company.dataset.status;
+
+
+                const matchesSearch =
+                    companyName.includes(searchValue);
+
+                const matchesStatus =
+                    statusValue === "all" ||
+                    status === statusValue;
+
+
+                if (matchesSearch && matchesStatus) {
+
+                    company.style.display = "flex";
+
+                } else {
+
+                    company.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        companySearch.addEventListener(
+            "input",
+            filterCompanies
+        );
+
+
+        companyStatus.addEventListener(
+            "change",
+            filterCompanies
+        );
+
+
+        function deleteCompany(button) {
+
+            const company =
+                button.closest(".admin-company-item");
+
+            const companyName =
+                company
+                .querySelector(".admin-company-info h3")
+                .textContent;
+
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete " +
+                    companyName +
+                    "?"
+                );
+
+
+            if (confirmed) {
+
+                company.remove();
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

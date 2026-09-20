@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Students</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>Internship Management System</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= STUDENTS PAGE ================= -->
+
+    <main class="admin-students-page">
+<a href="admin-dashboard.html" class="admin-back">
+    ← Back to Dashboard
+</a>
+
+        <!-- Page Header -->
+
+        <section class="admin-page-header">
+
+            <p class="admin-section-label">
+                ADMINISTRATION
+            </p>
+
+            <h1>
+                Manage Students
+            </h1>
+
+            <p>
+                View and manage registered student accounts.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <section class="admin-students-card">
+
+            <div class="admin-students-toolbar">
+
+                <div class="admin-search">
+
+                    <input
+                        type="text"
+                        id="studentSearch"
+                        placeholder="Search students..."
+                    >
+
+                </div>
+
+
+                <div class="admin-filter">
+
+                    <select id="studentStatus">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="completed">
+                            Completed
+                        </option>
+
+                        <option value="pending">
+                            Pending
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= STUDENTS LIST ================= -->
+
+            <div class="admin-students-list">
+
+
+                <!-- Student 1 -->
+
+                <div
+                    class="admin-student-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-student-avatar">
+                        AA
+                    </div>
+
+
+                    <div class="admin-student-info">
+
+                        <h3>
+                            Ahmad Ali
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            ahmad.ali@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-student-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-student-actions">
+
+                        <a
+                            href="#"
+                            class="admin-view-button"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-edit-button"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-delete-button"
+                            onclick="deleteStudent(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Student 2 -->
+
+                <div
+                    class="admin-student-item"
+                    data-status="active"
+                >
+
+                    <div class="admin-student-avatar">
+                        SA
+                    </div>
+
+
+                    <div class="admin-student-info">
+
+                        <h3>
+                            Sara Ahmad
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            sara.ahmad@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-student-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-student-actions">
+
+                        <a
+                            href="#"
+                            class="admin-view-button"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-edit-button"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-delete-button"
+                            onclick="deleteStudent(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Student 3 -->
+
+                <div
+                    class="admin-student-item"
+                    data-status="completed"
+                >
+
+                    <div class="admin-student-avatar">
+                        MS
+                    </div>
+
+
+                    <div class="admin-student-info">
+
+                        <h3>
+                            Mohammad Saleh
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            mohammad.saleh@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-student-status completed">
+                        Completed
+                    </div>
+
+
+                    <div class="admin-student-actions">
+
+                        <a
+                            href="#"
+                            class="admin-view-button"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-edit-button"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-delete-button"
+                            onclick="deleteStudent(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Student 4 -->
+
+                <div
+                    class="admin-student-item"
+                    data-status="pending"
+                >
+
+                    <div class="admin-student-avatar">
+                        MK
+                    </div>
+
+
+                    <div class="admin-student-info">
+
+                        <h3>
+                            Maryam Khaled
+                        </h3>
+
+                        <p>
+                            Computer Engineering
+                        </p>
+
+                        <span>
+                            maryam.khaled@example.com
+                        </span>
+
+                    </div>
+
+
+                    <div class="admin-student-status pending">
+                        Pending
+                    </div>
+
+
+                    <div class="admin-student-actions">
+
+                        <a
+                            href="#"
+                            class="admin-view-button"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-edit-button"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            type="button"
+                            class="admin-delete-button"
+                            onclick="deleteStudent(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("studentSearch");
+
+        const statusFilter =
+            document.getElementById("studentStatus");
+
+        const students =
+            document.querySelectorAll(".admin-student-item");
+
+
+        function filterStudents() {
+
+            const searchValue =
+                searchInput.value.toLowerCase();
+
+            const statusValue =
+                statusFilter.value;
+
+
+            students.forEach(student => {
+
+                const name =
+                    student
+                    .querySelector(".admin-student-info h3")
+                    .textContent
+                    .toLowerCase();
+
+                const status =
+                    student.dataset.status;
+
+
+                const matchesSearch =
+                    name.includes(searchValue);
+
+                const matchesStatus =
+                    statusValue === "all" ||
+                    status === statusValue;
+
+
+                if (matchesSearch && matchesStatus) {
+
+                    student.style.display = "flex";
+
+                } else {
+
+                    student.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterStudents
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            filterStudents
+        );
+
+
+        function deleteStudent(button) {
+
+            const student =
+                button.closest(".admin-student-item");
+
+            const studentName =
+                student
+                .querySelector(".admin-student-info h3")
+                .textContent;
+
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete " +
+                    studentName +
+                    "?"
+                );
+
+
+            if (confirmed) {
+
+                student.remove();
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

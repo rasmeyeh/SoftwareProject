@@ -1,0 +1,1029 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Students</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="supervisor-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="supervisor-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="supervisor-students.html"
+                    class="active"
+                >
+                    My Students
+                </a>
+
+                <a href="supervisor-profile.html">
+                    Profile
+                </a>
+
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutLink"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="supervisor-dashboard">
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="supervisor-welcome">
+
+            <div>
+
+                <small>
+                    MY STUDENTS
+                </small>
+
+                <h1>
+                    Students Under My Supervision
+                </h1>
+
+                <p>
+                    View and monitor the progress of students assigned to you.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= SEARCH & FILTER ================= -->
+
+        <section class="applicants-filter">
+
+
+            <div class="applicants-search">
+
+                <span>
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Search for a student..."
+                >
+
+            </div>
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Status
+                </option>
+
+                <option value="active">
+                    Active
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+            </select>
+
+        </section>
+
+
+
+        <!-- ================= STUDENTS ================= -->
+
+        <section id="studentsList">
+
+            <p
+                id="loadingMessage"
+                style="
+                    text-align: center;
+                    padding: 30px;
+                    color: #6f7d80;
+                "
+            >
+                Loading students...
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= NO RESULTS ================= -->
+
+        <div
+            id="noStudents"
+            style="
+                display: none;
+                text-align: center;
+                padding: 30px;
+                color: #6f7d80;
+            "
+        >
+            No students found.
+        </div>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+    <script>
+
+
+        /* =========================================
+           GLOBAL STUDENTS ARRAY
+        ========================================= */
+
+        let allStudents = [];
+
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* =========================================
+           LOAD SUPERVISOR STUDENTS
+        ========================================= */
+
+        async function loadStudents() {
+
+            try {
+
+
+                /* -------------------------------------
+                   GET CURRENT USER
+                ------------------------------------- */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (userError) {
+                    throw userError;
+                }
+
+
+                if (!user) {
+
+                    window.location.href = "index.html";
+
+                    return;
+
+                }
+
+
+
+                /* -------------------------------------
+                   GET STUDENTS ASSIGNED TO SUPERVISOR
+                ------------------------------------- */
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        major,
+                        university,
+                        supervisor_id
+                    `)
+                    .eq("supervisor_id", user.id);
+
+
+                if (studentsError) {
+                    throw studentsError;
+                }
+
+
+                const studentList =
+                    students || [];
+
+
+
+                /* -------------------------------------
+                   NO STUDENTS
+                ------------------------------------- */
+
+                if (studentList.length === 0) {
+
+                    allStudents = [];
+
+                    document.getElementById(
+                        "studentsList"
+                    ).innerHTML = "";
+
+                    document.getElementById(
+                        "noStudents"
+                    ).style.display = "block";
+
+                    return;
+
+                }
+
+
+
+                /* -------------------------------------
+                   GET STUDENT PROFILE IDS
+                ------------------------------------- */
+
+                const studentIds =
+                    studentList.map(
+                        student => student.id
+                    );
+
+
+
+                /* -------------------------------------
+                   GET PROFILES
+                ------------------------------------- */
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email,
+                        phone
+                    `)
+                    .in("id", studentIds);
+
+
+                if (profilesError) {
+                    throw profilesError;
+                }
+
+
+
+                /* -------------------------------------
+                   GET APPLICATIONS
+                ------------------------------------- */
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } = await db
+                    .from("applications")
+                    .select(`
+                        id,
+                        student_id,
+                        internship_id,
+                        status,
+                        applied_at
+                    `)
+                    .in(
+                        "student_id",
+                        studentIds
+                    );
+
+
+                if (applicationsError) {
+                    throw applicationsError;
+                }
+
+
+                const applicationList =
+                    applications || [];
+
+
+
+                /* -------------------------------------
+                   GET INTERNSHIP IDS
+                ------------------------------------- */
+
+                const internshipIds =
+                    [
+                        ...new Set(
+                            applicationList
+                                .map(
+                                    application =>
+                                        application.internship_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+
+                /* -------------------------------------
+                   GET INTERNSHIPS
+                ------------------------------------- */
+
+                let internships = [];
+
+
+                if (
+                    internshipIds.length > 0
+                ) {
+
+                    const {
+                        data: internshipData,
+                        error: internshipError
+                    } = await db
+                        .from("internships")
+                        .select(`
+                            id,
+                            company_id,
+                            title,
+                            field,
+                            city,
+                            start_date,
+                            end_date,
+                            status
+                        `)
+                        .in(
+                            "id",
+                            internshipIds
+                        );
+
+
+                    if (internshipError) {
+                        throw internshipError;
+                    }
+
+
+                    internships =
+                        internshipData || [];
+
+                }
+
+
+
+                /* -------------------------------------
+                   GET COMPANY IDS
+                ------------------------------------- */
+
+                const companyIds =
+                    [
+                        ...new Set(
+                            internships
+                                .map(
+                                    internship =>
+                                        internship.company_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+
+                /* -------------------------------------
+                   GET COMPANIES
+                ------------------------------------- */
+
+                let companies = [];
+
+
+                if (
+                    companyIds.length > 0
+                ) {
+
+                    const {
+                        data: companyData,
+                        error: companyError
+                    } = await db
+                        .from("companies")
+                        .select(`
+                            id,
+                            name
+                        `)
+                        .in(
+                            "id",
+                            companyIds
+                        );
+
+
+                    if (companyError) {
+                        throw companyError;
+                    }
+
+
+                    companies =
+                        companyData || [];
+
+                }
+
+
+
+                /* -------------------------------------
+                   CREATE MAPS
+                ------------------------------------- */
+
+                const profileMap = {};
+
+
+                (profiles || []).forEach(
+                    profile => {
+
+                        profileMap[
+                            profile.id
+                        ] = profile;
+
+                    }
+                );
+
+
+                const internshipMap = {};
+
+
+                internships.forEach(
+                    internship => {
+
+                        internshipMap[
+                            internship.id
+                        ] = internship;
+
+                    }
+                );
+
+
+                const companyMap = {};
+
+
+                companies.forEach(
+                    company => {
+
+                        companyMap[
+                            company.id
+                        ] = company;
+
+                    }
+                );
+
+
+
+                /* -------------------------------------
+                   CREATE FINAL STUDENT DATA
+                ------------------------------------- */
+
+                allStudents =
+                    studentList.map(
+                        student => {
+
+
+                            const profile =
+                                profileMap[
+                                    student.id
+                                ] || {};
+
+
+
+                            const studentApplications =
+                                applicationList.filter(
+                                    application =>
+                                        application.student_id ===
+                                        student.id
+                                );
+
+
+
+                            /*
+                             * Prefer accepted application.
+                             */
+
+                            let application =
+                                studentApplications.find(
+                                    item =>
+                                        item.status ===
+                                        "accepted"
+                                );
+
+
+
+                            /*
+                             * If there is no accepted
+                             * application, use latest one.
+                             */
+
+                            if (
+                                !application &&
+                                studentApplications.length > 0
+                            ) {
+
+                                application =
+                                    [
+                                        ...studentApplications
+                                    ].sort(
+                                        (a, b) =>
+                                            new Date(
+                                                b.applied_at
+                                            ) -
+                                            new Date(
+                                                a.applied_at
+                                            )
+                                    )[0];
+
+                            }
+
+
+
+                            const internship =
+                                application
+                                    ? internshipMap[
+                                        application.internship_id
+                                    ]
+                                    : null;
+
+
+
+                            const company =
+                                internship
+                                    ? companyMap[
+                                        internship.company_id
+                                    ]
+                                    : null;
+
+
+
+                            return {
+
+                                id: student.id,
+
+                                name:
+                                    profile.full_name ||
+                                    profile.username ||
+                                    "Student",
+
+                                username:
+                                    profile.username ||
+                                    "",
+
+                                major:
+                                    student.major ||
+                                    "Major not specified",
+
+                                company:
+                                    company
+                                        ? company.name
+                                        : "No company assigned",
+
+                                applicationStatus:
+                                    application
+                                        ? application.status
+                                        : "pending",
+
+                                internship:
+
+                                    internship || null
+
+                            };
+
+                        }
+                    );
+
+
+
+                /* -------------------------------------
+                   RENDER STUDENTS
+                ------------------------------------- */
+
+                renderStudents();
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Supervisor students error:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "studentsList"
+                ).innerHTML = `
+                    <p
+                        style="
+                            text-align: center;
+                            padding: 30px;
+                            color: #b44;
+                        "
+                    >
+                        Unable to load students.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           GET STUDENT STATUS
+        ========================================= */
+
+        function getStudentStatus(student) {
+
+
+            if (
+                student.applicationStatus !==
+                "accepted"
+            ) {
+
+                return "active";
+
+            }
+
+
+            if (
+                student.internship &&
+                student.internship.end_date
+            ) {
+
+                const endDate =
+                    new Date(
+                        student.internship.end_date
+                    );
+
+
+                if (
+                    endDate <
+                    new Date()
+                ) {
+
+                    return "completed";
+
+                }
+
+            }
+
+
+            return "active";
+
+        }
+
+
+
+        /* =========================================
+           RENDER STUDENTS
+        ========================================= */
+
+        function renderStudents() {
+
+
+            const container =
+                document.getElementById(
+                    "studentsList"
+                );
+
+
+            const noStudents =
+                document.getElementById(
+                    "noStudents"
+                );
+
+
+            const searchInput =
+                document.getElementById(
+                    "studentSearch"
+                );
+
+
+            const statusFilter =
+                document.getElementById(
+                    "statusFilter"
+                );
+
+
+            const searchValue =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const selectedStatus =
+                statusFilter.value;
+
+
+
+            const filteredStudents =
+                allStudents.filter(
+                    student => {
+
+
+                        const studentName =
+                            student.name
+                                .toLowerCase();
+
+
+                        const studentStatus =
+                            getStudentStatus(
+                                student
+                            );
+
+
+                        const matchesSearch =
+                            studentName.includes(
+                                searchValue
+                            );
+
+
+                        const matchesStatus =
+                            selectedStatus ===
+                                "all" ||
+                            selectedStatus ===
+                                studentStatus;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesStatus
+                        );
+
+                    }
+                );
+
+
+
+            /* -------------------------------------
+               NO RESULTS
+            ------------------------------------- */
+
+            if (
+                filteredStudents.length === 0
+            ) {
+
+                container.innerHTML = "";
+
+                noStudents.style.display =
+                    "block";
+
+                return;
+
+            }
+
+
+            noStudents.style.display =
+                "none";
+
+
+
+            /* -------------------------------------
+               RENDER
+            ------------------------------------- */
+
+            container.innerHTML =
+                filteredStudents
+                    .map(
+                        student => {
+
+
+                            const status =
+                                getStudentStatus(
+                                    student
+                                );
+
+
+                            const statusText =
+                                status ===
+                                    "completed"
+                                    ? "Completed"
+                                    : "Active";
+
+
+                            const firstLetters =
+                                student.name
+                                    .trim()
+                                    .split(/\s+/)
+                                    .slice(0, 2)
+                                    .map(
+                                        word =>
+                                            word
+                                                .charAt(0)
+                                                .toUpperCase()
+                                    )
+                                    .join("");
+
+
+                            return `
+
+                                <div
+                                    class="supervisor-student-row"
+                                    data-name="${escapeHTML(
+                                        student.name
+                                    )}"
+                                    data-status="${status}"
+                                >
+
+
+                                    <div class="student-avatar">
+                                        ${escapeHTML(
+                                            firstLetters
+                                        )}
+                                    </div>
+
+
+                                    <div class="student-info">
+
+                                        <h3>
+                                            ${escapeHTML(
+                                                student.name
+                                            )}
+                                        </h3>
+
+                                        <p>
+                                            ${escapeHTML(
+                                                student.major
+                                            )}
+                                        </p>
+
+                                    </div>
+
+
+                                    <div class="student-company">
+
+                                        <span>
+                                            Internship Company
+                                        </span>
+
+                                        <strong>
+                                            ${escapeHTML(
+                                                student.company
+                                            )}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <span
+                                        class="internship-status ${status}"
+                                    >
+                                        ${statusText}
+                                    </span>
+
+
+                                    <a
+                                        href="student-progress.html?id=${encodeURIComponent(
+                                            student.id
+                                        )}"
+                                        class="review-button"
+                                    >
+                                        View
+                                    </a>
+
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        document
+            .getElementById("studentSearch")
+            .addEventListener(
+                "input",
+                renderStudents
+            );
+
+
+
+        /* =========================================
+           STATUS FILTER
+        ========================================= */
+
+        document
+            .getElementById("statusFilter")
+            .addEventListener(
+                "change",
+                renderStudents
+            );
+
+
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+
+        document
+            .getElementById("logoutLink")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    await db.auth.signOut();
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadStudents();
+
+    </script>
+
+
+</body>
+
+</html>

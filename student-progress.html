@@ -1,0 +1,1568 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Progress</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a
+                href="supervisor-dashboard.html"
+                class="brand"
+            >
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="supervisor-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="supervisor-students.html"
+                    class="active"
+                >
+                    My Students
+                </a>
+
+                <a href="supervisor-profile.html">
+                    Profile
+                </a>
+
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutLink"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="student-progress-page">
+
+
+        <!-- Back Button -->
+
+        <a
+            href="supervisor-students.html"
+            class="progress-back"
+        >
+            ← Back to My Students
+        </a>
+
+
+
+        <!-- ================= STUDENT HEADER ================= -->
+
+        <section class="student-progress-header">
+
+            <div
+                class="student-progress-avatar"
+                id="studentAvatar"
+            >
+                --
+            </div>
+
+
+            <div class="student-progress-info">
+
+                <h1 id="studentName">
+                    Loading...
+                </h1>
+
+                <p id="studentMajor">
+                    Loading...
+                </p>
+
+                <span
+                    class="progress-status"
+                    id="progressStatus"
+                >
+                    Loading...
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= INTERNSHIP INFORMATION ================= -->
+
+        <section class="progress-section">
+
+            <h2>
+                Internship Information
+            </h2>
+
+
+            <div class="progress-info-grid">
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        Company
+                    </span>
+
+                    <strong id="companyName">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        Field
+                    </span>
+
+                    <strong id="internshipField">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        Start Date
+                    </span>
+
+                    <strong id="startDate">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        End Date
+                    </span>
+
+                    <strong id="endDate">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong id="studentEmail">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-info-card">
+
+                    <span>
+                        Phone
+                    </span>
+
+                    <strong id="studentPhone">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= INTERNSHIP PROGRESS ================= -->
+
+        <section class="progress-section">
+
+            <h2>
+                Internship Progress
+            </h2>
+
+
+            <div class="progress-timeline">
+
+
+                <!-- STEP 1 -->
+
+                <div
+                    class="progress-step"
+                    id="stepAccepted"
+                >
+
+                    <div class="progress-dot"></div>
+
+                    <div class="progress-step-content">
+
+                        <h3>
+                            Application Accepted
+                        </h3>
+
+                        <p id="acceptedDescription">
+                            Waiting for the company to accept
+                            the student's internship application.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STEP 2 -->
+
+                <div
+                    class="progress-step"
+                    id="stepStarted"
+                >
+
+                    <div class="progress-dot"></div>
+
+                    <div class="progress-step-content">
+
+                        <h3>
+                            Internship Started
+                        </h3>
+
+                        <p id="startedDescription">
+                            The internship has not started yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STEP 3 -->
+
+                <div
+                    class="progress-step"
+                    id="stepProgress"
+                >
+
+                    <div class="progress-dot"></div>
+
+                    <div class="progress-step-content">
+
+                        <h3>
+                            Internship In Progress
+                        </h3>
+
+                        <p id="progressDescription">
+                            The student is currently completing
+                            the internship.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STEP 4 -->
+
+                <div
+                    class="progress-step"
+                    id="stepEvaluation"
+                >
+
+                    <div class="progress-dot"></div>
+
+                    <div class="progress-step-content">
+
+                        <h3>
+                            Evaluation
+                        </h3>
+
+                        <p id="evaluationProgressText">
+                            Waiting for the company evaluation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STEP 5 -->
+
+                <div
+                    class="progress-step"
+                    id="stepCompleted"
+                >
+
+                    <div class="progress-dot"></div>
+
+                    <div class="progress-step-content">
+
+                        <h3>
+                            Internship Completed
+                        </h3>
+
+                        <p id="completedDescription">
+                            The internship has not been completed yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= EVALUATION ================= -->
+
+        <section class="progress-section">
+
+            <h2>
+                Evaluation
+            </h2>
+
+
+            <!-- Evaluation Not Submitted -->
+
+            <div
+                class="evaluation-empty"
+                id="evaluationEmpty"
+            >
+
+                <div class="evaluation-icon">
+                    📄
+                </div>
+
+                <h3 id="evaluationTitle">
+                    Evaluation Not Submitted Yet
+                </h3>
+
+                <p id="evaluationDescription">
+                    The company has not submitted the
+                    student's internship evaluation.
+                </p>
+
+            </div>
+
+
+
+            <!-- Evaluation Submitted -->
+
+            <div
+                class="evaluation-empty"
+                id="evaluationSubmitted"
+                style="display: none;"
+            >
+
+                <div class="evaluation-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Evaluation Submitted
+                </h3>
+
+                <p id="submittedEvaluationText">
+                    The company has submitted the
+                    student's internship evaluation.
+                </p>
+
+
+                <br>
+
+
+                <a
+                    href="#"
+                    class="review-button"
+                    id="viewPdfButton"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View PDF
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        /* ==========================================
+           ESCAPE HTML
+        ========================================== */
+
+        function escapeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* ==========================================
+           FORMAT DATE
+        ========================================== */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+                return "-";
+            }
+
+
+            const date =
+                new Date(dateValue);
+
+
+            if (isNaN(date.getTime())) {
+                return "-";
+            }
+
+
+            return date.toLocaleDateString(
+                "en-US",
+                {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+
+        /* ==========================================
+           GET STUDENT ID FROM URL
+        ========================================== */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const studentId =
+            params.get("id");
+
+
+
+        /* ==========================================
+           PROGRESS ELEMENTS
+        ========================================== */
+
+        const stepAccepted =
+            document.getElementById(
+                "stepAccepted"
+            );
+
+
+        const stepStarted =
+            document.getElementById(
+                "stepStarted"
+            );
+
+
+        const stepProgress =
+            document.getElementById(
+                "stepProgress"
+            );
+
+
+        const stepEvaluation =
+            document.getElementById(
+                "stepEvaluation"
+            );
+
+
+        const stepCompleted =
+            document.getElementById(
+                "stepCompleted"
+            );
+
+
+
+        /* ==========================================
+           LOAD STUDENT
+        ========================================== */
+
+        async function loadStudentProgress() {
+
+            try {
+
+
+                /* --------------------------------------
+                   CHECK STUDENT ID
+                -------------------------------------- */
+
+                if (!studentId) {
+
+                    throw new Error(
+                        "Student ID is missing from the URL."
+                    );
+
+                }
+
+
+
+                /* --------------------------------------
+                   GET CURRENT SUPERVISOR
+                -------------------------------------- */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (userError) {
+                    throw userError;
+                }
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                /* --------------------------------------
+                   GET STUDENT
+                -------------------------------------- */
+
+                const {
+                    data: student,
+                    error: studentError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        major,
+                        university,
+                        supervisor_id
+                    `)
+                    .eq("id", studentId)
+                    .eq("supervisor_id", user.id)
+                    .maybeSingle();
+
+
+                if (studentError) {
+                    throw studentError;
+                }
+
+
+                if (!student) {
+
+                    throw new Error(
+                        "Student was not found or is not assigned to this supervisor."
+                    );
+
+                }
+
+
+
+                /* --------------------------------------
+                   GET STUDENT PROFILE
+                -------------------------------------- */
+
+                const {
+                    data: profile,
+                    error: profileError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email,
+                        phone
+                    `)
+                    .eq("id", student.id)
+                    .maybeSingle();
+
+
+                if (profileError) {
+                    throw profileError;
+                }
+
+
+
+                /* --------------------------------------
+                   GET APPLICATIONS
+                -------------------------------------- */
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } = await db
+                    .from("applications")
+                    .select(`
+                        id,
+                        internship_id,
+                        status,
+                        applied_at
+                    `)
+                    .eq("student_id", student.id)
+                    .order(
+                        "applied_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+                if (applicationsError) {
+                    throw applicationsError;
+                }
+
+
+                const applicationList =
+                    applications || [];
+
+
+
+                /* --------------------------------------
+                   FIND APPLICATION
+                -------------------------------------- */
+
+                let application =
+                    applicationList.find(
+                        item =>
+                            item.status ===
+                            "accepted"
+                    );
+
+
+                if (
+                    !application &&
+                    applicationList.length > 0
+                ) {
+
+                    application =
+                        applicationList[0];
+
+                }
+
+
+
+                /* --------------------------------------
+                   NO APPLICATION
+                -------------------------------------- */
+
+                let internship = null;
+
+                let company = null;
+
+                let evaluation = null;
+
+
+                if (application) {
+
+
+                    /* ----------------------------------
+                       GET INTERNSHIP
+                    ---------------------------------- */
+
+                    const {
+                        data: internshipData,
+                        error: internshipError
+                    } = await db
+                        .from("internships")
+                        .select(`
+                            id,
+                            company_id,
+                            title,
+                            field,
+                            city,
+                            start_date,
+                            end_date,
+                            status
+                        `)
+                        .eq(
+                            "id",
+                            application.internship_id
+                        )
+                        .maybeSingle();
+
+
+                    if (internshipError) {
+                        throw internshipError;
+                    }
+
+
+                    internship =
+                        internshipData;
+
+
+
+                    /* ----------------------------------
+                       GET COMPANY
+                    ---------------------------------- */
+
+                    if (internship) {
+
+                        const {
+                            data: companyData,
+                            error: companyError
+                        } = await db
+                            .from("companies")
+                            .select(`
+                                id,
+                                name
+                            `)
+                            .eq(
+                                "id",
+                                internship.company_id
+                            )
+                            .maybeSingle();
+
+
+                        if (companyError) {
+                            throw companyError;
+                        }
+
+
+                        company =
+                            companyData;
+
+                    }
+
+
+
+                    /* ----------------------------------
+                       GET EVALUATION
+                    ---------------------------------- */
+
+                    const {
+                        data: evaluationData,
+                        error: evaluationError
+                    } = await db
+                        .from("evaluations")
+                        .select(`
+                            id,
+                            application_id,
+                            pdf_url,
+                            status,
+                            submitted_at
+                        `)
+                        .eq(
+                            "application_id",
+                            application.id
+                        )
+                        .maybeSingle();
+
+
+                    if (evaluationError) {
+
+                        console.error(
+                            "Evaluation query error:",
+                            evaluationError
+                        );
+
+                    } else {
+
+                        evaluation =
+                            evaluationData;
+
+                    }
+
+                }
+
+
+
+                /* --------------------------------------
+                   DISPLAY BASIC STUDENT INFORMATION
+                -------------------------------------- */
+
+                const studentName =
+                    profile
+                        ? (
+                            profile.full_name ||
+                            profile.username ||
+                            "Student"
+                        )
+                        : "Student";
+
+
+                const studentMajor =
+                    student.major ||
+                    "Major not specified";
+
+
+                const initials =
+                    studentName
+                        .trim()
+                        .split(/\s+/)
+                        .slice(0, 2)
+                        .map(
+                            word =>
+                                word
+                                    .charAt(0)
+                                    .toUpperCase()
+                        )
+                        .join("");
+
+
+
+                document.getElementById(
+                    "studentAvatar"
+                ).textContent =
+                    initials || "ST";
+
+
+                document.getElementById(
+                    "studentName"
+                ).textContent =
+                    studentName;
+
+
+                document.getElementById(
+                    "studentMajor"
+                ).textContent =
+                    studentMajor;
+
+
+                document.getElementById(
+                    "studentEmail"
+                ).textContent =
+                    profile && profile.email
+                        ? profile.email
+                        : "-";
+
+
+                document.getElementById(
+                    "studentPhone"
+                ).textContent =
+                    profile && profile.phone
+                        ? profile.phone
+                        : "-";
+
+
+
+                /* --------------------------------------
+                   INTERNSHIP INFORMATION
+                -------------------------------------- */
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    company
+                        ? company.name
+                        : "No company assigned";
+
+
+                document.getElementById(
+                    "internshipField"
+                ).textContent =
+                    internship
+                        ? (
+                            internship.field ||
+                            internship.title ||
+                            "-"
+                        )
+                        : "-";
+
+
+                document.getElementById(
+                    "startDate"
+                ).textContent =
+                    internship
+                        ? formatDate(
+                            internship.start_date
+                        )
+                        : "-";
+
+
+                document.getElementById(
+                    "endDate"
+                ).textContent =
+                    internship
+                        ? formatDate(
+                            internship.end_date
+                        )
+                        : "-";
+
+
+
+                /* --------------------------------------
+                   DETERMINE STATUS
+                -------------------------------------- */
+
+                let currentStatus =
+                    "pending";
+
+
+                if (
+                    application &&
+                    application.status ===
+                    "accepted"
+                ) {
+
+                    if (
+                        internship &&
+                        internship.end_date &&
+                        new Date(
+                            internship.end_date
+                        ) < new Date()
+                    ) {
+
+                        currentStatus =
+                            "completed";
+
+                    } else {
+
+                        currentStatus =
+                            "active";
+
+                    }
+
+                }
+
+
+                if (
+                    application &&
+                    application.status ===
+                    "rejected"
+                ) {
+
+                    currentStatus =
+                        "rejected";
+
+                }
+
+
+
+                /* --------------------------------------
+                   STATUS TEXT
+                -------------------------------------- */
+
+                const statusTextMap = {
+
+                    pending:
+                        "Pending Application",
+
+                    active:
+                        "Active Internship",
+
+                    completed:
+                        "Completed Internship",
+
+                    rejected:
+                        "Application Rejected"
+
+                };
+
+
+                document.getElementById(
+                    "progressStatus"
+                ).textContent =
+                    statusTextMap[
+                        currentStatus
+                    ];
+
+
+
+                /* --------------------------------------
+                   UPDATE PROGRESS
+                -------------------------------------- */
+
+                updateProgress(
+                    currentStatus,
+                    application,
+                    internship,
+                    evaluation
+                );
+
+
+
+                /* --------------------------------------
+                   UPDATE EVALUATION
+                -------------------------------------- */
+
+                updateEvaluation(
+                    studentName,
+                    evaluation
+                );
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Student progress error:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "studentName"
+                ).textContent =
+                    "Unable to load student";
+
+
+                document.getElementById(
+                    "studentMajor"
+                ).textContent =
+                    "";
+
+
+                alert(
+                    error.message ||
+                    "Unable to load student information."
+                );
+
+            }
+
+        }
+
+
+
+        /* ==========================================
+           UPDATE PROGRESS
+        ========================================== */
+
+        function updateProgress(
+            status,
+            application,
+            internship,
+            evaluation
+        ) {
+
+
+            /* --------------------------------------
+               RESET
+            -------------------------------------- */
+
+            [
+                stepAccepted,
+                stepStarted,
+                stepProgress,
+                stepEvaluation,
+                stepCompleted
+            ].forEach(
+                step => {
+
+                    step.classList.remove(
+                        "completed",
+                        "current",
+                        "pending"
+                    );
+
+                }
+            );
+
+
+
+            const acceptedDescription =
+                document.getElementById(
+                    "acceptedDescription"
+                );
+
+
+            const startedDescription =
+                document.getElementById(
+                    "startedDescription"
+                );
+
+
+            const progressDescription =
+                document.getElementById(
+                    "progressDescription"
+                );
+
+
+            const evaluationProgressText =
+                document.getElementById(
+                    "evaluationProgressText"
+                );
+
+
+            const completedDescription =
+                document.getElementById(
+                    "completedDescription"
+                );
+
+
+
+            /* --------------------------------------
+               PENDING
+            -------------------------------------- */
+
+            if (
+                !application ||
+                application.status ===
+                "pending"
+            ) {
+
+                stepAccepted.classList.add(
+                    "current"
+                );
+
+                stepStarted.classList.add(
+                    "pending"
+                );
+
+                stepProgress.classList.add(
+                    "pending"
+                );
+
+                stepEvaluation.classList.add(
+                    "pending"
+                );
+
+                stepCompleted.classList.add(
+                    "pending"
+                );
+
+
+                acceptedDescription.textContent =
+                    "Waiting for the company to accept the student's internship application.";
+
+                return;
+
+            }
+
+
+
+            /* --------------------------------------
+               REJECTED
+            -------------------------------------- */
+
+            if (
+                application.status ===
+                "rejected"
+            ) {
+
+                stepAccepted.classList.add(
+                    "pending"
+                );
+
+                stepStarted.classList.add(
+                    "pending"
+                );
+
+                stepProgress.classList.add(
+                    "pending"
+                );
+
+                stepEvaluation.classList.add(
+                    "pending"
+                );
+
+                stepCompleted.classList.add(
+                    "pending"
+                );
+
+
+                acceptedDescription.textContent =
+                    "The company rejected the student's internship application.";
+
+                return;
+
+            }
+
+
+
+            /* --------------------------------------
+               ACCEPTED
+            -------------------------------------- */
+
+            stepAccepted.classList.add(
+                "completed"
+            );
+
+
+            acceptedDescription.textContent =
+                "The company accepted the student's internship application.";
+
+
+
+            /* --------------------------------------
+               START DATE
+            -------------------------------------- */
+
+            if (
+                internship &&
+                internship.start_date
+            ) {
+
+                const startDate =
+                    new Date(
+                        internship.start_date
+                    );
+
+
+                if (
+                    startDate <= new Date()
+                ) {
+
+                    stepStarted.classList.add(
+                        "completed"
+                    );
+
+                    startedDescription.textContent =
+                        "The student has started the internship.";
+
+                } else {
+
+                    stepStarted.classList.add(
+                        "current"
+                    );
+
+                    startedDescription.textContent =
+                        "The internship has not started yet.";
+
+                }
+
+            } else {
+
+                stepStarted.classList.add(
+                    "current"
+                );
+
+                startedDescription.textContent =
+                    "The internship start date has not been specified.";
+
+            }
+
+
+
+            /* --------------------------------------
+               ACTIVE
+            -------------------------------------- */
+
+            if (
+                status === "active"
+            ) {
+
+                stepProgress.classList.add(
+                    "current"
+                );
+
+                stepEvaluation.classList.add(
+                    "pending"
+                );
+
+                stepCompleted.classList.add(
+                    "pending"
+                );
+
+
+                progressDescription.textContent =
+                    "The student is currently completing the internship.";
+
+                evaluationProgressText.textContent =
+                    evaluation &&
+                    evaluation.status ===
+                    "submitted"
+                        ? "The company has submitted the internship evaluation."
+                        : "Waiting for the company evaluation.";
+
+                completedDescription.textContent =
+                    "The internship has not been completed yet.";
+
+                return;
+
+            }
+
+
+
+            /* --------------------------------------
+               COMPLETED
+            -------------------------------------- */
+
+            if (
+                status === "completed"
+            ) {
+
+                stepProgress.classList.add(
+                    "completed"
+                );
+
+
+                if (
+                    evaluation &&
+                    evaluation.status ===
+                    "submitted"
+                ) {
+
+                    stepEvaluation.classList.add(
+                        "completed"
+                    );
+
+                    evaluationProgressText.textContent =
+                        "The company has submitted the internship evaluation.";
+
+                } else {
+
+                    stepEvaluation.classList.add(
+                        "current"
+                    );
+
+                    evaluationProgressText.textContent =
+                        "Waiting for the company evaluation.";
+
+                }
+
+
+                stepCompleted.classList.add(
+                    "completed"
+                );
+
+
+                progressDescription.textContent =
+                    "The student completed the internship period.";
+
+                completedDescription.textContent =
+                    "The internship has been completed successfully.";
+
+            }
+
+        }
+
+
+
+        /* ==========================================
+           UPDATE EVALUATION
+        ========================================== */
+
+        function updateEvaluation(
+            studentName,
+            evaluation
+        ) {
+
+
+            const evaluationEmpty =
+                document.getElementById(
+                    "evaluationEmpty"
+                );
+
+
+            const evaluationSubmitted =
+                document.getElementById(
+                    "evaluationSubmitted"
+                );
+
+
+            const evaluationTitle =
+                document.getElementById(
+                    "evaluationTitle"
+                );
+
+
+            const evaluationDescription =
+                document.getElementById(
+                    "evaluationDescription"
+                );
+
+
+            const submittedEvaluationText =
+                document.getElementById(
+                    "submittedEvaluationText"
+                );
+
+
+            const viewPdfButton =
+                document.getElementById(
+                    "viewPdfButton"
+                );
+
+
+
+            /* --------------------------------------
+               SUBMITTED
+            -------------------------------------- */
+
+            if (
+                evaluation &&
+                evaluation.status ===
+                "submitted"
+            ) {
+
+                evaluationEmpty.style.display =
+                    "none";
+
+
+                evaluationSubmitted.style.display =
+                    "block";
+
+
+                submittedEvaluationText.textContent =
+                    "The company has submitted " +
+                    studentName +
+                    "'s internship evaluation.";
+
+
+                if (
+                    evaluation.pdf_url
+                ) {
+
+                    viewPdfButton.href =
+                        evaluation.pdf_url;
+
+                    viewPdfButton.style.display =
+                        "inline-block";
+
+                } else {
+
+                    viewPdfButton.style.display =
+                        "none";
+
+                }
+
+
+                return;
+
+            }
+
+
+
+            /* --------------------------------------
+               NOT SUBMITTED
+            -------------------------------------- */
+
+            evaluationEmpty.style.display =
+                "block";
+
+
+            evaluationSubmitted.style.display =
+                "none";
+
+
+            evaluationTitle.textContent =
+                "Evaluation Not Submitted Yet";
+
+
+            evaluationDescription.textContent =
+                "The company has not submitted " +
+                studentName +
+                "'s internship evaluation.";
+
+        }
+
+
+
+        /* ==========================================
+           LOGOUT
+        ========================================== */
+
+        document
+            .getElementById("logoutLink")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    await db.auth.signOut();
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        /* ==========================================
+           START
+        ========================================== */
+
+        loadStudentProgress();
+
+    </script>
+
+
+</body>
+
+</html>

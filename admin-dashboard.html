@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>Internship Management System</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a
+                    href="admin-dashboard.html"
+                    class="active"
+                >
+                    Dashboard
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= ADMIN DASHBOARD ================= -->
+
+    <main class="admin-dashboard-page">
+
+
+        <!-- Welcome -->
+
+        <section class="admin-welcome">
+
+            <p class="admin-label">
+                ADMIN DASHBOARD
+            </p>
+
+            <h1>
+                Welcome, Admin 👋
+            </h1>
+
+            <p>
+                Manage and monitor the Internship Management System.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="admin-stats">
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    👨‍🎓
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Students
+                    </span>
+
+                    <strong>
+                        120
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    🏢
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Companies
+                    </span>
+
+                    <strong>
+                        35
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    👨‍🏫
+                </div>
+
+                <div>
+
+                    <span>
+                        Supervisors
+                    </span>
+
+                    <strong>
+                        12
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    📋
+                </div>
+
+                <div>
+
+                    <span>
+                        Internships
+                    </span>
+
+                    <strong>
+                        48
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= SYSTEM MANAGEMENT ================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+
+                    <p class="admin-section-label">
+                        MANAGEMENT
+                    </p>
+
+                    <h2>
+                        System Management
+                    </h2>
+
+                </div>
+
+                <p>
+                    Manage the main data of the system.
+                </p>
+
+            </div>
+
+
+
+            <div class="admin-management-grid">
+
+
+                <!-- Students -->
+
+                <div class="admin-management-card">
+
+                    <div class="admin-management-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div class="admin-management-content">
+
+                        <h3>
+                            Students
+                        </h3>
+
+                        <p>
+                            View, edit and delete student accounts
+                            and information.
+                        </p>
+
+                        <a
+                            href="admin-students.html"
+                            class="admin-manage-button"
+                        >
+                            Manage Students
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Companies -->
+
+                <div class="admin-management-card">
+
+                    <div class="admin-management-icon">
+                        🏢
+                    </div>
+
+                    <div class="admin-management-content">
+
+                        <h3>
+                            Companies
+                        </h3>
+
+                        <p>
+                            Manage registered companies and
+                            their information.
+                        </p>
+
+                        <a
+                            href="admin-companies.html"
+                            class="admin-manage-button"
+                        >
+                            Manage Companies
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Supervisors -->
+
+                <div class="admin-management-card">
+
+                    <div class="admin-management-icon">
+                        👨‍🏫
+                    </div>
+
+                    <div class="admin-management-content">
+
+                        <h3>
+                            Supervisors
+                        </h3>
+
+                        <p>
+                            Manage university supervisors
+                            and their accounts.
+                        </p>
+
+                        <a
+                            href="admin-supervisors.html"
+                            class="admin-manage-button"
+                        >
+                            Manage Supervisors
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Internships -->
+
+                <div class="admin-management-card">
+
+                    <div class="admin-management-icon">
+                        📋
+                    </div>
+
+                    <div class="admin-management-content">
+
+                        <h3>
+                            Internships
+                        </h3>
+
+                        <p>
+                            View and manage all internship
+                            opportunities.
+                        </p>
+
+                        <a
+                            href="admin-internships.html"
+                            class="admin-manage-button"
+                        >
+                            Manage Internships
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= RECENT ACTIVITY ================= -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-header">
+
+                <div>
+
+                    <p class="admin-section-label">
+                        SYSTEM ACTIVITY
+                    </p>
+
+                    <h2>
+                        Recent Activity
+                    </h2>
+
+                </div>
+
+                <p>
+                    Latest activities across the system.
+                </p>
+
+            </div>
+
+
+
+            <div class="admin-activity-card">
+
+
+                <!-- Activity 1 -->
+
+                <div class="admin-activity-item">
+
+                    <div class="admin-activity-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div class="admin-activity-info">
+
+                        <strong>
+                            Ahmad Ali
+                        </strong>
+
+                        <p>
+                            Registered as a new student.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-activity-time">
+                        Today
+                    </span>
+
+                </div>
+
+
+
+                <!-- Activity 2 -->
+
+                <div class="admin-activity-item">
+
+                    <div class="admin-activity-icon">
+                        🏢
+                    </div>
+
+                    <div class="admin-activity-info">
+
+                        <strong>
+                            Ooredoo Palestine
+                        </strong>
+
+                        <p>
+                            Posted a new internship opportunity.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-activity-time">
+                        Today
+                    </span>
+
+                </div>
+
+
+
+                <!-- Activity 3 -->
+
+                <div class="admin-activity-item">
+
+                    <div class="admin-activity-icon">
+                        👨‍🏫
+                    </div>
+
+                    <div class="admin-activity-info">
+
+                        <strong>
+                            Dr. Ahmad
+                        </strong>
+
+                        <p>
+                            Supervisor account was created.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-activity-time">
+                        Yesterday
+                    </span>
+
+                </div>
+
+
+
+                <!-- Activity 4 -->
+
+                <div class="admin-activity-item">
+
+                    <div class="admin-activity-icon">
+                        📋
+                    </div>
+
+                    <div class="admin-activity-info">
+
+                        <strong>
+                            Internship Application
+                        </strong>
+
+                        <p>
+                            A new application was submitted.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-activity-time">
+                        Yesterday
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

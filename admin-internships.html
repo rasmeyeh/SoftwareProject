@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Internships</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a href="index.html">
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="admin-internships-page">
+
+      <a href="admin-dashboard.html" class="admin-back">
+            ← Back to Dashboard
+        </a>
+        <!-- ================= PAGE HEADER ================= -->
+
+        <div class="admin-internships-header">
+
+            <div>
+
+                <p class="admin-internships-label">
+                    INTERNSHIP MANAGEMENT
+                </p>
+
+                <h1>
+                    Manage Internships
+                </h1>
+
+                <p>
+                    View and manage internship opportunities posted by companies.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= INTERNSHIPS CARD ================= -->
+
+        <section class="admin-internships-card">
+
+
+            <!-- ================= TOOLBAR ================= -->
+
+            <div class="admin-internships-toolbar">
+
+
+                <input
+                    type="text"
+                    id="internshipSearch"
+                    class="admin-internship-search"
+                    placeholder="Search internships or companies..."
+                >
+
+
+                <select
+                    id="internshipStatus"
+                    class="admin-internship-filter"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="closed">
+                        Closed
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="internshipField"
+                    class="admin-internship-filter"
+                >
+
+                    <option value="all">
+                        All Fields
+                    </option>
+
+                    <option value="telecommunications">
+                        Telecommunications & IT
+                    </option>
+
+                    <option value="networking">
+                        Networking
+                    </option>
+
+                    <option value="electronics">
+                        Electronics
+                    </option>
+
+                </select>
+
+
+                <select
+                    id="internshipCity"
+                    class="admin-internship-filter"
+                >
+
+                    <option value="all">
+                        All Cities
+                    </option>
+
+                    <option value="ramallah">
+                        Ramallah
+                    </option>
+
+                    <option value="nablus">
+                        Nablus
+                    </option>
+
+                    <option value="hebron">
+                        Hebron
+                    </option>
+
+                    <option value="bethlehem">
+                        Bethlehem
+                    </option>
+
+                    <option value="jerusalem">
+                        Jerusalem
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ================= INTERNSHIP LIST ================= -->
+
+            <div
+                class="admin-internships-list"
+                id="internshipList"
+            >
+
+
+                <!-- Internship 1 -->
+
+                <div
+                    class="admin-internship-item"
+                    data-status="active"
+                    data-field="telecommunications"
+                    data-city="ramallah"
+                >
+
+                    <div class="admin-internship-icon">
+                        💼
+                    </div>
+
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            IT Support Intern
+                        </h3>
+
+                        <p>
+                            Ooredoo Palestine
+                        </p>
+
+                        <div class="admin-internship-meta">
+
+                            <span>
+                                Telecommunications & IT
+                            </span>
+
+                            <span>
+                                Ramallah
+                            </span>
+
+                            <span>
+                                Aug 1 – Oct 1, 2026
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-internship-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-internship-actions">
+
+                        <a
+                            href="#"
+                            class="admin-internship-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-internship-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            class="admin-internship-delete"
+                            onclick="deleteInternship(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Internship 2 -->
+
+                <div
+                    class="admin-internship-item"
+                    data-status="active"
+                    data-field="networking"
+                    data-city="ramallah"
+                >
+
+                    <div class="admin-internship-icon">
+                        🌐
+                    </div>
+
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            Network Intern
+                        </h3>
+
+                        <p>
+                            Network Pro
+                        </p>
+
+                        <div class="admin-internship-meta">
+
+                            <span>
+                                Networking
+                            </span>
+
+                            <span>
+                                Ramallah
+                            </span>
+
+                            <span>
+                                Aug 10 – Oct 10, 2026
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-internship-status active">
+                        Active
+                    </div>
+
+
+                    <div class="admin-internship-actions">
+
+                        <a
+                            href="#"
+                            class="admin-internship-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-internship-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            class="admin-internship-delete"
+                            onclick="deleteInternship(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Internship 3 -->
+
+                <div
+                    class="admin-internship-item"
+                    data-status="pending"
+                    data-field="telecommunications"
+                    data-city="ramallah"
+                >
+
+                    <div class="admin-internship-icon">
+                        📡
+                    </div>
+
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            Telecommunications Intern
+                        </h3>
+
+                        <p>
+                            Jawwal
+                        </p>
+
+                        <div class="admin-internship-meta">
+
+                            <span>
+                                Telecommunications & IT
+                            </span>
+
+                            <span>
+                                Ramallah
+                            </span>
+
+                            <span>
+                                Aug 5 – Oct 5, 2026
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-internship-status pending">
+                        Pending
+                    </div>
+
+
+                    <div class="admin-internship-actions">
+
+                        <a
+                            href="#"
+                            class="admin-internship-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-internship-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            class="admin-internship-delete"
+                            onclick="deleteInternship(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Internship 4 -->
+
+                <div
+                    class="admin-internship-item"
+                    data-status="closed"
+                    data-field="electronics"
+                    data-city="bethlehem"
+                >
+
+                    <div class="admin-internship-icon">
+                        ⚡
+                    </div>
+
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            Electronics Engineering Intern
+                        </h3>
+
+                        <p>
+                            Electronics Hub
+                        </p>
+
+                        <div class="admin-internship-meta">
+
+                            <span>
+                                Electronics
+                            </span>
+
+                            <span>
+                                Bethlehem
+                            </span>
+
+                            <span>
+                                Jun 1 – Aug 1, 2026
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-internship-status closed">
+                        Closed
+                    </div>
+
+
+                    <div class="admin-internship-actions">
+
+                        <a
+                            href="#"
+                            class="admin-internship-view"
+                        >
+                            View
+                        </a>
+
+                        <a
+                            href="#"
+                            class="admin-internship-edit"
+                        >
+                            Edit
+                        </a>
+
+                        <button
+                            class="admin-internship-delete"
+                            onclick="deleteInternship(this)"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const searchInput =
+            document.getElementById("internshipSearch");
+
+        const statusFilter =
+            document.getElementById("internshipStatus");
+
+        const fieldFilter =
+            document.getElementById("internshipField");
+
+        const cityFilter =
+            document.getElementById("internshipCity");
+
+        const internships =
+            document.querySelectorAll(".admin-internship-item");
+
+
+        function filterInternships() {
+
+            const searchValue =
+                searchInput.value.toLowerCase();
+
+            const selectedStatus =
+                statusFilter.value;
+
+            const selectedField =
+                fieldFilter.value;
+
+            const selectedCity =
+                cityFilter.value;
+
+
+            internships.forEach(function (internship) {
+
+                const text =
+                    internship.textContent.toLowerCase();
+
+                const status =
+                    internship.dataset.status;
+
+                const field =
+                    internship.dataset.field;
+
+                const city =
+                    internship.dataset.city;
+
+
+                const matchesSearch =
+                    text.includes(searchValue);
+
+                const matchesStatus =
+                    selectedStatus === "all" ||
+                    status === selectedStatus;
+
+                const matchesField =
+                    selectedField === "all" ||
+                    field === selectedField;
+
+                const matchesCity =
+                    selectedCity === "all" ||
+                    city === selectedCity;
+
+
+                if (
+                    matchesSearch &&
+                    matchesStatus &&
+                    matchesField &&
+                    matchesCity
+                ) {
+
+                    internship.style.display = "grid";
+
+                } else {
+
+                    internship.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterInternships
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            filterInternships
+        );
+
+
+        fieldFilter.addEventListener(
+            "change",
+            filterInternships
+        );
+
+
+        cityFilter.addEventListener(
+            "change",
+            filterInternships
+        );
+
+
+
+        function deleteInternship(button) {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this internship?"
+                );
+
+
+            if (confirmed) {
+
+                button
+                    .closest(".admin-internship-item")
+                    .remove();
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

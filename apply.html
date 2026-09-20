@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Apply for Internship</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- LOGO -->
+
+                <a
+                    href="home.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="nav-links">
+
+                    <a href="home.html">
+                        Home
+                    </a>
+
+                    <a href="my-applications.html">
+                        My Internship Applications
+                    </a>
+
+                    <a href="profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             APPLY PAGE
+        ========================================== -->
+
+        <main class="apply-page">
+
+
+            <!-- BACK BUTTON -->
+
+            <a
+                id="backToCompany"
+                href="home.html"
+                class="back-button"
+            >
+                ← Back to Company
+            </a>
+
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="apply-header">
+
+                <h1>
+                    Apply for Internship
+                </h1>
+
+                <p>
+                    Submit your application and take the next
+                    step toward gaining practical experience.
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 APPLICATION FORM
+            ====================================== -->
+
+            <section class="application-card">
+
+
+                <!-- COMPANY INFO -->
+
+                <div class="application-company">
+
+                    <div class="application-company-logo">
+
+                        <img
+                            id="companyLogo"
+                            src=""
+                            alt="Company Logo"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Applying to
+                        </span>
+
+                        <h2 id="companyName">
+                            Loading...
+                        </h2>
+
+                        <p id="internshipField">
+                            Loading...
+                        </p>
+
+                        <p id="internshipTitle">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DIVIDER -->
+
+                <div class="form-divider"></div>
+
+
+
+                <!-- FORM -->
+
+                <form id="applicationForm">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-row">
+
+                        <div class="apply-form-group">
+
+                            <label for="fullName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="fullName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- UNIVERSITY -->
+
+                        <div class="apply-form-group">
+
+                            <label for="university">
+                                University
+                            </label>
+
+                            <input
+                                type="text"
+                                id="university"
+                                name="university"
+                                placeholder="Enter your university"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MAJOR -->
+
+                    <div class="form-row">
+
+                        <div class="apply-form-group">
+
+                            <label for="major">
+                                Major
+                            </label>
+
+                            <input
+                                type="text"
+                                id="major"
+                                name="major"
+                                placeholder="Enter your major"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="apply-form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="apply-form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- CV -->
+
+                    <div class="apply-form-group">
+
+                        <label for="cv">
+                            Upload CV
+                        </label>
+
+                        <div class="file-input">
+
+                            <input
+                                type="file"
+                                id="cv"
+                                name="cv"
+                                accept=".pdf,.doc,.docx"
+                            >
+
+                        </div>
+
+                        <small>
+                            Accepted formats: PDF, DOC, DOCX
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- COVER LETTER -->
+
+                    <div class="apply-form-group">
+
+                        <label for="coverLetter">
+                            Cover Letter
+                        </label>
+
+                        <textarea
+                            id="coverLetter"
+                            name="coverLetter"
+                            rows="6"
+                            placeholder="Write a short cover letter..."
+                        ></textarea>
+
+                    </div>
+
+
+
+                    <!-- TERMS -->
+
+                    <div class="application-note">
+
+                        <span>
+                            Please make sure all information
+                            provided is correct before submitting.
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- MESSAGE -->
+
+                    <p
+                        id="formMessage"
+                        style="display: none;"
+                    ></p>
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="application-actions">
+
+                        <a
+                            id="cancelButton"
+                            href="home.html"
+                            class="cancel-button"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="submit-application-button"
+                            id="submitButton"
+                        >
+                            Submit Application
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         APPLICATION SCRIPT
+    ========================================== -->
+
+    <script>
+
+        let currentUser = null;
+        let currentStudent = null;
+        let currentInternship = null;
+        let currentCompany = null;
+
+
+
+        // =========================================
+        // MESSAGE
+        // =========================================
+
+        function showMessage(message, isError = false) {
+
+            const formMessage =
+                document.getElementById("formMessage");
+
+            formMessage.textContent = message;
+
+            formMessage.style.display = "block";
+
+            formMessage.style.marginTop = "15px";
+
+            formMessage.style.padding = "10px";
+
+            formMessage.style.borderRadius = "6px";
+
+            if (isError) {
+
+                formMessage.style.color = "#b42318";
+
+            } else {
+
+                formMessage.style.color = "#216e39";
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // GET CURRENT USER
+        // =========================================
+
+        async function getCurrentUser() {
+
+            const {
+                data,
+                error
+            } = await db.auth.getUser();
+
+
+            if (error) {
+
+                console.error(
+                    "Error getting user:",
+                    error
+                );
+
+                return null;
+
+            }
+
+
+            return data.user;
+
+        }
+
+
+
+        // =========================================
+        // LOAD INTERNSHIP
+        // =========================================
+
+        async function loadInternship() {
+
+            const urlParams =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const internshipId =
+                urlParams.get("internship_id");
+
+
+            if (!internshipId) {
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    "Internship not found";
+
+                document.getElementById(
+                    "applicationForm"
+                ).style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // LOAD INTERNSHIP
+            // =====================================
+
+            const {
+                data: internship,
+                error: internshipError
+            } = await db
+                .from("internships")
+                .select(`
+                    id,
+                    title,
+                    field,
+                    city,
+                    description,
+                    company_id,
+                    status
+                `)
+                .eq("id", internshipId)
+                .eq("status", "active")
+                .maybeSingle();
+
+
+            if (internshipError) {
+
+                console.error(
+                    "Error loading internship:",
+                    internshipError
+                );
+
+                showMessage(
+                    "Unable to load this internship.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!internship) {
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    "Internship not found";
+
+                document.getElementById(
+                    "applicationForm"
+                ).style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            currentInternship = internship;
+
+
+
+            // =====================================
+            // LOAD COMPANY
+            // =====================================
+
+            const {
+                data: company,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name,
+                    field,
+                    city,
+                    logo_url
+                `)
+                .eq(
+                    "id",
+                    internship.company_id
+                )
+                .maybeSingle();
+
+
+            if (companyError) {
+
+                console.error(
+                    "Error loading company:",
+                    companyError
+                );
+
+                showMessage(
+                    "Unable to load company information.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!company) {
+
+                showMessage(
+                    "Company information could not be found.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            currentCompany = company;
+
+
+
+            // =====================================
+            // DISPLAY COMPANY
+            // =====================================
+
+            document.getElementById(
+                "companyName"
+            ).textContent =
+                company.name ||
+                "Company";
+
+
+            document.getElementById(
+                "internshipField"
+            ).textContent =
+                internship.field ||
+                company.field ||
+                "Technology";
+
+
+            document.getElementById(
+                "internshipTitle"
+            ).textContent =
+                internship.title ||
+                "Internship Opportunity";
+
+
+
+            // =====================================
+            // LOGO
+            // =====================================
+
+            const companyLogo =
+                document.getElementById(
+                    "companyLogo"
+                );
+
+
+            if (company.logo_url) {
+
+                companyLogo.src =
+                    company.logo_url;
+
+                companyLogo.alt =
+                    company.name +
+                    " Logo";
+
+                companyLogo.style.display =
+                    "block";
+
+            } else {
+
+                companyLogo.style.display =
+                    "none";
+
+            }
+
+
+
+            // =====================================
+            // BACK / CANCEL
+            // =====================================
+
+            const backUrl =
+                "company-details.html?id=" +
+                encodeURIComponent(
+                    company.id
+                );
+
+
+            document.getElementById(
+                "backToCompany"
+            ).href =
+                backUrl;
+
+
+            document.getElementById(
+                "cancelButton"
+            ).href =
+                backUrl;
+
+        }
+
+
+
+        // =========================================
+        // LOAD STUDENT
+        // =========================================
+
+        async function loadStudent() {
+
+            currentUser =
+                await getCurrentUser();
+
+
+            if (!currentUser) {
+
+                showMessage(
+                    "Please log in before applying.",
+                    true
+                );
+
+                document.getElementById(
+                    "applicationForm"
+                ).style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // PROFILE
+            // =====================================
+
+            const {
+                data: profile,
+                error: profileError
+            } = await db
+                .from("profiles")
+                .select(`
+                    id,
+                    full_name,
+                    username,
+                    email,
+                    phone,
+                    role
+                `)
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (profileError) {
+
+                console.error(
+                    "Error loading profile:",
+                    profileError
+                );
+
+                showMessage(
+                    "Unable to load your profile.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!profile) {
+
+                showMessage(
+                    "Your profile could not be found.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // ROLE
+            // =====================================
+
+            if (profile.role !== "student") {
+
+                showMessage(
+                    "Only students can submit internship applications.",
+                    true
+                );
+
+                document.getElementById(
+                    "applicationForm"
+                ).style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // STUDENT
+            // =====================================
+
+            const {
+                data: student,
+                error: studentError
+            } = await db
+                .from("students")
+                .select(`
+                    id,
+                    major,
+                    university,
+                    cv_url,
+                    supervisor_id
+                `)
+                .eq(
+                    "id",
+                    currentUser.id
+                )
+                .maybeSingle();
+
+
+            if (studentError) {
+
+                console.error(
+                    "Error loading student:",
+                    studentError
+                );
+
+                showMessage(
+                    "Unable to load your student information.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!student) {
+
+                showMessage(
+                    "Your student profile could not be found.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            currentStudent =
+                student;
+
+
+
+            // =====================================
+            // FILL FORM
+            // =====================================
+
+            document.getElementById(
+                "fullName"
+            ).value =
+                profile.full_name || "";
+
+
+            document.getElementById(
+                "university"
+            ).value =
+                student.university ||
+                "Al-Quds University";
+
+
+            document.getElementById(
+                "major"
+            ).value =
+                student.major || "";
+
+
+            document.getElementById(
+                "phone"
+            ).value =
+                profile.phone || "";
+
+
+            document.getElementById(
+                "email"
+            ).value =
+                profile.email ||
+                currentUser.email ||
+                "";
+
+        }
+
+
+
+        // =========================================
+        // CHECK EXISTING APPLICATION
+        // =========================================
+
+        async function checkExistingApplication() {
+
+            if (
+                !currentUser ||
+                !currentInternship
+            ) {
+
+                return false;
+
+            }
+
+
+            const {
+                data: existingApplication,
+                error
+            } = await db
+                .from("applications")
+                .select("id,status")
+                .eq(
+                    "student_id",
+                    currentUser.id
+                )
+                .eq(
+                    "internship_id",
+                    currentInternship.id
+                )
+                .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "Error checking application:",
+                    error
+                );
+
+                return false;
+
+            }
+
+
+            if (existingApplication) {
+
+                showMessage(
+                    "You have already applied for this internship.",
+                    true
+                );
+
+                document.getElementById(
+                    "submitButton"
+                ).disabled =
+                    true;
+
+                return true;
+
+            }
+
+
+            return false;
+
+        }
+
+
+
+        // =========================================
+        // UPLOAD CV
+        // =========================================
+
+        async function uploadCV(file) {
+
+            if (!file) {
+
+                return null;
+
+            }
+
+
+            const allowedTypes = [
+
+                "application/pdf",
+
+                "application/msword",
+
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                throw new Error(
+                    "Please upload a PDF, DOC, or DOCX file."
+                );
+
+            }
+
+
+            if (
+                file.size >
+                5 * 1024 * 1024
+            ) {
+
+                throw new Error(
+                    "CV file size must be less than 5 MB."
+                );
+
+            }
+
+
+            const fileExtension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const filePath =
+                currentUser.id +
+                "/" +
+                Date.now() +
+                "_CV." +
+                fileExtension;
+
+
+
+            const {
+                error: uploadError
+            } = await db.storage
+                .from("cvs")
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        upsert: true
+                    }
+                );
+
+
+            if (uploadError) {
+
+                console.error(
+                    "CV upload error:",
+                    uploadError
+                );
+
+                throw new Error(
+                    "Unable to upload your CV."
+                );
+
+            }
+
+
+
+            const {
+                data: publicUrlData
+            } = db.storage
+                .from("cvs")
+                .getPublicUrl(
+                    filePath
+                );
+
+
+            return publicUrlData.publicUrl;
+
+        }
+
+
+
+        // =========================================
+        // SUBMIT APPLICATION
+        // =========================================
+
+        async function submitApplication(event) {
+
+            event.preventDefault();
+
+
+            if (!currentUser) {
+
+                showMessage(
+                    "Please log in before submitting your application.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!currentStudent) {
+
+                showMessage(
+                    "Student information is not available.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+            if (!currentInternship) {
+
+                showMessage(
+                    "Internship information is not available.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // GET VALUES
+            // =====================================
+
+            const fullName =
+                document.getElementById(
+                    "fullName"
+                ).value.trim();
+
+
+            const university =
+                document.getElementById(
+                    "university"
+                ).value.trim();
+
+
+            const major =
+                document.getElementById(
+                    "major"
+                ).value.trim();
+
+
+            const phone =
+                document.getElementById(
+                    "phone"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "email"
+                ).value.trim();
+
+
+            // IMPORTANT:
+            // Read Cover Letter directly from textarea
+
+            const coverLetterElement =
+                document.getElementById(
+                    "coverLetter"
+                );
+
+
+            const coverLetter =
+                coverLetterElement
+                    ? coverLetterElement.value.trim()
+                    : "";
+
+
+
+            const cvFile =
+                document.getElementById(
+                    "cv"
+                ).files[0];
+
+
+
+            // =====================================
+            // VALIDATION
+            // =====================================
+
+            if (
+                !fullName ||
+                !university ||
+                !major ||
+                !phone ||
+                !email
+            ) {
+
+                showMessage(
+                    "Please fill in all required fields.",
+                    true
+                );
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // CHECK APPLICATION
+            // =====================================
+
+            const alreadyApplied =
+                await checkExistingApplication();
+
+
+            if (alreadyApplied) {
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // BUTTON
+            // =====================================
+
+            const submitButton =
+                document.getElementById(
+                    "submitButton"
+                );
+
+
+            submitButton.disabled =
+                true;
+
+
+            submitButton.textContent =
+                "Submitting...";
+
+
+
+            try {
+
+
+                // =================================
+                // CV
+                // =================================
+
+                let cvUrl =
+                    currentStudent.cv_url ||
+                    null;
+
+
+                if (cvFile) {
+
+                    cvUrl =
+                        await uploadCV(
+                            cvFile
+                        );
+
+
+                    const {
+                        error: studentUpdateError
+                    } = await db
+                        .from("students")
+                        .update({
+                            major: major,
+                            university: university,
+                            cv_url: cvUrl
+                        })
+                        .eq(
+                            "id",
+                            currentUser.id
+                        );
+
+
+                    if (studentUpdateError) {
+
+                        console.error(
+                            "Student update error:",
+                            studentUpdateError
+                        );
+
+                        throw new Error(
+                            "Your CV was uploaded, but your student profile could not be updated."
+                        );
+
+                    }
+
+                } else {
+
+                    const {
+                        error: studentUpdateError
+                    } = await db
+                        .from("students")
+                        .update({
+                            major: major,
+                            university: university
+                        })
+                        .eq(
+                            "id",
+                            currentUser.id
+                        );
+
+
+                    if (studentUpdateError) {
+
+                        console.error(
+                            "Student update error:",
+                            studentUpdateError
+                        );
+
+                        throw new Error(
+                            "Unable to update your student information."
+                        );
+
+                    }
+
+                }
+
+
+
+                // =================================
+                // PROFILE UPDATE
+                // =================================
+
+                const {
+                    error: profileUpdateError
+                } = await db
+                    .from("profiles")
+                    .update({
+                        full_name: fullName,
+                        phone: phone
+                    })
+                    .eq(
+                        "id",
+                        currentUser.id
+                    );
+
+
+                if (profileUpdateError) {
+
+                    console.error(
+                        "Profile update error:",
+                        profileUpdateError
+                    );
+
+                    throw new Error(
+                        "Unable to update your profile information."
+                    );
+
+                }
+
+
+
+                // =================================
+                // INSERT APPLICATION
+                // =================================
+
+                const applicationData = {
+
+                    student_id:
+                        currentUser.id,
+
+                    internship_id:
+                        currentInternship.id,
+
+                    cover_letter:
+                        coverLetter === ""
+                            ? null
+                            : coverLetter,
+
+                    major:
+                        major,
+
+                    status:
+                        "pending"
+
+                };
+
+
+                console.log(
+                    "Application data:",
+                    applicationData
+                );
+
+
+
+                const {
+                    data: insertedApplication,
+                    error: applicationError
+                } = await db
+                    .from("applications")
+                    .insert(
+                        applicationData
+                    )
+                    .select()
+                    .single();
+
+
+                if (applicationError) {
+
+                    console.error(
+                        "Application error:",
+                        applicationError
+                    );
+
+                    throw new Error(
+                        applicationError.message ||
+                        "Unable to submit your application."
+                    );
+
+                }
+
+
+                console.log(
+                    "Application saved:",
+                    insertedApplication
+                );
+
+
+
+                // =================================
+                // SUCCESS
+                // =================================
+
+                showMessage(
+                    "Your application has been submitted successfully."
+                );
+
+
+                submitButton.textContent =
+                    "Application Submitted";
+
+
+                submitButton.disabled =
+                    true;
+
+
+
+                // =================================
+                // GO TO MY APPLICATIONS
+                // =================================
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "my-applications.html";
+
+                    },
+                    1200
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Submit application error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Something went wrong. Please try again.",
+                    true
+                );
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    "Submit Application";
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // INITIALIZE
+        // =========================================
+
+        async function initializePage() {
+
+            await loadInternship();
+
+
+            if (!currentInternship) {
+
+                return;
+
+            }
+
+
+            await loadStudent();
+
+
+            if (!currentStudent) {
+
+                return;
+
+            }
+
+
+            await checkExistingApplication();
+
+        }
+
+
+
+        // =========================================
+        // FORM EVENT
+        // =========================================
+
+        document.getElementById(
+            "applicationForm"
+        ).addEventListener(
+            "submit",
+            submitApplication
+        );
+
+
+
+        // =========================================
+        // START
+        // =========================================
+
+        initializePage();
+
+    </script>
+
+</body>
+
+</html>

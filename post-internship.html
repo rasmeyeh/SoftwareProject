@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post Internship</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+
+                <!-- LOGO -->
+
+                <a
+                    href="company-dashboard.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <!-- NAVIGATION -->
+
+                <nav class="nav-links">
+
+                    <a href="company-dashboard.html">
+                        Dashboard
+                    </a>
+
+                   
+
+                    <a href="applicants.html">
+                        Applicants
+                    </a>
+
+                    <a href="company-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             POST INTERNSHIP
+        ========================================== -->
+
+        <main class="post-internship-page">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="post-header">
+
+                <span class="dashboard-label">
+                    INTERNSHIP OPPORTUNITY
+                </span>
+
+                <h1>
+                    Post a New Internship
+                </h1>
+
+                <p>
+                    Create an internship opportunity
+                    for students to discover and apply.
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 FORM CARD
+            ====================================== -->
+
+            <section class="post-card">
+
+
+                <!-- BASIC INFORMATION -->
+
+                <div class="post-section">
+
+                    <h2>
+                        Basic Information
+                    </h2>
+
+
+                    <div class="post-grid">
+
+
+                        <!-- TITLE -->
+
+                        <div class="post-field full-width">
+
+                            <label for="internship-title">
+                                Internship Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="internship-title"
+                                placeholder="e.g. Software Engineering Intern"
+                            >
+
+                        </div>
+
+
+
+                        <!-- FIELD -->
+
+                        <div class="post-field">
+
+                            <label for="internship-field">
+                                Field / Category
+                            </label>
+
+                            <select id="internship-field">
+
+                                <option value="">
+                                    Select a field
+                                </option>
+
+                                <option>
+                                    Software Development
+                                </option>
+
+                                <option>
+                                    Computer Engineering
+                                </option>
+
+                                <option>
+                                    Information Technology
+                                </option>
+
+                                <option>
+                                    Networking
+                                </option>
+
+                                <option>
+                                    Cybersecurity
+                                </option>
+
+                                <option>
+                                    Telecommunications
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- LOCATION -->
+
+                        <div class="post-field">
+
+                            <label for="internship-location">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                id="internship-location"
+                                placeholder="e.g. Ramallah"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     DESCRIPTION
+                ====================================== -->
+
+                <div class="post-section">
+
+                    <h2>
+                        Internship Details
+                    </h2>
+
+
+                    <div class="post-field">
+
+                        <label for="internship-description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="internship-description"
+                            placeholder="Describe the internship opportunity..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="post-field">
+
+                        <label for="internship-requirements">
+                            Requirements
+                        </label>
+
+                        <textarea
+                            id="internship-requirements"
+                            placeholder="List the skills, qualifications, or requirements..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     DATES & CAPACITY
+                ====================================== -->
+
+                <div class="post-section">
+
+                    <h2>
+                        Internship Schedule
+                    </h2>
+
+
+                    <div class="post-grid">
+
+
+                        <!-- START DATE -->
+
+                        <div class="post-field">
+
+                            <label for="start-date">
+                                Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="start-date"
+                            >
+
+                        </div>
+
+
+
+                        <!-- END DATE -->
+
+                        <div class="post-field">
+
+                            <label for="end-date">
+                                End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="end-date"
+                            >
+
+                        </div>
+
+
+
+                        <!-- NUMBER OF INTERNS -->
+
+                        <div class="post-field">
+
+                            <label for="intern-number">
+                                Number of Interns
+                            </label>
+
+                            <input
+                                type="number"
+                                id="intern-number"
+                                min="1"
+                                placeholder="e.g. 5"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACTIONS
+                ====================================== -->
+
+                <div class="post-actions">
+
+                    <a
+                        href="company-dashboard.html"
+                        class="cancel-post-button"
+                    >
+                        Cancel
+                    </a>
+
+
+                    <button
+                        type="button"
+                        class="publish-button"
+                    >
+                        Publish Internship
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+</body>
+
+</html>
