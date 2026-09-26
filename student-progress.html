@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +12,188 @@
 
     <title>Student Progress</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           EVALUATION FORM UPLOAD
+        ========================================= */
+
+        .evaluation-upload-box {
+
+            margin-top: 20px;
+            padding: 24px;
+
+            border: 1px solid #ddd6c8;
+            border-radius: 14px;
+
+            background: #f8f5ee;
+        }
+
+
+        .evaluation-upload-box h3 {
+
+            margin: 0 0 8px;
+
+            color: #333;
+        }
+
+
+        .evaluation-upload-box p {
+
+            margin: 0 0 18px;
+
+            color: #6f7d80;
+
+            line-height: 1.6;
+        }
+
+
+        .file-upload-wrapper {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .choose-file-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 11px 18px;
+
+            background: #ede4d2;
+
+            color: #4f4a42;
+
+            border: 1px solid #d6ccb9;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .choose-file-button:hover {
+
+            background: #e4dac6;
+
+            border-color: #a8b5c9;
+
+            transform: translateY(-1px);
+        }
+
+
+        #evaluationFile {
+
+            display: none;
+        }
+
+
+        .selected-file-name {
+
+            color: #6f7d80;
+
+            font-size: 14px;
+
+            min-height: 20px;
+        }
+
+
+        .selected-file-name a {
+
+            color: #245566;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+
+        .selected-file-name a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        .upload-evaluation-button {
+
+            margin-top: 16px;
+
+            padding: 11px 20px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #4F8D99;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .upload-evaluation-button:hover {
+
+            background: #4d524f;
+
+            transform: translateY(-1px);
+        }
+
+
+        .upload-evaluation-button:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        .upload-status {
+
+            margin-top: 12px;
+
+            font-size: 14px;
+
+            color: #6f7d80;
+        }
+
+    </style>
 
 </head>
 
@@ -76,7 +256,6 @@
     </header>
 
 
-
     <!-- ================= MAIN ================= -->
 
     <main class="student-progress-page">
@@ -90,7 +269,6 @@
         >
             ← Back to My Students
         </a>
-
 
 
         <!-- ================= STUDENT HEADER ================= -->
@@ -125,7 +303,6 @@
             </div>
 
         </section>
-
 
 
         <!-- ================= INTERNSHIP INFORMATION ================= -->
@@ -222,7 +399,6 @@
         </section>
 
 
-
         <!-- ================= INTERNSHIP PROGRESS ================= -->
 
         <section class="progress-section">
@@ -260,7 +436,6 @@
                 </div>
 
 
-
                 <!-- STEP 2 -->
 
                 <div
@@ -283,7 +458,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- STEP 3 -->
@@ -311,7 +485,6 @@
                 </div>
 
 
-
                 <!-- STEP 4 -->
 
                 <div
@@ -334,7 +507,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- STEP 5 -->
@@ -365,8 +537,98 @@
         </section>
 
 
+        <!-- ==================================================
+             COMPANY EVALUATION FORM
+        =================================================== -->
 
-        <!-- ================= EVALUATION ================= -->
+        <section class="progress-section">
+
+            <h2>
+                Company Evaluation Form
+            </h2>
+
+
+            <div class="evaluation-upload-box">
+
+                <h3>
+                    Send Evaluation Form to Company
+                </h3>
+
+
+                <p>
+                    Upload the evaluation form that the company
+                    should complete for this student.
+                    PDF and Word files are supported.
+                </p>
+
+
+                <!-- FILE INPUT -->
+
+                <div class="file-upload-wrapper">
+
+                    <label
+                        for="evaluationFile"
+                        class="choose-file-button"
+                    >
+                        📎 Choose Evaluation Form
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="evaluationFile"
+                        accept="
+                            .pdf,
+                            .doc,
+                            .docx,
+                            application/pdf,
+                            application/msword,
+                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                        "
+                    >
+
+
+                    <!--
+                        IMPORTANT:
+                        After upload, the file name will appear here.
+                        After Refresh, the file name will be loaded
+                        from evaluations.form_url.
+                    -->
+
+                    <span
+                        class="selected-file-name"
+                        id="selectedFileName"
+                    >
+                        No file selected
+                    </span>
+
+                </div>
+
+
+                <!-- UPLOAD BUTTON -->
+
+                <button
+                    type="button"
+                    class="upload-evaluation-button"
+                    id="uploadEvaluationButton"
+                >
+                    Upload Evaluation Form
+                </button>
+
+
+                <div
+                    class="upload-status"
+                    id="uploadStatus"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             COMPLETED COMPANY EVALUATION
+        =================================================== -->
 
         <section class="progress-section">
 
@@ -398,7 +660,6 @@
             </div>
 
 
-
             <!-- Evaluation Submitted -->
 
             <div
@@ -420,9 +681,7 @@
                     student's internship evaluation.
                 </p>
 
-
                 <br>
-
 
                 <a
                     href="#"
@@ -431,7 +690,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    View PDF
+                    Open Evaluation File
                 </a>
 
             </div>
@@ -442,13 +701,11 @@
     </main>
 
 
-
     <!-- ================= SUPABASE ================= -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="./js/supabase.js"></script>
-
 
 
     <!-- ================= JAVASCRIPT ================= -->
@@ -457,27 +714,11 @@
 
 
         /* ==========================================
-           ESCAPE HTML
+           STORAGE BUCKET
         ========================================== */
 
-        function escapeHTML(value) {
-
-            if (
-                value === null ||
-                value === undefined
-            ) {
-                return "";
-            }
-
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-
-        }
-
+        const EVALUATION_BUCKET =
+            "evaluations";
 
 
         /* ==========================================
@@ -488,6 +729,48 @@
 
             if (!dateValue) {
                 return "-";
+            }
+
+
+            const parts =
+                String(dateValue)
+                    .split("T")[0]
+                    .split("-");
+
+
+            if (parts.length === 3) {
+
+                const year =
+                    Number(parts[0]);
+
+                const month =
+                    Number(parts[1]) - 1;
+
+                const day =
+                    Number(parts[2]);
+
+
+                const localDate =
+                    new Date(
+                        year,
+                        month,
+                        day
+                    );
+
+
+                if (!isNaN(localDate.getTime())) {
+
+                    return localDate.toLocaleDateString(
+                        "en-US",
+                        {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric"
+                        }
+                    );
+
+                }
+
             }
 
 
@@ -512,9 +795,81 @@
         }
 
 
+        /* ==========================================
+           CREATE LOCAL DATE
+        ========================================== */
+
+        function getLocalDate(dateValue) {
+
+            if (!dateValue) {
+                return null;
+            }
+
+
+            const parts =
+                String(dateValue)
+                    .split("T")[0]
+                    .split("-");
+
+
+            if (parts.length !== 3) {
+                return null;
+            }
+
+
+            const year =
+                Number(parts[0]);
+
+            const month =
+                Number(parts[1]) - 1;
+
+            const day =
+                Number(parts[2]);
+
+
+            const date =
+                new Date(
+                    year,
+                    month,
+                    day
+                );
+
+
+            if (isNaN(date.getTime())) {
+                return null;
+            }
+
+
+            return date;
+
+        }
+
 
         /* ==========================================
-           GET STUDENT ID FROM URL
+           GET TODAY
+        ========================================== */
+
+        function getToday() {
+
+            const today =
+                new Date();
+
+
+            today.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            return today;
+
+        }
+
+
+        /* ==========================================
+           GET STUDENT ID
         ========================================== */
 
         const params =
@@ -525,7 +880,6 @@
 
         const studentId =
             params.get("id");
-
 
 
         /* ==========================================
@@ -562,6 +916,61 @@
             );
 
 
+        /* ==========================================
+           FILE INPUT
+        ========================================== */
+
+        const evaluationFile =
+            document.getElementById(
+                "evaluationFile"
+            );
+
+
+        const selectedFileName =
+            document.getElementById(
+                "selectedFileName"
+            );
+
+
+        const uploadEvaluationButton =
+            document.getElementById(
+                "uploadEvaluationButton"
+            );
+
+
+        const uploadStatus =
+            document.getElementById(
+                "uploadStatus"
+            );
+
+
+        /* ==========================================
+           FILE SELECTED
+        ========================================== */
+
+        evaluationFile.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    evaluationFile.files[0];
+
+
+                if (!file) {
+
+                    selectedFileName.textContent =
+                        "No file selected";
+
+                    return;
+                }
+
+
+                selectedFileName.textContent =
+                    "📄 " + file.name;
+
+            }
+        );
+
 
         /* ==========================================
            LOAD STUDENT
@@ -583,7 +992,6 @@
                     );
 
                 }
-
 
 
                 /* --------------------------------------
@@ -609,9 +1017,7 @@
                         "index.html";
 
                     return;
-
                 }
-
 
 
                 /* --------------------------------------
@@ -629,8 +1035,14 @@
                         university,
                         supervisor_id
                     `)
-                    .eq("id", studentId)
-                    .eq("supervisor_id", user.id)
+                    .eq(
+                        "id",
+                        studentId
+                    )
+                    .eq(
+                        "supervisor_id",
+                        user.id
+                    )
                     .maybeSingle();
 
 
@@ -646,7 +1058,6 @@
                     );
 
                 }
-
 
 
                 /* --------------------------------------
@@ -665,14 +1076,16 @@
                         email,
                         phone
                     `)
-                    .eq("id", student.id)
+                    .eq(
+                        "id",
+                        student.id
+                    )
                     .maybeSingle();
 
 
                 if (profileError) {
                     throw profileError;
                 }
-
 
 
                 /* --------------------------------------
@@ -690,7 +1103,10 @@
                         status,
                         applied_at
                     `)
-                    .eq("student_id", student.id)
+                    .eq(
+                        "student_id",
+                        student.id
+                    )
                     .order(
                         "applied_at",
                         {
@@ -708,15 +1124,17 @@
                     applications || [];
 
 
-
                 /* --------------------------------------
-                   FIND APPLICATION
+                   FIND ACCEPTED APPLICATION
                 -------------------------------------- */
 
                 let application =
                     applicationList.find(
                         item =>
-                            item.status ===
+                            String(
+                                item.status
+                            )
+                                .toLowerCase() ===
                             "accepted"
                     );
 
@@ -732,9 +1150,8 @@
                 }
 
 
-
                 /* --------------------------------------
-                   NO APPLICATION
+                   VARIABLES
                 -------------------------------------- */
 
                 let internship = null;
@@ -744,12 +1161,11 @@
                 let evaluation = null;
 
 
+                /* --------------------------------------
+                   GET INTERNSHIP
+                -------------------------------------- */
+
                 if (application) {
-
-
-                    /* ----------------------------------
-                       GET INTERNSHIP
-                    ---------------------------------- */
 
                     const {
                         data: internshipData,
@@ -780,7 +1196,6 @@
 
                     internship =
                         internshipData;
-
 
 
                     /* ----------------------------------
@@ -816,7 +1231,6 @@
                     }
 
 
-
                     /* ----------------------------------
                        GET EVALUATION
                     ---------------------------------- */
@@ -831,7 +1245,10 @@
                             application_id,
                             pdf_url,
                             status,
-                            submitted_at
+                            submitted_at,
+                            reviewed_at,
+                            created_at,
+                            form_url
                         `)
                         .eq(
                             "application_id",
@@ -857,10 +1274,9 @@
                 }
 
 
-
-                /* --------------------------------------
+                /* ======================================
                    DISPLAY BASIC STUDENT INFORMATION
-                -------------------------------------- */
+                ====================================== */
 
                 const studentName =
                     profile
@@ -891,7 +1307,6 @@
                         .join("");
 
 
-
                 document.getElementById(
                     "studentAvatar"
                 ).textContent =
@@ -913,7 +1328,8 @@
                 document.getElementById(
                     "studentEmail"
                 ).textContent =
-                    profile && profile.email
+                    profile &&
+                    profile.email
                         ? profile.email
                         : "-";
 
@@ -921,15 +1337,15 @@
                 document.getElementById(
                     "studentPhone"
                 ).textContent =
-                    profile && profile.phone
+                    profile &&
+                    profile.phone
                         ? profile.phone
                         : "-";
 
 
-
-                /* --------------------------------------
+                /* ======================================
                    INTERNSHIP INFORMATION
-                -------------------------------------- */
+                ====================================== */
 
                 document.getElementById(
                     "companyName"
@@ -971,45 +1387,131 @@
                         : "-";
 
 
+                /* ======================================
+                   DISPLAY SAVED EVALUATION FORM
+                ====================================== */
 
-                /* --------------------------------------
+                displayCurrentForm(
+                    evaluation
+                );
+
+
+                /* ======================================
                    DETERMINE STATUS
-                -------------------------------------- */
+                ====================================== */
 
                 let currentStatus =
                     "pending";
 
 
-                if (
+                const applicationStatus =
                     application &&
-                    application.status ===
+                    application.status
+                        ? String(
+                            application.status
+                        ).toLowerCase()
+                        : "";
+
+
+                const internshipStatus =
+                    internship &&
+                    internship.status
+                        ? String(
+                            internship.status
+                        ).toLowerCase()
+                        : "";
+
+
+                const startDate =
+                    internship
+                        ? getLocalDate(
+                            internship.start_date
+                        )
+                        : null;
+
+
+                const endDate =
+                    internship
+                        ? getLocalDate(
+                            internship.end_date
+                        )
+                        : null;
+
+
+                const today =
+                    getToday();
+
+
+                if (
+                    applicationStatus ===
                     "accepted"
                 ) {
 
                     if (
-                        internship &&
-                        internship.end_date &&
-                        new Date(
-                            internship.end_date
-                        ) < new Date()
+                        endDate &&
+                        endDate < today
                     ) {
 
                         currentStatus =
                             "completed";
 
-                    } else {
+                    }
+
+                    else if (
+                        startDate &&
+                        startDate <= today &&
+                        (
+                            !endDate ||
+                            today <= endDate
+                        )
+                    ) {
 
                         currentStatus =
                             "active";
 
                     }
 
+                    else if (
+                        startDate &&
+                        startDate > today
+                    ) {
+
+                        currentStatus =
+                            "accepted";
+
+                    }
+
+                    else if (
+                        internshipStatus ===
+                        "completed"
+                    ) {
+
+                        currentStatus =
+                            "completed";
+
+                    }
+
+                    else if (
+                        internshipStatus ===
+                        "active"
+                    ) {
+
+                        currentStatus =
+                            "active";
+
+                    }
+
+                    else {
+
+                        currentStatus =
+                            "accepted";
+
+                    }
+
                 }
 
-
-                if (
-                    application &&
-                    application.status ===
+                else if (
+                    applicationStatus ===
                     "rejected"
                 ) {
 
@@ -1018,16 +1520,25 @@
 
                 }
 
+                else {
+
+                    currentStatus =
+                        "pending";
+
+                }
 
 
-                /* --------------------------------------
+                /* ======================================
                    STATUS TEXT
-                -------------------------------------- */
+                ====================================== */
 
                 const statusTextMap = {
 
                     pending:
                         "Pending Application",
+
+                    accepted:
+                        "Application Accepted",
 
                     active:
                         "Active Internship",
@@ -1049,10 +1560,9 @@
                     ];
 
 
-
-                /* --------------------------------------
+                /* ======================================
                    UPDATE PROGRESS
-                -------------------------------------- */
+                ====================================== */
 
                 updateProgress(
                     currentStatus,
@@ -1062,10 +1572,9 @@
                 );
 
 
-
-                /* --------------------------------------
+                /* ======================================
                    UPDATE EVALUATION
-                -------------------------------------- */
+                ====================================== */
 
                 updateEvaluation(
                     studentName,
@@ -1074,7 +1583,6 @@
 
 
             } catch (error) {
-
 
                 console.error(
                     "Student progress error:",
@@ -1104,6 +1612,554 @@
         }
 
 
+        /* ==========================================
+           DISPLAY SAVED FORM
+        ========================================== */
+
+        function displayCurrentForm(
+            evaluation
+        ) {
+
+            const selectedFileName =
+                document.getElementById(
+                    "selectedFileName"
+                );
+
+
+            /*
+             * If an evaluation record exists
+             * and form_url is saved,
+             * show the file name.
+             */
+
+            if (
+                evaluation &&
+                evaluation.form_url
+            ) {
+
+                let fileName =
+                    "Evaluation Form";
+
+
+                try {
+
+                    const url =
+                        new URL(
+                            evaluation.form_url
+                        );
+
+
+                    const pathParts =
+                        url.pathname.split("/");
+
+
+                    const lastPart =
+                        pathParts[
+                            pathParts.length - 1
+                        ];
+
+
+                    if (lastPart) {
+
+                        fileName =
+                            decodeURIComponent(
+                                lastPart
+                            );
+
+
+                        /*
+                         * Remove the timestamp
+                         * from the beginning.
+                         *
+                         * Example:
+                         *
+                         * 1790343437828_form.docx
+                         *
+                         * becomes:
+                         *
+                         * form.docx
+                         */
+
+                        fileName =
+                            fileName.replace(
+                                /^\d+_/,
+                                ""
+                            );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Unable to read evaluation file name:",
+                        error
+                    );
+
+                }
+
+
+                selectedFileName.innerHTML = `
+
+                    📄
+
+                    <a
+                        href="${evaluation.form_url}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${fileName}
+                    </a>
+
+                `;
+
+            }
+
+            else {
+
+                selectedFileName.textContent =
+                    "No file selected";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           UPLOAD EVALUATION FORM
+        ========================================== */
+
+        uploadEvaluationButton.addEventListener(
+            "click",
+            uploadEvaluationForm
+        );
+
+
+        async function uploadEvaluationForm() {
+
+            try {
+
+                uploadStatus.textContent =
+                    "";
+
+
+                const file =
+                    evaluationFile.files[0];
+
+
+                if (!file) {
+
+                    uploadStatus.textContent =
+                        "Please choose a PDF or Word file first.";
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------
+                   CHECK FILE TYPE
+                -------------------------------------- */
+
+                const allowedExtensions = [
+
+                    "pdf",
+
+                    "doc",
+
+                    "docx"
+
+                ];
+
+
+                const fileName =
+                    file.name.toLowerCase();
+
+
+                const extension =
+                    fileName
+                        .split(".")
+                        .pop();
+
+
+                if (
+                    !allowedExtensions.includes(
+                        extension
+                    )
+                ) {
+
+                    uploadStatus.textContent =
+                        "Only PDF, DOC, and DOCX files are allowed.";
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------
+                   CHECK FILE SIZE
+                -------------------------------------- */
+
+                const maxSize =
+                    10 * 1024 * 1024;
+
+
+                if (
+                    file.size >
+                    maxSize
+                ) {
+
+                    uploadStatus.textContent =
+                        "File size must be 10 MB or less.";
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------
+                   GET CURRENT USER
+                -------------------------------------- */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (userError) {
+                    throw userError;
+                }
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------
+                   GET APPLICATION
+                -------------------------------------- */
+
+                const {
+                    data: application,
+                    error: applicationError
+                } = await db
+                    .from("applications")
+                    .select(`
+                        id
+                    `)
+                    .eq(
+                        "student_id",
+                        studentId
+                    )
+                    .eq(
+                        "status",
+                        "accepted"
+                    )
+                    .maybeSingle();
+
+
+                if (applicationError) {
+                    throw applicationError;
+                }
+
+
+                if (!application) {
+
+                    uploadStatus.textContent =
+                        "The student does not have an accepted internship application.";
+
+                    return;
+
+                }
+
+
+                /* --------------------------------------
+                   FILE PATH
+                -------------------------------------- */
+
+                const safeFileName =
+                    file.name.replace(
+                        /[^a-zA-Z0-9._-]/g,
+                        "_"
+                    );
+
+
+                const filePath =
+                    "supervisor/" +
+                    studentId +
+                    "/" +
+                    Date.now() +
+                    "_" +
+                    safeFileName;
+
+
+                uploadStatus.textContent =
+                    "Uploading file...";
+
+
+                uploadEvaluationButton.disabled =
+                    true;
+
+
+                /* --------------------------------------
+                   UPLOAD TO STORAGE
+                -------------------------------------- */
+
+                const {
+                    error: uploadError
+                } = await db.storage
+                    .from(
+                        EVALUATION_BUCKET
+                    )
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            cacheControl:
+                                "3600",
+
+                            upsert:
+                                false
+                        }
+                    );
+
+
+                if (uploadError) {
+                    throw uploadError;
+                }
+
+
+                /* --------------------------------------
+                   CREATE PUBLIC URL
+                -------------------------------------- */
+
+                const {
+                    data: publicUrlData
+                } = db.storage
+                    .from(
+                        EVALUATION_BUCKET
+                    )
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+                const formUrl =
+                    publicUrlData &&
+                    publicUrlData.publicUrl
+                        ? publicUrlData.publicUrl
+                        : null;
+
+
+                if (!formUrl) {
+
+                    throw new Error(
+                        "Unable to create the evaluation form URL."
+                    );
+
+                }
+
+
+                /* --------------------------------------
+                   GET EXISTING EVALUATION
+                -------------------------------------- */
+
+                const {
+                    data: existingEvaluation,
+                    error: existingEvaluationError
+                } = await db
+                    .from("evaluations")
+                    .select(`
+                        id
+                    `)
+                    .eq(
+                        "application_id",
+                        application.id
+                    )
+                    .maybeSingle();
+
+
+                if (
+                    existingEvaluationError
+                ) {
+
+                    throw existingEvaluationError;
+
+                }
+
+
+                /* --------------------------------------
+                   INSERT / UPDATE EVALUATION
+                -------------------------------------- */
+
+                let saveError =
+                    null;
+
+
+                if (
+                    existingEvaluation
+                ) {
+
+                    const {
+                        error
+                    } = await db
+                        .from("evaluations")
+                        .update({
+
+                            form_url:
+                                formUrl
+
+                        })
+                        .eq(
+                            "id",
+                            existingEvaluation.id
+                        );
+
+
+                    saveError =
+                        error;
+
+                }
+
+                else {
+
+                    const {
+                        error
+                    } = await db
+                        .from("evaluations")
+                        .insert({
+
+                            application_id:
+                                application.id,
+
+                            form_url:
+                                formUrl,
+
+                            status:
+                                "pending"
+
+                        });
+
+
+                    saveError =
+                        error;
+
+                }
+
+
+                if (saveError) {
+                    throw saveError;
+                }
+
+
+                /* ======================================
+                   SUCCESS
+                ====================================== */
+
+                uploadStatus.textContent =
+                    "Evaluation form uploaded successfully.";
+
+
+                /*
+                 * Show the uploaded file immediately
+                 * in the same place as "No file selected".
+                 */
+
+                selectedFileName.innerHTML = `
+
+                    📄
+
+                    <a
+                        href="${formUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${file.name}
+                    </a>
+
+                `;
+
+
+                /*
+                 * Clear the actual file input.
+                 *
+                 * This does NOT delete the uploaded file.
+                 *
+                 * It only resets the browser's
+                 * file-selection control.
+                 */
+
+                evaluationFile.value = "";
+
+
+                /*
+                 * Reload the evaluation from Supabase
+                 * so the displayed file is based on
+                 * the saved database record.
+                 */
+
+                const {
+                    data: refreshedEvaluation,
+                    error: refreshError
+                } = await db
+                    .from("evaluations")
+                    .select(`
+                        id,
+                        application_id,
+                        pdf_url,
+                        status,
+                        submitted_at,
+                        reviewed_at,
+                        created_at,
+                        form_url
+                    `)
+                    .eq(
+                        "application_id",
+                        application.id
+                    )
+                    .maybeSingle();
+
+
+                if (!refreshError) {
+
+                    displayCurrentForm(
+                        refreshedEvaluation
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Upload evaluation form error:",
+                    error
+                );
+
+
+                uploadStatus.textContent =
+                    error.message ||
+                    "Unable to upload evaluation form.";
+
+            }
+
+            finally {
+
+                uploadEvaluationButton.disabled =
+                    false;
+
+            }
+
+        }
+
 
         /* ==========================================
            UPDATE PROGRESS
@@ -1117,16 +2173,18 @@
         ) {
 
 
-            /* --------------------------------------
-               RESET
-            -------------------------------------- */
-
             [
+
                 stepAccepted,
+
                 stepStarted,
+
                 stepProgress,
+
                 stepEvaluation,
+
                 stepCompleted
+
             ].forEach(
                 step => {
 
@@ -1138,7 +2196,6 @@
 
                 }
             );
-
 
 
             const acceptedDescription =
@@ -1171,14 +2228,12 @@
                 );
 
 
-
-            /* --------------------------------------
+            /* ======================================
                PENDING
-            -------------------------------------- */
+            ====================================== */
 
             if (
-                !application ||
-                application.status ===
+                status ===
                 "pending"
             ) {
 
@@ -1206,18 +2261,29 @@
                 acceptedDescription.textContent =
                     "Waiting for the company to accept the student's internship application.";
 
+                startedDescription.textContent =
+                    "The internship has not started yet.";
+
+                progressDescription.textContent =
+                    "The student has not started the internship yet.";
+
+                evaluationProgressText.textContent =
+                    "Waiting for the company evaluation.";
+
+                completedDescription.textContent =
+                    "The internship has not been completed yet.";
+
                 return;
 
             }
 
 
-
-            /* --------------------------------------
+            /* ======================================
                REJECTED
-            -------------------------------------- */
+            ====================================== */
 
             if (
-                application.status ===
+                status ===
                 "rejected"
             ) {
 
@@ -1245,106 +2311,69 @@
                 acceptedDescription.textContent =
                     "The company rejected the student's internship application.";
 
+                startedDescription.textContent =
+                    "The internship did not start.";
+
+                progressDescription.textContent =
+                    "The student does not have an active internship.";
+
+                evaluationProgressText.textContent =
+                    "No company evaluation is expected.";
+
+                completedDescription.textContent =
+                    "The internship application was rejected.";
+
                 return;
 
             }
 
 
-
-            /* --------------------------------------
+            /* ======================================
                ACCEPTED
-            -------------------------------------- */
-
-            stepAccepted.classList.add(
-                "completed"
-            );
-
-
-            acceptedDescription.textContent =
-                "The company accepted the student's internship application.";
-
-
-
-            /* --------------------------------------
-               START DATE
-            -------------------------------------- */
+            ====================================== */
 
             if (
-                internship &&
-                internship.start_date
+                status ===
+                "accepted"
             ) {
 
-                const startDate =
-                    new Date(
-                        internship.start_date
-                    );
+                stepAccepted.classList.add(
+                    "completed"
+                );
 
 
-                if (
-                    startDate <= new Date()
-                ) {
+                acceptedDescription.textContent =
+                    "The company accepted the student's internship application.";
 
-                    stepStarted.classList.add(
-                        "completed"
-                    );
-
-                    startedDescription.textContent =
-                        "The student has started the internship.";
-
-                } else {
-
-                    stepStarted.classList.add(
-                        "current"
-                    );
-
-                    startedDescription.textContent =
-                        "The internship has not started yet.";
-
-                }
-
-            } else {
 
                 stepStarted.classList.add(
                     "current"
                 );
 
-                startedDescription.textContent =
-                    "The internship start date has not been specified.";
-
-            }
-
-
-
-            /* --------------------------------------
-               ACTIVE
-            -------------------------------------- */
-
-            if (
-                status === "active"
-            ) {
 
                 stepProgress.classList.add(
-                    "current"
+                    "pending"
                 );
+
 
                 stepEvaluation.classList.add(
                     "pending"
                 );
+
 
                 stepCompleted.classList.add(
                     "pending"
                 );
 
 
+                startedDescription.textContent =
+                    "The internship has not started yet.";
+
                 progressDescription.textContent =
-                    "The student is currently completing the internship.";
+                    "The internship will start according to the scheduled start date.";
 
                 evaluationProgressText.textContent =
-                    evaluation &&
-                    evaluation.status ===
-                    "submitted"
-                        ? "The company has submitted the internship evaluation."
-                        : "Waiting for the company evaluation.";
+                    "The evaluation will be submitted after the internship.";
 
                 completedDescription.textContent =
                     "The internship has not been completed yet.";
@@ -1354,46 +2383,101 @@
             }
 
 
-
-            /* --------------------------------------
-               COMPLETED
-            -------------------------------------- */
+            /* ======================================
+               ACTIVE
+            ====================================== */
 
             if (
-                status === "completed"
+                status ===
+                "active"
             ) {
 
-                stepProgress.classList.add(
+                stepAccepted.classList.add(
                     "completed"
                 );
 
 
-                if (
+                acceptedDescription.textContent =
+                    "The company accepted the student's internship application.";
+
+
+                stepStarted.classList.add(
+                    "completed"
+                );
+
+
+                startedDescription.textContent =
+                    "The student has started the internship.";
+
+
+                stepProgress.classList.add(
+                    "current"
+                );
+
+
+                progressDescription.textContent =
+                    "The student is currently completing the internship.";
+
+
+                stepEvaluation.classList.add(
+                    "pending"
+                );
+
+
+                evaluationProgressText.textContent =
+
                     evaluation &&
-                    evaluation.status ===
+                    String(
+                        evaluation.status
+                    ).toLowerCase() ===
                     "submitted"
-                ) {
 
-                    stepEvaluation.classList.add(
-                        "completed"
-                    );
+                        ? "The company has submitted the internship evaluation."
 
-                    evaluationProgressText.textContent =
-                        "The company has submitted the internship evaluation.";
-
-                } else {
-
-                    stepEvaluation.classList.add(
-                        "current"
-                    );
-
-                    evaluationProgressText.textContent =
-                        "Waiting for the company evaluation.";
-
-                }
+                        : "The evaluation will be submitted after the internship is completed.";
 
 
                 stepCompleted.classList.add(
+                    "pending"
+                );
+
+
+                completedDescription.textContent =
+                    "The internship has not been completed yet.";
+
+                return;
+
+            }
+
+
+            /* ======================================
+               COMPLETED
+            ====================================== */
+
+            if (
+                status ===
+                "completed"
+            ) {
+
+                stepAccepted.classList.add(
+                    "completed"
+                );
+
+
+                acceptedDescription.textContent =
+                    "The company accepted the student's internship application.";
+
+
+                stepStarted.classList.add(
+                    "completed"
+                );
+
+
+                startedDescription.textContent =
+                    "The student started the internship.";
+
+
+                stepProgress.classList.add(
                     "completed"
                 );
 
@@ -1401,13 +2485,52 @@
                 progressDescription.textContent =
                     "The student completed the internship period.";
 
+
+                stepCompleted.classList.add(
+                    "completed"
+                );
+
+
                 completedDescription.textContent =
-                    "The internship has been completed successfully.";
+                    "The internship period has ended.";
+
+
+                if (
+
+                    evaluation &&
+
+                    String(
+                        evaluation.status
+                    ).toLowerCase() ===
+                    "submitted"
+
+                ) {
+
+                    stepEvaluation.classList.add(
+                        "completed"
+                    );
+
+
+                    evaluationProgressText.textContent =
+                        "The company has submitted the internship evaluation.";
+
+                }
+
+                else {
+
+                    stepEvaluation.classList.add(
+                        "current"
+                    );
+
+
+                    evaluationProgressText.textContent =
+                        "The internship has ended. Waiting for the company evaluation.";
+
+                }
 
             }
 
         }
-
 
 
         /* ==========================================
@@ -1418,7 +2541,6 @@
             studentName,
             evaluation
         ) {
-
 
             const evaluationEmpty =
                 document.getElementById(
@@ -1456,15 +2578,19 @@
                 );
 
 
-
             /* --------------------------------------
                SUBMITTED
             -------------------------------------- */
 
             if (
+
                 evaluation &&
-                evaluation.status ===
+
+                String(
+                    evaluation.status
+                ).toLowerCase() ===
                 "submitted"
+
             ) {
 
                 evaluationEmpty.style.display =
@@ -1491,18 +2617,18 @@
                     viewPdfButton.style.display =
                         "inline-block";
 
-                } else {
+                }
+
+                else {
 
                     viewPdfButton.style.display =
                         "none";
 
                 }
 
-
                 return;
 
             }
-
 
 
             /* --------------------------------------
@@ -1529,16 +2655,17 @@
         }
 
 
-
         /* ==========================================
            LOGOUT
         ========================================== */
 
         document
-            .getElementById("logoutLink")
+            .getElementById(
+                "logoutLink"
+            )
             .addEventListener(
                 "click",
-                async function (event) {
+                async function(event) {
 
                     event.preventDefault();
 
@@ -1553,7 +2680,6 @@
             );
 
 
-
         /* ==========================================
            START
         ========================================== */
@@ -1561,7 +2687,6 @@
         loadStudentProgress();
 
     </script>
-
 
 </body>
 

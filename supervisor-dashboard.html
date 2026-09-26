@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +80,6 @@
     </header>
 
 
-
     <!-- =========================
          SUPERVISOR DASHBOARD
     ========================== -->
@@ -115,15 +113,11 @@
         </section>
 
 
-
         <!-- =========================
              STATISTICS
         ========================== -->
 
         <section class="supervisor-stats">
-
-
-            <!-- Students -->
 
             <div class="supervisor-stat-card">
 
@@ -142,9 +136,6 @@
             </div>
 
 
-
-            <!-- Active Internships -->
-
             <div class="supervisor-stat-card">
 
                 <span class="stat-title">
@@ -162,9 +153,6 @@
             </div>
 
 
-
-            <!-- Submitted Evaluations -->
-
             <div class="supervisor-stat-card">
 
                 <span class="stat-title">
@@ -181,9 +169,6 @@
 
             </div>
 
-
-
-            <!-- Completed Internships -->
 
             <div class="supervisor-stat-card">
 
@@ -204,13 +189,11 @@
         </section>
 
 
-
         <!-- =========================
              MY STUDENTS
         ========================== -->
 
         <section class="dashboard-section">
-
 
             <div class="section-heading">
 
@@ -234,9 +217,6 @@
             </div>
 
 
-
-            <!-- Dynamic students -->
-
             <div id="studentsList">
 
                 <p>
@@ -245,9 +225,7 @@
 
             </div>
 
-
         </section>
-
 
 
         <!-- =========================
@@ -255,7 +233,6 @@
         ========================== -->
 
         <section class="dashboard-section">
-
 
             <div class="section-heading">
 
@@ -274,9 +251,6 @@
             </div>
 
 
-
-            <!-- Dynamic evaluations -->
-
             <div id="evaluationsList">
 
                 <p>
@@ -285,12 +259,10 @@
 
             </div>
 
-
         </section>
 
 
     </main>
-
 
 
     <!-- =========================
@@ -309,7 +281,6 @@
 </div>
 
 
-
 <!-- =========================
      SUPABASE
 ========================== -->
@@ -319,15 +290,14 @@
 <script src="./js/supabase.js"></script>
 
 
-
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    loadSupervisorDashboard();
-
-});
-
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        loadSupervisorDashboard();
+    }
+);
 
 
 /* =========================================
@@ -336,7 +306,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function escapeHTML(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
         return "";
     }
 
@@ -350,7 +323,6 @@ function escapeHTML(value) {
 }
 
 
-
 /* =========================================
    LOAD SUPERVISOR DASHBOARD
 ========================================= */
@@ -358,10 +330,6 @@ function escapeHTML(value) {
 async function loadSupervisorDashboard() {
 
     try {
-
-        /* -------------------------------------
-           GET CURRENT USER
-        ------------------------------------- */
 
         const {
             data: {
@@ -378,24 +346,30 @@ async function loadSupervisorDashboard() {
 
         if (!user) {
 
-            window.location.href = "index.html";
+            window.location.href =
+                "index.html";
 
             return;
 
         }
 
 
-
-        /* -------------------------------------
-           GET SUPERVISOR PROFILE
-        ------------------------------------- */
+        /* =====================================
+           SUPERVISOR PROFILE
+        ===================================== */
 
         const {
             data: profile,
             error: profileError
         } = await db
             .from("profiles")
-            .select("id, full_name, username, email, role")
+            .select(`
+                id,
+                full_name,
+                username,
+                email,
+                role
+            `)
             .eq("id", user.id)
             .eq("role", "supervisor")
             .maybeSingle();
@@ -408,17 +382,14 @@ async function loadSupervisorDashboard() {
 
         if (!profile) {
 
-            alert("Supervisor profile was not found.");
+            alert(
+                "Supervisor profile was not found."
+            );
 
             return;
 
         }
 
-
-
-        /* -------------------------------------
-           WELCOME MESSAGE
-        ------------------------------------- */
 
         const supervisorName =
             profile.full_name ||
@@ -426,14 +397,15 @@ async function loadSupervisorDashboard() {
             "Supervisor";
 
 
-        document.getElementById("welcomeMessage").textContent =
+        document.getElementById(
+            "welcomeMessage"
+        ).textContent =
             `Welcome, ${supervisorName} 👋`;
 
 
-
-        /* -------------------------------------
-           GET STUDENTS UNDER THIS SUPERVISOR
-        ------------------------------------- */
+        /* =====================================
+           STUDENTS
+        ===================================== */
 
         const {
             data: students,
@@ -445,7 +417,10 @@ async function loadSupervisorDashboard() {
                 major,
                 supervisor_id
             `)
-            .eq("supervisor_id", user.id);
+            .eq(
+                "supervisor_id",
+                user.id
+            );
 
 
         if (studentsError) {
@@ -453,35 +428,45 @@ async function loadSupervisorDashboard() {
         }
 
 
-        const studentList = students || [];
+        const studentList =
+            students || [];
 
 
-        document.getElementById("studentsCount").textContent =
+        document.getElementById(
+            "studentsCount"
+        ).textContent =
             studentList.length;
 
 
-
-        /* -------------------------------------
-           NO STUDENTS
-        ------------------------------------- */
-
         if (studentList.length === 0) {
 
-            document.getElementById("studentsList").innerHTML = `
+            document.getElementById(
+                "studentsList"
+            ).innerHTML = `
                 <p>
                     No students are currently assigned to you.
                 </p>
             `;
 
 
-            document.getElementById("activeInternshipsCount").textContent = "0";
-
-            document.getElementById("completedInternshipsCount").textContent = "0";
-
-            document.getElementById("submittedEvaluationsCount").textContent = "0";
+            document.getElementById(
+                "activeInternshipsCount"
+            ).textContent = "0";
 
 
-            document.getElementById("evaluationsList").innerHTML = `
+            document.getElementById(
+                "completedInternshipsCount"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "submittedEvaluationsCount"
+            ).textContent = "0";
+
+
+            document.getElementById(
+                "evaluationsList"
+            ).innerHTML = `
                 <p>
                     No submitted evaluations yet.
                 </p>
@@ -492,14 +477,15 @@ async function loadSupervisorDashboard() {
         }
 
 
-
-        /* -------------------------------------
-           GET STUDENT PROFILES
-        ------------------------------------- */
-
         const studentIds =
-            studentList.map(student => student.id);
+            studentList.map(
+                student => student.id
+            );
 
+
+        /* =====================================
+           STUDENT PROFILES
+        ===================================== */
 
         const {
             data: studentProfiles,
@@ -513,7 +499,10 @@ async function loadSupervisorDashboard() {
                 email,
                 phone
             `)
-            .in("id", studentIds);
+            .in(
+                "id",
+                studentIds
+            );
 
 
         if (studentProfilesError) {
@@ -521,10 +510,12 @@ async function loadSupervisorDashboard() {
         }
 
 
+        /* =====================================
+           APPLICATIONS
+        ===================================== */
 
-        /* -------------------------------------
-           GET APPLICATIONS
-        ------------------------------------- */
+        let applicationList = [];
+
 
         const {
             data: applications,
@@ -538,27 +529,39 @@ async function loadSupervisorDashboard() {
                 status,
                 applied_at
             `)
-            .in("student_id", studentIds);
+            .in(
+                "student_id",
+                studentIds
+            );
 
 
         if (applicationsError) {
-            throw applicationsError;
+
+            console.error(
+                "Applications error:",
+                applicationsError
+            );
+
+        } else {
+
+            applicationList =
+                applications || [];
+
         }
 
 
-        const applicationList = applications || [];
-
-
-
-        /* -------------------------------------
-           GET INTERNSHIPS
-        ------------------------------------- */
+        /* =====================================
+           INTERNSHIPS
+        ===================================== */
 
         const internshipIds =
             [
                 ...new Set(
                     applicationList
-                        .map(application => application.internship_id)
+                        .map(
+                            application =>
+                                application.internship_id
+                        )
                         .filter(Boolean)
                 )
             ];
@@ -567,7 +570,9 @@ async function loadSupervisorDashboard() {
         let internships = [];
 
 
-        if (internshipIds.length > 0) {
+        if (
+            internshipIds.length > 0
+        ) {
 
             const {
                 data: internshipData,
@@ -584,29 +589,41 @@ async function loadSupervisorDashboard() {
                     end_date,
                     status
                 `)
-                .in("id", internshipIds);
+                .in(
+                    "id",
+                    internshipIds
+                );
 
 
             if (internshipError) {
-                throw internshipError;
+
+                console.error(
+                    "Internship error:",
+                    internshipError
+                );
+
+            } else {
+
+                internships =
+                    internshipData || [];
+
             }
-
-
-            internships = internshipData || [];
 
         }
 
 
-
-        /* -------------------------------------
-           GET COMPANIES
-        ------------------------------------- */
+        /* =====================================
+           COMPANIES
+        ===================================== */
 
         const companyIds =
             [
                 ...new Set(
                     internships
-                        .map(internship => internship.company_id)
+                        .map(
+                            internship =>
+                                internship.company_id
+                        )
                         .filter(Boolean)
                 )
             ];
@@ -615,7 +632,9 @@ async function loadSupervisorDashboard() {
         let companies = [];
 
 
-        if (companyIds.length > 0) {
+        if (
+            companyIds.length > 0
+        ) {
 
             const {
                 data: companyData,
@@ -626,124 +645,157 @@ async function loadSupervisorDashboard() {
                     id,
                     name
                 `)
-                .in("id", companyIds);
+                .in(
+                    "id",
+                    companyIds
+                );
 
 
             if (companyError) {
-                throw companyError;
+
+                console.error(
+                    "Company error:",
+                    companyError
+                );
+
+            } else {
+
+                companies =
+                    companyData || [];
+
             }
-
-
-            companies = companyData || [];
 
         }
 
 
-
-        /* -------------------------------------
-           CREATE LOOKUP OBJECTS
-        ------------------------------------- */
+        /* =====================================
+           MAPS
+        ===================================== */
 
         const profileMap = {};
 
-        (studentProfiles || []).forEach(profile => {
+        (studentProfiles || []).forEach(
+            profile => {
 
-            profileMap[profile.id] = profile;
+                profileMap[
+                    profile.id
+                ] = profile;
 
-        });
+            }
+        );
 
 
         const internshipMap = {};
 
-        internships.forEach(internship => {
+        internships.forEach(
+            internship => {
 
-            internshipMap[internship.id] = internship;
+                internshipMap[
+                    internship.id
+                ] = internship;
 
-        });
+            }
+        );
 
 
         const companyMap = {};
 
-        companies.forEach(company => {
+        companies.forEach(
+            company => {
 
-            companyMap[company.id] = company;
+                companyMap[
+                    company.id
+                ] = company;
 
-        });
+            }
+        );
 
 
-
-        /* -------------------------------------
-           FIND MAIN APPLICATION FOR EACH STUDENT
-        ------------------------------------- */
+        /* =====================================
+           STUDENT ROWS
+        ===================================== */
 
         const studentRows =
-            studentList.map(student => {
+            studentList.map(
+                student => {
 
-                const profile =
-                    profileMap[student.id] || {};
-
-
-                const studentApplications =
-                    applicationList.filter(
-                        application =>
-                            application.student_id === student.id
-                    );
+                    const profile =
+                        profileMap[
+                            student.id
+                        ] || {};
 
 
-                /*
-                 * Prefer accepted application.
-                 * If there is no accepted application,
-                 * use the latest application.
-                 */
-
-                let application =
-                    studentApplications.find(
-                        item => item.status === "accepted"
-                    );
+                    const studentApplications =
+                        applicationList.filter(
+                            application =>
+                                application.student_id ===
+                                student.id
+                        );
 
 
-                if (!application && studentApplications.length > 0) {
+                    let application =
+                        studentApplications.find(
+                            item =>
+                                item.status ===
+                                "accepted"
+                        );
 
-                    application =
-                        [...studentApplications]
-                            .sort(
-                                (a, b) =>
-                                    new Date(b.applied_at) -
-                                    new Date(a.applied_at)
-                            )[0];
+
+                    if (
+                        !application &&
+                        studentApplications.length > 0
+                    ) {
+
+                        application =
+                            [
+                                ...studentApplications
+                            ]
+                                .sort(
+                                    (a, b) =>
+                                        new Date(
+                                            b.applied_at
+                                        ) -
+                                        new Date(
+                                            a.applied_at
+                                        )
+                                )[0];
+
+                    }
+
+
+                    const internship =
+                        application
+                            ? internshipMap[
+                                application.internship_id
+                            ]
+                            : null;
+
+
+                    const company =
+                        internship
+                            ? companyMap[
+                                internship.company_id
+                            ]
+                            : null;
+
+
+                    return {
+
+                        student,
+                        profile,
+                        application,
+                        internship,
+                        company
+
+                    };
 
                 }
+            );
 
 
-                const internship =
-                    application
-                        ? internshipMap[application.internship_id]
-                        : null;
-
-
-                const company =
-                    internship
-                        ? companyMap[internship.company_id]
-                        : null;
-
-
-                return {
-
-                    student,
-                    profile,
-                    application,
-                    internship,
-                    company
-
-                };
-
-            });
-
-
-
-        /* -------------------------------------
-           CALCULATE STATISTICS
-        ------------------------------------- */
+        /* =====================================
+           STATISTICS
+        ===================================== */
 
         const today =
             new Date();
@@ -754,32 +806,46 @@ async function loadSupervisorDashboard() {
         let completedCount = 0;
 
 
-        studentRows.forEach(row => {
+        studentRows.forEach(
+            row => {
 
-            if (!row.application) {
-                return;
-            }
-
-
-            if (row.application.status !== "accepted") {
-                return;
-            }
+                if (
+                    !row.application
+                ) {
+                    return;
+                }
 
 
-            if (
-                row.internship &&
-                row.internship.end_date
-            ) {
-
-                const endDate =
-                    new Date(
-                        row.internship.end_date
-                    );
+                if (
+                    row.application.status !==
+                    "accepted"
+                ) {
+                    return;
+                }
 
 
-                if (endDate < today) {
+                if (
+                    row.internship &&
+                    row.internship.end_date
+                ) {
 
-                    completedCount++;
+                    const endDate =
+                        new Date(
+                            row.internship.end_date
+                        );
+
+
+                    if (
+                        endDate < today
+                    ) {
+
+                        completedCount++;
+
+                    } else {
+
+                        activeCount++;
+
+                    }
 
                 } else {
 
@@ -787,48 +853,37 @@ async function loadSupervisorDashboard() {
 
                 }
 
-            } else {
-
-                /*
-                 * If there is no end date,
-                 * consider an accepted internship active.
-                 */
-
-                activeCount++;
-
             }
-
-        });
+        );
 
 
         document.getElementById(
             "activeInternshipsCount"
-        ).textContent = activeCount;
+        ).textContent =
+            activeCount;
 
 
         document.getElementById(
             "completedInternshipsCount"
-        ).textContent = completedCount;
+        ).textContent =
+            completedCount;
 
 
-
-        /* -------------------------------------
-           DISPLAY STUDENTS
-        ------------------------------------- */
-
-        renderStudents(studentRows);
+        renderStudents(
+            studentRows
+        );
 
 
-
-        /* -------------------------------------
-           GET SUBMITTED EVALUATIONS
-        ------------------------------------- */
+        /* =====================================
+           EVALUATIONS
+        ===================================== */
 
         const acceptedApplicationIds =
             applicationList
                 .filter(
                     application =>
-                        application.status === "accepted"
+                        application.status ===
+                        "accepted"
                 )
                 .map(
                     application =>
@@ -839,7 +894,9 @@ async function loadSupervisorDashboard() {
         let evaluations = [];
 
 
-        if (acceptedApplicationIds.length > 0) {
+        if (
+            acceptedApplicationIds.length > 0
+        ) {
 
             const {
                 data: evaluationData,
@@ -849,15 +906,21 @@ async function loadSupervisorDashboard() {
                 .select(`
                     id,
                     application_id,
+                    form_url,
                     pdf_url,
                     status,
-                    submitted_at
+                    submitted_at,
+                    reviewed_at,
+                    created_at
                 `)
                 .in(
                     "application_id",
                     acceptedApplicationIds
                 )
-                .eq("status", "submitted");
+                .eq(
+                    "status",
+                    "submitted"
+                );
 
 
             if (evaluationError) {
@@ -877,12 +940,10 @@ async function loadSupervisorDashboard() {
         }
 
 
-
         document.getElementById(
             "submittedEvaluationsCount"
         ).textContent =
             evaluations.length;
-
 
 
         renderEvaluations(
@@ -908,18 +969,23 @@ async function loadSupervisorDashboard() {
 }
 
 
-
 /* =========================================
    RENDER STUDENTS
 ========================================= */
 
-function renderStudents(studentRows) {
+function renderStudents(
+    studentRows
+) {
 
     const container =
-        document.getElementById("studentsList");
+        document.getElementById(
+            "studentsList"
+        );
 
 
-    if (!studentRows.length) {
+    if (
+        !studentRows.length
+    ) {
 
         container.innerHTML = `
             <p>
@@ -932,170 +998,207 @@ function renderStudents(studentRows) {
     }
 
 
-    /*
-     * Show maximum 3 students on dashboard.
-     * "View All" opens the full students page.
-     */
-
     const visibleStudents =
-        studentRows.slice(0, 3);
+        studentRows.slice(
+            0,
+            3
+        );
 
 
     container.innerHTML =
         visibleStudents
-            .map(row => {
+            .map(
+                row => {
+
+                    const profile =
+                        row.profile || {};
+
+                    const student =
+                        row.student || {};
+
+                    const application =
+                        row.application;
+
+                    const internship =
+                        row.internship;
+
+                    const company =
+                        row.company;
 
 
-                const profile =
-                    row.profile || {};
+                    const name =
+                        profile.full_name ||
+                        profile.username ||
+                        "Student";
 
 
-                const student =
-                    row.student || {};
+                    const major =
+                        student.major ||
+                        "Major not specified";
 
 
-                const application =
-                    row.application;
+                    const companyName =
+                        company
+                            ? company.name
+                            : "No company assigned";
 
 
-                const internship =
-                    row.internship;
+                    let statusText =
+                        "Pending";
 
 
-                const company =
-                    row.company;
+                    let statusClass =
+                        "active";
 
-
-                const name =
-                    profile.full_name ||
-                    profile.username ||
-                    "Student";
-
-
-                const major =
-                    student.major ||
-                    "Major not specified";
-
-
-                const companyName =
-                    company
-                        ? company.name
-                        : "No company assigned";
-
-
-                let statusText =
-                    "Pending";
-
-
-                let statusClass =
-                    "active";
-
-
-                if (
-                    application &&
-                    application.status === "accepted"
-                ) {
 
                     if (
-                        internship &&
-                        internship.end_date &&
-                        new Date(internship.end_date) < new Date()
+                        application &&
+                        application.status ===
+                        "accepted"
+                    ) {
+
+                        if (
+                            internship &&
+                            internship.end_date &&
+                            new Date(
+                                internship.end_date
+                            ) < new Date()
+                        ) {
+
+                            statusText =
+                                "Completed";
+
+                            statusClass =
+                                "completed";
+
+                        } else {
+
+                            statusText =
+                                "Active";
+
+                            statusClass =
+                                "active";
+
+                        }
+
+                    }
+
+
+                    else if (
+                        application &&
+                        application.status ===
+                        "rejected"
                     ) {
 
                         statusText =
-                            "Completed";
+                            "Rejected";
 
                         statusClass =
                             "completed";
 
-                    } else {
+                    }
+
+
+                    else if (
+                        application &&
+                        application.status ===
+                        "pending"
+                    ) {
 
                         statusText =
-                            "Active";
+                            "Pending";
 
                         statusClass =
                             "active";
 
                     }
 
-                } else if (
-                    application &&
-                    application.status === "rejected"
-                ) {
 
-                    statusText =
-                        "Rejected";
-
-                    statusClass =
-                        "completed";
-
-                }
+                    const firstLetter =
+                        name
+                            .trim()
+                            .charAt(0)
+                            .toUpperCase();
 
 
-                const firstLetter =
-                    name
-                        .trim()
-                        .charAt(0)
-                        .toUpperCase();
+                    return `
+
+                        <div
+                            class="supervisor-student-row"
+                        >
+
+                            <div
+                                class="student-avatar"
+                            >
+                                ${escapeHTML(
+                                    firstLetter
+                                )}
+                            </div>
 
 
-                return `
+                            <div
+                                class="student-info"
+                            >
 
-                    <div class="supervisor-student-row">
+                                <h3>
+                                    ${escapeHTML(
+                                        name
+                                    )}
+                                </h3>
 
+                                <p>
+                                    ${escapeHTML(
+                                        major
+                                    )}
+                                </p>
 
-                        <div class="student-avatar">
-                            ${escapeHTML(firstLetter)}
-                        </div>
-
-
-                        <div class="student-info">
-
-                            <h3>
-                                ${escapeHTML(name)}
-                            </h3>
-
-                            <p>
-                                ${escapeHTML(major)}
-                            </p>
-
-                        </div>
+                            </div>
 
 
-                        <div class="student-company">
+                            <div
+                                class="student-company"
+                            >
 
-                            <span>
-                                Company
+                                <span>
+                                    Company
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        companyName
+                                    )}
+                                </strong>
+
+                            </div>
+
+
+                            <span
+                                class="internship-status ${statusClass}"
+                            >
+                                ${escapeHTML(
+                                    statusText
+                                )}
                             </span>
 
-                            <strong>
-                                ${escapeHTML(companyName)}
-                            </strong>
+
+                            <a
+                                href="student-progress.html?id=${encodeURIComponent(
+                                    student.id
+                                )}"
+                                class="review-button"
+                            >
+                                View
+                            </a>
 
                         </div>
 
+                    `;
 
-                        <span class="internship-status ${statusClass}">
-                            ${escapeHTML(statusText)}
-                        </span>
-
-
-                        <a
-                            href="student-progress.html?id=${encodeURIComponent(student.id)}"
-                            class="review-button"
-                        >
-                            View
-                        </a>
-
-                    </div>
-
-                `;
-
-            })
+                }
+            )
             .join("");
 
 }
-
 
 
 /* =========================================
@@ -1113,7 +1216,9 @@ function renderEvaluations(
         );
 
 
-    if (!evaluations.length) {
+    if (
+        !evaluations.length
+    ) {
 
         container.innerHTML = `
             <p>
@@ -1129,129 +1234,148 @@ function renderEvaluations(
     const applicationMap = {};
 
 
-    studentRows.forEach(row => {
+    studentRows.forEach(
+        row => {
 
-        if (row.application) {
+            if (
+                row.application
+            ) {
 
-            applicationMap[
-                row.application.id
-            ] = row;
+                applicationMap[
+                    row.application.id
+                ] = row;
+
+            }
 
         }
+    );
 
-    });
-
-
-    /*
-     * Show maximum 2 evaluations
-     * on the dashboard.
-     */
 
     const visibleEvaluations =
-        evaluations.slice(0, 2);
+        evaluations.slice(
+            0,
+            2
+        );
 
 
     container.innerHTML =
         visibleEvaluations
-            .map(evaluation => {
+            .map(
+                evaluation => {
+
+                    const row =
+                        applicationMap[
+                            evaluation.application_id
+                        ];
 
 
-                const row =
-                    applicationMap[
-                        evaluation.application_id
-                    ];
+                    if (!row) {
+                        return "";
+                    }
 
 
-                if (!row) {
-                    return "";
-                }
+                    const studentName =
+                        row.profile.full_name ||
+                        row.profile.username ||
+                        "Student";
 
 
-                const studentName =
-                    row.profile.full_name ||
-                    row.profile.username ||
-                    "Student";
+                    const companyName =
+                        row.company
+                            ? row.company.name
+                            : "Company";
 
 
-                const companyName =
-                    row.company
-                        ? row.company.name
-                        : "Company";
+                    let pdfButton = `
 
-
-                let pdfButton =
-                    `<span class="review-button">
-                        PDF unavailable
-                    </span>`;
-
-
-                /*
-                 * If pdf_url exists,
-                 * open the stored URL.
-                 *
-                 * The actual private-storage
-                 * signed URL handling can be
-                 * added when evaluation storage
-                 * is implemented.
-                 */
-
-                if (evaluation.pdf_url) {
-
-                    pdfButton = `
-                        <a
-                            href="${escapeHTML(evaluation.pdf_url)}"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <span
                             class="review-button"
                         >
-                            View PDF
-                        </a>
+                            PDF unavailable
+                        </span>
+
+                    `;
+
+
+                    if (
+                        evaluation.pdf_url
+                    ) {
+
+                        pdfButton = `
+
+                            <a
+                                href="${escapeHTML(
+                                    evaluation.pdf_url
+                                )}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="review-button"
+                            >
+                                View PDF
+                            </a>
+
+                        `;
+
+                    }
+
+
+                    return `
+
+                        <div
+                            class="evaluation-row"
+                        >
+
+                            <div
+                                class="evaluation-icon"
+                            >
+                                PDF
+                            </div>
+
+
+                            <div
+                                class="evaluation-info"
+                            >
+
+                                <h3>
+
+                                    ${escapeHTML(
+                                        studentName
+                                    )}
+
+                                    –
+
+                                    ${escapeHTML(
+                                        companyName
+                                    )}
+
+                                </h3>
+
+
+                                <p>
+                                    Student Evaluation Form
+                                </p>
+
+                            </div>
+
+
+                            <span
+                                class="application-status accepted"
+                            >
+                                Submitted
+                            </span>
+
+
+                            ${pdfButton}
+
+                        </div>
+
                     `;
 
                 }
-
-
-                return `
-
-                    <div class="evaluation-row">
-
-
-                        <div class="evaluation-icon">
-                            PDF
-                        </div>
-
-
-                        <div class="evaluation-info">
-
-                            <h3>
-                                ${escapeHTML(studentName)}
-                                – 
-                                ${escapeHTML(companyName)}
-                            </h3>
-
-                            <p>
-                                Student Evaluation Form
-                            </p>
-
-                        </div>
-
-
-                        <span class="application-status accepted">
-                            Submitted
-                        </span>
-
-
-                        ${pdfButton}
-
-                    </div>
-
-                `;
-
-            })
+            )
             .join("");
 
 }
-
 
 
 /* =========================================
@@ -1259,16 +1383,16 @@ function renderEvaluations(
 ========================================= */
 
 document
-    .getElementById("logoutLink")
+    .getElementById(
+        "logoutLink"
+    )
     .addEventListener(
         "click",
         async function (event) {
 
             event.preventDefault();
 
-
             await db.auth.signOut();
-
 
             window.location.href =
                 "index.html";
