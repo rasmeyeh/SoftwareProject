@@ -20,15 +20,17 @@
     <style>
 
         /* =========================================
-           EVALUATION FORM UPLOAD
+           EVALUATION UPLOAD
         ========================================= */
 
         .evaluation-upload-box {
 
             margin-top: 20px;
+
             padding: 24px;
 
             border: 1px solid #ddd6c8;
+
             border-radius: 14px;
 
             background: #f8f5ee;
@@ -114,29 +116,37 @@
         }
 
 
-        .selected-file-name {
+        /*
+         * The uploaded/selected file name.
+         * It becomes clickable after the file
+         * has been uploaded successfully.
+         */
 
-            color: #6f7d80;
+        .evaluation-file-link {
+
+            display: none;
+
+            align-items: center;
+
+            color: #315B66;
 
             font-size: 14px;
 
-            min-height: 20px;
-        }
-
-
-        .selected-file-name a {
-
-            color: #245566;
-
             text-decoration: none;
 
-            font-weight: 600;
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: color 0.2s ease;
         }
 
 
-        .selected-file-name a:hover {
+        .evaluation-file-link:hover {
 
             text-decoration: underline;
+
+            color: #244851;
         }
 
 
@@ -256,6 +266,7 @@
     </header>
 
 
+
     <!-- ================= MAIN ================= -->
 
     <main class="student-progress-page">
@@ -269,6 +280,7 @@
         >
             ← Back to My Students
         </a>
+
 
 
         <!-- ================= STUDENT HEADER ================= -->
@@ -305,6 +317,7 @@
         </section>
 
 
+
         <!-- ================= INTERNSHIP INFORMATION ================= -->
 
         <section class="progress-section">
@@ -330,6 +343,7 @@
                 </div>
 
 
+
                 <div class="progress-info-card">
 
                     <span>
@@ -341,6 +355,7 @@
                     </strong>
 
                 </div>
+
 
 
                 <div class="progress-info-card">
@@ -356,6 +371,7 @@
                 </div>
 
 
+
                 <div class="progress-info-card">
 
                     <span>
@@ -367,6 +383,7 @@
                     </strong>
 
                 </div>
+
 
 
                 <div class="progress-info-card">
@@ -382,6 +399,7 @@
                 </div>
 
 
+
                 <div class="progress-info-card">
 
                     <span>
@@ -394,9 +412,11 @@
 
                 </div>
 
+
             </div>
 
         </section>
+
 
 
         <!-- ================= INTERNSHIP PROGRESS ================= -->
@@ -436,6 +456,7 @@
                 </div>
 
 
+
                 <!-- STEP 2 -->
 
                 <div
@@ -458,6 +479,7 @@
                     </div>
 
                 </div>
+
 
 
                 <!-- STEP 3 -->
@@ -485,6 +507,7 @@
                 </div>
 
 
+
                 <!-- STEP 4 -->
 
                 <div
@@ -507,6 +530,7 @@
                     </div>
 
                 </div>
+
 
 
                 <!-- STEP 5 -->
@@ -532,9 +556,11 @@
 
                 </div>
 
+
             </div>
 
         </section>
+
 
 
         <!-- ==================================================
@@ -562,6 +588,7 @@
                 </p>
 
 
+
                 <!-- FILE INPUT -->
 
                 <div class="file-upload-wrapper">
@@ -577,32 +604,27 @@
                     <input
                         type="file"
                         id="evaluationFile"
-                        accept="
-                            .pdf,
-                            .doc,
-                            .docx,
-                            application/pdf,
-                            application/msword,
-                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                        "
+                        accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     >
 
 
                     <!--
-                        IMPORTANT:
-                        After upload, the file name will appear here.
-                        After Refresh, the file name will be loaded
-                        from evaluations.form_url.
+                        The file name appears here.
+                        After upload, it becomes a clickable link.
                     -->
 
-                    <span
-                        class="selected-file-name"
-                        id="selectedFileName"
+                    <a
+                        href="#"
+                        id="selectedFileLink"
+                        class="evaluation-file-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        No file selected
-                    </span>
+                        -
+                    </a>
 
                 </div>
+
 
 
                 <!-- UPLOAD BUTTON -->
@@ -616,6 +638,7 @@
                 </button>
 
 
+
                 <div
                     class="upload-status"
                     id="uploadStatus"
@@ -624,6 +647,7 @@
             </div>
 
         </section>
+
 
 
         <!-- ==================================================
@@ -635,6 +659,7 @@
             <h2>
                 Evaluation
             </h2>
+
 
 
             <!-- Evaluation Not Submitted -->
@@ -660,6 +685,7 @@
             </div>
 
 
+
             <!-- Evaluation Submitted -->
 
             <div
@@ -683,6 +709,7 @@
 
                 <br>
 
+
                 <a
                     href="#"
                     class="review-button"
@@ -701,11 +728,13 @@
     </main>
 
 
+
     <!-- ================= SUPABASE ================= -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="./js/supabase.js"></script>
+
 
 
     <!-- ================= JAVASCRIPT ================= -->
@@ -721,6 +750,7 @@
             "evaluations";
 
 
+
         /* ==========================================
            FORMAT DATE
         ========================================== */
@@ -728,7 +758,9 @@
         function formatDate(dateValue) {
 
             if (!dateValue) {
+
                 return "-";
+
             }
 
 
@@ -758,7 +790,11 @@
                     );
 
 
-                if (!isNaN(localDate.getTime())) {
+                if (
+                    !isNaN(
+                        localDate.getTime()
+                    )
+                ) {
 
                     return localDate.toLocaleDateString(
                         "en-US",
@@ -778,8 +814,14 @@
                 new Date(dateValue);
 
 
-            if (isNaN(date.getTime())) {
+            if (
+                isNaN(
+                    date.getTime()
+                )
+            ) {
+
                 return "-";
+
             }
 
 
@@ -795,6 +837,7 @@
         }
 
 
+
         /* ==========================================
            CREATE LOCAL DATE
         ========================================== */
@@ -802,7 +845,9 @@
         function getLocalDate(dateValue) {
 
             if (!dateValue) {
+
                 return null;
+
             }
 
 
@@ -813,7 +858,9 @@
 
 
             if (parts.length !== 3) {
+
                 return null;
+
             }
 
 
@@ -835,14 +882,21 @@
                 );
 
 
-            if (isNaN(date.getTime())) {
+            if (
+                isNaN(
+                    date.getTime()
+                )
+            ) {
+
                 return null;
+
             }
 
 
             return date;
 
         }
+
 
 
         /* ==========================================
@@ -868,6 +922,7 @@
         }
 
 
+
         /* ==========================================
            GET STUDENT ID
         ========================================== */
@@ -880,6 +935,7 @@
 
         const studentId =
             params.get("id");
+
 
 
         /* ==========================================
@@ -916,6 +972,7 @@
             );
 
 
+
         /* ==========================================
            FILE INPUT
         ========================================== */
@@ -926,9 +983,9 @@
             );
 
 
-        const selectedFileName =
+        const selectedFileLink =
             document.getElementById(
-                "selectedFileName"
+                "selectedFileLink"
             );
 
 
@@ -942,6 +999,7 @@
             document.getElementById(
                 "uploadStatus"
             );
+
 
 
         /* ==========================================
@@ -958,18 +1016,41 @@
 
                 if (!file) {
 
-                    selectedFileName.textContent =
-                        "No file selected";
+                    selectedFileLink.style.display =
+                        "none";
+
+                    selectedFileLink.textContent =
+                        "";
+
+                    selectedFileLink.href =
+                        "#";
 
                     return;
+
                 }
 
 
-                selectedFileName.textContent =
+                /*
+                 * Show the selected file name.
+                 * The actual opening link will be
+                 * assigned after the upload succeeds.
+                 */
+
+                selectedFileLink.textContent =
                     "📄 " + file.name;
+
+
+                selectedFileLink.style.display =
+                    "inline-flex";
+
+
+                selectedFileLink.removeAttribute(
+                    "href"
+                );
 
             }
         );
+
 
 
         /* ==========================================
@@ -994,6 +1075,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    GET CURRENT SUPERVISOR
                 -------------------------------------- */
@@ -1007,7 +1089,9 @@
 
 
                 if (userError) {
+
                     throw userError;
+
                 }
 
 
@@ -1017,7 +1101,9 @@
                         "index.html";
 
                     return;
+
                 }
+
 
 
                 /* --------------------------------------
@@ -1047,7 +1133,9 @@
 
 
                 if (studentError) {
+
                     throw studentError;
+
                 }
 
 
@@ -1058,6 +1146,7 @@
                     );
 
                 }
+
 
 
                 /* --------------------------------------
@@ -1084,8 +1173,11 @@
 
 
                 if (profileError) {
+
                     throw profileError;
+
                 }
+
 
 
                 /* --------------------------------------
@@ -1116,12 +1208,15 @@
 
 
                 if (applicationsError) {
+
                     throw applicationsError;
+
                 }
 
 
                 const applicationList =
                     applications || [];
+
 
 
                 /* --------------------------------------
@@ -1150,6 +1245,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    VARIABLES
                 -------------------------------------- */
@@ -1161,11 +1257,13 @@
                 let evaluation = null;
 
 
+
                 /* --------------------------------------
                    GET INTERNSHIP
                 -------------------------------------- */
 
                 if (application) {
+
 
                     const {
                         data: internshipData,
@@ -1190,12 +1288,15 @@
 
 
                     if (internshipError) {
+
                         throw internshipError;
+
                     }
 
 
                     internship =
                         internshipData;
+
 
 
                     /* ----------------------------------
@@ -1221,7 +1322,9 @@
 
 
                         if (companyError) {
+
                             throw companyError;
+
                         }
 
 
@@ -1229,6 +1332,7 @@
                             companyData;
 
                     }
+
 
 
                     /* ----------------------------------
@@ -1243,6 +1347,7 @@
                         .select(`
                             id,
                             application_id,
+                            form_name,
                             pdf_url,
                             status,
                             submitted_at,
@@ -1264,7 +1369,8 @@
                             evaluationError
                         );
 
-                    } else {
+                    }
+                    else {
 
                         evaluation =
                             evaluationData;
@@ -1272,6 +1378,7 @@
                     }
 
                 }
+
 
 
                 /* ======================================
@@ -1343,6 +1450,7 @@
                         : "-";
 
 
+
                 /* ======================================
                    INTERNSHIP INFORMATION
                 ====================================== */
@@ -1387,13 +1495,15 @@
                         : "-";
 
 
+
                 /* ======================================
-                   DISPLAY SAVED EVALUATION FORM
+                   DISPLAY CURRENT FORM
                 ====================================== */
 
                 displayCurrentForm(
                     evaluation
                 );
+
 
 
                 /* ======================================
@@ -1440,6 +1550,7 @@
 
                 const today =
                     getToday();
+
 
 
                 if (
@@ -1528,6 +1639,7 @@
                 }
 
 
+
                 /* ======================================
                    STATUS TEXT
                 ====================================== */
@@ -1560,6 +1672,7 @@
                     ];
 
 
+
                 /* ======================================
                    UPDATE PROGRESS
                 ====================================== */
@@ -1572,6 +1685,7 @@
                 );
 
 
+
                 /* ======================================
                    UPDATE EVALUATION
                 ====================================== */
@@ -1582,7 +1696,9 @@
                 );
 
 
-            } catch (error) {
+            }
+
+            catch (error) {
 
                 console.error(
                     "Student progress error:",
@@ -1612,116 +1728,108 @@
         }
 
 
+
         /* ==========================================
-           DISPLAY SAVED FORM
+           DISPLAY CURRENT FORM
         ========================================== */
 
         function displayCurrentForm(
             evaluation
         ) {
 
-            const selectedFileName =
-                document.getElementById(
-                    "selectedFileName"
-                );
-
-
-            /*
-             * If an evaluation record exists
-             * and form_url is saved,
-             * show the file name.
-             */
-
             if (
-                evaluation &&
-                evaluation.form_url
+                !evaluation ||
+                !evaluation.form_url
             ) {
 
-                let fileName =
-                    "Evaluation Form";
+                selectedFileLink.style.display =
+                    "none";
 
+                selectedFileLink.textContent =
+                    "";
 
-                try {
+                selectedFileLink.href =
+                    "#";
 
-                    const url =
-                        new URL(
-                            evaluation.form_url
-                        );
-
-
-                    const pathParts =
-                        url.pathname.split("/");
-
-
-                    const lastPart =
-                        pathParts[
-                            pathParts.length - 1
-                        ];
-
-
-                    if (lastPart) {
-
-                        fileName =
-                            decodeURIComponent(
-                                lastPart
-                            );
-
-
-                        /*
-                         * Remove the timestamp
-                         * from the beginning.
-                         *
-                         * Example:
-                         *
-                         * 1790343437828_form.docx
-                         *
-                         * becomes:
-                         *
-                         * form.docx
-                         */
-
-                        fileName =
-                            fileName.replace(
-                                /^\d+_/,
-                                ""
-                            );
-
-                    }
-
-                } catch (error) {
-
-                    console.error(
-                        "Unable to read evaluation file name:",
-                        error
-                    );
-
-                }
-
-
-                selectedFileName.innerHTML = `
-
-                    📄
-
-                    <a
-                        href="${evaluation.form_url}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ${fileName}
-                    </a>
-
-                `;
+                return;
 
             }
 
+
+            const fileName =
+                evaluation.form_name ||
+                "Evaluation form";
+
+
+            const fileUrl =
+                evaluation.form_url;
+
+
+            selectedFileLink.textContent =
+                "📄 " + fileName;
+
+
+            selectedFileLink.style.display =
+                "inline-flex";
+
+
+
+            /*
+             * PDF:
+             * Open directly in the browser.
+             */
+
+            const extension =
+                fileName
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+
+            if (
+                extension === "pdf"
+            ) {
+
+                selectedFileLink.href =
+                    fileUrl;
+
+            }
+
+
+            /*
+             * DOC / DOCX:
+             * Open using Microsoft Office Online Viewer.
+             */
+
+            else if (
+                extension === "doc" ||
+                extension === "docx"
+            ) {
+
+                selectedFileLink.href =
+                    "https://view.officeapps.live.com/op/view.aspx?src=" +
+                    encodeURIComponent(
+                        fileUrl
+                    );
+
+            }
+
+
+            /*
+             * Other files:
+             * Open directly.
+             */
+
             else {
 
-                selectedFileName.textContent =
-                    "No file selected";
+                selectedFileLink.href =
+                    fileUrl;
 
             }
 
         }
+
 
 
         /* ==========================================
@@ -1754,6 +1862,7 @@
                     return;
 
                 }
+
 
 
                 /* --------------------------------------
@@ -1795,6 +1904,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    CHECK FILE SIZE
                 -------------------------------------- */
@@ -1816,6 +1926,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    GET CURRENT USER
                 -------------------------------------- */
@@ -1829,7 +1940,9 @@
 
 
                 if (userError) {
+
                     throw userError;
+
                 }
 
 
@@ -1841,6 +1954,7 @@
                     return;
 
                 }
+
 
 
                 /* --------------------------------------
@@ -1867,7 +1981,9 @@
 
 
                 if (applicationError) {
+
                     throw applicationError;
+
                 }
 
 
@@ -1879,6 +1995,7 @@
                     return;
 
                 }
+
 
 
                 /* --------------------------------------
@@ -1901,12 +2018,22 @@
                     safeFileName;
 
 
+                /*
+                 * Keep the original filename
+                 * for displaying it in the page.
+                 */
+
+                const originalFileName =
+                    file.name;
+
+
                 uploadStatus.textContent =
                     "Uploading file...";
 
 
                 uploadEvaluationButton.disabled =
                     true;
+
 
 
                 /* --------------------------------------
@@ -1933,8 +2060,11 @@
 
 
                 if (uploadError) {
+
                     throw uploadError;
+
                 }
+
 
 
                 /* --------------------------------------
@@ -1968,6 +2098,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    GET EXISTING EVALUATION
                 -------------------------------------- */
@@ -1996,6 +2127,7 @@
                 }
 
 
+
                 /* --------------------------------------
                    INSERT / UPDATE EVALUATION
                 -------------------------------------- */
@@ -2013,6 +2145,9 @@
                     } = await db
                         .from("evaluations")
                         .update({
+
+                            form_name:
+                                originalFileName,
 
                             form_url:
                                 formUrl
@@ -2040,6 +2175,9 @@
                             application_id:
                                 application.id,
 
+                            form_name:
+                                originalFileName,
+
                             form_url:
                                 formUrl,
 
@@ -2055,56 +2193,86 @@
                 }
 
 
+
                 if (saveError) {
+
                     throw saveError;
+
                 }
 
 
-                /* ======================================
+
+                /* --------------------------------------
                    SUCCESS
-                ====================================== */
+                -------------------------------------- */
 
                 uploadStatus.textContent =
                     "Evaluation form uploaded successfully.";
 
 
+
                 /*
-                 * Show the uploaded file immediately
-                 * in the same place as "No file selected".
+                 * Immediately display the file name.
                  */
 
-                selectedFileName.innerHTML = `
+                selectedFileLink.textContent =
+                    "📄 " +
+                    originalFileName;
 
-                    📄
 
-                    <a
-                        href="${formUrl}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ${file.name}
-                    </a>
+                selectedFileLink.style.display =
+                    "inline-flex";
 
-                `;
 
 
                 /*
-                 * Clear the actual file input.
-                 *
-                 * This does NOT delete the uploaded file.
-                 *
-                 * It only resets the browser's
-                 * file-selection control.
+                 * Set the correct opening URL.
                  */
 
-                evaluationFile.value = "";
+                const uploadedExtension =
+                    originalFileName
+                        .split(".")
+                        .pop()
+                        .toLowerCase();
 
 
-                /*
-                 * Reload the evaluation from Supabase
-                 * so the displayed file is based on
-                 * the saved database record.
-                 */
+                if (
+                    uploadedExtension ===
+                    "pdf"
+                ) {
+
+                    selectedFileLink.href =
+                        formUrl;
+
+                }
+
+                else if (
+                    uploadedExtension ===
+                        "doc" ||
+                    uploadedExtension ===
+                        "docx"
+                ) {
+
+                    selectedFileLink.href =
+                        "https://view.officeapps.live.com/op/view.aspx?src=" +
+                        encodeURIComponent(
+                            formUrl
+                        );
+
+                }
+
+                else {
+
+                    selectedFileLink.href =
+                        formUrl;
+
+                }
+
+
+
+                /* --------------------------------------
+                   GET UPDATED EVALUATION
+                -------------------------------------- */
 
                 const {
                     data: refreshedEvaluation,
@@ -2114,6 +2282,7 @@
                     .select(`
                         id,
                         application_id,
+                        form_name,
                         pdf_url,
                         status,
                         submitted_at,
@@ -2136,8 +2305,9 @@
 
                 }
 
+            }
 
-            } catch (error) {
+            catch (error) {
 
                 console.error(
                     "Upload evaluation form error:",
@@ -2159,6 +2329,7 @@
             }
 
         }
+
 
 
         /* ==========================================
@@ -2186,6 +2357,7 @@
                 stepCompleted
 
             ].forEach(
+
                 step => {
 
                     step.classList.remove(
@@ -2195,7 +2367,9 @@
                     );
 
                 }
+
             );
+
 
 
             const acceptedDescription =
@@ -2226,6 +2400,7 @@
                 document.getElementById(
                     "completedDescription"
                 );
+
 
 
             /* ======================================
@@ -2261,21 +2436,27 @@
                 acceptedDescription.textContent =
                     "Waiting for the company to accept the student's internship application.";
 
+
                 startedDescription.textContent =
                     "The internship has not started yet.";
+
 
                 progressDescription.textContent =
                     "The student has not started the internship yet.";
 
+
                 evaluationProgressText.textContent =
                     "Waiting for the company evaluation.";
+
 
                 completedDescription.textContent =
                     "The internship has not been completed yet.";
 
+
                 return;
 
             }
+
 
 
             /* ======================================
@@ -2311,21 +2492,27 @@
                 acceptedDescription.textContent =
                     "The company rejected the student's internship application.";
 
+
                 startedDescription.textContent =
                     "The internship did not start.";
+
 
                 progressDescription.textContent =
                     "The student does not have an active internship.";
 
+
                 evaluationProgressText.textContent =
                     "No company evaluation is expected.";
+
 
                 completedDescription.textContent =
                     "The internship application was rejected.";
 
+
                 return;
 
             }
+
 
 
             /* ======================================
@@ -2369,18 +2556,23 @@
                 startedDescription.textContent =
                     "The internship has not started yet.";
 
+
                 progressDescription.textContent =
                     "The internship will start according to the scheduled start date.";
+
 
                 evaluationProgressText.textContent =
                     "The evaluation will be submitted after the internship.";
 
+
                 completedDescription.textContent =
                     "The internship has not been completed yet.";
+
 
                 return;
 
             }
+
 
 
             /* ======================================
@@ -2425,7 +2617,6 @@
 
 
                 evaluationProgressText.textContent =
-
                     evaluation &&
                     String(
                         evaluation.status
@@ -2445,9 +2636,11 @@
                 completedDescription.textContent =
                     "The internship has not been completed yet.";
 
+
                 return;
 
             }
+
 
 
             /* ======================================
@@ -2496,14 +2689,11 @@
 
 
                 if (
-
                     evaluation &&
-
                     String(
                         evaluation.status
                     ).toLowerCase() ===
                     "submitted"
-
                 ) {
 
                     stepEvaluation.classList.add(
@@ -2533,6 +2723,7 @@
         }
 
 
+
         /* ==========================================
            UPDATE EVALUATION
         ========================================== */
@@ -2541,6 +2732,7 @@
             studentName,
             evaluation
         ) {
+
 
             const evaluationEmpty =
                 document.getElementById(
@@ -2578,19 +2770,17 @@
                 );
 
 
+
             /* --------------------------------------
                SUBMITTED
             -------------------------------------- */
 
             if (
-
                 evaluation &&
-
                 String(
                     evaluation.status
                 ).toLowerCase() ===
                 "submitted"
-
             ) {
 
                 evaluationEmpty.style.display =
@@ -2614,6 +2804,7 @@
                     viewPdfButton.href =
                         evaluation.pdf_url;
 
+
                     viewPdfButton.style.display =
                         "inline-block";
 
@@ -2626,9 +2817,11 @@
 
                 }
 
+
                 return;
 
             }
+
 
 
             /* --------------------------------------
@@ -2655,6 +2848,7 @@
         }
 
 
+
         /* ==========================================
            LOGOUT
         ========================================== */
@@ -2678,6 +2872,7 @@
 
                 }
             );
+
 
 
         /* ==========================================
