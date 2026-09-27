@@ -12,7 +12,10 @@
 
     <title>Student Progress</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 
     <style>
 
@@ -21,115 +24,186 @@
         ========================================= */
 
         .evaluation-upload-box {
+
             margin-top: 20px;
+
             padding: 24px;
+
             border: 1px solid #ddd6c8;
+
             border-radius: 14px;
+
             background: #f8f5ee;
         }
 
+
         .evaluation-upload-box h3 {
+
             margin: 0 0 8px;
+
             color: #333;
         }
 
+
         .evaluation-upload-box p {
+
             margin: 0 0 18px;
+
             color: #6f7d80;
+
             line-height: 1.6;
         }
 
+
         .file-upload-wrapper {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
+
             flex-wrap: wrap;
         }
 
+
         .choose-file-button {
+
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 8px;
+
             padding: 11px 18px;
+
             background: #ede4d2;
+
             color: #4f4a42;
+
             border: 1px solid #d6ccb9;
+
             border-radius: 9px;
+
             cursor: pointer;
+
             font-size: 14px;
+
             font-weight: 600;
+
             transition:
                 background 0.2s ease,
                 border-color 0.2s ease,
                 transform 0.2s ease;
         }
 
+
         .choose-file-button:hover {
+
             background: #e4dac6;
+
             border-color: #a8b5c9;
+
             transform: translateY(-1px);
         }
 
+
         #evaluationFile {
+
             display: none;
         }
+
 
         /* =========================================
            FILE NAME
         ========================================= */
 
         .selected-file-name {
+
             color: #315B66;
+
             font-size: 14px;
+
             min-height: 20px;
+
             font-weight: 500;
         }
 
+
         .selected-file-name a {
+
             color: #315B66;
+
             text-decoration: none;
+
             font-weight: 600;
+
             cursor: pointer;
         }
 
+
         .selected-file-name a:hover {
+
             text-decoration: underline;
         }
+
 
         /* =========================================
            UPLOAD BUTTON
         ========================================= */
 
         .upload-evaluation-button {
+
             margin-top: 16px;
+
             padding: 11px 20px;
+
             border: none;
+
             border-radius: 9px;
+
             background: #4F8D99;
+
             color: #ffffff;
+
             font-size: 14px;
+
             font-weight: 600;
+
             cursor: pointer;
+
             transition:
                 background 0.2s ease,
                 transform 0.2s ease;
         }
 
+
         .upload-evaluation-button:hover {
+
             background: #4d524f;
+
             transform: translateY(-1px);
         }
 
+
         .upload-evaluation-button:disabled {
+
             opacity: 0.55;
+
             cursor: not-allowed;
+
             transform: none;
         }
 
+
         .upload-status {
+
             margin-top: 12px;
+
             font-size: 14px;
+
             color: #6f7d80;
         }
 
@@ -196,7 +270,6 @@
     </header>
 
 
-
     <!-- ================= MAIN ================= -->
 
     <main class="student-progress-page">
@@ -210,7 +283,6 @@
         >
             ← Back to My Students
         </a>
-
 
 
         <!-- ================= STUDENT HEADER ================= -->
@@ -245,7 +317,6 @@
             </div>
 
         </section>
-
 
 
         <!-- ================= INTERNSHIP INFORMATION ================= -->
@@ -337,11 +408,9 @@
 
                 </div>
 
-
             </div>
 
         </section>
-
 
 
         <!-- ================= INTERNSHIP PROGRESS ================= -->
@@ -381,7 +450,6 @@
                 </div>
 
 
-
                 <!-- STEP 2 -->
 
                 <div
@@ -404,7 +472,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- STEP 3 -->
@@ -432,7 +499,6 @@
                 </div>
 
 
-
                 <!-- STEP 4 -->
 
                 <div
@@ -455,7 +521,6 @@
                     </div>
 
                 </div>
-
 
 
                 <!-- STEP 5 -->
@@ -485,7 +550,6 @@
             </div>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -532,11 +596,6 @@
                     >
 
 
-                    <!--
-                        This is now the place where the
-                        uploaded file name appears.
-                    -->
-
                     <span
                         class="selected-file-name"
                         id="selectedFileName"
@@ -566,7 +625,6 @@
             </div>
 
         </section>
-
 
 
         <!-- ==================================================
@@ -603,7 +661,6 @@
             </div>
 
 
-
             <!-- Evaluation Submitted -->
 
             <div
@@ -631,8 +688,6 @@
                     href="#"
                     class="review-button"
                     id="viewPdfButton"
-                    target="_blank"
-                    rel="noopener noreferrer"
                 >
                     Open Evaluation File
                 </a>
@@ -645,7 +700,6 @@
     </main>
 
 
-
     <!-- ================= SUPABASE ================= -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -653,10 +707,10 @@
     <script src="./js/supabase.js"></script>
 
 
-
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
+
 
         /* ==========================================
            STORAGE BUCKET
@@ -675,10 +729,12 @@
                 return "-";
             }
 
+
             const parts =
                 String(dateValue)
                     .split("T")[0]
                     .split("-");
+
 
             if (parts.length === 3) {
 
@@ -691,12 +747,14 @@
                 const day =
                     Number(parts[2]);
 
+
                 const localDate =
                     new Date(
                         year,
                         month,
                         day
                     );
+
 
                 if (!isNaN(localDate.getTime())) {
 
@@ -708,17 +766,18 @@
                             year: "numeric"
                         }
                     );
-
                 }
-
             }
+
 
             const date =
                 new Date(dateValue);
 
+
             if (isNaN(date.getTime())) {
                 return "-";
             }
+
 
             return date.toLocaleDateString(
                 "en-US",
@@ -728,9 +787,7 @@
                     year: "numeric"
                 }
             );
-
         }
-
 
 
         /* ==========================================
@@ -743,14 +800,17 @@
                 return null;
             }
 
+
             const parts =
                 String(dateValue)
                     .split("T")[0]
                     .split("-");
 
+
             if (parts.length !== 3) {
                 return null;
             }
+
 
             const year =
                 Number(parts[0]);
@@ -761,6 +821,7 @@
             const day =
                 Number(parts[2]);
 
+
             const date =
                 new Date(
                     year,
@@ -768,14 +829,14 @@
                     day
                 );
 
+
             if (isNaN(date.getTime())) {
                 return null;
             }
 
+
             return date;
-
         }
-
 
 
         /* ==========================================
@@ -787,6 +848,7 @@
             const today =
                 new Date();
 
+
             today.setHours(
                 0,
                 0,
@@ -794,10 +856,9 @@
                 0
             );
 
+
             return today;
-
         }
-
 
 
         /* ==========================================
@@ -809,9 +870,9 @@
                 window.location.search
             );
 
+
         const studentId =
             params.get("id");
-
 
 
         /* ==========================================
@@ -823,26 +884,29 @@
                 "stepAccepted"
             );
 
+
         const stepStarted =
             document.getElementById(
                 "stepStarted"
             );
+
 
         const stepProgress =
             document.getElementById(
                 "stepProgress"
             );
 
+
         const stepEvaluation =
             document.getElementById(
                 "stepEvaluation"
             );
 
+
         const stepCompleted =
             document.getElementById(
                 "stepCompleted"
             );
-
 
 
         /* ==========================================
@@ -854,21 +918,23 @@
                 "evaluationFile"
             );
 
+
         const selectedFileName =
             document.getElementById(
                 "selectedFileName"
             );
+
 
         const uploadEvaluationButton =
             document.getElementById(
                 "uploadEvaluationButton"
             );
 
+
         const uploadStatus =
             document.getElementById(
                 "uploadStatus"
             );
-
 
 
         /* ==========================================
@@ -882,14 +948,15 @@
                 const file =
                     evaluationFile.files[0];
 
+
                 if (!file) {
 
                     selectedFileName.textContent =
                         "No file selected";
 
                     return;
-
                 }
+
 
                 showFileName(
                     file.name,
@@ -900,9 +967,10 @@
         );
 
 
-
         /* ==========================================
            SHOW FILE NAME
+           WORD FILES -> MICROSOFT WORD
+           PDF FILES -> BROWSER
         ========================================== */
 
         function showFileName(
@@ -912,41 +980,107 @@
 
             selectedFileName.innerHTML = "";
 
+
             const link =
                 document.createElement("a");
+
 
             link.textContent =
                 "📄 " + fileName;
 
+
             link.title =
-                "Download " + fileName;
+                "Open " + fileName;
+
+
+            link.style.cursor =
+                "pointer";
+
 
             if (fileUrl) {
 
-                /*
-                    Download instead of opening
-                    inside the browser.
-                */
+                const lowerFileName =
+                    fileName.toLowerCase();
 
-                link.href =
-                    fileUrl;
 
-                link.setAttribute(
-                    "download",
-                    fileName
-                );
+                const isWordFile =
+                    lowerFileName.endsWith(".doc") ||
+                    lowerFileName.endsWith(".docx");
 
-                link.target =
-                    "_blank";
+
+                const isPdfFile =
+                    lowerFileName.endsWith(".pdf");
+
+
+                /* =====================================
+                   WORD
+                ===================================== */
+
+                if (isWordFile) {
+
+                    link.href =
+                        "ms-word:ofe|u|" +
+                        fileUrl;
+
+                    link.target =
+                        "_self";
+
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            uploadStatus.textContent =
+                                "Opening the file in Microsoft Word...";
+
+                        }
+                    );
+
+                }
+
+
+                /* =====================================
+                   PDF
+                ===================================== */
+
+                else if (isPdfFile) {
+
+                    link.href =
+                        fileUrl;
+
+                    link.target =
+                        "_blank";
+
+                    link.rel =
+                        "noopener noreferrer";
+
+                }
+
+
+                /* =====================================
+                   OTHER FILE TYPES
+                ===================================== */
+
+                else {
+
+                    link.href =
+                        fileUrl;
+
+                    link.target =
+                        "_blank";
+
+                    link.rel =
+                        "noopener noreferrer";
+
+                }
 
             }
+
 
             selectedFileName.appendChild(
                 link
             );
-
         }
-
 
 
         /* ==========================================
@@ -962,7 +1096,6 @@
                     throw new Error(
                         "Student ID is missing from the URL."
                     );
-
                 }
 
 
@@ -987,9 +1120,7 @@
                         "index.html";
 
                     return;
-
                 }
-
 
 
                 /* GET STUDENT */
@@ -1026,9 +1157,7 @@
                     throw new Error(
                         "Student was not found or is not assigned to this supervisor."
                     );
-
                 }
-
 
 
                 /* GET PROFILE */
@@ -1055,7 +1184,6 @@
                 if (profileError) {
                     throw profileError;
                 }
-
 
 
                 /* GET APPLICATIONS */
@@ -1114,11 +1242,11 @@
                 }
 
 
-
                 let internship = null;
-                let company = null;
-                let evaluation = null;
 
+                let company = null;
+
+                let evaluation = null;
 
 
                 /* GET INTERNSHIP */
@@ -1156,7 +1284,6 @@
                         internshipData;
 
 
-
                     /* GET COMPANY */
 
                     if (internship) {
@@ -1186,7 +1313,6 @@
                             companyData;
 
                     }
-
 
 
                     /* GET EVALUATION */
@@ -1230,7 +1356,6 @@
                     }
 
                 }
-
 
 
                 /* BASIC STUDENT INFORMATION */
@@ -1300,7 +1425,6 @@
                         : "-";
 
 
-
                 /* INTERNSHIP INFORMATION */
 
                 document.getElementById(
@@ -1343,13 +1467,11 @@
                         : "-";
 
 
-
                 /* DISPLAY UPLOADED FORM */
 
                 displayCurrentForm(
                     evaluation
                 );
-
 
 
                 /* DETERMINE STATUS */
@@ -1396,7 +1518,6 @@
                     getToday();
 
 
-
                 if (
                     applicationStatus ===
                     "accepted"
@@ -1411,6 +1532,7 @@
                             "completed";
 
                     }
+
                     else if (
                         startDate &&
                         startDate <= today &&
@@ -1424,6 +1546,7 @@
                             "active";
 
                     }
+
                     else if (
                         startDate &&
                         startDate > today
@@ -1433,6 +1556,7 @@
                             "accepted";
 
                     }
+
                     else if (
                         internshipStatus ===
                         "completed"
@@ -1442,6 +1566,7 @@
                             "completed";
 
                     }
+
                     else if (
                         internshipStatus ===
                         "active"
@@ -1451,6 +1576,7 @@
                             "active";
 
                     }
+
                     else {
 
                         currentStatus =
@@ -1459,6 +1585,7 @@
                     }
 
                 }
+
                 else if (
                     applicationStatus ===
                     "rejected"
@@ -1468,13 +1595,13 @@
                         "rejected";
 
                 }
+
                 else {
 
                     currentStatus =
                         "pending";
 
                 }
-
 
 
                 /* STATUS TEXT */
@@ -1507,7 +1634,6 @@
                     ];
 
 
-
                 updateProgress(
                     currentStatus,
                     application,
@@ -1521,9 +1647,9 @@
                     evaluation
                 );
 
-
-
             }
+
+
             catch (error) {
 
                 console.error(
@@ -1554,7 +1680,6 @@
         }
 
 
-
         /* ==========================================
            DISPLAY CURRENT FORM
         ========================================== */
@@ -1575,6 +1700,7 @@
                 );
 
             }
+
             else {
 
                 selectedFileName.textContent =
@@ -1583,7 +1709,6 @@
             }
 
         }
-
 
 
         /* ==========================================
@@ -1614,9 +1739,7 @@
                         "Please choose a PDF or Word file first.";
 
                     return;
-
                 }
-
 
 
                 /* FILE TYPE */
@@ -1648,9 +1771,7 @@
                         "Only PDF, DOC, and DOCX files are allowed.";
 
                     return;
-
                 }
-
 
 
                 /* FILE SIZE */
@@ -1668,9 +1789,7 @@
                         "File size must be 10 MB or less.";
 
                     return;
-
                 }
-
 
 
                 /* CURRENT USER */
@@ -1694,9 +1813,7 @@
                         "index.html";
 
                     return;
-
                 }
-
 
 
                 /* GET APPLICATION */
@@ -1731,9 +1848,7 @@
                         "The student does not have an accepted internship application.";
 
                     return;
-
                 }
-
 
 
                 /* FILE PATH */
@@ -1766,7 +1881,6 @@
                     true;
 
 
-
                 /* UPLOAD */
 
                 const {
@@ -1781,6 +1895,7 @@
                         {
                             cacheControl:
                                 "3600",
+
                             upsert:
                                 false
                         }
@@ -1790,7 +1905,6 @@
                 if (uploadError) {
                     throw uploadError;
                 }
-
 
 
                 /* PUBLIC URL */
@@ -1818,9 +1932,7 @@
                     throw new Error(
                         "Unable to create the evaluation form URL."
                     );
-
                 }
-
 
 
                 /* EXISTING EVALUATION */
@@ -1849,7 +1961,6 @@
                 }
 
 
-
                 /* INSERT / UPDATE */
 
                 let saveError =
@@ -1865,10 +1976,13 @@
                     } = await db
                         .from("evaluations")
                         .update({
+
                             form_name:
                                 originalFileName,
+
                             form_url:
                                 formUrl
+
                         })
                         .eq(
                             "id",
@@ -1880,6 +1994,7 @@
                         error;
 
                 }
+
                 else {
 
                     const {
@@ -1914,7 +2029,6 @@
                 }
 
 
-
                 /* SUCCESS */
 
                 uploadStatus.textContent =
@@ -1925,7 +2039,6 @@
                     originalFileName,
                     formUrl
                 );
-
 
 
                 /* REFRESH */
@@ -1961,8 +2074,9 @@
 
                 }
 
-
             }
+
+
             catch (error) {
 
                 console.error(
@@ -1976,6 +2090,8 @@
                     "Unable to upload evaluation form.";
 
             }
+
+
             finally {
 
                 uploadEvaluationButton.disabled =
@@ -1984,7 +2100,6 @@
             }
 
         }
-
 
 
         /* ==========================================
@@ -2047,7 +2162,6 @@
                 );
 
 
-
             /* PENDING */
 
             if (
@@ -2092,9 +2206,7 @@
                     "The internship has not been completed yet.";
 
                 return;
-
             }
-
 
 
             /* REJECTED */
@@ -2141,9 +2253,7 @@
                     "The internship application was rejected.";
 
                 return;
-
             }
-
 
 
             /* ACCEPTED */
@@ -2157,6 +2267,7 @@
                     "completed"
                 );
 
+
                 acceptedDescription.textContent =
                     "The company accepted the student's internship application.";
 
@@ -2165,13 +2276,16 @@
                     "current"
                 );
 
+
                 stepProgress.classList.add(
                     "pending"
                 );
 
+
                 stepEvaluation.classList.add(
                     "pending"
                 );
+
 
                 stepCompleted.classList.add(
                     "pending"
@@ -2191,9 +2305,7 @@
                     "The internship has not been completed yet.";
 
                 return;
-
             }
-
 
 
             /* ACTIVE */
@@ -2207,6 +2319,7 @@
                     "completed"
                 );
 
+
                 acceptedDescription.textContent =
                     "The company accepted the student's internship application.";
 
@@ -2215,6 +2328,7 @@
                     "completed"
                 );
 
+
                 startedDescription.textContent =
                     "The student has started the internship.";
 
@@ -2222,6 +2336,7 @@
                 stepProgress.classList.add(
                     "current"
                 );
+
 
                 progressDescription.textContent =
                     "The student is currently completing the internship.";
@@ -2251,9 +2366,7 @@
                     "The internship has not been completed yet.";
 
                 return;
-
             }
-
 
 
             /* COMPLETED */
@@ -2267,6 +2380,7 @@
                     "completed"
                 );
 
+
                 acceptedDescription.textContent =
                     "The company accepted the student's internship application.";
 
@@ -2274,6 +2388,7 @@
                 stepStarted.classList.add(
                     "completed"
                 );
+
 
                 startedDescription.textContent =
                     "The student started the internship.";
@@ -2283,6 +2398,7 @@
                     "completed"
                 );
 
+
                 progressDescription.textContent =
                     "The student completed the internship period.";
 
@@ -2290,6 +2406,7 @@
                 stepCompleted.classList.add(
                     "completed"
                 );
+
 
                 completedDescription.textContent =
                     "The internship period has ended.";
@@ -2307,15 +2424,18 @@
                         "completed"
                     );
 
+
                     evaluationProgressText.textContent =
                         "The company has submitted the internship evaluation.";
 
                 }
+
                 else {
 
                     stepEvaluation.classList.add(
                         "current"
                     );
+
 
                     evaluationProgressText.textContent =
                         "The internship has ended. Waiting for the company evaluation.";
@@ -2325,7 +2445,6 @@
             }
 
         }
-
 
 
         /* ==========================================
@@ -2373,7 +2492,6 @@
                 );
 
 
-
             /* SUBMITTED */
 
             if (
@@ -2386,6 +2504,7 @@
 
                 evaluationEmpty.style.display =
                     "none";
+
 
                 evaluationSubmitted.style.display =
                     "block";
@@ -2401,13 +2520,58 @@
                     evaluation.pdf_url
                 ) {
 
-                    viewPdfButton.href =
+                    const fileUrl =
                         evaluation.pdf_url;
+
+
+                    const fileName =
+                        evaluation.form_name || "";
+
+
+                    const lowerFileName =
+                        fileName.toLowerCase();
+
+
+                    const isWordFile =
+                        lowerFileName.endsWith(".doc") ||
+                        lowerFileName.endsWith(".docx");
+
+
+                    /* WORD FILE */
+
+                    if (isWordFile) {
+
+                        viewPdfButton.href =
+                            "ms-word:ofe|u|" +
+                            fileUrl;
+
+                        viewPdfButton.target =
+                            "_self";
+
+                    }
+
+
+                    /* PDF OR OTHER */
+
+                    else {
+
+                        viewPdfButton.href =
+                            fileUrl;
+
+                        viewPdfButton.target =
+                            "_blank";
+
+                        viewPdfButton.rel =
+                            "noopener noreferrer";
+
+                    }
+
 
                     viewPdfButton.style.display =
                         "inline-block";
 
                 }
+
                 else {
 
                     viewPdfButton.style.display =
@@ -2415,16 +2579,16 @@
 
                 }
 
+
                 return;
-
             }
-
 
 
             /* NOT SUBMITTED */
 
             evaluationEmpty.style.display =
                 "block";
+
 
             evaluationSubmitted.style.display =
                 "none";
@@ -2442,7 +2606,6 @@
         }
 
 
-
         /* ==========================================
            LOGOUT
         ========================================== */
@@ -2455,14 +2618,15 @@
 
                     event.preventDefault();
 
+
                     await db.auth.signOut();
+
 
                     window.location.href =
                         "index.html";
 
                 }
             );
-
 
 
         /* ==========================================
