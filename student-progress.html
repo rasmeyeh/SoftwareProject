@@ -20,17 +20,15 @@
     <style>
 
         /* =========================================
-           EVALUATION UPLOAD
+           EVALUATION FORM UPLOAD
         ========================================= */
 
         .evaluation-upload-box {
 
             margin-top: 20px;
-
             padding: 24px;
 
             border: 1px solid #ddd6c8;
-
             border-radius: 14px;
 
             background: #f8f5ee;
@@ -116,31 +114,62 @@
         }
 
 
-        /* =========================================
-           FILE NAME
-        ========================================= */
-
         .selected-file-name {
 
-            color: #315B66;
+            color: #6f7d80;
 
             font-size: 14px;
 
             min-height: 20px;
+        }
 
-            font-weight: 500;
+
+        /* =========================================
+           REPLACE FILE BUTTON
+        ========================================== */
+
+        .replace-file-button {
+
+            padding: 10px 16px;
+
+            background: #ede4d2;
+
+            color: #315B66;
+
+            border: 1px solid #d6ccb9;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .replace-file-button:hover {
+
+            background: #e4dac6;
+
+            border-color: #a8b5c9;
+
+            transform: translateY(-1px);
         }
 
 
         .selected-file-name a {
 
-            color: #315B66;
+            color: #245566;
 
             text-decoration: none;
 
             font-weight: 600;
-
-            cursor: pointer;
         }
 
 
@@ -149,10 +178,6 @@
             text-decoration: underline;
         }
 
-
-        /* =========================================
-           UPLOAD BUTTON
-        ========================================= */
 
         .upload-evaluation-button {
 
@@ -546,7 +571,6 @@
 
                 </div>
 
-
             </div>
 
         </section>
@@ -592,9 +616,23 @@
                     <input
                         type="file"
                         id="evaluationFile"
-                        accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        accept="
+                            .pdf,
+                            .doc,
+                            .docx,
+                            application/pdf,
+                            application/msword,
+                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                        "
                     >
 
+
+                    <!--
+                        IMPORTANT:
+                        After upload, the file name will appear here.
+                        After Refresh, the file name will be loaded
+                        from evaluations.form_url.
+                    -->
 
                     <span
                         class="selected-file-name"
@@ -602,6 +640,18 @@
                     >
                         No file selected
                     </span>
+
+
+                    <button
+                        type="button"
+                        class="replace-file-button"
+                        id="replaceFileButton"
+                        style="display: none;"
+                    >
+                        Replace File
+                    </button>
+
+
 
                 </div>
 
@@ -688,6 +738,8 @@
                     href="#"
                     class="review-button"
                     id="viewPdfButton"
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     Open Evaluation File
                 </a>
@@ -716,7 +768,8 @@
            STORAGE BUCKET
         ========================================== */
 
-        const EVALUATION_BUCKET = "evaluations";
+        const EVALUATION_BUCKET =
+            "evaluations";
 
 
         /* ==========================================
@@ -766,7 +819,9 @@
                             year: "numeric"
                         }
                     );
+
                 }
+
             }
 
 
@@ -787,6 +842,7 @@
                     year: "numeric"
                 }
             );
+
         }
 
 
@@ -836,6 +892,7 @@
 
 
             return date;
+
         }
 
 
@@ -858,6 +915,7 @@
 
 
             return today;
+
         }
 
 
@@ -937,6 +995,12 @@
             );
 
 
+        const replaceFileButton =
+            document.getElementById(
+                "replaceFileButton"
+            );
+
+
         /* ==========================================
            FILE SELECTED
         ========================================== */
@@ -958,129 +1022,26 @@
                 }
 
 
-                showFileName(
-                    file.name,
-                    null
-                );
+                selectedFileName.textContent =
+                    "📄 " + file.name;
 
             }
         );
 
 
         /* ==========================================
-           SHOW FILE NAME
-           WORD FILES -> MICROSOFT WORD
-           PDF FILES -> BROWSER
+           REPLACE FILE
         ========================================== */
 
-        function showFileName(
-            fileName,
-            fileUrl
-        ) {
+        replaceFileButton.addEventListener(
+            "click",
+            function () {
 
-            selectedFileName.innerHTML = "";
-
-
-            const link =
-                document.createElement("a");
-
-
-            link.textContent =
-                "📄 " + fileName;
-
-
-            link.title =
-                "Open " + fileName;
-
-
-            link.style.cursor =
-                "pointer";
-
-
-            if (fileUrl) {
-
-                const lowerFileName =
-                    fileName.toLowerCase();
-
-
-                const isWordFile =
-                    lowerFileName.endsWith(".doc") ||
-                    lowerFileName.endsWith(".docx");
-
-
-                const isPdfFile =
-                    lowerFileName.endsWith(".pdf");
-
-
-                /* =====================================
-                   WORD
-                ===================================== */
-
-                if (isWordFile) {
-
-                    link.href =
-                        "ms-word:ofe|u|" +
-                        fileUrl;
-
-                    link.target =
-                        "_self";
-
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            uploadStatus.textContent =
-                                "Opening the file in Microsoft Word...";
-
-                        }
-                    );
-
-                }
-
-
-                /* =====================================
-                   PDF
-                ===================================== */
-
-                else if (isPdfFile) {
-
-                    link.href =
-                        fileUrl;
-
-                    link.target =
-                        "_blank";
-
-                    link.rel =
-                        "noopener noreferrer";
-
-                }
-
-
-                /* =====================================
-                   OTHER FILE TYPES
-                ===================================== */
-
-                else {
-
-                    link.href =
-                        fileUrl;
-
-                    link.target =
-                        "_blank";
-
-                    link.rel =
-                        "noopener noreferrer";
-
-                }
+                evaluationFile.click();
 
             }
+        );
 
-
-            selectedFileName.appendChild(
-                link
-            );
-        }
 
 
         /* ==========================================
@@ -1091,15 +1052,23 @@
 
             try {
 
+
+                /* --------------------------------------
+                   CHECK STUDENT ID
+                -------------------------------------- */
+
                 if (!studentId) {
 
                     throw new Error(
                         "Student ID is missing from the URL."
                     );
+
                 }
 
 
-                /* CURRENT USER */
+                /* --------------------------------------
+                   GET CURRENT SUPERVISOR
+                -------------------------------------- */
 
                 const {
                     data: {
@@ -1123,7 +1092,9 @@
                 }
 
 
-                /* GET STUDENT */
+                /* --------------------------------------
+                   GET STUDENT
+                -------------------------------------- */
 
                 const {
                     data: student,
@@ -1157,10 +1128,13 @@
                     throw new Error(
                         "Student was not found or is not assigned to this supervisor."
                     );
+
                 }
 
 
-                /* GET PROFILE */
+                /* --------------------------------------
+                   GET STUDENT PROFILE
+                -------------------------------------- */
 
                 const {
                     data: profile,
@@ -1186,7 +1160,9 @@
                 }
 
 
-                /* GET APPLICATIONS */
+                /* --------------------------------------
+                   GET APPLICATIONS
+                -------------------------------------- */
 
                 const {
                     data: applications,
@@ -1220,6 +1196,10 @@
                     applications || [];
 
 
+                /* --------------------------------------
+                   FIND ACCEPTED APPLICATION
+                -------------------------------------- */
+
                 let application =
                     applicationList.find(
                         item =>
@@ -1242,6 +1222,10 @@
                 }
 
 
+                /* --------------------------------------
+                   VARIABLES
+                -------------------------------------- */
+
                 let internship = null;
 
                 let company = null;
@@ -1249,7 +1233,9 @@
                 let evaluation = null;
 
 
-                /* GET INTERNSHIP */
+                /* --------------------------------------
+                   GET INTERNSHIP
+                -------------------------------------- */
 
                 if (application) {
 
@@ -1284,7 +1270,9 @@
                         internshipData;
 
 
-                    /* GET COMPANY */
+                    /* ----------------------------------
+                       GET COMPANY
+                    ---------------------------------- */
 
                     if (internship) {
 
@@ -1315,7 +1303,9 @@
                     }
 
 
-                    /* GET EVALUATION */
+                    /* ----------------------------------
+                       GET EVALUATION
+                    ---------------------------------- */
 
                     const {
                         data: evaluationData,
@@ -1325,13 +1315,13 @@
                         .select(`
                             id,
                             application_id,
-                            form_name,
                             pdf_url,
                             status,
                             submitted_at,
                             reviewed_at,
                             created_at,
-                            form_url
+                            form_url,
+                            form_name
                         `)
                         .eq(
                             "application_id",
@@ -1347,8 +1337,7 @@
                             evaluationError
                         );
 
-                    }
-                    else {
+                    } else {
 
                         evaluation =
                             evaluationData;
@@ -1358,7 +1347,9 @@
                 }
 
 
-                /* BASIC STUDENT INFORMATION */
+                /* ======================================
+                   DISPLAY BASIC STUDENT INFORMATION
+                ====================================== */
 
                 const studentName =
                     profile
@@ -1425,7 +1416,9 @@
                         : "-";
 
 
-                /* INTERNSHIP INFORMATION */
+                /* ======================================
+                   INTERNSHIP INFORMATION
+                ====================================== */
 
                 document.getElementById(
                     "companyName"
@@ -1467,14 +1460,18 @@
                         : "-";
 
 
-                /* DISPLAY UPLOADED FORM */
+                /* ======================================
+                   DISPLAY SAVED EVALUATION FORM
+                ====================================== */
 
                 displayCurrentForm(
                     evaluation
                 );
 
 
-                /* DETERMINE STATUS */
+                /* ======================================
+                   DETERMINE STATUS
+                ====================================== */
 
                 let currentStatus =
                     "pending";
@@ -1604,7 +1601,9 @@
                 }
 
 
-                /* STATUS TEXT */
+                /* ======================================
+                   STATUS TEXT
+                ====================================== */
 
                 const statusTextMap = {
 
@@ -1634,6 +1633,10 @@
                     ];
 
 
+                /* ======================================
+                   UPDATE PROGRESS
+                ====================================== */
+
                 updateProgress(
                     currentStatus,
                     application,
@@ -1642,15 +1645,17 @@
                 );
 
 
+                /* ======================================
+                   UPDATE EVALUATION
+                ====================================== */
+
                 updateEvaluation(
                     studentName,
                     evaluation
                 );
 
-            }
 
-
-            catch (error) {
+            } catch (error) {
 
                 console.error(
                     "Student progress error:",
@@ -1681,23 +1686,51 @@
 
 
         /* ==========================================
-           DISPLAY CURRENT FORM
+           DISPLAY SAVED FORM
         ========================================== */
 
         function displayCurrentForm(
             evaluation
         ) {
 
+            const selectedFileName =
+                document.getElementById(
+                    "selectedFileName"
+                );
+
+
             if (
                 evaluation &&
-                evaluation.form_url &&
-                evaluation.form_name
+                evaluation.form_url
             ) {
 
-                showFileName(
-                    evaluation.form_name,
-                    evaluation.form_url
-                );
+                /*
+                 * Use the original file name
+                 * saved in evaluations.form_name.
+                 */
+
+                const fileName =
+                    evaluation.form_name ||
+                    "Evaluation Form";
+
+
+                selectedFileName.innerHTML = `
+
+                    📄
+
+                    <a
+                        href="${evaluation.form_url}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${fileName}
+                    </a>
+
+                `;
+
+
+                replaceFileButton.style.display =
+                    "inline-flex";
 
             }
 
@@ -1705,6 +1738,9 @@
 
                 selectedFileName.textContent =
                     "No file selected";
+
+                replaceFileButton.style.display =
+                    "none";
 
             }
 
@@ -1739,15 +1775,22 @@
                         "Please choose a PDF or Word file first.";
 
                     return;
+
                 }
 
 
-                /* FILE TYPE */
+                /* --------------------------------------
+                   CHECK FILE TYPE
+                -------------------------------------- */
 
                 const allowedExtensions = [
+
                     "pdf",
+
                     "doc",
+
                     "docx"
+
                 ];
 
 
@@ -1771,10 +1814,13 @@
                         "Only PDF, DOC, and DOCX files are allowed.";
 
                     return;
+
                 }
 
 
-                /* FILE SIZE */
+                /* --------------------------------------
+                   CHECK FILE SIZE
+                -------------------------------------- */
 
                 const maxSize =
                     10 * 1024 * 1024;
@@ -1789,10 +1835,13 @@
                         "File size must be 10 MB or less.";
 
                     return;
+
                 }
 
 
-                /* CURRENT USER */
+                /* --------------------------------------
+                   GET CURRENT USER
+                -------------------------------------- */
 
                 const {
                     data: {
@@ -1813,10 +1862,13 @@
                         "index.html";
 
                     return;
+
                 }
 
 
-                /* GET APPLICATION */
+                /* --------------------------------------
+                   GET APPLICATION
+                -------------------------------------- */
 
                 const {
                     data: application,
@@ -1848,10 +1900,13 @@
                         "The student does not have an accepted internship application.";
 
                     return;
+
                 }
 
 
-                /* FILE PATH */
+                /* --------------------------------------
+                   FILE PATH
+                -------------------------------------- */
 
                 const safeFileName =
                     file.name.replace(
@@ -1869,10 +1924,6 @@
                     safeFileName;
 
 
-                const originalFileName =
-                    file.name;
-
-
                 uploadStatus.textContent =
                     "Uploading file...";
 
@@ -1881,7 +1932,9 @@
                     true;
 
 
-                /* UPLOAD */
+                /* --------------------------------------
+                   UPLOAD TO STORAGE
+                -------------------------------------- */
 
                 const {
                     error: uploadError
@@ -1907,7 +1960,9 @@
                 }
 
 
-                /* PUBLIC URL */
+                /* --------------------------------------
+                   CREATE PUBLIC URL
+                -------------------------------------- */
 
                 const {
                     data: publicUrlData
@@ -1932,10 +1987,13 @@
                     throw new Error(
                         "Unable to create the evaluation form URL."
                     );
+
                 }
 
 
-                /* EXISTING EVALUATION */
+                /* --------------------------------------
+                   GET EXISTING EVALUATION
+                -------------------------------------- */
 
                 const {
                     data: existingEvaluation,
@@ -1961,7 +2019,9 @@
                 }
 
 
-                /* INSERT / UPDATE */
+                /* --------------------------------------
+                   INSERT / UPDATE EVALUATION
+                -------------------------------------- */
 
                 let saveError =
                     null;
@@ -1975,15 +2035,10 @@
                         error
                     } = await db
                         .from("evaluations")
-                        .update({
-
-                            form_name:
-                                originalFileName,
-
-                            form_url:
-                                formUrl
-
-                        })
+                       .update({
+    form_url: formUrl,
+    form_name: file.name
+})
                         .eq(
                             "id",
                             existingEvaluation.id
@@ -2001,21 +2056,12 @@
                         error
                     } = await db
                         .from("evaluations")
-                        .insert({
-
-                            application_id:
-                                application.id,
-
-                            form_name:
-                                originalFileName,
-
-                            form_url:
-                                formUrl,
-
-                            status:
-                                "pending"
-
-                        });
+                      .insert({
+    application_id: application.id,
+    form_url: formUrl,
+    form_name: file.name,
+    status: "pending"
+})
 
 
                     saveError =
@@ -2029,19 +2075,51 @@
                 }
 
 
-                /* SUCCESS */
+                /* ======================================
+                   SUCCESS
+                ====================================== */
 
                 uploadStatus.textContent =
                     "Evaluation form uploaded successfully.";
 
 
-                showFileName(
-                    originalFileName,
-                    formUrl
-                );
+                /*
+                 * Show the uploaded file immediately
+                 * in the same place as "No file selected".
+                 */
+
+                selectedFileName.innerHTML = `
+
+                    📄
+
+                    <a
+                        href="${formUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ${file.name}
+                    </a>
+
+                `;
 
 
-                /* REFRESH */
+                /*
+                 * Clear the actual file input.
+                 *
+                 * This does NOT delete the uploaded file.
+                 *
+                 * It only resets the browser's
+                 * file-selection control.
+                 */
+
+                evaluationFile.value = "";
+
+
+                /*
+                 * Reload the evaluation from Supabase
+                 * so the displayed file is based on
+                 * the saved database record.
+                 */
 
                 const {
                     data: refreshedEvaluation,
@@ -2051,13 +2129,13 @@
                     .select(`
                         id,
                         application_id,
-                        form_name,
                         pdf_url,
                         status,
                         submitted_at,
                         reviewed_at,
                         created_at,
-                        form_url
+                        form_url,
+                        form_name
                     `)
                     .eq(
                         "application_id",
@@ -2074,10 +2152,8 @@
 
                 }
 
-            }
 
-
-            catch (error) {
+            } catch (error) {
 
                 console.error(
                     "Upload evaluation form error:",
@@ -2090,7 +2166,6 @@
                     "Unable to upload evaluation form.";
 
             }
-
 
             finally {
 
@@ -2113,12 +2188,19 @@
             evaluation
         ) {
 
+
             [
+
                 stepAccepted,
+
                 stepStarted,
+
                 stepProgress,
+
                 stepEvaluation,
+
                 stepCompleted
+
             ].forEach(
                 step => {
 
@@ -2162,7 +2244,9 @@
                 );
 
 
-            /* PENDING */
+            /* ======================================
+               PENDING
+            ====================================== */
 
             if (
                 status ===
@@ -2206,10 +2290,13 @@
                     "The internship has not been completed yet.";
 
                 return;
+
             }
 
 
-            /* REJECTED */
+            /* ======================================
+               REJECTED
+            ====================================== */
 
             if (
                 status ===
@@ -2253,10 +2340,13 @@
                     "The internship application was rejected.";
 
                 return;
+
             }
 
 
-            /* ACCEPTED */
+            /* ======================================
+               ACCEPTED
+            ====================================== */
 
             if (
                 status ===
@@ -2305,10 +2395,13 @@
                     "The internship has not been completed yet.";
 
                 return;
+
             }
 
 
-            /* ACTIVE */
+            /* ======================================
+               ACTIVE
+            ====================================== */
 
             if (
                 status ===
@@ -2348,12 +2441,15 @@
 
 
                 evaluationProgressText.textContent =
+
                     evaluation &&
                     String(
                         evaluation.status
                     ).toLowerCase() ===
                     "submitted"
+
                         ? "The company has submitted the internship evaluation."
+
                         : "The evaluation will be submitted after the internship is completed.";
 
 
@@ -2366,10 +2462,13 @@
                     "The internship has not been completed yet.";
 
                 return;
+
             }
 
 
-            /* COMPLETED */
+            /* ======================================
+               COMPLETED
+            ====================================== */
 
             if (
                 status ===
@@ -2413,11 +2512,14 @@
 
 
                 if (
+
                     evaluation &&
+
                     String(
                         evaluation.status
                     ).toLowerCase() ===
                     "submitted"
+
                 ) {
 
                     stepEvaluation.classList.add(
@@ -2492,14 +2594,19 @@
                 );
 
 
-            /* SUBMITTED */
+            /* --------------------------------------
+               SUBMITTED
+            -------------------------------------- */
 
             if (
+
                 evaluation &&
+
                 String(
                     evaluation.status
                 ).toLowerCase() ===
                 "submitted"
+
             ) {
 
                 evaluationEmpty.style.display =
@@ -2516,34 +2623,33 @@
                     "'s internship evaluation.";
 
 
-          if (
-    evaluation.pdf_url
-) {
+                if (
+                    evaluation.pdf_url
+                ) {
 
-    viewPdfButton.href =
-        evaluation.pdf_url;
+                    viewPdfButton.href =
+                        evaluation.pdf_url;
 
-    viewPdfButton.target =
-        "_blank";
+                    viewPdfButton.style.display =
+                        "inline-block";
 
-    viewPdfButton.rel =
-        "noopener noreferrer";
+                }
 
-    viewPdfButton.style.display =
-        "inline-block";
-}
-else {
+                else {
 
-    viewPdfButton.style.display =
-        "none";
-}
+                    viewPdfButton.style.display =
+                        "none";
 
+                }
 
                 return;
+
             }
 
 
-            /* NOT SUBMITTED */
+            /* --------------------------------------
+               NOT SUBMITTED
+            -------------------------------------- */
 
             evaluationEmpty.style.display =
                 "block";
@@ -2570,7 +2676,9 @@ else {
         ========================================== */
 
         document
-            .getElementById("logoutLink")
+            .getElementById(
+                "logoutLink"
+            )
             .addEventListener(
                 "click",
                 async function(event) {
