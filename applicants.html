@@ -99,7 +99,8 @@
             min-height: 70px;
         }
 
-        .review-cv-link {
+        .review-cv-link,
+        .review-evaluation-link {
             display: inline-block;
             margin-top: 5px;
             color: #315b66;
@@ -107,7 +108,135 @@
             text-decoration: none;
         }
 
-        .review-cv-link:hover {
+        .review-cv-link:hover,
+        .review-evaluation-link:hover {
+            text-decoration: underline;
+        }
+
+        .review-evaluation-box {
+            background: #f7fafa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .review-evaluation-name {
+            color: #234b57;
+            font-weight: 600;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .review-evaluation-status {
+            font-size: 13px;
+            color: #777;
+            margin-top: 6px;
+        }
+
+        .review-evaluation-upload {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(35, 75, 87, 0.12);
+        }
+
+        .review-evaluation-upload-label {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .review-evaluation-file {
+            display: none;
+        }
+
+        .choose-file-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 15px;
+            background: #ffffff;
+            color: #315b66;
+            border: 1px solid rgba(35, 75, 87, 0.15);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .choose-file-button:hover {
+            opacity: 0.9;
+        }
+
+        .selected-file-name {
+            color: #315b66;
+            font-size: 13px;
+            margin-bottom: 10px;
+            word-break: break-word;
+            min-height: 18px;
+        }
+
+        .upload-evaluation-button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            margin-top: -5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #315b66;
+            color: white;
+        }
+
+        .upload-evaluation-button:hover {
+            opacity: 0.9;
+        }
+
+        .replace-evaluation-button {
+            display: inline-block;
+            margin-top: 8px;
+            margin-left: 14px;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #315b66;
+            color: white;
+        }
+
+        .replace-evaluation-button:hover {
+            opacity: 0.9;
+        }
+
+        .upload-evaluation-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .completed-evaluation {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(35, 75, 87, 0.12);
+        }
+
+        .completed-evaluation-label {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .completed-evaluation-link {
+            color: #315b66;
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .completed-evaluation-link:hover {
             text-decoration: underline;
         }
 
@@ -203,9 +332,11 @@
                     >
                         Applicants
                     </a>
-<a href="company-posts.html">
-        My Posts
-    </a>
+
+                    <a href="company-posts.html">
+                        My Posts
+                    </a>
+
                     <a href="company-profile.html">
                         Profile
                     </a>
@@ -321,8 +452,6 @@
 
 
                 <div id="applicantsList">
-
-                    <!-- Real applications will appear here -->
 
                 </div>
 
@@ -468,6 +597,10 @@
                 </div>
 
 
+                <!-- =====================================
+                     CV
+                ====================================== -->
+
                 <div class="review-detail">
 
                     <span>
@@ -480,6 +613,32 @@
 
                 </div>
 
+
+                <!-- =====================================
+                     EVALUATION FORM
+                ====================================== -->
+
+                <div class="review-detail">
+
+                    <span>
+                        Evaluation Form
+                    </span>
+
+                    <div
+                        class="review-evaluation-box"
+                        id="reviewEvaluation"
+                    >
+
+                        No evaluation form available.
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     ACTIONS
+                ====================================== -->
 
                 <div class="review-actions">
 
@@ -842,6 +1001,50 @@
 
 
                 /* =================================
+                   APPLICATION IDS
+                ================================== */
+
+                const applicationIds =
+                    applications.map(
+                        application =>
+                            application.id
+                    );
+
+
+                /* =================================
+                   EVALUATIONS
+                ================================== */
+
+                const {
+                    data: evaluations,
+                    error: evaluationError
+                } = await db
+                    .from("evaluations")
+                    .select(`
+                        application_id,
+                        pdf_url,
+                        form_url,
+                        form_name,
+                        company_file_name,
+                        status,
+                        submitted_at,
+                        reviewed_at,
+                        created_at
+                    `)
+                    .in(
+                        "application_id",
+                        applicationIds
+                    );
+
+
+                if (evaluationError) {
+
+                    throw evaluationError;
+
+                }
+
+
+                /* =================================
                    STUDENT IDS
                 ================================== */
 
@@ -917,7 +1120,6 @@
 
                 const internshipMap = {};
 
-
                 internships.forEach(
                     internship => {
 
@@ -931,7 +1133,6 @@
 
 
                 const studentMap = {};
-
 
                 (students || []).forEach(
                     student => {
@@ -947,7 +1148,6 @@
 
                 const profileMap = {};
 
-
                 (profiles || []).forEach(
                     profile => {
 
@@ -955,6 +1155,24 @@
                             profile.id
                         ] =
                             profile;
+
+                    }
+                );
+
+
+                /* =================================
+                   EVALUATION MAP
+                ================================== */
+
+                const evaluationMap = {};
+
+                (evaluations || []).forEach(
+                    evaluation => {
+
+                        evaluationMap[
+                            evaluation.application_id
+                        ] =
+                            evaluation;
 
                     }
                 );
@@ -986,6 +1204,12 @@
                                 ];
 
 
+                            const evaluation =
+                                evaluationMap[
+                                    application.id
+                                ];
+
+
                             return {
 
                                 ...application,
@@ -997,7 +1221,10 @@
                                     student,
 
                                 profile:
-                                    profile
+                                    profile,
+
+                                evaluation:
+                                    evaluation || null
 
                             };
 
@@ -1283,14 +1510,6 @@
                 cvUrl.trim();
 
 
-            /*
-             * If cv_url is already a storage path:
-             *
-             * 049d20a9-.../CV.pdf
-             *
-             * return it directly.
-             */
-
             if (
                 !value.includes("/storage/v1/object/")
             ) {
@@ -1299,18 +1518,6 @@
 
             }
 
-
-            /*
-             * Current database value is a full URL:
-             *
-             * https://project.supabase.co/
-             * storage/v1/object/public/cvs/
-             * student-id/file.pdf
-             *
-             * Extract only:
-             *
-             * student-id/file.pdf
-             */
 
             const marker =
                 "/storage/v1/object/public/cvs/";
@@ -1408,6 +1615,527 @@
 
 
         /* =========================================
+           DISPLAY EVALUATION
+        ========================================== */
+
+        function displayEvaluation(
+            evaluation
+        ) {
+
+            const evaluationContainer =
+                document.getElementById(
+                    "reviewEvaluation"
+                );
+
+
+            evaluationContainer.innerHTML =
+                "";
+
+
+            /*
+             * No evaluation record or
+             * supervisor has not uploaded
+             * the form yet.
+             */
+
+            if (
+                !evaluation ||
+                !evaluation.form_url
+            ) {
+
+                evaluationContainer.innerHTML = `
+
+                    <span>
+                        No evaluation form available yet.
+                    </span>
+
+                `;
+
+                return;
+
+            }
+
+
+            const formName =
+                evaluation.form_name &&
+                evaluation.form_name.trim()
+                    ? evaluation.form_name
+                    : "Evaluation Form";
+
+
+            evaluationContainer.innerHTML = `
+
+                <div class="review-evaluation-name">
+                    ${escapeHTML(
+                        formName
+                    )}
+                </div>
+
+
+                <a
+                    href="${escapeHTML(
+                        evaluation.form_url
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="review-evaluation-link"
+                >
+                    View Evaluation Form
+                </a>
+
+
+                <div class="review-evaluation-status">
+                    Status: ${escapeHTML(
+                        evaluation.status || "sent"
+                    )}
+                </div>
+
+
+                <div class="review-evaluation-upload">
+
+                    <label
+                        for="completedEvaluationFile"
+                        class="review-evaluation-upload-label"
+                    >
+                        Upload Completed Evaluation
+                    </label>
+
+
+                    <label
+                        for="completedEvaluationFile"
+                        class="choose-file-button"
+                    >
+                        📎 Choose Evaluation Form
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="completedEvaluationFile"
+                        class="review-evaluation-file"
+                        accept=".pdf,.doc,.docx"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="upload-evaluation-button"
+                        id="uploadEvaluationButton"
+                    >
+                        Upload Completed Evaluation
+                    </button>
+
+
+                    ${
+                        evaluation.pdf_url &&
+                        evaluation.pdf_url.trim()
+                            ? `
+                                <div class="completed-evaluation">
+
+                                    <span class="completed-evaluation-label">
+                                        Completed Evaluation
+                                    </span>
+
+                                    <a
+                                        href="${escapeHTML(
+                                            evaluation.pdf_url
+                                        )}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="completed-evaluation-link"
+                                    >
+                                        ${escapeHTML(
+                                            evaluation.company_file_name ||
+                                            "View Completed Evaluation"
+                                        )}
+                                    </a>
+
+                                    <button
+                                        type="button"
+                                        class="replace-evaluation-button"
+                                        id="replaceEvaluationButton"
+                                    >
+                                        Replace File
+                                    </button>
+
+                                </div>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+            `;
+
+
+            const uploadButton =
+                document.getElementById(
+                    "uploadEvaluationButton"
+                );
+
+
+            const fileInput =
+                document.getElementById(
+                    "completedEvaluationFile"
+                );
+
+
+            uploadButton.addEventListener(
+                "click",
+                uploadCompletedEvaluation
+            );
+
+            const replaceButton =
+                document.getElementById(
+                    "replaceEvaluationButton"
+                );
+
+            if (replaceButton && fileInput) {
+
+                replaceButton.addEventListener(
+                    "click",
+                    function () {
+
+                        fileInput.click();
+
+                    }
+                );
+
+            }
+
+        }
+
+        /* =========================================
+           UPLOAD COMPLETED EVALUATION
+        ========================================== */
+
+        async function uploadCompletedEvaluation() {
+
+            if (!selectedApplication) {
+
+                return;
+
+            }
+
+
+            const fileInput =
+                document.getElementById(
+                    "completedEvaluationFile"
+                );
+
+
+            if (
+                !fileInput ||
+                !fileInput.files ||
+                fileInput.files.length === 0
+            ) {
+
+                reviewStatusMessage.textContent =
+                    "Please select the completed evaluation file.";
+
+                return;
+
+            }
+
+
+            const file =
+                fileInput.files[0];
+
+
+            /* =====================================
+               FILE TYPE
+            ====================================== */
+
+            const allowedTypes = [
+                "application/pdf",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ];
+
+
+            const extension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const allowedExtensions = [
+                "pdf",
+                "doc",
+                "docx"
+            ];
+
+
+            if (
+                !allowedExtensions.includes(
+                    extension
+                )
+            ) {
+
+                reviewStatusMessage.textContent =
+                    "Please upload a PDF, DOC, or DOCX file.";
+
+                return;
+
+            }
+
+
+            /* =====================================
+               FILE SIZE
+            ====================================== */
+
+            const maxFileSize =
+                10 * 1024 * 1024;
+
+
+            if (
+                file.size > maxFileSize
+            ) {
+
+                reviewStatusMessage.textContent =
+                    "File size must be 10 MB or less.";
+
+                return;
+
+            }
+
+
+            const applicationId =
+                selectedApplication.id;
+
+
+            const studentId =
+                selectedApplication.student_id;
+
+
+            const safeFileName =
+                file.name
+                    .replace(
+                        /[^a-zA-Z0-9._-]/g,
+                        "_"
+                    );
+
+
+            const filePath =
+                `company/${studentId}/${applicationId}/${Date.now()}_${safeFileName}`;
+
+
+            const uploadButton =
+                document.getElementById(
+                    "uploadEvaluationButton"
+                );
+
+
+            if (uploadButton) {
+
+                uploadButton.disabled =
+                    true;
+
+                uploadButton.textContent =
+                    "Uploading...";
+
+            }
+
+
+            reviewStatusMessage.textContent =
+                "Uploading completed evaluation...";
+
+
+            try {
+
+                /* =================================
+                   UPLOAD TO EVALUATIONS BUCKET
+                ================================== */
+
+                const {
+                    error: uploadError
+                } = await db.storage
+                    .from("evaluations")
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            upsert: false
+                        }
+                    );
+
+
+                if (uploadError) {
+
+                    throw uploadError;
+
+                }
+
+
+                /* =================================
+                   GET PUBLIC URL
+                ================================== */
+
+                const {
+                    data: publicUrlData
+                } = db.storage
+                    .from("evaluations")
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+                if (
+                    !publicUrlData ||
+                    !publicUrlData.publicUrl
+                ) {
+
+                    throw new Error(
+                        "Unable to create evaluation file URL."
+                    );
+
+                }
+
+
+                const fileUrl =
+                    publicUrlData.publicUrl;
+
+
+                /* =================================
+                   UPDATE EVALUATION RECORD
+                ================================== */
+
+                const {
+                    error: updateError
+                } = await db
+                    .from("evaluations")
+                    .update({
+
+                        pdf_url:
+                            fileUrl,
+
+                        company_file_name:
+                            file.name,
+
+                        status:
+                            "submitted",
+
+                        submitted_at:
+                            new Date().toISOString()
+
+                    })
+                    .eq(
+                        "application_id",
+                        applicationId
+                    );
+
+
+                if (updateError) {
+
+                    throw updateError;
+
+                }
+
+
+                /* =================================
+                   UPDATE LOCAL EVALUATION
+                ================================== */
+
+                if (
+                    selectedApplication.evaluation
+                ) {
+
+                    selectedApplication.evaluation.pdf_url =
+                        fileUrl;
+
+                    selectedApplication.evaluation.status =
+                        "submitted";
+
+                    selectedApplication.evaluation.submitted_at =
+                        new Date().toISOString();
+
+                    selectedApplication.evaluation.company_file_name =
+                        file.name;
+
+                }
+
+
+                const applicantIndex =
+                    allApplicants.findIndex(
+                        application =>
+                            application.id ===
+                            applicationId
+                    );
+
+
+                if (
+                    applicantIndex !== -1 &&
+                    allApplicants[
+                        applicantIndex
+                    ].evaluation
+                ) {
+
+                    allApplicants[
+                        applicantIndex
+                    ].evaluation.pdf_url =
+                        fileUrl;
+
+                    allApplicants[
+                        applicantIndex
+                    ].evaluation.status =
+                        "submitted";
+
+                    allApplicants[
+                        applicantIndex
+                    ].evaluation.submitted_at =
+                        new Date().toISOString();
+
+                    allApplicants[
+                        applicantIndex
+                    ].evaluation.company_file_name =
+                        file.name;
+
+                }
+
+
+                /* =================================
+                   REFRESH EVALUATION SECTION
+                ================================== */
+
+                displayEvaluation(
+                    selectedApplication.evaluation
+                );
+
+
+                reviewStatusMessage.textContent =
+                    "Completed evaluation uploaded successfully.";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Evaluation upload error:",
+                    error
+                );
+
+
+                reviewStatusMessage.textContent =
+                    error.message ||
+                    "Unable to upload completed evaluation.";
+
+
+                if (uploadButton) {
+
+                    uploadButton.disabled =
+                        false;
+
+                    uploadButton.textContent =
+                        "Upload Completed Evaluation";
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================
            OPEN REVIEW MODAL
         ========================================== */
 
@@ -1449,7 +2177,7 @@
 
 
             /* =====================================
-               FILL MODAL DATA
+               BASIC INFORMATION
             ====================================== */
 
             document.getElementById(
@@ -1582,6 +2310,15 @@
                     "No CV available.";
 
             }
+
+
+            /* =====================================
+               EVALUATION
+            ====================================== */
+
+            displayEvaluation(
+                application.evaluation
+            );
 
 
             /* =====================================
@@ -1733,6 +2470,10 @@
                 }
 
 
+                selectedApplication.status =
+                    newStatus;
+
+
                 reviewStatusMessage.textContent =
                     newStatus === "accepted"
                         ? "Application accepted successfully."
@@ -1859,7 +2600,7 @@
 
 
         /* =========================================
-           CLOSE WHEN CLICKING OUTSIDE MODAL
+           CLOSE OUTSIDE MODAL
         ========================================== */
 
         reviewModal.addEventListener(

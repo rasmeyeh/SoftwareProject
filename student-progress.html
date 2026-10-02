@@ -2516,68 +2516,27 @@
                     "'s internship evaluation.";
 
 
-                if (
-                    evaluation.pdf_url
-                ) {
+          if (
+    evaluation.pdf_url
+) {
 
-                    const fileUrl =
-                        evaluation.pdf_url;
+    viewPdfButton.href =
+        evaluation.pdf_url;
 
+    viewPdfButton.target =
+        "_blank";
 
-                    const fileName =
-                        evaluation.form_name || "";
+    viewPdfButton.rel =
+        "noopener noreferrer";
 
+    viewPdfButton.style.display =
+        "inline-block";
+}
+else {
 
-                    const lowerFileName =
-                        fileName.toLowerCase();
-
-
-                    const isWordFile =
-                        lowerFileName.endsWith(".doc") ||
-                        lowerFileName.endsWith(".docx");
-
-
-                    /* WORD FILE */
-
-                    if (isWordFile) {
-
-                        viewPdfButton.href =
-                            "ms-word:ofe|u|" +
-                            fileUrl;
-
-                        viewPdfButton.target =
-                            "_self";
-
-                    }
-
-
-                    /* PDF OR OTHER */
-
-                    else {
-
-                        viewPdfButton.href =
-                            fileUrl;
-
-                        viewPdfButton.target =
-                            "_blank";
-
-                        viewPdfButton.rel =
-                            "noopener noreferrer";
-
-                    }
-
-
-                    viewPdfButton.style.display =
-                        "inline-block";
-
-                }
-
-                else {
-
-                    viewPdfButton.style.display =
-                        "none";
-
-                }
+    viewPdfButton.style.display =
+        "none";
+}
 
 
                 return;
