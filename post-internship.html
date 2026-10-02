@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +6,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Post Internship</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 
 </head>
 
@@ -55,7 +62,10 @@
                         Dashboard
                     </a>
 
-                   
+                    <a href="company-posts.html"
+                    class="active">
+                        My Posts
+                    </a>
 
                     <a href="applicants.html">
                         Applicants
@@ -86,7 +96,13 @@
 
         <main class="post-internship-page">
 
-
+<a
+    href="company-posts.html"
+    class="back-to-posts"
+    id="back-to-posts"
+>
+    ← Back to My Posts
+</a>
             <!-- PAGE HEADER -->
 
             <div class="post-header">
@@ -145,47 +161,84 @@
 
 
 
-                        <!-- FIELD -->
+                    
+<!-- FIELD -->
 
-                        <div class="post-field">
+<div class="post-field">
 
-                            <label for="internship-field">
-                                Field / Category
-                            </label>
+    <label for="internship-field">
+        Field / Category
+    </label>
 
-                            <select id="internship-field">
+    <select id="internship-field">
 
-                                <option value="">
-                                    Select a field
-                                </option>
+        <option value="">
+            Select a field
+        </option>
 
-                                <option>
-                                    Software Development
-                                </option>
+        <option value="Web Development">
+            Web Development
+        </option>
 
-                                <option>
-                                    Computer Engineering
-                                </option>
+        <option value="Systems Administration">
+            Systems Administration
+        </option>
 
-                                <option>
-                                    Information Technology
-                                </option>
+        <option value="Software & IT">
+            Software & IT
+        </option>
 
-                                <option>
-                                    Networking
-                                </option>
+        <option value="Telecommunications & IT">
+            Telecommunications & IT
+        </option>
 
-                                <option>
-                                    Cybersecurity
-                                </option>
+        <option value="Software Testing">
+            Software Testing
+        </option>
 
-                                <option>
-                                    Telecommunications
-                                </option>
+        <option value="Mobile App Development">
+            Mobile App Development
+        </option>
 
-                            </select>
+        <option value="Networking">
+            Networking
+        </option>
 
-                        </div>
+        <option value="Software Engineering">
+            Software Engineering
+        </option>
+
+        <option value="Software Development">
+            Software Development
+        </option>
+
+        <option value="UI/UX Design">
+            UI/UX Design
+        </option>
+
+        <option value="IT Support">
+            IT Support
+        </option>
+
+        <option value="Telecommunications & Networking">
+            Telecommunications & Networking
+        </option>
+
+        <option value="IT & Technology">
+            IT & Technology
+        </option>
+
+        <option value="IT & Telecommunications">
+            IT & Telecommunications
+        </option>
+
+        <option value="IT Security">
+            IT Security
+        </option>
+
+    </select>
+
+</div>
 
 
 
@@ -255,7 +308,7 @@
 
 
                 <!-- =====================================
-                     DATES & CAPACITY
+                     INTERNSHIP SCHEDULE
                 ====================================== -->
 
                 <div class="post-section">
@@ -300,25 +353,6 @@
 
                         </div>
 
-
-
-                        <!-- NUMBER OF INTERNS -->
-
-                        <div class="post-field">
-
-                            <label for="intern-number">
-                                Number of Interns
-                            </label>
-
-                            <input
-                                type="number"
-                                id="intern-number"
-                                min="1"
-                                placeholder="e.g. 5"
-                            >
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -342,6 +376,7 @@
                     <button
                         type="button"
                         class="publish-button"
+                        id="submit-internship"
                     >
                         Publish Internship
                     </button>
@@ -363,13 +398,467 @@
         <footer class="home-footer">
 
             <p>
-                © 2026 Internship Management System
+                ©️ 2026 Internship Management System
             </p>
 
         </footer>
 
 
     </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         PAGE SCRIPT
+    ========================================== -->
+
+    <script>
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const editId =
+            params.get("edit");
+
+
+        const titleInput =
+            document.getElementById(
+                "internship-title"
+            );
+
+        const fieldInput =
+            document.getElementById(
+                "internship-field"
+            );
+
+        const locationInput =
+            document.getElementById(
+                "internship-location"
+            );
+
+        const descriptionInput =
+            document.getElementById(
+                "internship-description"
+            );
+
+        const requirementsInput =
+            document.getElementById(
+                "internship-requirements"
+            );
+
+        const startDateInput =
+            document.getElementById(
+                "start-date"
+            );
+
+        const endDateInput =
+            document.getElementById(
+                "end-date"
+            );
+
+        const submitButton =
+            document.getElementById(
+                "submit-internship"
+                
+            );
+const backToPostsButton =
+    document.getElementById(
+        "back-to-posts"
+    );
+
+
+        /* =========================================
+           GET CURRENT COMPANY
+        ========================================== */
+
+        async function getCurrentCompany() {
+
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } = await db.auth.getUser();
+
+
+            if (userError) {
+
+                throw userError;
+
+            }
+
+
+            if (!user) {
+
+                throw new Error(
+                    "You are not logged in."
+                );
+
+            }
+
+
+            const {
+                data: company,
+                error: companyError
+            } = await db
+                .from("companies")
+                .select("*")
+                .eq(
+                    "profile_id",
+                    user.id
+                )
+                .single();
+
+
+            if (companyError) {
+
+                throw companyError;
+
+            }
+
+
+            return company;
+
+        }
+
+
+
+        /* =========================================
+           LOAD INTERNSHIP FOR EDIT
+        ========================================== */
+
+        async function loadInternshipForEdit() {
+
+            if (!editId) {
+
+                return;
+
+            }
+            if (backToPostsButton) {
+
+    backToPostsButton.style.display =
+        "inline-flex";
+
+}
+
+
+            try {
+
+                const company =
+                    await getCurrentCompany();
+
+
+                const {
+                    data: internship,
+                    error
+                } = await db
+                    .from("internships")
+                    .select(`
+                        id,
+                        company_id,
+                        title,
+                        field,
+                        city,
+                        description,
+                        requirements,
+                        start_date,
+                        end_date
+                    `)
+                    .eq(
+                        "id",
+                        editId
+                    )
+                    .eq(
+                        "company_id",
+                        company.id
+                    )
+                    .single();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (!internship) {
+
+                    throw new Error(
+                        "Internship not found."
+                    );
+
+                }
+
+
+
+                /* =========================
+                   FILL FORM
+                ========================= */
+
+                titleInput.value =
+                    internship.title || "";
+
+
+                fieldInput.value =
+                    internship.field
+                        ? internship.field.trim()
+                        : "";
+
+
+                locationInput.value =
+                    internship.city || "";
+
+
+                descriptionInput.value =
+                    internship.description || "";
+
+
+                requirementsInput.value =
+                    internship.requirements || "";
+
+
+                startDateInput.value =
+                    internship.start_date || "";
+
+
+                endDateInput.value =
+                    internship.end_date || "";
+
+
+
+                /* =========================
+                   CHANGE PAGE TO EDIT MODE
+                ========================= */
+
+                const heading =
+                    document.querySelector(
+                        ".post-header h1"
+                    );
+
+                const paragraph =
+                    document.querySelector(
+                        ".post-header p"
+                    );
+
+
+                if (heading) {
+
+                    heading.textContent =
+                        "Edit Internship";
+
+                }
+
+
+                if (paragraph) {
+
+                    paragraph.textContent =
+                        "Update the internship opportunity information.";
+
+                }
+
+
+                if (submitButton) {
+
+                    submitButton.textContent =
+                        "Save Changes";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Load internship error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to load internship.\n\n" +
+                    error.message
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SAVE INTERNSHIP
+        ========================================== */
+
+        async function saveInternship() {
+
+            try {
+
+                const company =
+                    await getCurrentCompany();
+
+
+                const internshipData = {
+
+                    title:
+                        titleInput.value.trim(),
+
+                    field:
+                        fieldInput.value,
+
+                    city:
+                        locationInput.value.trim(),
+
+                    description:
+                        descriptionInput.value.trim(),
+
+                    requirements:
+                        requirementsInput.value.trim(),
+
+                    start_date:
+                        startDateInput.value || null,
+
+                    end_date:
+                        endDateInput.value || null
+
+                };
+
+
+
+                /* =========================
+                   EDIT EXISTING INTERNSHIP
+                ========================= */
+
+                if (editId) {
+
+                    const {
+                        error
+                    } = await db
+                        .from("internships")
+                        .update(
+                            internshipData
+                        )
+                        .eq(
+                            "id",
+                            editId
+                        )
+                        .eq(
+                            "company_id",
+                            company.id
+                        );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    alert(
+                        "Internship updated successfully."
+                    );
+
+
+                    window.location.href =
+                        "company-posts.html";
+
+
+                    return;
+
+                }
+
+
+
+                /* =========================
+                   CREATE NEW INTERNSHIP
+                ========================================== */
+
+                const {
+                    error
+                } = await db
+                    .from("internships")
+                    .insert({
+
+                        company_id:
+                            company.id,
+
+                        ...internshipData,
+
+                        status:
+                            "active"
+
+                    });
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                alert(
+                    "Internship published successfully."
+                );
+
+
+                window.location.href =
+                    "company-posts.html";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Save internship error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to save internship.\n\n" +
+                    error.message
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SUBMIT BUTTON
+        ========================================== */
+
+        if (submitButton) {
+
+            submitButton.addEventListener(
+                "click",
+                saveInternship
+            );
+
+        }
+
+
+
+        /* =========================================
+           LOAD EDIT DATA
+        ========================================== */
+
+        loadInternshipForEdit();
+
+    </script>
 
 </body>
 
