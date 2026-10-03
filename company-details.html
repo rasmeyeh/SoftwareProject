@@ -5,11 +5,17 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Company Details - Internship Management System</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 
 </head>
 
@@ -30,7 +36,10 @@
 
                 <!-- Logo -->
 
-                <a href="home.html" class="brand">
+                <a
+                    href="home.html"
+                    class="brand"
+                >
 
                     <img
                         src="./images/logo.png"
@@ -55,7 +64,6 @@
                     <a href="my-applications.html">
                         My Internship Applications
                     </a>
-  
 
                     <a href="profile.html">
                         Profile
@@ -137,6 +145,18 @@
                     >
                         📍 Loading...
                     </p>
+
+                    <!-- Company Website -->
+
+                    <a
+                        id="companyWebsite"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style="display: none;"
+                    >
+                        Visit Company Website
+                    </a>
 
                 </div>
 
@@ -413,7 +433,9 @@
             // =====================================
 
             const urlParams =
-                new URLSearchParams(window.location.search);
+                new URLSearchParams(
+                    window.location.search
+                );
 
             const companyId =
                 urlParams.get("id");
@@ -422,7 +444,8 @@
             if (!companyId) {
 
                 document.getElementById("companyName")
-                    .textContent = "Company not found";
+                    .textContent =
+                    "Company not found";
 
                 return;
             }
@@ -503,11 +526,59 @@
 
 
             // =====================================
+            // COMPANY WEBSITE
+            // =====================================
+
+            const companyWebsite =
+                document.getElementById(
+                    "companyWebsite"
+                );
+
+
+            if (company.website) {
+
+                let websiteUrl =
+                    company.website.trim();
+
+
+                // Add https:// if it is missing
+
+                if (
+                    !websiteUrl.startsWith("http://") &&
+                    !websiteUrl.startsWith("https://")
+                ) {
+
+                    websiteUrl =
+                        "https://" + websiteUrl;
+                }
+
+
+                companyWebsite.href =
+                    websiteUrl;
+
+
+                companyWebsite.textContent =
+                    company.website;
+
+
+                companyWebsite.style.display =
+                    "inline-block";
+
+            } else {
+
+                companyWebsite.style.display =
+                    "none";
+            }
+
+
+            // =====================================
             // COMPANY LOGO
             // =====================================
 
             const companyLogo =
-                document.getElementById("companyLogo");
+                document.getElementById(
+                    "companyLogo"
+                );
 
 
             if (company.logo_url) {
@@ -605,8 +676,10 @@
                 const li =
                     document.createElement("li");
 
+
                 li.textContent =
                     "No internship opportunities are currently available.";
+
 
                 positionsList.appendChild(li);
 
@@ -621,8 +694,10 @@
                 document.getElementById(
                     "infoLocation"
                 ).textContent =
-                    (company.city ||
-                    "Palestine") +
+                    (
+                        company.city ||
+                        "Palestine"
+                    ) +
                     ", Palestine";
 
 
@@ -837,7 +912,9 @@
                         requirementText => {
 
                             const li =
-                                document.createElement("li");
+                                document.createElement(
+                                    "li"
+                                );
 
 
                             li.textContent =
@@ -853,7 +930,9 @@
                 } else {
 
                     const li =
-                        document.createElement("li");
+                        document.createElement(
+                            "li"
+                        );
 
 
                     li.textContent =
@@ -911,7 +990,9 @@
                 (internship) => {
 
                     const li =
-                        document.createElement("li");
+                        document.createElement(
+                            "li"
+                        );
 
 
                     li.textContent =

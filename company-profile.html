@@ -12,12 +12,41 @@
 
     <title>Company Profile - Internship Management System</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           COMPANY LOGO UPLOAD
+        ========================================== */
+
+        .company-logo-upload {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .company-logo-upload img {
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .company-logo-upload:hover img {
+            opacity: 0.75;
+        }
+
+    </style>
 
 </head>
 
 
 <body>
+
 
     <!-- =========================================
          COMPANY PROFILE PAGE
@@ -35,9 +64,12 @@
             <div class="nav-content">
 
 
-                <!-- Logo -->
+                <!-- LOGO -->
 
-                <a href="company-dashboard.html" class="brand">
+                <a
+                    href="company-dashboard.html"
+                    class="brand"
+                >
 
                     <img
                         src="./images/logo.png"
@@ -51,19 +83,25 @@
                 </a>
 
 
-                <!-- Navigation -->
+
+                <!-- NAVIGATION -->
 
                 <nav class="nav-links">
 
                     <a href="company-dashboard.html">
                         Dashboard
                     </a>
-<a href="company-posts.html">
-        My Posts
-    </a>
+
+
+                    <a href="company-posts.html">
+                        My Posts
+                    </a>
+
+
                     <a href="applicants.html">
                         Applicants
                     </a>
+
 
                     <a
                         href="company-profile.html"
@@ -71,6 +109,7 @@
                     >
                         Profile
                     </a>
+
 
                     <a
                         href="index.html"
@@ -129,19 +168,39 @@
             <section class="company-profile-card">
 
 
-                <!-- Company Logo -->
+                <!-- =================================
+                     COMPANY LOGO
+                ================================== -->
 
                 <div class="profile-logo-section">
 
+
                     <div class="profile-company-logo">
 
-                        <img
-                            id="companyLogo"
-                            src="./images/ooredoo.png"
-                            alt="Company Logo"
+                        <label
+                            for="logoInput"
+                            class="company-logo-upload"
+                            title="Click to change company logo"
                         >
 
+                            <img
+                                id="companyLogo"
+                                src="./images/logo.png"
+                                alt="Company Logo"
+                            >
+
+
+                            <input
+                                type="file"
+                                id="logoInput"
+                                accept="image/png,image/jpeg,image/webp"
+                                hidden
+                            >
+
+                        </label>
+
                     </div>
+
 
                     <div>
 
@@ -159,12 +218,14 @@
 
 
 
-                <!-- Company Information -->
+                <!-- =================================
+                     COMPANY INFORMATION
+                ================================== -->
 
                 <div class="profile-information">
 
 
-                    <!-- Company Name -->
+                    <!-- COMPANY NAME -->
 
                     <div class="profile-field">
 
@@ -182,7 +243,7 @@
 
 
 
-                    <!-- Email -->
+                    <!-- EMAIL -->
 
                     <div class="profile-field">
 
@@ -200,7 +261,7 @@
 
 
 
-                    <!-- Phone -->
+                    <!-- PHONE -->
 
                     <div class="profile-field">
 
@@ -218,7 +279,7 @@
 
 
 
-                    <!-- City -->
+                    <!-- CITY -->
 
                     <div class="profile-field">
 
@@ -258,7 +319,7 @@
 
 
 
-                    <!-- Website -->
+                    <!-- WEBSITE -->
 
                     <div class="profile-field full-width">
 
@@ -276,7 +337,7 @@
 
 
 
-                    <!-- Description -->
+                    <!-- DESCRIPTION -->
 
                     <div class="profile-field full-width">
 
@@ -296,7 +357,9 @@
 
 
 
-                <!-- Save Message -->
+                <!-- =================================
+                     SAVE MESSAGE
+                ================================== -->
 
                 <p
                     id="saveMessage"
@@ -306,7 +369,9 @@
 
 
 
-                <!-- Buttons -->
+                <!-- =================================
+                     BUTTONS
+                ================================== -->
 
                 <div class="profile-actions">
 
@@ -316,6 +381,7 @@
                     >
                         Cancel
                     </a>
+
 
                     <button
                         type="button"
@@ -364,6 +430,7 @@
 
     <script>
 
+
         /* =========================================
            GET ELEMENTS
         ========================================== */
@@ -371,35 +438,50 @@
         const companyName =
             document.getElementById("companyName");
 
+
         const companyEmail =
             document.getElementById("companyEmail");
+
 
         const companyPhone =
             document.getElementById("companyPhone");
 
+
         const companyCity =
             document.getElementById("companyCity");
+
 
         const companyWebsite =
             document.getElementById("companyWebsite");
 
+
         const companyDescription =
             document.getElementById("companyDescription");
+
 
         const companyTitle =
             document.getElementById("companyTitle");
 
+
         const companyField =
             document.getElementById("companyField");
+
 
         const companyLogo =
             document.getElementById("companyLogo");
 
+
+        const logoInput =
+            document.getElementById("logoInput");
+
+
         const saveButton =
             document.getElementById("saveButton");
 
+
         const saveMessage =
             document.getElementById("saveMessage");
+
 
 
         /* =========================================
@@ -407,13 +489,21 @@
         ========================================== */
 
         let originalData = {
+
             name: "",
+
             email: "",
+
             phone: "",
+
             city: "",
+
             website: "",
+
             description: ""
+
         };
+
 
 
         /* =========================================
@@ -424,9 +514,13 @@
 
             saveMessage.textContent = "";
 
+
             try {
 
-                /* Get logged-in user */
+
+                /* =========================
+                   GET LOGGED-IN USER
+                ========================= */
 
                 const {
                     data: {
@@ -436,7 +530,10 @@
                 } = await db.auth.getUser();
 
 
-                if (userError || !user) {
+                if (
+                    userError ||
+                    !user
+                ) {
 
                     window.location.href =
                         "index.html";
@@ -446,7 +543,10 @@
                 }
 
 
-                /* Get company connected to this account */
+
+                /* =========================
+                   GET COMPANY
+                ========================= */
 
                 const {
                     data: company,
@@ -465,15 +565,23 @@
                         logo_url,
                         description
                     `)
-                    .eq("profile_id", user.id)
+                    .eq(
+                        "profile_id",
+                        user.id
+                    )
                     .maybeSingle();
 
 
-                /* Company not found */
+
+                /* =========================
+                   COMPANY ERROR
+                ========================= */
 
                 if (companyError) {
 
-                    console.error(companyError);
+                    console.error(
+                        companyError
+                    );
 
                     saveMessage.style.color =
                         "#b00020";
@@ -485,6 +593,11 @@
 
                 }
 
+
+
+                /* =========================
+                   COMPANY NOT FOUND
+                ========================= */
 
                 if (!company) {
 
@@ -499,33 +612,39 @@
                 }
 
 
-                /* =================================
-                   DISPLAY DATA
-                ================================= */
 
+                /* =========================
+                   DISPLAY DATA
+                ========================= */
 
                 companyName.value =
                     company.name || "";
 
+
                 companyEmail.value =
                     company.email || "";
+
 
                 companyPhone.value =
                     company.phone || "";
 
+
                 companyCity.value =
                     company.city || "";
 
+
                 companyWebsite.value =
                     company.website || "";
+
 
                 companyDescription.value =
                     company.description || "";
 
 
-                /* =================================
+
+                /* =========================
                    STORE ORIGINAL DATA
-                ================================= */
+                ========================= */
 
                 originalData = {
 
@@ -550,32 +669,47 @@
                 };
 
 
-                /* =================================
+
+                /* =========================
                    HEADER
-                ================================= */
+                ========================= */
 
                 companyTitle.textContent =
                     company.name || "Company";
+
 
                 companyField.textContent =
                     company.field || "Technology";
 
 
-                /* =================================
+
+                /* =========================
                    LOGO
-                ================================= */
+                ========================= */
 
                 if (company.logo_url) {
 
+                    /*
+                     * Add timestamp to prevent
+                     * browser cache from showing
+                     * the old company logo.
+                     */
+
                     companyLogo.src =
-                        company.logo_url;
+                        company.logo_url +
+                        "?t=" +
+                        Date.now();
 
                 }
 
+            }
 
-            } catch (error) {
 
-                console.error(error);
+            catch (error) {
+
+                console.error(
+                    error
+                );
 
                 saveMessage.style.color =
                     "#b00020";
@@ -590,6 +724,292 @@
 
 
         /* =========================================
+           COMPANY LOGO UPLOAD
+        ========================================== */
+
+        logoInput.addEventListener(
+            "change",
+            async function () {
+
+
+                const file =
+                    logoInput.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+
+                /* =========================
+                   CHECK FILE TYPE
+                ========================= */
+
+                const allowedTypes = [
+
+                    "image/png",
+
+                    "image/jpeg",
+
+                    "image/webp"
+
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Please select a PNG, JPG, or WEBP image.";
+
+                    logoInput.value = "";
+
+                    return;
+
+                }
+
+
+
+                /* =========================
+                   CHECK FILE SIZE
+                ========================= */
+
+                if (
+                    file.size >
+                    5 * 1024 * 1024
+                ) {
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Image size must be less than 5 MB.";
+
+                    logoInput.value = "";
+
+                    return;
+
+                }
+
+
+
+                try {
+
+
+                    saveMessage.style.color =
+                        "#315B66";
+
+                    saveMessage.textContent =
+                        "Uploading logo...";
+
+
+
+                    /* =========================
+                       GET USER
+                    ========================= */
+
+                    const {
+                        data: {
+                            user
+                        },
+                        error: userError
+                    } = await db.auth.getUser();
+
+
+                    if (
+                        userError ||
+                        !user
+                    ) {
+
+                        throw new Error(
+                            "Your session has expired. Please login again."
+                        );
+
+                    }
+
+
+
+                    /* =========================
+                       GET COMPANY
+                    ========================= */
+
+                    const {
+                        data: company,
+                        error: companyError
+                    } = await db
+                        .from("companies")
+                        .select(
+                            "id, logo_url"
+                        )
+                        .eq(
+                            "profile_id",
+                            user.id
+                        )
+                        .single();
+
+
+                    if (companyError) {
+                        throw companyError;
+                    }
+
+
+
+                    /* =========================
+                       FILE EXTENSION
+                    ========================= */
+
+                    const fileExtension =
+                        file.name
+                            .split(".")
+                            .pop()
+                            .toLowerCase();
+
+
+
+                    /* =========================
+                       FILE PATH
+                    ========================= */
+
+                    const fileName =
+                        `${company.id}.${fileExtension}`;
+
+
+                    const filePath =
+                        `${company.id}/${fileName}`;
+
+
+
+                    /* =========================
+                       UPLOAD TO STORAGE
+                    ========================= */
+
+                    const {
+                        error: uploadError
+                    } = await db.storage
+                        .from("company-logos")
+                        .upload(
+                            filePath,
+                            file,
+                            {
+                                upsert: true,
+                                contentType:
+                                    file.type
+                            }
+                        );
+
+
+                    if (uploadError) {
+                        throw uploadError;
+                    }
+
+
+
+                    /* =========================
+                       GET PUBLIC URL
+                    ========================= */
+
+                    const {
+                        data: publicUrlData
+                    } = db.storage
+                        .from("company-logos")
+                        .getPublicUrl(
+                            filePath
+                        );
+
+
+                    const logoUrl =
+                        publicUrlData.publicUrl;
+
+
+
+                    /* =========================
+                       SAVE URL IN DATABASE
+                    ========================= */
+
+                    const {
+                        error: updateError
+                    } = await db
+                        .from("companies")
+                        .update({
+
+                            logo_url:
+                                logoUrl
+
+                        })
+                        .eq(
+                            "id",
+                            company.id
+                        );
+
+
+                    if (updateError) {
+                        throw updateError;
+                    }
+
+
+
+                    /* =========================
+                       DISPLAY NEW LOGO
+                    ========================= */
+
+                    /*
+                     * Add a timestamp so the browser
+                     * loads the new image instead of
+                     * using the cached old image.
+                     */
+
+                    companyLogo.src =
+                        logoUrl +
+                        "?t=" +
+                        Date.now();
+
+
+
+                    saveMessage.style.color =
+                        "#315B66";
+
+                    saveMessage.textContent =
+                        "Company logo updated successfully.";
+
+
+                    logoInput.value = "";
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "Logo upload error:",
+                        error
+                    );
+
+
+                    saveMessage.style.color =
+                        "#b00020";
+
+                    saveMessage.textContent =
+                        "Unable to upload company logo. " +
+                        error.message;
+
+
+                    logoInput.value = "";
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================
            SAVE COMPANY PROFILE
         ========================================== */
 
@@ -597,12 +1017,14 @@
             "click",
             async function () {
 
+
                 saveMessage.textContent = "";
 
 
-                /* =================================
+
+                /* =========================
                    GET CURRENT VALUES
-                ================================= */
+                ========================= */
 
                 const currentData = {
 
@@ -627,22 +1049,36 @@
                 };
 
 
-                /* =================================
-                   CHECK IF ANYTHING CHANGED
-                ================================= */
+
+                /* =========================
+                   CHECK CHANGES
+                ========================================== */
 
                 const hasChanges =
-                    currentData.name !== originalData.name ||
-                    currentData.email !== originalData.email ||
-                    currentData.phone !== originalData.phone ||
-                    currentData.city !== originalData.city ||
-                    currentData.website !== originalData.website ||
-                    currentData.description !== originalData.description;
+
+                    currentData.name !==
+                    originalData.name ||
+
+                    currentData.email !==
+                    originalData.email ||
+
+                    currentData.phone !==
+                    originalData.phone ||
+
+                    currentData.city !==
+                    originalData.city ||
+
+                    currentData.website !==
+                    originalData.website ||
+
+                    currentData.description !==
+                    originalData.description;
 
 
-                /* =================================
+
+                /* =========================
                    NO CHANGES
-                ================================= */
+                ========================================== */
 
                 if (!hasChanges) {
 
@@ -657,11 +1093,14 @@
                 }
 
 
-                /* =================================
-                   START SAVING
-                ================================= */
 
-                saveButton.disabled = true;
+                /* =========================
+                   START SAVING
+                ========================================== */
+
+                saveButton.disabled =
+                    true;
+
 
                 saveButton.textContent =
                     "Saving...";
@@ -669,7 +1108,10 @@
 
                 try {
 
-                    /* Get logged-in user */
+
+                    /* =========================
+                       GET USER
+                    ========================================== */
 
                     const {
                         data: {
@@ -679,7 +1121,10 @@
                     } = await db.auth.getUser();
 
 
-                    if (userError || !user) {
+                    if (
+                        userError ||
+                        !user
+                    ) {
 
                         saveMessage.style.color =
                             "#b00020";
@@ -687,7 +1132,8 @@
                         saveMessage.textContent =
                             "Your session has expired. Please login again.";
 
-                        saveButton.disabled = false;
+                        saveButton.disabled =
+                            false;
 
                         saveButton.textContent =
                             "Save Changes";
@@ -697,9 +1143,10 @@
                     }
 
 
-                    /* =================================
+
+                    /* =========================
                        UPDATE DATABASE
-                    ================================= */
+                    ========================= */
 
                     const {
                         error: updateError
@@ -711,31 +1158,42 @@
                                 currentData.name,
 
                             email:
-                                currentData.email || null,
+                                currentData.email ||
+                                null,
 
                             phone:
-                                currentData.phone || null,
+                                currentData.phone ||
+                                null,
 
                             city:
-                                currentData.city || null,
+                                currentData.city ||
+                                null,
 
                             website:
-                                currentData.website || null,
+                                currentData.website ||
+                                null,
 
                             description:
-                                currentData.description || null
+                                currentData.description ||
+                                null
 
                         })
-                        .eq("profile_id", user.id);
+                        .eq(
+                            "profile_id",
+                            user.id
+                        );
 
 
-                    /* =================================
+
+                    /* =========================
                        UPDATE ERROR
-                    ================================= */
+                    ========================= */
 
                     if (updateError) {
 
-                        console.error(updateError);
+                        console.error(
+                            updateError
+                        );
 
                         saveMessage.style.color =
                             "#b00020";
@@ -743,7 +1201,8 @@
                         saveMessage.textContent =
                             "Unable to save changes. Please try again.";
 
-                        saveButton.disabled = false;
+                        saveButton.disabled =
+                            false;
 
                         saveButton.textContent =
                             "Save Changes";
@@ -753,26 +1212,32 @@
                     }
 
 
-                    /* =================================
+
+                    /* =========================
                        UPDATE ORIGINAL DATA
-                    ================================= */
+                    ========================= */
 
                     originalData = {
+
                         ...currentData
+
                     };
 
 
-                    /* =================================
+
+                    /* =========================
                        UPDATE HEADER
-                    ================================= */
+                    ========================= */
 
                     companyTitle.textContent =
-                        currentData.name || "Company";
+                        currentData.name ||
+                        "Company";
 
 
-                    /* =================================
+
+                    /* =========================
                        SUCCESS
-                    ================================= */
+                    ========================================== */
 
                     saveMessage.style.color =
                         "#315B66";
@@ -781,15 +1246,21 @@
                         "Changes saved successfully!";
 
 
-                    saveButton.disabled = false;
+                    saveButton.disabled =
+                        false;
+
 
                     saveButton.textContent =
                         "Save Changes";
 
+                }
 
-                } catch (error) {
 
-                    console.error(error);
+                catch (error) {
+
+                    console.error(
+                        error
+                    );
 
                     saveMessage.style.color =
                         "#b00020";
@@ -797,7 +1268,8 @@
                     saveMessage.textContent =
                         "Something went wrong. Please try again.";
 
-                    saveButton.disabled = false;
+                    saveButton.disabled =
+                        false;
 
                     saveButton.textContent =
                         "Save Changes";
@@ -821,10 +1293,19 @@
 
                     event.preventDefault();
 
+
                     await db.auth.signOut();
 
-                    localStorage.removeItem("username");
-                    localStorage.removeItem("role");
+
+                    localStorage.removeItem(
+                        "username"
+                    );
+
+
+                    localStorage.removeItem(
+                        "role"
+                    );
+
 
                     window.location.href =
                         "index.html";

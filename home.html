@@ -101,7 +101,11 @@
                 <div class="hero-text">
 
                     <p class="hero-small-title">
-                        Welcome, <span id="welcomeUsername">User</span> 👋
+                        Welcome,
+                        <span id="welcomeUsername">
+                            User
+                        </span>
+                        👋
                     </p>
 
                     <h1>
@@ -138,6 +142,7 @@
 
             <section class="search-section">
 
+
                 <!-- Search -->
 
                 <div class="search-box">
@@ -166,20 +171,40 @@
                         All Fields
                     </option>
 
-                    <option value="software">
+                    <option value="software & web development">
+                        Software & Web Development
+                    </option>
+
+                    <option value="software engineering">
                         Software Engineering
                     </option>
 
-                    <option value="network">
-                        Networking
+                    <option value="software development & it security">
+                        Software Development & IT Security
                     </option>
 
-                    <option value="electronics">
-                        Electronics
+                    <option value="software development">
+                        Software Development
                     </option>
 
-                    <option value="engineering">
-                        Computer Engineering
+                    <option value="telecommunications & it">
+                        Telecommunications & IT
+                    </option>
+
+                    <option value="digital services">
+                        Digital Services
+                    </option>
+
+                    <option value="it & technology">
+                        IT & Technology
+                    </option>
+
+                    <option value="technology & digital services">
+                        Technology & Digital Services
+                    </option>
+
+                    <option value="software & it">
+                        Software & IT
                     </option>
 
                 </select>
@@ -254,7 +279,10 @@
                      COMPANIES GRID
                 ================================== -->
 
-                <div class="companies-grid" id="companiesGrid">
+                <div
+                    class="companies-grid"
+                    id="companiesGrid"
+                >
 
                     <!-- Companies will be loaded from Supabase here -->
 
@@ -305,7 +333,9 @@
             localStorage.getItem("username");
 
         const welcomeUsername =
-            document.getElementById("welcomeUsername");
+            document.getElementById(
+                "welcomeUsername"
+            );
 
 
         if (username) {
@@ -315,28 +345,39 @@
 
         }
 
-
     </script>
-        <!-- =========================================
+
+
+
+    <!-- =========================================
          SEARCH & FILTER JAVASCRIPT
     ========================================== -->
 
     <script>
 
         const searchInput =
-            document.getElementById("searchInput");
+            document.getElementById(
+                "searchInput"
+            );
 
         const fieldFilter =
-            document.getElementById("fieldFilter");
+            document.getElementById(
+                "fieldFilter"
+            );
 
         const cityFilter =
-            document.getElementById("cityFilter");
+            document.getElementById(
+                "cityFilter"
+            );
 
         const companiesGrid =
-            document.getElementById("companiesGrid");
+            document.getElementById(
+                "companiesGrid"
+            );
 
 
         let companies = [];
+
 
 
         // =========================================
@@ -345,21 +386,23 @@
 
         async function loadCompanies() {
 
-            const { data, error } =
-                await db
-                    .from("companies")
-                    .select(`
-                        id,
-                        name,
-                        city,
-                        field,
-                        logo_url,
-                        description
-                    `)
-                    .eq("status", "active")
-                    .order("name", {
-                        ascending: true
-                    });
+            const {
+                data,
+                error
+            } = await db
+                .from("companies")
+                .select(`
+                    id,
+                    name,
+                    city,
+                    field,
+                    logo_url,
+                    description
+                `)
+                .eq("status", "active")
+                .order("name", {
+                    ascending: true
+                });
 
 
             if (error) {
@@ -375,9 +418,13 @@
             }
 
 
-            companies = data || [];
+            companies =
+                data || [];
 
-            displayCompanies(companies);
+
+            displayCompanies(
+                companies
+            );
 
         }
 
@@ -387,95 +434,143 @@
         // DISPLAY COMPANIES
         // =========================================
 
-        function displayCompanies(companyList) {
+        function displayCompanies(
+            companyList
+        ) {
 
             companiesGrid.innerHTML = "";
 
 
-            companyList.forEach(company => {
+            companyList.forEach(
+                company => {
 
-                const card =
-                    document.createElement("article");
-
-                card.className =
-                    "company-card";
-
-
-                card.dataset.city =
-                    normalizeCity(company.city);
-
-                card.dataset.field =
-                    normalizeField(company.field);
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
 
 
+                    card.className =
+                        "company-card";
 
-                // Company logo
 
-                const logoHTML =
-                    company.logo_url
-                    ? `
-                        <img
-                            src="${escapeHTML(company.logo_url)}"
-                            alt="${escapeHTML(company.name)} Logo"
+                    card.dataset.city =
+                        normalizeCity(
+                            company.city
+                        );
+
+
+                    card.dataset.field =
+                        normalizeField(
+                            company.field
+                        );
+
+
+
+                    // =================================
+                    // COMPANY LOGO
+                    // =================================
+
+                    const logoHTML =
+                        company.logo_url
+                        ?
+                        `
+                            <img
+                                src="${escapeHTML(
+                                    company.logo_url
+                                )}"
+                                alt="${escapeHTML(
+                                    company.name
+                                )} Logo"
+                            >
+                        `
+                        : "";
+
+
+
+                    // =================================
+                    // COMPANY DESCRIPTION
+                    // =================================
+
+                    const fullDescription =
+                        company.description || "";
+
+
+                    const shortDescription =
+                        fullDescription.length > 120
+                            ?
+                            fullDescription
+                                .substring(0, 120)
+                                .trim() + "..."
+                            :
+                            fullDescription;
+
+
+
+                    // =================================
+                    // COMPANY CARD
+                    // =================================
+
+                    card.innerHTML = `
+
+                        <div class="company-logo">
+
+                            ${logoHTML}
+
+                        </div>
+
+
+                        <div class="company-info">
+
+                            <h3>
+
+                                ${escapeHTML(
+                                    company.name ||
+                                    "Company"
+                                )}
+
+                            </h3>
+
+
+                            <p class="company-field">
+
+                                ${escapeHTML(
+                                    company.field ||
+                                    "Technology"
+                                )}
+
+                            </p>
+
+
+                            <p class="company-description">
+
+                                ${escapeHTML(
+                                    shortDescription
+                                )}
+
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="company-details.html?id=${encodeURIComponent(
+                                company.id
+                            )}"
+                            class="details-button"
                         >
-                    `
-                    : "";
+                            View Details
+                        </a>
+
+                    `;
 
 
+                    companiesGrid.appendChild(
+                        card
+                    );
 
-                card.innerHTML = `
-
-                    <div class="company-logo">
-
-                        ${logoHTML}
-
-                    </div>
-
-
-                    <div class="company-info">
-
-                        <h3>
-                            ${escapeHTML(
-                                company.name || "Company"
-                            )}
-                        </h3>
-
-
-                        <p class="company-field">
-
-                            ${escapeHTML(
-                                company.field ||
-                                "Technology"
-                            )}
-
-                        </p>
-
-
-                        <p class="company-description">
-
-                            ${escapeHTML(
-                                company.description ||
-                                ""
-                            )}
-
-                        </p>
-
-                    </div>
-
-
-                    <a
-                        href="company-details.html?id=${encodeURIComponent(company.id)}"
-                        class="details-button"
-                    >
-                        View Details
-                    </a>
-
-                `;
-
-
-                companiesGrid.appendChild(card);
-
-            });
+                }
+            );
 
 
             filterCompanies();
@@ -490,12 +585,20 @@
 
         function normalizeCity(city) {
 
-            if (!city) return "";
+            if (!city) {
+
+                return "";
+
+            }
+
 
             return city
                 .toLowerCase()
                 .trim()
-                .replace(/\s+/g, "-");
+                .replace(
+                    /\s+/g,
+                    "-"
+                );
 
         }
 
@@ -507,44 +610,16 @@
 
         function normalizeField(field) {
 
-            if (!field) return "";
+            if (!field) {
 
-            const value =
-                field.toLowerCase().trim();
-
-
-            if (value.includes("software")) {
-
-                return "software";
+                return "";
 
             }
 
 
-            if (value.includes("network")) {
-
-                return "network";
-
-            }
-
-
-            if (value.includes("electronic")) {
-
-                return "electronics";
-
-            }
-
-
-            if (
-                value.includes("computer") ||
-                value.includes("engineering")
-            ) {
-
-                return "engineering";
-
-            }
-
-
-            return value;
+            return field
+                .toLowerCase()
+                .trim();
 
         }
 
@@ -556,12 +631,29 @@
 
         function escapeHTML(value) {
 
-            return String(value || "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            return String(
+                value || ""
+            )
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
 
         }
 
@@ -594,81 +686,91 @@
 
 
 
-            companyCards.forEach(card => {
+            companyCards.forEach(
+                card => {
 
-                const companyName =
-                    card.querySelector("h3")
+                    const companyName =
+                        card.querySelector("h3")
+                            .textContent
+                            .toLowerCase();
+
+
+                    const companyField =
+                        card.querySelector(
+                            ".company-field"
+                        )
                         .textContent
                         .toLowerCase();
 
 
-                const companyField =
-                    card.querySelector(
-                        ".company-field"
-                    )
-                    .textContent
-                    .toLowerCase();
+                    const companyDescription =
+                        card.querySelector(
+                            ".company-description"
+                        )
+                        .textContent
+                        .toLowerCase();
 
 
-                const companyDescription =
-                    card.querySelector(
-                        ".company-description"
-                    )
-                    .textContent
-                    .toLowerCase();
+                    const cardCity =
+                        card.dataset.city;
 
 
-                const cardCity =
-                    card.dataset.city;
-
-
-                const cardField =
-                    card.dataset.field;
+                    const cardField =
+                        card.dataset.field;
 
 
 
-                // Search condition
+                    // Search condition
 
-                const matchesSearch =
-                    companyName.includes(searchValue) ||
-                    companyField.includes(searchValue) ||
-                    companyDescription.includes(searchValue);
-
-
-
-                // Field condition
-
-                const matchesField =
-                    selectedField === "" ||
-                    cardField === selectedField;
+                    const matchesSearch =
+                        companyName.includes(
+                            searchValue
+                        ) ||
+                        companyField.includes(
+                            searchValue
+                        ) ||
+                        companyDescription.includes(
+                            searchValue
+                        );
 
 
 
-                // City condition
+                    // Field condition
 
-                const matchesCity =
-                    selectedCity === "" ||
-                    cardCity === selectedCity;
+                    const matchesField =
+                        selectedField === "" ||
+                        cardField === selectedField;
 
 
 
-                // Show / Hide card
+                    // City condition
 
-                if (
-                    matchesSearch &&
-                    matchesField &&
-                    matchesCity
-                ) {
+                    const matchesCity =
+                        selectedCity === "" ||
+                        cardCity === selectedCity;
 
-                    card.style.display = "";
 
-                } else {
 
-                    card.style.display = "none";
+                    // Show / Hide card
+
+                    if (
+                        matchesSearch &&
+                        matchesField &&
+                        matchesCity
+                    ) {
+
+                        card.style.display =
+                            "";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
 
                 }
-
-            });
+            );
 
         }
 
@@ -712,7 +814,6 @@
         // =========================================
 
         loadCompanies();
-
 
     </script>
 
