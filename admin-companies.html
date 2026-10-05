@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,17 +27,27 @@
 
         <div class="nav-content">
 
-            <a href="admin-dashboard.html" class="brand">
+
+            <!-- LOGO -->
+
+            <a
+                href="admin-dashboard.html"
+                class="brand"
+            >
 
                 <img
                     src="./images/logo.png"
-                    alt="Internship Management System"
+                    alt="Internship Management System Logo"
                 >
 
-                <span>Internship Management System</span>
+                <span>
+                    Internship Management System
+                </span>
 
             </a>
 
+
+            <!-- NAVIGATION -->
 
             <nav class="nav-links">
 
@@ -44,11 +55,21 @@
                     Dashboard
                 </a>
 
+                <a
+                    href="admin-companies.html"
+                    class="active"
+                >
+                    Companies
+                </a>
+
                 <a href="admin-profile.html">
                     Profile
                 </a>
 
-                <a href="index.html">
+                <a
+                    href="index.html"
+                    class="logout"
+                >
                     Logout
                 </a>
 
@@ -63,9 +84,16 @@
     <!-- ================= COMPANIES PAGE ================= -->
 
     <main class="admin-companies-page">
-<a href="admin-dashboard.html" class="admin-back">
-    ← Back to Dashboard
-</a>
+
+
+        <a
+            href="admin-dashboard.html"
+            class="admin-back"
+        >
+            ← Back to Dashboard
+        </a>
+
+
 
         <!-- Page Header -->
 
@@ -106,332 +134,36 @@
 
                 </div>
 
-
-                <div class="admin-company-filter">
-
-                    <select id="companyStatus">
-
-                        <option value="all">
-                            All Status
-                        </option>
-
-                        <option value="active">
-                            Active
-                        </option>
-
-                        <option value="pending">
-                            Pending
-                        </option>
-
-                        <option value="inactive">
-                            Inactive
-                        </option>
-
-                    </select>
-
-                </div>
-
             </div>
 
 
 
             <!-- ================= COMPANY LIST ================= -->
 
-            <div class="admin-company-list">
+            <div
+                class="admin-company-list"
+                id="companiesList"
+            >
 
-
-                <!-- Company 1 -->
-
-                <div
-                    class="admin-company-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-company-logo">
-
-                        <img
-                            src="./images/ooredoo.png"
-                            alt="Ooredoo Palestine"
-                        >
-
-                    </div>
-
+                <div class="admin-company-item">
 
                     <div class="admin-company-info">
 
                         <h3>
-                            Ooredoo Palestine
+                            Loading...
                         </h3>
 
                         <p>
-                            Telecommunications & IT
+                            Loading companies
                         </p>
 
                         <span>
-                            ooredoo@example.com
+                            Please wait...
                         </span>
 
                     </div>
 
-
-                    <div class="admin-company-location">
-                        Ramallah
-                    </div>
-
-
-                    <div class="admin-company-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-company-actions">
-
-                        <a
-                            href="#"
-                            class="admin-company-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-company-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-company-delete"
-                            onclick="deleteCompany(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
                 </div>
-
-
-
-                <!-- Company 2 -->
-
-                <div
-                    class="admin-company-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-company-logo">
-
-                        <img
-                            src="./images/jawwal.png"
-                            alt="Jawwal"
-                        >
-
-                    </div>
-
-
-                    <div class="admin-company-info">
-
-                        <h3>
-                            Jawwal
-                        </h3>
-
-                        <p>
-                            Telecommunications & IT
-                        </p>
-
-                        <span>
-                            jawwal@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-company-location">
-                        Ramallah
-                    </div>
-
-
-                    <div class="admin-company-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-company-actions">
-
-                        <a
-                            href="#"
-                            class="admin-company-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-company-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-company-delete"
-                            onclick="deleteCompany(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Company 3 -->
-
-                <div
-                    class="admin-company-item"
-                    data-status="pending"
-                >
-
-                    <div class="admin-company-logo">
-
-                        <div class="admin-company-logo-text">
-                            NP
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-company-info">
-
-                        <h3>
-                            Network Pro
-                        </h3>
-
-                        <p>
-                            Networking
-                        </p>
-
-                        <span>
-                            networkpro@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-company-location">
-                        Ramallah
-                    </div>
-
-
-                    <div class="admin-company-status pending">
-                        Pending
-                    </div>
-
-
-                    <div class="admin-company-actions">
-
-                        <a
-                            href="#"
-                            class="admin-company-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-company-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-company-delete"
-                            onclick="deleteCompany(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Company 4 -->
-
-                <div
-                    class="admin-company-item"
-                    data-status="inactive"
-                >
-
-                    <div class="admin-company-logo">
-
-                        <div class="admin-company-logo-text">
-                            EH
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-company-info">
-
-                        <h3>
-                            Electronics Hub
-                        </h3>
-
-                        <p>
-                            Electronics
-                        </p>
-
-                        <span>
-                            electronicshub@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-company-location">
-                        Bethlehem
-                    </div>
-
-
-                    <div class="admin-company-status inactive">
-                        Inactive
-                    </div>
-
-
-                    <div class="admin-company-actions">
-
-                        <a
-                            href="#"
-                            class="admin-company-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-company-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-company-delete"
-                            onclick="deleteCompany(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
 
             </div>
 
@@ -442,102 +174,611 @@
 
 
 
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
 
+        /* =========================================
+           ELEMENTS
+        ========================================== */
+
         const companySearch =
             document.getElementById("companySearch");
 
-        const companyStatus =
-            document.getElementById("companyStatus");
-
-        const companies =
-            document.querySelectorAll(".admin-company-item");
+        const companiesList =
+            document.getElementById("companiesList");
 
 
-        function filterCompanies() {
-
-            const searchValue =
-                companySearch.value.toLowerCase();
-
-            const statusValue =
-                companyStatus.value;
+        let companies = [];
 
 
-            companies.forEach(company => {
 
-                const companyName =
-                    company
-                    .querySelector(".admin-company-info h3")
-                    .textContent
-                    .toLowerCase();
+        /* =========================================
+           CHECK ADMIN
+        ========================================== */
 
-                const status =
-                    company.dataset.status;
+        async function checkAdmin() {
 
-
-                const matchesSearch =
-                    companyName.includes(searchValue);
-
-                const matchesStatus =
-                    statusValue === "all" ||
-                    status === statusValue;
+            const {
+                data: { user },
+                error: userError
+            } = await db.auth.getUser();
 
 
-                if (matchesSearch && matchesStatus) {
+            if (userError || !user) {
 
-                    company.style.display = "flex";
+                window.location.href = "index.html";
 
-                } else {
+                return false;
 
-                    company.style.display = "none";
+            }
 
-                }
 
-            });
+            const {
+                data: profile,
+                error: profileError
+            } = await db
+                .from("profiles")
+                .select("role")
+                .eq("id", user.id)
+                .maybeSingle();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                alert(
+                    "You do not have permission to access this page."
+                );
+
+                window.location.href =
+                    "admin-dashboard.html";
+
+                return false;
+
+            }
+
+
+            return true;
 
         }
 
 
-        companySearch.addEventListener(
-            "input",
-            filterCompanies
-        );
+
+        /* =========================================
+           LOAD COMPANIES
+        ========================================== */
+
+        async function loadCompanies() {
+
+            try {
+
+                const {
+                    data,
+                    error
+                } = await db
+                    .from("companies")
+                    .select(`
+                        id,
+                        profile_id,
+                        name,
+                        email,
+                        phone,
+                        city,
+                        field,
+                        website,
+                        logo_url,
+                        description,
+                        status,
+                        created_at
+                    `)
+                    .order("created_at", {
+                        ascending: false
+                    });
 
 
-        companyStatus.addEventListener(
-            "change",
-            filterCompanies
-        );
+                if (error) {
+
+                    console.error(
+                        "Companies error:",
+                        error
+                    );
+
+                    companiesList.innerHTML = `
+
+                        <div class="admin-company-item">
+
+                            <div class="admin-company-info">
+
+                                <h3>
+                                    Unable to load companies
+                                </h3>
+
+                                <p>
+                                    Please check your database permissions.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
 
 
-        function deleteCompany(button) {
-
-            const company =
-                button.closest(".admin-company-item");
-
-            const companyName =
-                company
-                .querySelector(".admin-company-info h3")
-                .textContent;
+                companies = data || [];
 
 
-            const confirmed =
-                confirm(
-                    "Are you sure you want to delete " +
-                    companyName +
-                    "?"
+                renderCompanies();
+
+            } catch (error) {
+
+                console.error(
+                    "Load companies error:",
+                    error
                 );
-
-
-            if (confirmed) {
-
-                company.remove();
 
             }
 
         }
+
+
+
+        /* =========================================
+           RENDER COMPANIES
+        ========================================== */
+
+        function renderCompanies() {
+
+            const searchValue =
+                companySearch.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const filteredCompanies =
+                companies.filter(company => {
+
+                    const companyName =
+                        (company.name || "")
+                            .toLowerCase();
+
+
+                    const matchesSearch =
+                        companyName.includes(
+                            searchValue
+                        );
+
+
+                    return matchesSearch;
+
+                });
+
+
+            companiesList.innerHTML = "";
+
+
+            if (
+                filteredCompanies.length === 0
+            ) {
+
+                companiesList.innerHTML = `
+
+                    <div class="admin-company-item">
+
+                        <div class="admin-company-info">
+
+                            <h3>
+                                No companies found
+                            </h3>
+
+                            <p>
+                                No company matches your search.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            filteredCompanies.forEach(
+                company => {
+
+                    const status =
+                        (
+                            company.status ||
+                            "pending"
+                        ).toLowerCase();
+
+
+                    const statusText =
+                        status.charAt(0)
+                            .toUpperCase()
+                        +
+                        status.slice(1);
+
+
+
+                    /* =================================
+                       COMPANY LOGO
+                    ================================== */
+
+                    let logoHTML = "";
+
+
+                    if (company.logo_url) {
+
+                        logoHTML = `
+
+                            <img
+                                src="${company.logo_url}"
+                                alt="${escapeHTML(
+                                    company.name ||
+                                    "Company"
+                                )}"
+                            >
+
+                        `;
+
+                    } else {
+
+                        const initials =
+                            getInitials(
+                                company.name
+                            );
+
+
+                        logoHTML = `
+
+                            <div class="admin-company-logo-text">
+
+                                ${escapeHTML(initials)}
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+
+                    /* =================================
+                       COMPANY ITEM
+                    ================================== */
+
+                    companiesList.innerHTML += `
+
+                        <div
+                            class="admin-company-item"
+                            data-status="${escapeHTML(status)}"
+                        >
+
+
+                            <div class="admin-company-logo">
+
+                                ${logoHTML}
+
+                            </div>
+
+
+
+                            <div class="admin-company-info">
+
+                                <h3>
+                                    ${escapeHTML(
+                                        company.name ||
+                                        "Unnamed Company"
+                                    )}
+                                </h3>
+
+                                <p>
+                                    ${escapeHTML(
+                                        company.field ||
+                                        "Company"
+                                    )}
+                                </p>
+
+                                <span>
+                                    ${escapeHTML(
+                                        company.email ||
+                                        "No email available"
+                                    )}
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="admin-company-location">
+
+                                ${escapeHTML(
+                                    company.city ||
+                                    "Not specified"
+                                )}
+
+                            </div>
+
+
+
+                            <div
+                                class="admin-company-status ${escapeHTML(status)}"
+                            >
+
+                                ${escapeHTML(statusText)}
+
+                            </div>
+
+
+
+                            <div class="admin-company-actions">
+
+
+                                <a
+                                    href="admin-company-view.html?id=${encodeURIComponent(
+                                        company.id
+                                    )}"
+                                    class="admin-company-view"
+                                >
+                                    View
+                                </a>
+
+
+
+                                <button
+                                    type="button"
+                                    class="admin-company-delete"
+                                    onclick="deleteCompany(
+                                        '${company.id}',
+                                        this
+                                    )"
+                                >
+                                    Delete
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           GET INITIALS
+        ========================================== */
+
+        function getInitials(name) {
+
+            if (!name) {
+
+                return "CO";
+
+            }
+
+
+            const words =
+                name
+                    .trim()
+                    .split(/\s+/);
+
+
+            if (words.length === 1) {
+
+                return words[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+
+            return (
+                words[0].charAt(0) +
+                words[1].charAt(0)
+            ).toUpperCase();
+
+        }
+
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================== */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* =========================================
+           DELETE COMPANY
+        ========================================== */
+
+        async function deleteCompany(
+            companyId,
+            button
+        ) {
+
+            const company =
+                companies.find(
+                    item =>
+                        item.id === companyId
+                );
+
+
+            if (!company) {
+
+                return;
+
+            }
+
+
+            const confirmed =
+                confirm(
+                    `Are you sure you want to delete ${company.name}?`
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Deleting...";
+
+
+            try {
+
+                const {
+                    error
+                } = await db
+                    .from("companies")
+                    .delete()
+                    .eq("id", companyId);
+
+
+                if (error) {
+
+                    console.error(
+                        "Delete company error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Unable to delete the company. Please try again."
+                    );
+
+
+                    button.disabled = false;
+
+                    button.textContent =
+                        "Delete";
+
+                    return;
+
+                }
+
+
+
+                /* ================================
+                   REMOVE FROM LOCAL ARRAY
+                ================================= */
+
+                companies =
+                    companies.filter(
+                        item =>
+                            item.id !== companyId
+                    );
+
+
+                renderCompanies();
+
+
+                alert(
+                    "Company deleted successfully."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Delete company error:",
+                    error
+                );
+
+
+                alert(
+                    "An unexpected error occurred."
+                );
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Delete";
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SEARCH
+        ========================================== */
+
+        companySearch.addEventListener(
+            "input",
+            renderCompanies
+        );
+
+
+
+        /* =========================================
+           INITIALIZE
+        ========================================== */
+
+        async function initializePage() {
+
+            const isAdmin =
+                await checkAdmin();
+
+
+            if (!isAdmin) {
+
+                return;
+
+            }
+
+
+            await loadCompanies();
+
+        }
+
+
+        initializePage();
 
     </script>
 

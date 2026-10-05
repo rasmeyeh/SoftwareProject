@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,52 +21,76 @@
 <body>
 
 
-    <!-- ================= NAVBAR ================= -->
+   
+<!-- =========================================
+     NAVBAR
+========================================== -->
 
-    <header class="navbar">
+<header class="navbar">
 
-        <div class="nav-content">
+    <div class="nav-content">
 
-            <a href="admin-dashboard.html" class="brand">
 
-                <img
-                    src="./images/logo.png"
-                    alt="Internship Management System"
+        <!-- LOGO -->
+
+        <a
+            href="admin-dashboard.html"
+            class="brand"
+        >
+
+            <img
+                src="./images/logo.png"
+                alt="Internship Management System Logo"
+            >
+
+            <span>
+                Internship Management System
+            </span>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-links">
+
+            <a href="admin-dashboard.html">
+                Dashboard
+            </a>
+<a
+                    href="admin-companies.html"
+                    class="active"
                 >
+                    Students
+                </a>
 
-                <span>Internship Management System</span>
-
+            <a href="admin-profile.html">
+                Profile
             </a>
 
+            <a
+                href="index.html"
+                class="logout"
+            >
+                Logout
+            </a>
 
-            <nav class="nav-links">
+        </nav>
 
-                <a href="admin-dashboard.html">
-                    Dashboard
-                </a>
+    </div>
 
-                <a href="admin-profile.html">
-                    Profile
-                </a>
-
-                <a href="index.html">
-                    Logout
-                </a>
-
-            </nav>
-
-        </div>
-
-    </header>
-
+</header>
 
 
     <!-- ================= STUDENTS PAGE ================= -->
 
     <main class="admin-students-page">
-<a href="admin-dashboard.html" class="admin-back">
-    ← Back to Dashboard
-</a>
+
+
+        <a href="admin-dashboard.html" class="admin-back">
+            ← Back to Dashboard
+        </a>
+
 
         <!-- Page Header -->
 
@@ -134,263 +159,26 @@
 
             <!-- ================= STUDENTS LIST ================= -->
 
-            <div class="admin-students-list">
+            <div
+                class="admin-students-list"
+                id="studentsList"
+            >
 
-
-                <!-- Student 1 -->
-
-                <div
-                    class="admin-student-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-student-avatar">
-                        AA
-                    </div>
-
+                <div class="admin-student-item">
 
                     <div class="admin-student-info">
 
                         <h3>
-                            Ahmad Ali
+                            Loading students...
                         </h3>
 
                         <p>
-                            Computer Engineering
+                            Please wait
                         </p>
-
-                        <span>
-                            ahmad.ali@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-student-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-student-actions">
-
-                        <a
-                            href="#"
-                            class="admin-view-button"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-edit-button"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-delete-button"
-                            onclick="deleteStudent(this)"
-                        >
-                            Delete
-                        </button>
 
                     </div>
 
                 </div>
-
-
-
-                <!-- Student 2 -->
-
-                <div
-                    class="admin-student-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-student-avatar">
-                        SA
-                    </div>
-
-
-                    <div class="admin-student-info">
-
-                        <h3>
-                            Sara Ahmad
-                        </h3>
-
-                        <p>
-                            Computer Engineering
-                        </p>
-
-                        <span>
-                            sara.ahmad@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-student-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-student-actions">
-
-                        <a
-                            href="#"
-                            class="admin-view-button"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-edit-button"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-delete-button"
-                            onclick="deleteStudent(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Student 3 -->
-
-                <div
-                    class="admin-student-item"
-                    data-status="completed"
-                >
-
-                    <div class="admin-student-avatar">
-                        MS
-                    </div>
-
-
-                    <div class="admin-student-info">
-
-                        <h3>
-                            Mohammad Saleh
-                        </h3>
-
-                        <p>
-                            Computer Engineering
-                        </p>
-
-                        <span>
-                            mohammad.saleh@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-student-status completed">
-                        Completed
-                    </div>
-
-
-                    <div class="admin-student-actions">
-
-                        <a
-                            href="#"
-                            class="admin-view-button"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-edit-button"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-delete-button"
-                            onclick="deleteStudent(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Student 4 -->
-
-                <div
-                    class="admin-student-item"
-                    data-status="pending"
-                >
-
-                    <div class="admin-student-avatar">
-                        MK
-                    </div>
-
-
-                    <div class="admin-student-info">
-
-                        <h3>
-                            Maryam Khaled
-                        </h3>
-
-                        <p>
-                            Computer Engineering
-                        </p>
-
-                        <span>
-                            maryam.khaled@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-student-status pending">
-                        Pending
-                    </div>
-
-
-                    <div class="admin-student-actions">
-
-                        <a
-                            href="#"
-                            class="admin-view-button"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-edit-button"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-delete-button"
-                            onclick="deleteStudent(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
 
             </div>
 
@@ -401,63 +189,805 @@
 
 
 
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
 
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
         const searchInput =
             document.getElementById("studentSearch");
+
 
         const statusFilter =
             document.getElementById("studentStatus");
 
-        const students =
-            document.querySelectorAll(".admin-student-item");
 
+        const studentsList =
+            document.getElementById("studentsList");
+
+
+
+        /* =========================================
+           GET TODAY AS YYYY-MM-DD
+        ========================================= */
+
+        function getTodayString() {
+
+            const today = new Date();
+
+            const year =
+                today.getFullYear();
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(2, "0");
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+
+        }
+
+
+
+        /* =========================================
+           LOAD STUDENTS
+        ========================================= */
+
+        async function loadStudents() {
+
+            try {
+
+
+                /* =========================================
+                   GET STUDENT PROFILES
+                ========================================= */
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+
+                    .from("profiles")
+
+                    .select(
+                        "id, full_name, username, email, role"
+                    )
+
+                    .eq(
+                        "role",
+                        "student"
+                    )
+
+                    .order(
+                        "full_name",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+                if (profilesError) {
+
+                    console.error(
+                        "Students loading error:",
+                        profilesError
+                    );
+
+
+                    showMessage(
+                        "Unable to load students",
+                        "Please try again."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   NO STUDENTS
+                ========================================= */
+
+                if (
+                    !profiles ||
+                    profiles.length === 0
+                ) {
+
+                    showMessage(
+                        "No students found",
+                        "No registered students are available."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   GET STUDENT DETAILS
+                ========================================= */
+
+                const profileIds =
+                    profiles.map(
+                        profile => profile.id
+                    );
+
+
+                const {
+                    data: studentDetails,
+                    error: studentsError
+                } = await db
+
+                    .from("students")
+
+                    .select("*")
+
+                    .in(
+                        "id",
+                        profileIds
+                    );
+
+
+                if (studentsError) {
+
+                    console.error(
+                        "Student details error:",
+                        studentsError
+                    );
+
+                }
+
+
+
+                /* =========================================
+                   GET APPLICATIONS
+                ========================================= */
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } = await db
+
+                    .from("applications")
+
+                    .select(
+                        "id, student_id, internship_id, status, applied_at"
+                    );
+
+
+                if (applicationsError) {
+
+                    console.error(
+                        "Applications error:",
+                        applicationsError
+                    );
+
+                    showMessage(
+                        "Unable to load applications",
+                        "Please check the application permissions."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   GET INTERNSHIPS
+                ========================================= */
+
+                const internshipIds =
+                    [
+                        ...new Set(
+                            (applications || [])
+                                .map(
+                                    application =>
+                                        application.internship_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+                let internships = [];
+
+
+                if (
+                    internshipIds.length > 0
+                ) {
+
+                    const {
+                        data: internshipData,
+                        error: internshipsError
+                    } = await db
+
+                        .from("internships")
+
+                        .select(
+                            "id, title, start_date, end_date, status"
+                        )
+
+                        .in(
+                            "id",
+                            internshipIds
+                        );
+
+
+                    if (internshipsError) {
+
+                        console.error(
+                            "Internships error:",
+                            internshipsError
+                        );
+
+                        showMessage(
+                            "Unable to load internships",
+                            "Please check the internship permissions."
+                        );
+
+                        return;
+
+                    }
+
+
+                    internships =
+                        internshipData || [];
+
+                }
+
+
+
+                /* =========================================
+                   CLEAR LIST
+                ========================================= */
+
+                studentsList.innerHTML = "";
+
+
+
+                /* =========================================
+                   TODAY
+                ========================================= */
+
+                const todayString =
+                    getTodayString();
+
+
+
+                /* =========================================
+                   CREATE STUDENT ITEMS
+                ========================================= */
+
+                profiles.forEach(
+                    function (profile) {
+
+
+                        /* =========================================
+                           STUDENT DETAILS
+                        ========================================= */
+
+                        const details =
+                            studentDetails?.find(
+                                student =>
+                                    student.id ===
+                                    profile.id
+                            );
+
+
+
+                        /* =========================================
+                           NAME
+                        ========================================= */
+
+                        const name =
+                            profile.full_name ||
+                            profile.username ||
+                            "Student";
+
+
+
+                        /* =========================================
+                           EMAIL
+                        ========================================= */
+
+                        const email =
+                            profile.email ||
+                            "No email";
+
+
+
+                        /* =========================================
+                           MAJOR
+                        ========================================= */
+
+                        const major =
+                            details?.major ||
+                            "Computer Engineering";
+
+
+
+                        /* =========================================
+                           INITIALS
+                        ========================================= */
+
+                        const initials =
+                            name
+                                .split(" ")
+                                .filter(Boolean)
+                                .slice(0, 2)
+                                .map(
+                                    word =>
+                                        word
+                                            .charAt(0)
+                                            .toUpperCase()
+                                )
+                                .join("");
+
+
+
+                        /* =========================================
+                           STUDENT APPLICATIONS
+                        ========================================= */
+
+                        const studentApplications =
+                            (applications || [])
+                                .filter(
+                                    application =>
+                                        application.student_id ===
+                                        profile.id
+                                )
+                                .sort(
+                                    (a, b) =>
+                                        new Date(
+                                            b.applied_at || 0
+                                        ) -
+                                        new Date(
+                                            a.applied_at || 0
+                                        )
+                                );
+
+
+
+                        /* =========================================
+                           ACCEPTED APPLICATION
+                        ========================================= */
+
+                        const acceptedApplication =
+                            studentApplications.find(
+                                application =>
+                                    (
+                                        application.status ||
+                                        ""
+                                    ).toLowerCase() ===
+                                    "accepted"
+                            );
+
+
+
+                        /* =========================================
+                           PENDING APPLICATION
+                        ========================================= */
+
+                        const pendingApplication =
+                            studentApplications.find(
+                                application =>
+                                    (
+                                        application.status ||
+                                        ""
+                                    ).toLowerCase() ===
+                                    "pending"
+                            );
+
+
+
+                        /* =========================================
+                           DEFAULT STATUS
+                        ========================================= */
+
+                        let studentStatus =
+                            "active";
+
+
+
+                        /* =========================================
+                           ACCEPTED
+                        ========================================= */
+
+                        if (
+                            acceptedApplication
+                        ) {
+
+                            const acceptedInternship =
+                                internships.find(
+                                    internship =>
+                                        internship.id ===
+                                        acceptedApplication.internship_id
+                                );
+
+
+                            if (
+                                acceptedInternship &&
+                                acceptedInternship.end_date
+                            ) {
+
+                                const endDate =
+                                    String(
+                                        acceptedInternship.end_date
+                                    ).substring(
+                                        0,
+                                        10
+                                    );
+
+
+                                /*
+                                 * Compare YYYY-MM-DD strings.
+                                 * This avoids timezone problems.
+                                 */
+
+                                if (
+                                    endDate <
+                                    todayString
+                                ) {
+
+                                    studentStatus =
+                                        "completed";
+
+                                }
+
+                                else {
+
+                                    studentStatus =
+                                        "active";
+
+                                }
+
+                            }
+
+                            else {
+
+                                studentStatus =
+                                    "active";
+
+                            }
+
+                        }
+
+
+
+                        /* =========================================
+                           PENDING
+                        ========================================= */
+
+                        else if (
+                            pendingApplication
+                        ) {
+
+                            studentStatus =
+                                "pending";
+
+                        }
+
+
+
+                        /* =========================================
+                           STATUS TEXT
+                        ========================================= */
+
+                        let statusText =
+                            "Active";
+
+
+                        if (
+                            studentStatus ===
+                            "completed"
+                        ) {
+
+                            statusText =
+                                "Completed";
+
+                        }
+
+                        else if (
+                            studentStatus ===
+                            "pending"
+                        ) {
+
+                            statusText =
+                                "Pending";
+
+                        }
+
+
+
+                        /* =========================================
+                           CREATE ITEM
+                        ========================================= */
+
+                        const studentItem =
+                            document.createElement("div");
+
+
+                        studentItem.className =
+                            "admin-student-item";
+
+
+                        studentItem.dataset.status =
+                            studentStatus;
+
+
+                        studentItem.dataset.id =
+                            profile.id;
+
+
+
+                        studentItem.innerHTML = `
+
+                            <div class="admin-student-avatar">
+                                ${initials}
+                            </div>
+
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    ${escapeHtml(name)}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(major)}
+                                </p>
+
+                                <span>
+                                    ${escapeHtml(email)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="admin-student-status ${studentStatus}">
+                                ${statusText}
+                            </div>
+
+
+                            <div class="admin-student-actions">
+
+                                <a
+                                    href="admin-student-view.html?id=${profile.id}"
+                                    class="admin-view-button"
+                                >
+                                    View
+                                </a>
+
+
+                                <button
+                                    type="button"
+                                    class="admin-delete-button"
+                                    onclick="deleteStudent(this, '${profile.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        `;
+
+
+                        studentsList.appendChild(
+                            studentItem
+                        );
+
+                    }
+                );
+
+
+                /* =========================================
+                   APPLY FILTER
+                ========================================= */
+
+                filterStudents();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Students error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Unable to load students",
+                    "An unexpected error occurred."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SHOW MESSAGE
+        ========================================= */
+
+        function showMessage(
+            title,
+            description
+        ) {
+
+            studentsList.innerHTML = `
+
+                <div class="admin-student-item">
+
+                    <div class="admin-student-info">
+
+                        <h3>
+                            ${escapeHtml(title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(description)}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHtml(value) {
+
+            if (!value) {
+                return "";
+            }
+
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* =========================================
+           FILTER STUDENTS
+        ========================================= */
 
         function filterStudents() {
 
             const searchValue =
-                searchInput.value.toLowerCase();
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
 
             const statusValue =
                 statusFilter.value;
 
 
-            students.forEach(student => {
-
-                const name =
-                    student
-                    .querySelector(".admin-student-info h3")
-                    .textContent
-                    .toLowerCase();
-
-                const status =
-                    student.dataset.status;
+            const students =
+                document.querySelectorAll(
+                    ".admin-student-item"
+                );
 
 
-                const matchesSearch =
-                    name.includes(searchValue);
+            students.forEach(
+                function (student) {
 
-                const matchesStatus =
-                    statusValue === "all" ||
-                    status === statusValue;
+                    const nameElement =
+                        student.querySelector(
+                            ".admin-student-info h3"
+                        );
 
 
-                if (matchesSearch && matchesStatus) {
+                    const majorElement =
+                        student.querySelector(
+                            ".admin-student-info p"
+                        );
 
-                    student.style.display = "flex";
 
-                } else {
+                    const emailElement =
+                        student.querySelector(
+                            ".admin-student-info span"
+                        );
 
-                    student.style.display = "none";
+
+                    const name =
+                        nameElement
+                            ? nameElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const major =
+                        majorElement
+                            ? majorElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const email =
+                        emailElement
+                            ? emailElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const status =
+                        student.dataset.status;
+
+
+                    const matchesSearch =
+                        name.includes(searchValue) ||
+                        major.includes(searchValue) ||
+                        email.includes(searchValue);
+
+
+                    const matchesStatus =
+                        statusValue === "all" ||
+                        status === statusValue;
+
+
+                    if (
+                        matchesSearch &&
+                        matchesStatus
+                    ) {
+
+                        student.style.display =
+                            "flex";
+
+                    }
+
+                    else {
+
+                        student.style.display =
+                            "none";
+
+                    }
 
                 }
-
-            });
+            );
 
         }
 
+
+
+        /* =========================================
+           SEARCH EVENT
+        ========================================= */
 
         searchInput.addEventListener(
             "input",
@@ -465,21 +995,44 @@
         );
 
 
+
+        /* =========================================
+           STATUS EVENT
+        ========================================= */
+
         statusFilter.addEventListener(
             "change",
             filterStudents
         );
 
 
-        function deleteStudent(button) {
+
+        /* =========================================
+           DELETE STUDENT
+        ========================================= */
+
+        async function deleteStudent(
+            button,
+            studentId
+        ) {
 
             const student =
-                button.closest(".admin-student-item");
+                button.closest(
+                    ".admin-student-item"
+                );
+
+
+            if (!student) {
+                return;
+            }
+
 
             const studentName =
                 student
-                .querySelector(".admin-student-info h3")
-                .textContent;
+                    .querySelector(
+                        ".admin-student-info h3"
+                    )
+                    .textContent;
 
 
             const confirmed =
@@ -490,13 +1043,77 @@
                 );
 
 
-            if (confirmed) {
+            if (!confirmed) {
+                return;
+            }
+
+
+            try {
+
+                const {
+                    error
+                } = await db
+
+                    .from("profiles")
+
+                    .delete()
+
+                    .eq(
+                        "id",
+                        studentId
+                    );
+
+
+                if (error) {
+
+                    console.error(
+                        "Delete student error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Unable to delete this student."
+                    );
+
+
+                    return;
+
+                }
+
 
                 student.remove();
+
+
+                alert(
+                    "Student deleted successfully."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Delete student error:",
+                    error
+                );
+
+
+                alert(
+                    "An error occurred while deleting the student."
+                );
 
             }
 
         }
+
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadStudents();
 
     </script>
 

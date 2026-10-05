@@ -12,7 +12,10 @@
 
     <title>Manage Supervisors</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 
 </head>
 
@@ -26,17 +29,27 @@
 
         <div class="nav-content">
 
-            <a href="admin-dashboard.html" class="brand">
+
+            <!-- LOGO -->
+
+            <a
+                href="admin-dashboard.html"
+                class="brand"
+            >
 
                 <img
                     src="./images/logo.png"
-                    alt="Internship Management System"
+                    alt="Internship Management System Logo"
                 >
 
-                <span>Internship Management System</span>
+                <span>
+                    Internship Management System
+                </span>
 
             </a>
 
+
+            <!-- NAVIGATION -->
 
             <nav class="nav-links">
 
@@ -44,11 +57,21 @@
                     Dashboard
                 </a>
 
+                <a
+                    href="admin-supervisors.html"
+                    class="active"
+                >
+                    Supervisors
+                </a>
+
                 <a href="admin-profile.html">
                     Profile
                 </a>
 
-                <a href="index.html">
+                <a
+                    href="index.html"
+                    class="logout"
+                >
                     Logout
                 </a>
 
@@ -63,11 +86,18 @@
     <!-- ================= SUPERVISORS PAGE ================= -->
 
     <main class="admin-supervisors-page">
-      <a href="admin-dashboard.html" class="admin-back">
-    ← Back to Dashboard
-      </a>
 
-        <!-- Page Header -->
+
+        <a
+            href="admin-dashboard.html"
+            class="admin-back"
+        >
+            ← Back to Dashboard
+        </a>
+
+
+
+        <!-- ================= PAGE HEADER ================= -->
 
         <section class="admin-supervisor-header">
 
@@ -92,9 +122,10 @@
         <section class="admin-supervisors-card">
 
 
-            <!-- Toolbar -->
+            <!-- ================= TOOLBAR ================= -->
 
             <div class="admin-supervisors-toolbar">
+
 
                 <div class="admin-supervisor-search">
 
@@ -133,240 +164,29 @@
 
             <!-- ================= SUPERVISORS LIST ================= -->
 
-            <div class="admin-supervisor-list">
+            <div
+                class="admin-supervisor-list"
+                id="supervisorsList"
+            >
 
-
-                <!-- Supervisor 1 -->
-
-                <div
-                    class="admin-supervisor-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-supervisor-avatar">
-                        DA
-                    </div>
-
+                <div class="admin-supervisor-item">
 
                     <div class="admin-supervisor-info">
 
                         <h3>
-                            Dr. Ahmad
+                            Loading supervisors...
                         </h3>
 
                         <p>
-                            Computer Engineering
+                            Please wait
                         </p>
-
-                        <span>
-                            ahmad.supervisor@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-students">
-
-                        <strong>
-                            8
-                        </strong>
-
-                        <span>
-                            Students
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-supervisor-actions">
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-supervisor-delete"
-                            onclick="deleteSupervisor(this)"
-                        >
-                            Delete
-                        </button>
 
                     </div>
 
                 </div>
-
-
-
-                <!-- Supervisor 2 -->
-
-                <div
-                    class="admin-supervisor-item"
-                    data-status="active"
-                >
-
-                    <div class="admin-supervisor-avatar">
-                        MS
-                    </div>
-
-
-                    <div class="admin-supervisor-info">
-
-                        <h3>
-                            Dr. Mohammad
-                        </h3>
-
-                        <p>
-                            Computer Engineering
-                        </p>
-
-                        <span>
-                            mohammad.supervisor@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-students">
-
-                        <strong>
-                            6
-                        </strong>
-
-                        <span>
-                            Students
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-supervisor-actions">
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-supervisor-delete"
-                            onclick="deleteSupervisor(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Supervisor 3 -->
-
-                <div
-                    class="admin-supervisor-item"
-                    data-status="inactive"
-                >
-
-                    <div class="admin-supervisor-avatar">
-                        SA
-                    </div>
-
-
-                    <div class="admin-supervisor-info">
-
-                        <h3>
-                            Dr. Sara
-                        </h3>
-
-                        <p>
-                            Computer Engineering
-                        </p>
-
-                        <span>
-                            sara.supervisor@example.com
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-students">
-
-                        <strong>
-                            0
-                        </strong>
-
-                        <span>
-                            Students
-                        </span>
-
-                    </div>
-
-
-                    <div class="admin-supervisor-status inactive">
-                        Inactive
-                    </div>
-
-
-                    <div class="admin-supervisor-actions">
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-supervisor-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            type="button"
-                            class="admin-supervisor-delete"
-                            onclick="deleteSupervisor(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
 
             </div>
+
 
         </section>
 
@@ -375,70 +195,622 @@
 
 
 
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
 
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
         const supervisorSearch =
-            document.getElementById("supervisorSearch");
-
-        const supervisorStatus =
-            document.getElementById("supervisorStatus");
-
-        const supervisors =
-            document.querySelectorAll(
-                ".admin-supervisor-item"
+            document.getElementById(
+                "supervisorSearch"
             );
 
+
+        const supervisorStatus =
+            document.getElementById(
+                "supervisorStatus"
+            );
+
+
+        const supervisorsList =
+            document.getElementById(
+                "supervisorsList"
+            );
+
+
+
+        /* =========================================
+           LOAD SUPERVISORS
+        ========================================= */
+
+        async function loadSupervisors() {
+
+            try {
+
+
+                /* =========================================
+                   GET SUPERVISOR PROFILES
+                ========================================= */
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+
+                    .from("profiles")
+
+                    .select(
+                        "id, full_name, username, email, role"
+                    )
+
+                    .eq(
+                        "role",
+                        "supervisor"
+                    )
+
+                    .order(
+                        "full_name",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+                /* =========================================
+                   PROFILE ERROR
+                ========================================= */
+
+                if (profilesError) {
+
+                    console.error(
+                        "Supervisors loading error:",
+                        profilesError
+                    );
+
+
+                    supervisorsList.innerHTML = `
+
+                        <div class="admin-supervisor-item">
+
+                            <div class="admin-supervisor-info">
+
+                                <h3>
+                                    Unable to load supervisors
+                                </h3>
+
+                                <p>
+                                    Please try again.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   NO SUPERVISORS
+                ========================================= */
+
+                if (
+                    !profiles ||
+                    profiles.length === 0
+                ) {
+
+                    supervisorsList.innerHTML = `
+
+                        <div class="admin-supervisor-item">
+
+                            <div class="admin-supervisor-info">
+
+                                <h3>
+                                    No supervisors found
+                                </h3>
+
+                                <p>
+                                    No registered university supervisors are available.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   GET SUPERVISOR DETAILS
+                ========================================= */
+
+                const supervisorIds =
+                    profiles.map(
+                        profile => profile.id
+                    );
+
+
+                const {
+                    data: supervisorDetails,
+                    error: supervisorsError
+                } = await db
+
+                    .from("supervisors")
+
+                    .select("*")
+
+                    .in(
+                        "id",
+                        supervisorIds
+                    );
+
+
+                if (supervisorsError) {
+
+                    console.error(
+                        "Supervisor details error:",
+                        supervisorsError
+                    );
+
+                }
+
+
+
+                /* =========================================
+                   GET STUDENTS
+                ========================================= */
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+
+                    .from("students")
+
+                    .select(
+                        "id, supervisor_id"
+                    );
+
+
+                if (studentsError) {
+
+                    console.error(
+                        "Students loading error:",
+                        studentsError
+                    );
+
+                }
+
+
+
+                /* =========================================
+                   CLEAR LIST
+                ========================================= */
+
+                supervisorsList.innerHTML = "";
+
+
+
+                /* =========================================
+                   CREATE SUPERVISOR ITEMS
+                ========================================= */
+
+                profiles.forEach(
+                    function (profile) {
+
+
+                        /* =========================================
+                           DETAILS
+                        ========================================= */
+
+                        const details =
+                            supervisorDetails?.find(
+                                supervisor =>
+                                    supervisor.id ===
+                                    profile.id
+                            );
+
+
+
+                        /* =========================================
+                           NAME
+                        ========================================= */
+
+                        const name =
+                            profile.full_name ||
+                            profile.username ||
+                            "Supervisor";
+
+
+
+                        /* =========================================
+                           EMAIL
+                        ========================================= */
+
+                        const email =
+                            profile.email ||
+                            "No email";
+
+
+
+                        /* =========================================
+                           SPECIALIZATION
+                        ========================================= */
+
+                        const specialization =
+                            details?.specialization ||
+                            details?.department ||
+                            details?.field ||
+                            "University Supervisor";
+
+
+
+                        /* =========================================
+                           STUDENT COUNT
+                        ========================================= */
+
+                        const studentCount =
+                            students?.filter(
+                                student =>
+                                    student.supervisor_id ===
+                                    profile.id
+                            ).length || 0;
+
+
+
+                        /* =========================================
+                           STATUS
+                        ========================================= */
+
+                        /*
+                           If a status field exists in the
+                           supervisor/profile data, use it.
+
+                           Otherwise the supervisor is considered
+                           active because the account exists.
+                        */
+
+                        const rawStatus =
+                            details?.status ||
+                            profile.status ||
+                            "active";
+
+
+                        const supervisorStatusValue =
+                            String(rawStatus)
+                                .toLowerCase() ===
+                                "inactive"
+                                ? "inactive"
+                                : "active";
+
+
+                        const statusText =
+                            supervisorStatusValue ===
+                            "inactive"
+                                ? "Inactive"
+                                : "Active";
+
+
+
+                        /* =========================================
+                           INITIALS
+                        ========================================= */
+
+                        const initials =
+                            name
+                                .split(" ")
+                                .filter(Boolean)
+                                .slice(0, 2)
+                                .map(
+                                    word =>
+                                        word
+                                            .charAt(0)
+                                            .toUpperCase()
+                                )
+                                .join("");
+
+
+
+                        /* =========================================
+                           CREATE ITEM
+                        ========================================= */
+
+                        const supervisorItem =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        supervisorItem.className =
+                            "admin-supervisor-item";
+
+
+                        supervisorItem.dataset.status =
+                            supervisorStatusValue;
+
+
+                        supervisorItem.dataset.id =
+                            profile.id;
+
+
+
+                        supervisorItem.innerHTML = `
+
+                            <div class="admin-supervisor-avatar">
+                                ${escapeHtml(initials)}
+                            </div>
+
+
+                            <div class="admin-supervisor-info">
+
+                                <h3>
+                                    ${escapeHtml(name)}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(specialization)}
+                                </p>
+
+                                <span>
+                                    ${escapeHtml(email)}
+                                </span>
+
+                            </div>
+
+
+                            <div class="admin-supervisor-students">
+
+                                <strong>
+                                    ${studentCount}
+                                </strong>
+
+                                <span>
+                                    Students
+                                </span>
+
+                            </div>
+
+
+                            <div class="admin-supervisor-status ${supervisorStatusValue}">
+                                ${statusText}
+                            </div>
+
+
+                            <div class="admin-supervisor-actions">
+
+                                <a
+                                    href="admin-supervisor-view.html?id=${encodeURIComponent(profile.id)}"
+                                    class="admin-supervisor-view"
+                                >
+                                    View
+                                </a>
+
+
+                                <button
+                                    type="button"
+                                    class="admin-supervisor-delete"
+                                    onclick="deleteSupervisor(this, '${profile.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        `;
+
+
+                        supervisorsList.appendChild(
+                            supervisorItem
+                        );
+
+                    }
+                );
+
+
+                filterSupervisors();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Supervisors error:",
+                    error
+                );
+
+
+                supervisorsList.innerHTML = `
+
+                    <div class="admin-supervisor-item">
+
+                        <div class="admin-supervisor-info">
+
+                            <h3>
+                                Unable to load supervisors
+                            </h3>
+
+                            <p>
+                                An unexpected error occurred.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHtml(value) {
+
+            if (!value) {
+                return "";
+            }
+
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        /* =========================================
+           FILTER SUPERVISORS
+        ========================================= */
 
         function filterSupervisors() {
 
             const searchValue =
-                supervisorSearch.value.toLowerCase();
+                supervisorSearch.value
+                    .toLowerCase()
+                    .trim();
+
 
             const statusValue =
                 supervisorStatus.value;
 
 
-            supervisors.forEach(supervisor => {
-
-                const supervisorName =
-                    supervisor
-                    .querySelector(
-                        ".admin-supervisor-info h3"
-                    )
-                    .textContent
-                    .toLowerCase();
-
-                const status =
-                    supervisor.dataset.status;
+            const supervisors =
+                document.querySelectorAll(
+                    ".admin-supervisor-item"
+                );
 
 
-                const matchesSearch =
-                    supervisorName.includes(searchValue);
-
-                const matchesStatus =
-                    statusValue === "all" ||
-                    status === statusValue;
+            supervisors.forEach(
+                function (supervisor) {
 
 
-                if (
-                    matchesSearch &&
-                    matchesStatus
-                ) {
+                    const nameElement =
+                        supervisor.querySelector(
+                            ".admin-supervisor-info h3"
+                        );
 
-                    supervisor.style.display = "flex";
 
-                } else {
+                    const specializationElement =
+                        supervisor.querySelector(
+                            ".admin-supervisor-info p"
+                        );
 
-                    supervisor.style.display = "none";
+
+                    const emailElement =
+                        supervisor.querySelector(
+                            ".admin-supervisor-info span"
+                        );
+
+
+                    const name =
+                        nameElement
+                            ? nameElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const specialization =
+                        specializationElement
+                            ? specializationElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const email =
+                        emailElement
+                            ? emailElement.textContent
+                                .toLowerCase()
+                            : "";
+
+
+                    const status =
+                        supervisor.dataset.status;
+
+
+
+                    /* =========================================
+                       SEARCH
+                    ========================================= */
+
+                    const matchesSearch =
+                        name.includes(searchValue) ||
+                        specialization.includes(searchValue) ||
+                        email.includes(searchValue);
+
+
+
+                    /* =========================================
+                       STATUS
+                    ========================================= */
+
+                    const matchesStatus =
+                        statusValue === "all" ||
+                        status === statusValue;
+
+
+
+                    /* =========================================
+                       DISPLAY
+                    ========================================= */
+
+                    if (
+                        matchesSearch &&
+                        matchesStatus
+                    ) {
+
+                        supervisor.style.display =
+                            "flex";
+
+                    }
+
+                    else {
+
+                        supervisor.style.display =
+                            "none";
+
+                    }
 
                 }
-
-            });
+            );
 
         }
 
+
+
+        /* =========================================
+           SEARCH EVENT
+        ========================================= */
 
         supervisorSearch.addEventListener(
             "input",
@@ -446,26 +818,110 @@
         );
 
 
+
+        /* =========================================
+           STATUS EVENT
+        ========================================= */
+
         supervisorStatus.addEventListener(
             "change",
             filterSupervisors
         );
 
 
-        function deleteSupervisor(button) {
+
+        /* =========================================
+           DELETE SUPERVISOR
+        ========================================= */
+
+        async function deleteSupervisor(
+            button,
+            supervisorId
+        ) {
+
 
             const supervisor =
                 button.closest(
                     ".admin-supervisor-item"
                 );
 
+
+            if (!supervisor) {
+                return;
+            }
+
+
+
             const supervisorName =
                 supervisor
-                .querySelector(
-                    ".admin-supervisor-info h3"
-                )
-                .textContent;
+                    .querySelector(
+                        ".admin-supervisor-info h3"
+                    )
+                    .textContent;
 
+
+
+            /* =========================================
+               CHECK ASSIGNED STUDENTS
+            ========================================= */
+
+            const {
+                data: assignedStudents,
+                error: studentsError
+            } = await db
+
+                .from("students")
+
+                .select("id")
+
+                .eq(
+                    "supervisor_id",
+                    supervisorId
+                );
+
+
+            if (studentsError) {
+
+                console.error(
+                    "Supervisor students error:",
+                    studentsError
+                );
+
+
+                alert(
+                    "Unable to check this supervisor's students."
+                );
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               PREVENT ACCIDENTAL DELETE
+            ========================================= */
+
+            if (
+                assignedStudents &&
+                assignedStudents.length > 0
+            ) {
+
+                alert(
+                    "This supervisor cannot be deleted because " +
+                    assignedStudents.length +
+                    " student(s) are assigned to this supervisor."
+                );
+
+                return;
+
+            }
+
+
+
+            /* =========================================
+               CONFIRM DELETE
+            ========================================= */
 
             const confirmed =
                 confirm(
@@ -475,13 +931,88 @@
                 );
 
 
-            if (confirmed) {
+            if (!confirmed) {
+                return;
+            }
+
+
+
+            try {
+
+
+                /* =========================================
+                   DELETE SUPERVISOR RECORD ONLY
+                ========================================= */
+
+                const {
+                    error
+                } = await db
+
+                    .from("supervisors")
+
+                    .delete()
+
+                    .eq(
+                        "id",
+                        supervisorId
+                    );
+
+
+                if (error) {
+
+                    console.error(
+                        "Delete supervisor error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Unable to delete this supervisor."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =========================================
+                   REMOVE FROM PAGE
+                ========================================= */
 
                 supervisor.remove();
+
+
+                alert(
+                    "Supervisor deleted successfully."
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Delete supervisor error:",
+                    error
+                );
+
+
+                alert(
+                    "An error occurred while deleting the supervisor."
+                );
 
             }
 
         }
+
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadSupervisors();
 
     </script>
 

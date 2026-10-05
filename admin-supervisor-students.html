@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Assigned Students</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           PAGE
+        ========================================== */
+
+        .supervisor-students-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================== */
+
+        .supervisor-students-header {
+            margin-bottom: 24px;
+        }
+
+
+        .supervisor-students-header h1 {
+            margin-bottom: 8px;
+        }
+
+
+        .supervisor-students-header p {
+            color: #666666;
+        }
+
+
+        /* =========================================
+           CARD
+        ========================================== */
+
+        .supervisor-students-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+
+        /* =========================================
+           STUDENTS LIST
+        ========================================== */
+
+        .supervisor-students-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+
+        /* =========================================
+           STUDENT ITEM
+        ========================================== */
+
+        .supervisor-student-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 1px solid #e2e2e2;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+
+        /* =========================================
+           AVATAR
+        ========================================== */
+
+        .supervisor-student-avatar {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 50%;
+            background: #234B57;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           STUDENT INFO
+        ========================================== */
+
+        .supervisor-student-info {
+            flex: 1;
+        }
+
+
+        .supervisor-student-info h3 {
+            margin: 0 0 4px;
+        }
+
+
+        .supervisor-student-info p {
+            margin: 0 0 4px;
+            color: #555555;
+        }
+
+
+        .supervisor-student-info span {
+            color: #777777;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           BACK BUTTON AREA
+        ========================================== */
+
+        .supervisor-students-actions {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           BACK BUTTON
+        ========================================== */
+
+        .back-supervisor-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: #234B57;
+            color: #ffffff;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+
+        .back-supervisor-button:hover {
+            background: #234B57;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a
+                    href="admin-dashboard.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="admin-dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a
+                        href="admin-supervisors.html"
+                        class="active"
+                    >
+                        Supervisors
+                    </a>
+
+                    <a href="admin-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                        id="logoutButton"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             ASSIGNED STUDENTS PAGE
+        ========================================== -->
+
+        <main class="supervisor-students-page">
+
+
+            <a
+                href="#"
+                id="backToSupervisor"
+                class="admin-back"
+            >
+                ← Back to Supervisor
+            </a>
+
+
+
+            <div class="supervisor-students-header">
+
+                <h1>
+                    Assigned Students
+                </h1>
+
+                <p id="supervisorDescription">
+                    View all students assigned to this supervisor.
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 STUDENTS CARD
+            ====================================== -->
+
+            <section class="supervisor-students-card">
+
+
+                <div
+                    class="supervisor-students-list"
+                    id="studentsList"
+                >
+
+                    <div class="supervisor-student-item">
+
+                        <div class="supervisor-student-info">
+
+                            <h3>
+                                Loading students...
+                            </h3>
+
+                            <p>
+                                Please wait
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     BACK BUTTON
+                ================================== -->
+
+                <div class="supervisor-students-actions">
+
+                    <a
+                        href="#"
+                        id="backButton"
+                        class="back-supervisor-button"
+                    >
+                        Back to Supervisor
+                    </a>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const studentsList =
+            document.getElementById(
+                "studentsList"
+            );
+
+
+        const supervisorDescription =
+            document.getElementById(
+                "supervisorDescription"
+            );
+
+
+        // =========================================
+        // GET SUPERVISOR ID
+        // =========================================
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const supervisorId =
+            params.get("id");
+
+
+
+        // =========================================
+        // LOAD STUDENTS
+        // =========================================
+
+        async function loadStudents() {
+
+            try {
+
+
+                // =====================================
+                // CHECK LOGIN
+                // =====================================
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CHECK ADMIN
+                // =====================================
+
+                const {
+                    data: adminProfile,
+                    error: adminError
+                } = await db
+                    .from("profiles")
+                    .select(
+                        "id, role"
+                    )
+                    .eq(
+                        "id",
+                        user.id
+                    )
+                    .maybeSingle();
+
+
+                if (
+                    adminError ||
+                    !adminProfile ||
+                    adminProfile.role !== "admin"
+                ) {
+
+                    alert(
+                        "Access denied."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CHECK SUPERVISOR ID
+                // =====================================
+
+                if (!supervisorId) {
+
+                    alert(
+                        "Supervisor information was not specified."
+                    );
+
+                    window.location.href =
+                        "admin-supervisors.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET SUPERVISOR
+                // =====================================
+
+                const {
+                    data: supervisor,
+                    error: supervisorError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username
+                    `)
+                    .eq(
+                        "id",
+                        supervisorId
+                    )
+                    .eq(
+                        "role",
+                        "supervisor"
+                    )
+                    .maybeSingle();
+
+
+                if (supervisorError) {
+
+                    console.error(
+                        "Supervisor error:",
+                        supervisorError
+                    );
+
+                    alert(
+                        "Could not load supervisor."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!supervisor) {
+
+                    alert(
+                        "Supervisor was not found."
+                    );
+
+                    window.location.href =
+                        "admin-supervisors.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // SUPERVISOR NAME
+                // =====================================
+
+                const supervisorName =
+                    supervisor.full_name ||
+                    supervisor.username ||
+                    "Supervisor";
+
+
+                supervisorDescription.textContent =
+                    "All students assigned to " +
+                    supervisorName +
+                    ".";
+
+
+
+                // =====================================
+                // GET ASSIGNED STUDENTS
+                // =====================================
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        major,
+                        supervisor_id
+                    `)
+                    .eq(
+                        "supervisor_id",
+                        supervisorId
+                    );
+
+
+                if (studentsError) {
+
+                    console.error(
+                        "Students error:",
+                        studentsError
+                    );
+
+
+                    studentsList.innerHTML = `
+
+                        <div class="supervisor-student-item">
+
+                            <div class="supervisor-student-info">
+
+                                <h3>
+                                    Unable to load students
+                                </h3>
+
+                                <p>
+                                    Please try again.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // NO STUDENTS
+                // =====================================
+
+                if (
+                    !students ||
+                    students.length === 0
+                ) {
+
+                    studentsList.innerHTML = `
+
+                        <div class="supervisor-student-item">
+
+                            <div class="supervisor-student-info">
+
+                                <h3>
+                                    No assigned students
+                                </h3>
+
+                                <p>
+                                    No students are currently assigned to this supervisor.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET STUDENT PROFILE IDS
+                // =====================================
+
+                const studentIds =
+                    students.map(
+                        student =>
+                            student.id
+                    );
+
+
+
+                // =====================================
+                // GET STUDENT PROFILES
+                // =====================================
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email
+                    `)
+                    .in(
+                        "id",
+                        studentIds
+                    );
+
+
+                if (profilesError) {
+
+                    console.error(
+                        "Student profiles error:",
+                        profilesError
+                    );
+
+
+                    studentsList.innerHTML = `
+
+                        <div class="supervisor-student-item">
+
+                            <div class="supervisor-student-info">
+
+                                <h3>
+                                    Unable to load student profiles
+                                </h3>
+
+                                <p>
+                                    Please try again.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CLEAR LIST
+                // =====================================
+
+                studentsList.innerHTML =
+                    "";
+
+
+
+                // =====================================
+                // DISPLAY ALL STUDENTS
+                // =====================================
+
+                students.forEach(
+                    function (student) {
+
+
+                        const studentProfile =
+                            profiles?.find(
+                                profile =>
+                                    profile.id ===
+                                    student.id
+                            );
+
+
+                        const studentName =
+                            studentProfile?.full_name ||
+                            studentProfile?.username ||
+                            "Student";
+
+
+                        const studentEmail =
+                            studentProfile?.email ||
+                            "No email";
+
+
+                        const studentMajor =
+                            student.major ||
+                            "No major";
+
+
+                        const initials =
+                            studentName
+                                .split(" ")
+                                .filter(Boolean)
+                                .slice(0, 2)
+                                .map(
+                                    word =>
+                                        word
+                                            .charAt(0)
+                                            .toUpperCase()
+                                )
+                                .join("");
+
+
+                        const studentItem =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        studentItem.className =
+                            "supervisor-student-item";
+
+
+                        studentItem.innerHTML = `
+
+                            <div class="supervisor-student-avatar">
+                                ${escapeHtml(initials)}
+                            </div>
+
+
+                            <div class="supervisor-student-info">
+
+                                <h3>
+                                    ${escapeHtml(studentName)}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(studentMajor)}
+                                </p>
+
+                                <span>
+                                    ${escapeHtml(studentEmail)}
+                                </span>
+
+                            </div>
+
+                        `;
+
+
+                        studentsList.appendChild(
+                            studentItem
+                        );
+
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unexpected error:",
+                    error
+                );
+
+
+                studentsList.innerHTML = `
+
+                    <div class="supervisor-student-item">
+
+                        <div class="supervisor-student-info">
+
+                            <h3>
+                                Unable to load students
+                            </h3>
+
+                            <p>
+                                An unexpected error occurred.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // ESCAPE HTML
+        // =========================================
+
+        function escapeHtml(value) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        // =========================================
+        // BACK BUTTON URL
+        // =========================================
+
+        const supervisorViewUrl =
+            "admin-supervisor-view.html?id=" +
+            encodeURIComponent(
+                supervisorId
+            );
+
+
+        document
+            .getElementById("backButton")
+            .href =
+            supervisorViewUrl;
+
+
+        document
+            .getElementById("backToSupervisor")
+            .href =
+            supervisorViewUrl;
+
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    await db.auth.signOut();
+
+
+                    localStorage.removeItem(
+                        "username"
+                    );
+
+
+                    localStorage.removeItem(
+                        "role"
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOAD PAGE
+        // =========================================
+
+        loadStudents();
+
+    </script>
+
+
+</body>
+
+</html>

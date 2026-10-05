@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Internship Opportunities</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           READ-ONLY FIELDS
+        ========================================== */
+
+        .profile-field input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: #d1d5db !important;
+        }
+
+
+        /* =========================================
+           COMPANY LOGO
+        ========================================== */
+
+        .company-profile-logo {
+            width: 60px !important;
+            height: 60px !important;
+            min-width: 60px !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0;
+        }
+
+        .company-profile-logo img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            display: block;
+        }
+
+
+        /* =========================================
+           INTERNSHIP OPPORTUNITIES
+        ========================================== */
+
+        .internship-opportunities {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .internship-opportunity {
+            border: 1px solid #e2e2e2;
+            border-radius: 12px;
+            padding: 16px;
+            background: #ffffff;
+        }
+
+        .internship-opportunity-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 14px;
+        }
+
+        .internship-opportunity-title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #234B57;
+        }
+
+        .internship-opportunity-field {
+            margin: 5px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .internship-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            background: #f3eee6;
+            color: #234B57;
+        }
+
+        .internship-opportunity-info {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 24px;
+        }
+
+        .internship-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .internship-info-label {
+            font-size: 12px;
+            color: #7a7a7a;
+        }
+
+        .internship-info-value {
+            font-size: 14px;
+            color: #333333;
+        }
+
+
+        /* =========================================
+           DESCRIPTION
+        ========================================== */
+
+        .internship-description {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .internship-description-label {
+            font-size: 12px;
+            color: #7a7a7a;
+            margin-bottom: 3px;
+        }
+
+        .internship-description-text {
+            margin: 0;
+            color: #444444;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+
+        /* =========================================
+           REQUIREMENTS
+        ========================================== */
+
+        .internship-requirements {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .internship-requirements-label {
+            font-size: 12px;
+            color: #7a7a7a;
+            margin-bottom: 3px;
+        }
+
+        .internship-requirements-text {
+            margin: 0;
+            color: #444444;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+
+
+        /* =========================================
+           NO INTERNSHIPS
+        ========================================== */
+
+        .no-internships {
+            text-align: center;
+            padding: 28px 20px;
+            border: 1px dashed #d6d6d6;
+            border-radius: 12px;
+            color: #777777;
+            background: #fafafa;
+        }
+
+
+        /* =========================================
+           BACK BUTTON
+        ========================================== */
+
+        .cancel-profile-button {
+            background: #234B57 !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+
+        .cancel-profile-button:hover {
+            background: #234B57 !important;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 700px) {
+
+            .internship-opportunity-header {
+                flex-direction: column;
+            }
+
+            .internship-opportunity-info {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="home-page">
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a
+                href="admin-dashboard.html"
+                class="brand"
+            >
+
+                <img
+                    src="./images/logo.png"
+                    alt="Internship Management System Logo"
+                >
+
+                <span>
+                    Internship Management System
+                </span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="admin-companies.html"
+                    class="active"
+                >
+                    Companies
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutButton"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================
+         OPPORTUNITIES PAGE
+    ========================================== -->
+
+    <main class="profile-page">
+
+
+        <div class="profile-header">
+
+            <h1>
+                Internship Opportunities
+            </h1>
+
+            <p>
+                View all internship opportunities posted by this company.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================================
+             PROFILE CARD
+        ========================================== -->
+
+        <section class="profile-card">
+
+
+            <!-- =====================================
+                 COMPANY HEADER
+            ====================================== -->
+
+            <div class="profile-top">
+
+                <div
+                    class="company-profile-logo"
+                    id="companyLogo"
+                >
+                    CO
+                </div>
+
+
+                <div class="profile-intro">
+
+                    <h2 id="companyName">
+                        Loading...
+                    </h2>
+
+                    <p id="companyField">
+                        Loading company information...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="profile-divider"></div>
+
+
+
+            <!-- =====================================
+                 ALL OPPORTUNITIES
+            ====================================== -->
+
+            <div class="profile-section">
+
+                <h2>
+                    All Opportunities
+                </h2>
+
+
+                <div
+                    class="internship-opportunities"
+                    id="internshipOpportunities"
+                >
+
+                    <div class="no-internships">
+                        Loading internship opportunities...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 ACTIONS
+            ====================================== -->
+
+            <div class="profile-actions">
+
+                <button
+                    type="button"
+                    class="cancel-profile-button"
+                    id="backButton"
+                >
+                    Back to Company
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="home-footer">
+
+        <p>
+            © 2026 Internship Management System
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================
+     SUPABASE
+========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="./js/supabase.js"></script>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================== -->
+
+<script>
+
+
+    /* =========================================
+       GET COMPANY ID
+    ========================================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const companyId =
+        params.get("id");
+
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================== */
+
+    const companyLogo =
+        document.getElementById(
+            "companyLogo"
+        );
+
+    const companyName =
+        document.getElementById(
+            "companyName"
+        );
+
+    const companyField =
+        document.getElementById(
+            "companyField"
+        );
+
+    const opportunitiesContainer =
+        document.getElementById(
+            "internshipOpportunities"
+        );
+
+
+
+    /* =========================================
+       CHECK ADMIN
+    ========================================== */
+
+    async function checkAdmin() {
+
+        const {
+            data: {
+                user
+            },
+            error: userError
+        } = await db.auth.getUser();
+
+
+        if (
+            userError ||
+            !user
+        ) {
+
+            alert(
+                "Please login first."
+            );
+
+            window.location.href =
+                "index.html";
+
+            return false;
+
+        }
+
+
+        const {
+            data: profile,
+            error: profileError
+        } = await db
+            .from("profiles")
+            .select(
+                "id, role"
+            )
+            .eq(
+                "id",
+                user.id
+            )
+            .maybeSingle();
+
+
+        if (
+            profileError ||
+            !profile ||
+            profile.role !== "admin"
+        ) {
+
+            alert(
+                "Access denied."
+            );
+
+            window.location.href =
+                "index.html";
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* =========================================
+       LOAD COMPANY
+    ========================================== */
+
+    async function loadCompany() {
+
+        if (!companyId) {
+
+            alert(
+                "Company information was not specified."
+            );
+
+            window.location.href =
+                "admin-companies.html";
+
+            return false;
+
+        }
+
+
+        const {
+            data: company,
+            error
+        } = await db
+            .from("companies")
+            .select(`
+                id,
+                name,
+                field,
+                logo_url
+            `)
+            .eq(
+                "id",
+                companyId
+            )
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Company error:",
+                error
+            );
+
+            alert(
+                "Could not load company information."
+            );
+
+            return false;
+
+        }
+
+
+        if (!company) {
+
+            alert(
+                "Company was not found."
+            );
+
+            window.location.href =
+                "admin-companies.html";
+
+            return false;
+
+        }
+
+
+        /* =================================
+           COMPANY HEADER
+        ================================== */
+
+        companyName.textContent =
+            company.name ||
+            "Unnamed Company";
+
+
+        companyField.textContent =
+            company.field ||
+            "Company";
+
+
+
+        /* =================================
+           COMPANY LOGO
+        ================================== */
+
+        if (
+            company.logo_url
+        ) {
+
+            companyLogo.innerHTML = `
+
+                <img
+                    src="${escapeHTML(
+                        company.logo_url
+                    )}"
+                    alt="${escapeHTML(
+                        company.name ||
+                        "Company"
+                    )}"
+                >
+
+            `;
+
+        } else {
+
+            companyLogo.textContent =
+                getInitials(
+                    company.name
+                );
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* =========================================
+       LOAD ALL INTERNSHIP OPPORTUNITIES
+    ========================================== */
+
+    async function loadInternshipOpportunities() {
+
+        const {
+            data: internships,
+            error
+        } = await db
+            .from("internships")
+            .select(`
+                id,
+                company_id,
+                title,
+                field,
+                city,
+                description,
+                requirements,
+                start_date,
+                end_date,
+                status,
+                created_at,
+                working_hours
+            `)
+            .eq(
+                "company_id",
+                companyId
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                "Internships error:",
+                error
+            );
+
+            opportunitiesContainer.innerHTML = `
+
+                <div class="no-internships">
+                    Unable to load internship opportunities.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        if (
+            !internships ||
+            internships.length === 0
+        ) {
+
+            opportunitiesContainer.innerHTML = `
+
+                <div class="no-internships">
+                    This company has not posted any internship opportunities yet.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        /* =====================================
+           DISPLAY ALL OPPORTUNITIES
+        ====================================== */
+
+        opportunitiesContainer.innerHTML =
+            internships
+                .map(
+                    internship => {
+
+                        return `
+
+                            <div
+                                class="internship-opportunity"
+                            >
+
+
+                                <div
+                                    class="internship-opportunity-header"
+                                >
+
+                                    <div>
+
+                                        <h4
+                                            class="internship-opportunity-title"
+                                        >
+                                            ${escapeHTML(
+                                                internship.title ||
+                                                "Untitled Internship"
+                                            )}
+                                        </h4>
+
+
+                                        <p
+                                            class="internship-opportunity-field"
+                                        >
+                                            ${escapeHTML(
+                                                internship.field ||
+                                                "No field specified"
+                                            )}
+                                        </p>
+
+                                    </div>
+
+
+                                    <span
+                                        class="internship-status"
+                                    >
+                                        ${escapeHTML(
+                                            internship.status ||
+                                            "Unknown"
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+
+                                <div
+                                    class="internship-opportunity-info"
+                                >
+
+
+                                    <div
+                                        class="internship-info-item"
+                                    >
+
+                                        <span
+                                            class="internship-info-label"
+                                        >
+                                            City
+                                        </span>
+
+                                        <span
+                                            class="internship-info-value"
+                                        >
+                                            ${escapeHTML(
+                                                internship.city ||
+                                                "Not specified"
+                                            )}
+                                        </span>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="internship-info-item"
+                                    >
+
+                                        <span
+                                            class="internship-info-label"
+                                        >
+                                            Working Hours
+                                        </span>
+
+                                        <span
+                                            class="internship-info-value"
+                                        >
+                                            ${escapeHTML(
+                                                internship.working_hours ||
+                                                "Not specified"
+                                            )}
+                                        </span>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="internship-info-item"
+                                    >
+
+                                        <span
+                                            class="internship-info-label"
+                                        >
+                                            Start Date
+                                        </span>
+
+                                        <span
+                                            class="internship-info-value"
+                                        >
+                                            ${formatDate(
+                                                internship.start_date
+                                            )}
+                                        </span>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="internship-info-item"
+                                    >
+
+                                        <span
+                                            class="internship-info-label"
+                                        >
+                                            End Date
+                                        </span>
+
+                                        <span
+                                            class="internship-info-value"
+                                        >
+                                            ${formatDate(
+                                                internship.end_date
+                                            )}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                ${
+                                    internship.description
+                                        ? `
+
+                                            <div
+                                                class="internship-description"
+                                            >
+
+                                                <div
+                                                    class="internship-description-label"
+                                                >
+                                                    Description
+                                                </div>
+
+                                                <p
+                                                    class="internship-description-text"
+                                                >
+                                                    ${escapeHTML(
+                                                        internship.description
+                                                    )}
+                                                </p>
+
+                                            </div>
+
+                                        `
+                                        : ""
+                                }
+
+
+
+                                ${
+                                    internship.requirements
+                                        ? `
+
+                                            <div
+                                                class="internship-requirements"
+                                            >
+
+                                                <div
+                                                    class="internship-requirements-label"
+                                                >
+                                                    Requirements
+                                                </div>
+
+                                                <p
+                                                    class="internship-requirements-text"
+                                                >
+                                                    ${escapeHTML(
+                                                        internship.requirements
+                                                    )}
+                                                </p>
+
+                                            </div>
+
+                                        `
+                                        : ""
+                                }
+
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+
+    /* =========================================
+       FORMAT DATE
+    ========================================== */
+
+    function formatDate(
+        dateValue
+    ) {
+
+        if (!dateValue) {
+
+            return "Not specified";
+
+        }
+
+
+        const date =
+            new Date(
+                `${dateValue}T00:00:00`
+            );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return dateValue;
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-US",
+            {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+            }
+        );
+
+    }
+
+
+
+    /* =========================================
+       GET INITIALS
+    ========================================== */
+
+    function getInitials(
+        name
+    ) {
+
+        if (!name) {
+
+            return "CO";
+
+        }
+
+
+        const words =
+            name
+                .trim()
+                .split(/\s+/);
+
+
+        if (
+            words.length === 1
+        ) {
+
+            return words[0]
+                .substring(
+                    0,
+                    2
+                )
+                .toUpperCase();
+
+        }
+
+
+        return (
+            words[0].charAt(0) +
+            words[1].charAt(0)
+        ).toUpperCase();
+
+    }
+
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================== */
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(
+            value ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* =========================================
+       BACK BUTTON
+    ========================================== */
+
+    document
+        .getElementById(
+            "backButton"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    `admin-company-view.html?id=${encodeURIComponent(
+                        companyId
+                    )}`;
+
+            }
+        );
+
+
+
+    /* =========================================
+       LOGOUT
+    ========================================== */
+
+    document
+        .getElementById(
+            "logoutButton"
+        )
+        .addEventListener(
+            "click",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                await db.auth.signOut();
+
+
+                localStorage.removeItem(
+                    "username"
+                );
+
+                localStorage.removeItem(
+                    "role"
+                );
+
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
+
+    /* =========================================
+       INITIALIZE PAGE
+    ========================================== */
+
+    async function initializePage() {
+
+        const isAdmin =
+            await checkAdmin();
+
+
+        if (!isAdmin) {
+
+            return;
+
+        }
+
+
+        const companyLoaded =
+            await loadCompany();
+
+
+        if (!companyLoaded) {
+
+            return;
+
+        }
+
+
+        await loadInternshipOpportunities();
+
+    }
+
+
+    initializePage();
+
+</script>
+
+
+</body>
+
+</html>

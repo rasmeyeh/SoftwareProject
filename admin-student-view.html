@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =========================================
+           READ-ONLY FIELDS
+        ========================================== */
+
+        .profile-field input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+            border-color: #d1d5db !important;
+        }
+
+
+        /* =========================================
+           BACK TO STUDENTS BUTTON
+        ========================================== */
+
+        .cancel-profile-button {
+            background: #234B57 !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+
+        .cancel-profile-button:hover {
+            background: #234B57 !important;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a
+                    href="admin-dashboard.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="admin-dashboard.html">
+                        Dashboard
+                    </a>
+ <a
+                    href="admin-companies.html"
+                    class="active"
+                >
+                    Students
+                </a>
+                    <a
+                        href="admin-students.html"
+                        class="active"
+                    >
+                        Students
+                    </a>
+
+                    <a href="admin-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                        id="logoutButton"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             STUDENT PROFILE PAGE
+        ========================================== -->
+
+        <main class="profile-page">
+
+
+            <div class="profile-header">
+
+                <h1>
+                    Student Profile
+                </h1>
+
+                <p>
+                    View student personal and academic information.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PROFILE CARD
+            ========================================== -->
+
+            <section class="profile-card">
+
+
+                <!-- PROFILE TOP -->
+
+                <div class="profile-top">
+
+                    <div
+                        class="profile-avatar"
+                        id="profileAvatar"
+                    >
+                        U
+                    </div>
+
+
+                    <div class="profile-intro">
+
+                        <h2 id="profileDisplayName">
+                            Loading...
+                        </h2>
+
+                        <p id="profileRoleText">
+                            Student
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="profile-divider"></div>
+
+
+
+                <!-- =====================================
+                     PERSONAL INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-name"
+                                placeholder="Full Name"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- USERNAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-username">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-username"
+                                placeholder="Username"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="profile-email"
+                                placeholder="Email Address"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="profile-phone"
+                                placeholder="Phone Number"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACADEMIC INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Academic Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- UNIVERSITY -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-university">
+                                University
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-university"
+                                placeholder="University"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- MAJOR -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-major">
+                                Major
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-major"
+                                placeholder="Major"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- ACADEMIC YEAR -->
+
+                        <div class="profile-field">
+
+                            <label for="academic-year">
+                                Academic Year
+                            </label>
+
+                            <input
+                                type="text"
+                                id="academic-year"
+                                placeholder="Academic Year"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- GPA -->
+
+                        <div class="profile-field">
+
+                            <label for="gpa">
+                                GPA
+                            </label>
+
+                            <input
+                                type="text"
+                                id="gpa"
+                                placeholder="GPA"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- SUPERVISOR -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-supervisor">
+                                Supervisor
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-supervisor"
+                                placeholder="Supervisor"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACTIONS
+                ====================================== -->
+
+                <div class="profile-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-profile-button"
+                        id="backButton"
+                    >
+                        Back to Students
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         ADMIN STUDENT VIEW JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const profileDisplayName =
+            document.getElementById(
+                "profileDisplayName"
+            );
+
+        const profileAvatar =
+            document.getElementById(
+                "profileAvatar"
+            );
+
+        const profileName =
+            document.getElementById(
+                "profile-name"
+            );
+
+        const profileUsername =
+            document.getElementById(
+                "profile-username"
+            );
+
+        const profileEmail =
+            document.getElementById(
+                "profile-email"
+            );
+
+        const profilePhone =
+            document.getElementById(
+                "profile-phone"
+            );
+
+        const profileUniversity =
+            document.getElementById(
+                "profile-university"
+            );
+
+        const profileMajor =
+            document.getElementById(
+                "profile-major"
+            );
+
+        const academicYear =
+            document.getElementById(
+                "academic-year"
+            );
+
+        const gpa =
+            document.getElementById(
+                "gpa"
+            );
+
+        const profileSupervisor =
+            document.getElementById(
+                "profile-supervisor"
+            );
+
+
+
+        // =========================================
+        // GET STUDENT ID FROM URL
+        // =========================================
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const studentId =
+            params.get("id");
+
+
+
+        // =========================================
+        // LOAD STUDENT
+        // =========================================
+
+        async function loadStudent() {
+
+            try {
+
+                // =====================================
+                // CHECK LOGIN
+                // =====================================
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CHECK ADMIN
+                // =====================================
+
+                const {
+                    data: adminProfile,
+                    error: adminError
+                } = await db
+                    .from("profiles")
+                    .select("id, role")
+                    .eq("id", user.id)
+                    .maybeSingle();
+
+
+                if (
+                    adminError ||
+                    !adminProfile ||
+                    adminProfile.role !== "admin"
+                ) {
+
+                    alert(
+                        "Access denied."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET STUDENT ID
+                // =====================================
+
+                if (!studentId) {
+
+                    alert(
+                        "Student information was not specified."
+                    );
+
+                    window.location.href =
+                        "admin-students.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET PROFILE
+                // =====================================
+
+                const {
+                    data: profile,
+                    error: profileError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email,
+                        phone,
+                        role
+                    `)
+                    .eq("id", studentId)
+                    .eq("role", "student")
+                    .maybeSingle();
+
+
+                if (profileError) {
+
+                    console.error(
+                        "Profile error:",
+                        profileError
+                    );
+
+                    alert(
+                        "Could not load student profile."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!profile) {
+
+                    alert(
+                        "Student profile was not found."
+                    );
+
+                    window.location.href =
+                        "admin-students.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // DISPLAY PERSONAL INFORMATION
+                // =====================================
+
+                const studentName =
+                    profile.full_name ||
+                    profile.username ||
+                    "Student";
+
+
+                profileDisplayName.textContent =
+                    studentName;
+
+
+                profileAvatar.textContent =
+                    studentName
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                profileName.value =
+                    profile.full_name || "";
+
+
+                profileUsername.value =
+                    profile.username || "";
+
+
+                profileEmail.value =
+                    profile.email || "";
+
+
+                profilePhone.value =
+                    profile.phone || "";
+
+
+
+                // =====================================
+                // GET STUDENT DATA
+                // =====================================
+
+                const {
+                    data: student,
+                    error: studentError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        university,
+                        major,
+                        gpa,
+                        academic_year,
+                        supervisor_id
+                    `)
+                    .eq("id", studentId)
+                    .maybeSingle();
+
+
+                if (studentError) {
+
+                    console.error(
+                        "Student error:",
+                        studentError
+                    );
+
+                    alert(
+                        "Could not load student academic information."
+                    );
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Student data:",
+                    student
+                );
+
+
+
+                // =====================================
+                // DISPLAY ACADEMIC INFORMATION
+                // =====================================
+
+                if (student) {
+
+                    profileUniversity.value =
+                        student.university || "";
+
+
+                    profileMajor.value =
+                        student.major || "";
+
+
+                    gpa.value =
+                        student.gpa !== null &&
+                        student.gpa !== undefined
+                            ? student.gpa
+                            : "";
+
+
+                    academicYear.value =
+                        student.academic_year || "";
+
+
+                    await loadSupervisor(
+                        student.supervisor_id
+                    );
+
+                } else {
+
+                    console.warn(
+                        "No student record found for:",
+                        studentId
+                    );
+
+                    profileUniversity.value = "";
+                    profileMajor.value = "";
+                    gpa.value = "";
+                    academicYear.value = "";
+
+                    profileSupervisor.value =
+                        "No Supervisor";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected error:",
+                    error
+                );
+
+                alert(
+                    "Something went wrong while loading the student profile."
+                );
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // LOAD SUPERVISOR
+        // =========================================
+
+        async function loadSupervisor(
+            supervisorId
+        ) {
+
+            profileSupervisor.value =
+                "No Supervisor";
+
+
+            if (!supervisorId) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const {
+                    data: supervisor,
+                    error
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name
+                    `)
+                    .eq("id", supervisorId)
+                    .maybeSingle();
+
+
+                if (error) {
+
+                    console.error(
+                        "Supervisor error:",
+                        error
+                    );
+
+                    return;
+
+                }
+
+
+                if (supervisor) {
+
+                    profileSupervisor.value =
+                        supervisor.full_name ||
+                        "Unnamed Supervisor";
+
+                } else {
+
+                    profileSupervisor.value =
+                        "No Supervisor";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected supervisor error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // BACK BUTTON
+        // =========================================
+
+        document
+            .getElementById("backButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "admin-students.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    await db.auth.signOut();
+
+
+                    localStorage.removeItem(
+                        "username"
+                    );
+
+                    localStorage.removeItem(
+                        "role"
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOAD PAGE
+        // =========================================
+
+        loadStudent();
+
+    </script>
+
+
+</body>
+
+</html>

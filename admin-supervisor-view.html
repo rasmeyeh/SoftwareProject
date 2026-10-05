@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Supervisor Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        .cancel-profile-button {
+            background: #234B57 !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+
+        .cancel-profile-button:hover {
+            background: #234B57 !important;
+        }
+
+
+        /* =========================================
+           VIEW ALL STUDENTS BUTTON
+        ========================================== */
+
+        .view-all-students-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+
+        .view-all-students-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: #234B57;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+
+        .view-all-students-button:hover {
+            background: #234B57;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="home-page">
+
+
+        <!-- =========================================
+             NAVBAR
+        ========================================== -->
+
+        <header class="navbar">
+
+            <div class="nav-content">
+
+                <a
+                    href="admin-dashboard.html"
+                    class="brand"
+                >
+
+                    <img
+                        src="./images/logo.png"
+                        alt="Internship Management System Logo"
+                    >
+
+                    <span>
+                        Internship Management System
+                    </span>
+
+                </a>
+
+
+                <nav class="nav-links">
+
+                    <a href="admin-dashboard.html">
+                        Dashboard
+                    </a>
+
+                    <a
+                        href="admin-supervisors.html"
+                        class="active"
+                    >
+                        Supervisors
+                    </a>
+
+                    <a href="admin-profile.html">
+                        Profile
+                    </a>
+
+                    <a
+                        href="index.html"
+                        class="logout"
+                        id="logoutButton"
+                    >
+                        Logout
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             SUPERVISOR PROFILE PAGE
+        ========================================== -->
+
+        <main class="profile-page">
+
+
+            <div class="profile-header">
+
+                <h1>
+                    Supervisor Profile
+                </h1>
+
+                <p>
+                    View supervisor personal and academic information.
+                </p>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PROFILE CARD
+            ========================================== -->
+
+            <section class="profile-card">
+
+
+                <!-- PROFILE TOP -->
+
+                <div class="profile-top">
+
+                    <div
+                        class="profile-avatar"
+                        id="profileAvatar"
+                    >
+                        U
+                    </div>
+
+
+                    <div class="profile-intro">
+
+                        <h2 id="profileDisplayName">
+                            Loading...
+                        </h2>
+
+                        <p id="profileRoleText">
+                            Supervisor
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="profile-divider"></div>
+
+
+
+                <!-- =====================================
+                     PERSONAL INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- FULL NAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-name"
+                                placeholder="Full Name"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- USERNAME -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-username">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-username"
+                                placeholder="Username"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="profile-email"
+                                placeholder="Email Address"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="profile-phone"
+                                placeholder="Phone Number"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACADEMIC INFORMATION
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Academic Information
+                    </h2>
+
+
+                    <div class="profile-grid">
+
+
+                        <!-- DEPARTMENT -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-department">
+                                Department
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-department"
+                                placeholder="Department"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- SPECIALIZATION -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-specialization">
+                                Specialization
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-specialization"
+                                placeholder="Specialization"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- ACCOUNT STATUS -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-status">
+                                Account Status
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-status"
+                                placeholder="Status"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <!-- ASSIGNED STUDENTS -->
+
+                        <div class="profile-field">
+
+                            <label for="profile-students-count">
+                                Assigned Students
+                            </label>
+
+                            <input
+                                type="text"
+                                id="profile-students-count"
+                                placeholder="Assigned Students"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ASSIGNED STUDENTS
+                ====================================== -->
+
+                <div class="profile-section">
+
+                    <h2>
+                        Assigned Students
+                    </h2>
+
+
+                    <div
+                        class="admin-students-list"
+                        id="assignedStudentsList"
+                    >
+
+                        <div class="admin-student-item">
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    Loading students...
+                                </h3>
+
+                                <p>
+                                    Please wait
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     ACTIONS
+                ====================================== -->
+
+                <div class="profile-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-profile-button"
+                        id="backButton"
+                    >
+                        Back to Supervisors
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer class="home-footer">
+
+            <p>
+                © 2026 Internship Management System
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <!-- =========================================
+         ADMIN SUPERVISOR VIEW JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        // =========================================
+        // ELEMENTS
+        // =========================================
+
+        const profileDisplayName =
+            document.getElementById(
+                "profileDisplayName"
+            );
+
+
+        const profileAvatar =
+            document.getElementById(
+                "profileAvatar"
+            );
+
+
+        const profileName =
+            document.getElementById(
+                "profile-name"
+            );
+
+
+        const profileUsername =
+            document.getElementById(
+                "profile-username"
+            );
+
+
+        const profileEmail =
+            document.getElementById(
+                "profile-email"
+            );
+
+
+        const profilePhone =
+            document.getElementById(
+                "profile-phone"
+            );
+
+
+        const profileDepartment =
+            document.getElementById(
+                "profile-department"
+            );
+
+
+        const profileSpecialization =
+            document.getElementById(
+                "profile-specialization"
+            );
+
+
+        const profileStatus =
+            document.getElementById(
+                "profile-status"
+            );
+
+
+        const profileStudentsCount =
+            document.getElementById(
+                "profile-students-count"
+            );
+
+
+        const assignedStudentsList =
+            document.getElementById(
+                "assignedStudentsList"
+            );
+
+
+
+        // =========================================
+        // GET SUPERVISOR ID FROM URL
+        // =========================================
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const supervisorId =
+            params.get("id");
+
+
+
+        // =========================================
+        // LOAD SUPERVISOR
+        // =========================================
+
+        async function loadSupervisor() {
+
+            try {
+
+
+                // =====================================
+                // CHECK LOGIN
+                // =====================================
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CHECK ADMIN
+                // =====================================
+
+                const {
+                    data: adminProfile,
+                    error: adminError
+                } = await db
+                    .from("profiles")
+                    .select(
+                        "id, role"
+                    )
+                    .eq(
+                        "id",
+                        user.id
+                    )
+                    .maybeSingle();
+
+
+                if (
+                    adminError ||
+                    !adminProfile ||
+                    adminProfile.role !== "admin"
+                ) {
+
+                    alert(
+                        "Access denied."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CHECK SUPERVISOR ID
+                // =====================================
+
+                if (!supervisorId) {
+
+                    alert(
+                        "Supervisor information was not specified."
+                    );
+
+                    window.location.href =
+                        "admin-supervisors.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // GET SUPERVISOR PROFILE
+                // =====================================
+
+                const {
+                    data: profile,
+                    error: profileError
+                } = await db
+                    .from("profiles")
+                    .select("*")
+                    .eq(
+                        "id",
+                        supervisorId
+                    )
+                    .eq(
+                        "role",
+                        "supervisor"
+                    )
+                    .maybeSingle();
+
+
+                if (profileError) {
+
+                    console.error(
+                        "Profile error:",
+                        profileError
+                    );
+
+                    alert(
+                        "Could not load supervisor profile."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!profile) {
+
+                    alert(
+                        "Supervisor profile was not found."
+                    );
+
+                    window.location.href =
+                        "admin-supervisors.html";
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // DISPLAY PERSONAL INFORMATION
+                // =====================================
+
+                const supervisorName =
+                    profile.full_name ||
+                    profile.username ||
+                    "Supervisor";
+
+
+                profileDisplayName.textContent =
+                    supervisorName;
+
+
+                profileAvatar.textContent =
+                    supervisorName
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                profileName.value =
+                    profile.full_name || "";
+
+
+                profileUsername.value =
+                    profile.username || "";
+
+
+                profileEmail.value =
+                    profile.email || "";
+
+
+                profilePhone.value =
+                    profile.phone || "";
+
+
+
+                // =====================================
+                // GET SUPERVISOR DETAILS
+                // =====================================
+
+                const {
+                    data: supervisor,
+                    error: supervisorError
+                } = await db
+                    .from("supervisors")
+                    .select("*")
+                    .eq(
+                        "id",
+                        supervisorId
+                    )
+                    .maybeSingle();
+
+
+                if (supervisorError) {
+
+                    console.error(
+                        "Supervisor details error:",
+                        supervisorError
+                    );
+
+                }
+
+
+
+                // =====================================
+                // DEPARTMENT
+                // =====================================
+
+                profileDepartment.value =
+                    profile.department ||
+                    supervisor?.department ||
+                    "";
+
+
+
+                // =====================================
+                // SPECIALIZATION
+                // =====================================
+
+                profileSpecialization.value =
+                    profile.specialization ||
+                    supervisor?.specialization ||
+                    "Not specified";
+
+
+
+                // =====================================
+                // PHONE FALLBACK
+                // =====================================
+
+                if (
+                    !profilePhone.value
+                ) {
+
+                    profilePhone.value =
+                        supervisor?.phone ||
+                        "";
+
+                }
+
+
+
+                // =====================================
+                // ACCOUNT STATUS
+                // =====================================
+
+                profileStatus.value =
+                    profile.status ||
+                    supervisor?.status ||
+                    "Active";
+
+
+
+                // =====================================
+                // LOAD ASSIGNED STUDENTS
+                // =====================================
+
+                await loadAssignedStudents();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unexpected error:",
+                    error
+                );
+
+                alert(
+                    "Something went wrong while loading the supervisor profile."
+                );
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // LOAD ASSIGNED STUDENTS
+        // =========================================
+
+        async function loadAssignedStudents() {
+
+            try {
+
+
+                // =====================================
+                // GET ASSIGNED STUDENTS
+                // =====================================
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+                    .from("students")
+                    .select(`
+                        id,
+                        major,
+                        supervisor_id
+                    `)
+                    .eq(
+                        "supervisor_id",
+                        supervisorId
+                    );
+
+
+                if (studentsError) {
+
+                    console.error(
+                        "Students error:",
+                        studentsError
+                    );
+
+                    profileStudentsCount.value =
+                        "0";
+
+
+                    assignedStudentsList.innerHTML = `
+
+                        <div class="admin-student-item">
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    Unable to load students
+                                </h3>
+
+                                <p>
+                                    Please try again.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // NO STUDENTS
+                // =====================================
+
+                if (
+                    !students ||
+                    students.length === 0
+                ) {
+
+                    profileStudentsCount.value =
+                        "0";
+
+
+                    assignedStudentsList.innerHTML = `
+
+                        <div class="admin-student-item">
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    No assigned students
+                                </h3>
+
+                                <p>
+                                    No students are currently assigned to this supervisor.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // STUDENT COUNT
+                // =====================================
+
+                profileStudentsCount.value =
+                    String(
+                        students.length
+                    );
+
+
+
+                // =====================================
+                // GET STUDENT PROFILE IDS
+                // =====================================
+
+                const studentIds =
+                    students.map(
+                        student =>
+                            student.id
+                    );
+
+
+
+                // =====================================
+                // GET STUDENT PROFILES
+                // =====================================
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+                    .from("profiles")
+                    .select(`
+                        id,
+                        full_name,
+                        username,
+                        email
+                    `)
+                    .in(
+                        "id",
+                        studentIds
+                    );
+
+
+                if (profilesError) {
+
+                    console.error(
+                        "Student profiles error:",
+                        profilesError
+                    );
+
+
+                    assignedStudentsList.innerHTML = `
+
+                        <div class="admin-student-item">
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    Unable to load student profiles
+                                </h3>
+
+                                <p>
+                                    Please try again.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+
+                // =====================================
+                // CLEAR LIST
+                // =====================================
+
+                assignedStudentsList.innerHTML =
+                    "";
+
+
+
+                // =====================================
+                // DISPLAY FIRST STUDENT ONLY
+                // =====================================
+
+                const visibleStudents =
+                    students.slice(0, 1);
+
+
+                visibleStudents.forEach(
+                    function (student) {
+
+                        const studentProfile =
+                            profiles?.find(
+                                profile =>
+                                    profile.id ===
+                                    student.id
+                            );
+
+
+                        const studentName =
+                            studentProfile?.full_name ||
+                            studentProfile?.username ||
+                            "Student";
+
+
+                        const studentEmail =
+                            studentProfile?.email ||
+                            "No email";
+
+
+                        const studentMajor =
+                            student.major ||
+                            "No major";
+
+
+                        const initials =
+                            studentName
+                                .split(" ")
+                                .filter(Boolean)
+                                .slice(0, 2)
+                                .map(
+                                    word =>
+                                        word
+                                            .charAt(0)
+                                            .toUpperCase()
+                                )
+                                .join("");
+
+
+                        const studentItem =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        studentItem.className =
+                            "admin-student-item";
+
+
+                        studentItem.innerHTML = `
+
+                            <div class="admin-student-avatar">
+                                ${escapeHtml(initials)}
+                            </div>
+
+
+                            <div class="admin-student-info">
+
+                                <h3>
+                                    ${escapeHtml(studentName)}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(studentMajor)}
+                                </p>
+
+                                <span>
+                                    ${escapeHtml(studentEmail)}
+                                </span>
+
+                            </div>
+
+                        `;
+
+
+                        assignedStudentsList.appendChild(
+                            studentItem
+                        );
+
+                    }
+                );
+
+
+
+                // =====================================
+                // VIEW ALL STUDENTS BUTTON
+                // =====================================
+
+                if (
+                    students.length > 1
+                ) {
+
+                    const viewAllWrapper =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    viewAllWrapper.className =
+                        "view-all-students-wrapper";
+
+
+                    viewAllWrapper.innerHTML = `
+
+                        <a
+                            href="admin-supervisor-students.html?id=${encodeURIComponent(supervisorId)}"
+                            class="view-all-students-button"
+                        >
+                            View All Students
+                        </a>
+
+                    `;
+
+
+                    assignedStudentsList.appendChild(
+                        viewAllWrapper
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Assigned students error:",
+                    error
+                );
+
+
+                profileStudentsCount.value =
+                    "0";
+
+
+                assignedStudentsList.innerHTML = `
+
+                    <div class="admin-student-item">
+
+                        <div class="admin-student-info">
+
+                            <h3>
+                                Unable to load students
+                            </h3>
+
+                            <p>
+                                An unexpected error occurred.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // =========================================
+        // ESCAPE HTML
+        // =========================================
+
+        function escapeHtml(value) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        // =========================================
+        // BACK BUTTON
+        // =========================================
+
+        document
+            .getElementById("backButton")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "admin-supervisors.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOGOUT
+        // =========================================
+
+        document
+            .getElementById("logoutButton")
+            .addEventListener(
+                "click",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    await db.auth.signOut();
+
+
+                    localStorage.removeItem(
+                        "username"
+                    );
+
+
+                    localStorage.removeItem(
+                        "role"
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+
+
+        // =========================================
+        // LOAD PAGE
+        // =========================================
+
+        loadSupervisor();
+
+    </script>
+
+
+</body>
+
+</html>

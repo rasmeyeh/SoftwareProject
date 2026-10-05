@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,46 +20,59 @@
 
 <body>
 
+
     <!-- ================= NAVBAR ================= -->
 
-    <header class="navbar">
+<header class="navbar">
 
-        <div class="nav-content">
+    <div class="nav-content">
 
-            <a href="admin-dashboard.html" class="brand">
 
-                <img
-                    src="./images/logo.png"
-                    alt="Internship Management System"
-                >
+        <!-- LOGO -->
 
-                <span>Internship Management System</span>
+        <a
+            href="admin-dashboard.html"
+            class="brand"
+        >
 
+            <img
+                src="./images/logo.png"
+                alt="Internship Management System Logo"
+            >
+
+            <span>
+                Internship Management System
+            </span>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav-links">
+
+            <a href="admin-dashboard.html"
+            class="active">
+                Dashboard
             </a>
 
 
-            <nav class="nav-links">
+            <a href="admin-profile.html">
+                Profile
+            </a>
 
-                <a
-                    href="admin-dashboard.html"
-                    class="active"
-                >
-                    Dashboard
-                </a>
+            <a
+                href="index.html"
+                class="logout"
+            >
+                Logout
+            </a>
 
-                <a href="admin-profile.html">
-                    Profile
-                </a>
+        </nav>
 
-                <a href="index.html">
-                    Logout
-                </a>
+    </div>
 
-            </nav>
-
-        </div>
-
-    </header>
+</header>
 
 
     <!-- ================= ADMIN DASHBOARD ================= -->
@@ -66,7 +80,7 @@
     <main class="admin-dashboard-page">
 
 
-        <!-- Welcome -->
+        <!-- ================= WELCOME ================= -->
 
         <section class="admin-welcome">
 
@@ -75,7 +89,7 @@
             </p>
 
             <h1>
-                Welcome, Admin 👋
+                Welcome, <span id="adminName">Admin</span> 👋
             </h1>
 
             <p>
@@ -91,6 +105,8 @@
         <section class="admin-stats">
 
 
+            <!-- Students -->
+
             <div class="admin-stat-card">
 
                 <div class="admin-stat-icon">
@@ -103,8 +119,8 @@
                         Total Students
                     </span>
 
-                    <strong>
-                        120
+                    <strong id="studentsCount">
+                        ...
                     </strong>
 
                 </div>
@@ -112,6 +128,8 @@
             </div>
 
 
+
+            <!-- Companies -->
 
             <div class="admin-stat-card">
 
@@ -125,8 +143,8 @@
                         Total Companies
                     </span>
 
-                    <strong>
-                        35
+                    <strong id="companiesCount">
+                        ...
                     </strong>
 
                 </div>
@@ -134,6 +152,8 @@
             </div>
 
 
+
+            <!-- Supervisors -->
 
             <div class="admin-stat-card">
 
@@ -147,8 +167,8 @@
                         Supervisors
                     </span>
 
-                    <strong>
-                        12
+                    <strong id="supervisorsCount">
+                        ...
                     </strong>
 
                 </div>
@@ -156,6 +176,8 @@
             </div>
 
 
+
+            <!-- Internships -->
 
             <div class="admin-stat-card">
 
@@ -169,8 +191,8 @@
                         Internships
                     </span>
 
-                    <strong>
-                        48
+                    <strong id="internshipsCount">
+                        ...
                     </strong>
 
                 </div>
@@ -185,6 +207,7 @@
         <!-- ================= SYSTEM MANAGEMENT ================= -->
 
         <section class="admin-section">
+
 
             <div class="admin-section-header">
 
@@ -348,6 +371,7 @@
 
         <section class="admin-section">
 
+
             <div class="admin-section-header">
 
                 <div>
@@ -370,119 +394,22 @@
 
 
 
-            <div class="admin-activity-card">
-
-
-                <!-- Activity 1 -->
+            <div
+                class="admin-activity-card"
+                id="activityContainer"
+            >
 
                 <div class="admin-activity-item">
 
-                    <div class="admin-activity-icon">
-                        👨‍🎓
-                    </div>
-
                     <div class="admin-activity-info">
 
-                        <strong>
-                            Ahmad Ali
-                        </strong>
-
                         <p>
-                            Registered as a new student.
+                            Loading recent activity...
                         </p>
 
                     </div>
 
-                    <span class="admin-activity-time">
-                        Today
-                    </span>
-
                 </div>
-
-
-
-                <!-- Activity 2 -->
-
-                <div class="admin-activity-item">
-
-                    <div class="admin-activity-icon">
-                        🏢
-                    </div>
-
-                    <div class="admin-activity-info">
-
-                        <strong>
-                            Ooredoo Palestine
-                        </strong>
-
-                        <p>
-                            Posted a new internship opportunity.
-                        </p>
-
-                    </div>
-
-                    <span class="admin-activity-time">
-                        Today
-                    </span>
-
-                </div>
-
-
-
-                <!-- Activity 3 -->
-
-                <div class="admin-activity-item">
-
-                    <div class="admin-activity-icon">
-                        👨‍🏫
-                    </div>
-
-                    <div class="admin-activity-info">
-
-                        <strong>
-                            Dr. Ahmad
-                        </strong>
-
-                        <p>
-                            Supervisor account was created.
-                        </p>
-
-                    </div>
-
-                    <span class="admin-activity-time">
-                        Yesterday
-                    </span>
-
-                </div>
-
-
-
-                <!-- Activity 4 -->
-
-                <div class="admin-activity-item">
-
-                    <div class="admin-activity-icon">
-                        📋
-                    </div>
-
-                    <div class="admin-activity-info">
-
-                        <strong>
-                            Internship Application
-                        </strong>
-
-                        <p>
-                            A new application was submitted.
-                        </p>
-
-                    </div>
-
-                    <span class="admin-activity-time">
-                        Yesterday
-                    </span>
-
-                </div>
-
 
             </div>
 
@@ -490,6 +417,622 @@
 
 
     </main>
+
+
+
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <script>
+
+        /* =========================================
+           ADMIN NAME
+        ========================================= */
+
+        const adminName =
+            document.getElementById("adminName");
+
+        const savedUsername =
+            localStorage.getItem("username");
+
+        if (savedUsername) {
+
+            adminName.textContent =
+                savedUsername;
+
+        }
+
+
+
+        /* =========================================
+           STATISTICS ELEMENTS
+        ========================================= */
+
+        const studentsCount =
+            document.getElementById("studentsCount");
+
+        const companiesCount =
+            document.getElementById("companiesCount");
+
+        const supervisorsCount =
+            document.getElementById("supervisorsCount");
+
+        const internshipsCount =
+            document.getElementById("internshipsCount");
+
+
+
+        /* =========================================
+           ACTIVITY CONTAINER
+        ========================================= */
+
+        const activityContainer =
+            document.getElementById("activityContainer");
+
+
+
+        /* =========================================
+           FORMAT DATE
+        ========================================= */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "";
+
+            }
+
+            const date =
+                new Date(dateValue);
+
+            const now =
+                new Date();
+
+            const difference =
+                now - date;
+
+            const minutes =
+                Math.floor(
+                    difference / (1000 * 60)
+                );
+
+            const hours =
+                Math.floor(
+                    difference / (1000 * 60 * 60)
+                );
+
+            const days =
+                Math.floor(
+                    difference / (1000 * 60 * 60 * 24)
+                );
+
+
+            if (minutes < 1) {
+
+                return "Just now";
+
+            }
+
+            if (minutes < 60) {
+
+                return minutes + " min ago";
+
+            }
+
+            if (hours < 24) {
+
+                return hours + " hr ago";
+
+            }
+
+            if (days === 1) {
+
+                return "Yesterday";
+
+            }
+
+            if (days < 7) {
+
+                return days + " days ago";
+
+            }
+
+
+            return date.toLocaleDateString();
+
+        }
+
+
+
+        /* =========================================
+           LOAD STATISTICS
+        ========================================= */
+
+       async function loadStatistics() {
+
+    try {
+
+        /* =========================================
+           STUDENTS
+        ========================================== */
+
+        const {
+            count: students,
+            error: studentsError
+        } = await db
+            .from("profiles")
+            .select("id", {
+                count: "exact",
+                head: true
+            })
+            .eq("role", "student");
+
+
+        /* =========================================
+           COMPANIES
+        ========================================== */
+
+        const {
+            count: companies,
+            error: companiesError
+        } = await db
+            .from("profiles")
+            .select("id", {
+                count: "exact",
+                head: true
+            })
+            .eq("role", "company");
+
+
+        /* =========================================
+           SUPERVISORS
+        ========================================== */
+
+        const {
+            count: supervisors,
+            error: supervisorsError
+        } = await db
+            .from("profiles")
+            .select("id", {
+                count: "exact",
+                head: true
+            })
+            .eq("role", "supervisor");
+
+
+        /* =========================================
+           INTERNSHIPS
+        ========================================== */
+
+        const {
+            count: internships,
+            error: internshipsError
+        } = await db
+            .from("internships")
+            .select("id", {
+                count: "exact",
+                head: true
+            });
+
+
+        /* =========================================
+           ERROR CHECKING
+        ========================================== */
+
+        if (studentsError) {
+
+            console.error(
+                "Students count error:",
+                studentsError
+            );
+
+        }
+
+        if (companiesError) {
+
+            console.error(
+                "Companies count error:",
+                companiesError
+            );
+
+        }
+
+        if (supervisorsError) {
+
+            console.error(
+                "Supervisors count error:",
+                supervisorsError
+            );
+
+        }
+
+        if (internshipsError) {
+
+            console.error(
+                "Internships count error:",
+                internshipsError
+            );
+
+        }
+
+
+        /* =========================================
+           DISPLAY RESULTS
+        ========================================== */
+
+        document.getElementById("studentsCount")
+            .textContent = students ?? 0;
+
+        document.getElementById("companiesCount")
+            .textContent = companies ?? 0;
+
+        document.getElementById("supervisorsCount")
+            .textContent = supervisors ?? 0;
+
+        document.getElementById("internshipsCount")
+            .textContent = internships ?? 0;
+
+
+    } catch (error) {
+
+        console.error(
+            "Statistics error:",
+            error
+        );
+
+        document.getElementById("studentsCount")
+            .textContent = "0";
+
+        document.getElementById("companiesCount")
+            .textContent = "0";
+
+        document.getElementById("supervisorsCount")
+            .textContent = "0";
+
+        document.getElementById("internshipsCount")
+            .textContent = "0";
+
+    }
+
+}
+
+
+
+            
+
+        /* =========================================
+           LOAD RECENT ACTIVITY
+        ========================================= */
+
+        async function loadRecentActivity() {
+
+            try {
+
+
+                /* ===============================
+                   GET RECENT PROFILES
+                =============================== */
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+
+                    .from("profiles")
+
+                    .select(
+                        "full_name, username, role, created_at"
+                    )
+
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    )
+
+                    .limit(4);
+
+
+                if (profilesError) {
+
+                    console.error(
+                        "Profiles activity error:",
+                        profilesError
+                    );
+
+                }
+
+
+
+                /* ===============================
+                   GET RECENT APPLICATION
+                =============================== */
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } = await db
+
+                    .from("applications")
+
+                    .select(
+                        "id, created_at"
+                    )
+
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    )
+
+                    .limit(2);
+
+
+                if (applicationsError) {
+
+                    console.error(
+                        "Applications activity error:",
+                        applicationsError
+                    );
+
+                }
+
+
+
+                /* ===============================
+                   CREATE ACTIVITY LIST
+                =============================== */
+
+                const activities = [];
+
+
+                /* Profiles */
+
+                if (profiles) {
+
+                    profiles.forEach(function (profile) {
+
+                        let icon = "👤";
+
+                        let activityText =
+                            "Registered in the system.";
+
+                        let name =
+                            profile.full_name ||
+                            profile.username ||
+                            "New User";
+
+
+                        if (profile.role === "student") {
+
+                            icon = "👨‍🎓";
+
+                            activityText =
+                                "Registered as a new student.";
+
+                        }
+
+                        else if (profile.role === "company") {
+
+                            icon = "🏢";
+
+                            activityText =
+                                "Registered as a new company.";
+
+                        }
+
+                        else if (profile.role === "supervisor") {
+
+                            icon = "👨‍🏫";
+
+                            activityText =
+                                "Supervisor account was created.";
+
+                        }
+
+                        else if (profile.role === "admin") {
+
+                            icon = "🛡️";
+
+                            activityText =
+                                "Admin account was created.";
+
+                        }
+
+
+                        activities.push({
+
+                            icon: icon,
+
+                            name: name,
+
+                            text: activityText,
+
+                            date: profile.created_at
+
+                        });
+
+                    });
+
+                }
+
+
+
+                /* Applications */
+
+                if (applications) {
+
+                    applications.forEach(function (application) {
+
+                        activities.push({
+
+                            icon: "📋",
+
+                            name: "Internship Application",
+
+                            text:
+                                "A new application was submitted.",
+
+                            date:
+                                application.created_at
+
+                        });
+
+                    });
+
+                }
+
+
+
+                /* ===============================
+                   SORT BY DATE
+                =============================== */
+
+                activities.sort(function (a, b) {
+
+                    return new Date(b.date) -
+                        new Date(a.date);
+
+                });
+
+
+
+                /* ===============================
+                   DISPLAY ACTIVITIES
+                =============================== */
+
+                if (activities.length === 0) {
+
+                    activityContainer.innerHTML = `
+
+                        <div class="admin-activity-item">
+
+                            <div class="admin-activity-info">
+
+                                <p>
+                                    No recent activity found.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                activityContainer.innerHTML = "";
+
+
+                activities
+                    .slice(0, 4)
+                    .forEach(function (activity) {
+
+                        const item =
+                            document.createElement("div");
+
+                        item.className =
+                            "admin-activity-item";
+
+
+                        item.innerHTML = `
+
+                            <div class="admin-activity-icon">
+                                ${activity.icon}
+                            </div>
+
+                            <div class="admin-activity-info">
+
+                                <strong>
+                                    ${activity.name}
+                                </strong>
+
+                                <p>
+                                    ${activity.text}
+                                </p>
+
+                            </div>
+
+                            <span class="admin-activity-time">
+                                ${formatDate(activity.date)}
+                            </span>
+
+                        `;
+
+
+                        activityContainer.appendChild(item);
+
+                    });
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Recent activity error:",
+                    error
+                );
+
+
+                activityContainer.innerHTML = `
+
+                    <div class="admin-activity-item">
+
+                        <div class="admin-activity-info">
+
+                            <p>
+                                Unable to load recent activity.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           LOAD DASHBOARD
+        ========================================= */
+
+        async function loadAdminDashboard() {
+
+            await Promise.all([
+
+                loadStatistics(),
+
+                loadRecentActivity()
+
+            ]);
+
+        }
+
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadAdminDashboard();
+
+    </script>
 
 
 </body>
