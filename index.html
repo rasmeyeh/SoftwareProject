@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Internship Management System</title>
+    <title>PathLink</title>
 
     <link rel="stylesheet" href="./css/style.css">
 
@@ -37,7 +37,7 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                 </div>
@@ -253,12 +253,14 @@
                        FIND USERNAME
                     =============================== */
 
-                    const { data: profile, error: profileError } =
-                        await db
-                            .from("profiles")
-                            .select("email, role")
-                            .eq("username", username)
-                            .maybeSingle();
+                    const {
+                        data: profile,
+                        error: profileError
+                    } = await db
+                        .from("profiles")
+                        .select("id, full_name, email, role")
+                        .eq("username", username)
+                        .maybeSingle();
 
 
                     /* ===============================
@@ -301,14 +303,16 @@
                        LOGIN WITH EMAIL + PASSWORD
                     =============================== */
 
-                    const { data, error } =
-                        await db.auth.signInWithPassword({
+                    const {
+                        data,
+                        error
+                    } = await db.auth.signInWithPassword({
 
-                            email: profile.email,
+                        email: profile.email,
 
-                            password: password
+                        password: password
 
-                        });
+                    });
 
 
                     /* ===============================
@@ -345,6 +349,55 @@
                         "role",
                         profile.role
                     );
+
+
+                    /* ===============================
+                       CREATE LOGIN ACTIVITY
+                    =============================== */
+
+                    const loggedInUser =
+                        data?.user;
+
+
+                    if (loggedInUser) {
+
+                        const displayName =
+                            profile.full_name ||
+                            profile.username ||
+                            username;
+
+
+                        const {
+                            error: activityError
+                        } = await db
+                            .from("activity_logs")
+                            .insert({
+
+                                user_id:
+                                    loggedInUser.id,
+
+                                activity_type:
+                                    "login",
+
+                                title:
+                                    "User Login",
+
+                                description:
+                                    `${displayName} logged into the system.`
+
+                            });
+
+
+                        if (activityError) {
+
+                            console.error(
+                                "Activity log error:",
+                                activityError
+                            );
+
+                        }
+
+                    }
 
 
                     /* ===============================

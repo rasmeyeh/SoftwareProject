@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Applicants - Internship Management System</title>
+    <title>Applicants - PathLink</title>
 
     <link
         rel="stylesheet"
@@ -310,11 +310,11 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                     <span>
-                        Internship Management System
+                        PathLink
                     </span>
 
                 </a>
@@ -690,7 +690,7 @@
         <footer class="home-footer">
 
             <p>
-                © 2026 Internship Management System
+                © 2026 PathLink
             </p>
 
         </footer>
@@ -2443,6 +2443,79 @@
                 if (error) {
 
                     throw error;
+
+                }
+
+
+                /* =================================
+                   ADMIN ACTIVITY LOG
+                ================================== */
+
+                try {
+
+                    const {
+                        data: userData
+                    } = await db.auth.getUser();
+
+                    const studentName =
+                        selectedApplication.profile?.full_name ||
+                        "Student";
+
+                    const internshipTitle =
+                        selectedApplication.internship?.title ||
+                        "Internship";
+
+                    const activityTitle =
+                        newStatus === "accepted"
+                            ? "Application Accepted"
+                            : "Application Rejected";
+
+                    const activityDescription =
+                        newStatus === "accepted"
+                            ? `${studentName}'s application for ${internshipTitle} was accepted.`
+                            : `${studentName}'s application for ${internshipTitle} was rejected.`;
+
+                    if (userData?.user) {
+
+                        const {
+                            error: activityError
+                        } = await db
+                            .from("activity_logs")
+                            .insert({
+
+                                user_id:
+                                    userData.user.id,
+
+                                activity_type:
+                                    newStatus === "accepted"
+                                        ? "application_accepted"
+                                        : "application_rejected",
+
+                                title:
+                                    activityTitle,
+
+                                description:
+                                    activityDescription
+
+                            });
+
+                        if (activityError) {
+
+                            console.error(
+                                "Activity log error:",
+                                activityError
+                            );
+
+                        }
+
+                    }
+
+                } catch (activityError) {
+
+                    console.error(
+                        "Activity log error:",
+                        activityError
+                    );
 
                 }
 

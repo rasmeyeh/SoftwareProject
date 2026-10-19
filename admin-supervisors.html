@@ -39,11 +39,11 @@
 
                 <img
                     src="./images/logo.png"
-                    alt="Internship Management System Logo"
+                    alt="PathLink Logo"
                 >
 
                 <span>
-                    Internship Management System
+                    PathLink
                 </span>
 
             </a>
@@ -138,26 +138,6 @@
                 </div>
 
 
-                <div class="admin-supervisor-filter">
-
-                    <select id="supervisorStatus">
-
-                        <option value="all">
-                            All Status
-                        </option>
-
-                        <option value="active">
-                            Active
-                        </option>
-
-                        <option value="inactive">
-                            Inactive
-                        </option>
-
-                    </select>
-
-                </div>
-
             </div>
 
 
@@ -215,12 +195,6 @@
         const supervisorSearch =
             document.getElementById(
                 "supervisorSearch"
-            );
-
-
-        const supervisorStatus =
-            document.getElementById(
-                "supervisorStatus"
             );
 
 
@@ -480,40 +454,6 @@
 
 
                         /* =========================================
-                           STATUS
-                        ========================================= */
-
-                        /*
-                           If a status field exists in the
-                           supervisor/profile data, use it.
-
-                           Otherwise the supervisor is considered
-                           active because the account exists.
-                        */
-
-                        const rawStatus =
-                            details?.status ||
-                            profile.status ||
-                            "active";
-
-
-                        const supervisorStatusValue =
-                            String(rawStatus)
-                                .toLowerCase() ===
-                                "inactive"
-                                ? "inactive"
-                                : "active";
-
-
-                        const statusText =
-                            supervisorStatusValue ===
-                            "inactive"
-                                ? "Inactive"
-                                : "Active";
-
-
-
-                        /* =========================================
                            INITIALS
                         ========================================= */
 
@@ -544,10 +484,6 @@
 
                         supervisorItem.className =
                             "admin-supervisor-item";
-
-
-                        supervisorItem.dataset.status =
-                            supervisorStatusValue;
 
 
                         supervisorItem.dataset.id =
@@ -589,11 +525,6 @@
                                     Students
                                 </span>
 
-                            </div>
-
-
-                            <div class="admin-supervisor-status ${supervisorStatusValue}">
-                                ${statusText}
                             </div>
 
 
@@ -701,10 +632,6 @@
                     .trim();
 
 
-            const statusValue =
-                supervisorStatus.value;
-
-
             const supervisors =
                 document.querySelectorAll(
                     ".admin-supervisor-item"
@@ -754,10 +681,6 @@
                             : "";
 
 
-                    const status =
-                        supervisor.dataset.status;
-
-
 
                     /* =========================================
                        SEARCH
@@ -771,22 +694,11 @@
 
 
                     /* =========================================
-                       STATUS
-                    ========================================= */
-
-                    const matchesStatus =
-                        statusValue === "all" ||
-                        status === statusValue;
-
-
-
-                    /* =========================================
                        DISPLAY
                     ========================================= */
 
                     if (
-                        matchesSearch &&
-                        matchesStatus
+                        matchesSearch
                     ) {
 
                         supervisor.style.display =
@@ -814,17 +726,6 @@
 
         supervisorSearch.addEventListener(
             "input",
-            filterSupervisors
-        );
-
-
-
-        /* =========================================
-           STATUS EVENT
-        ========================================= */
-
-        supervisorStatus.addEventListener(
-            "change",
             filterSupervisors
         );
 

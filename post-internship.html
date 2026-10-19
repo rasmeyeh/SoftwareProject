@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,11 +43,11 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                     <span>
-                        Internship Management System
+                        PathLink
                     </span>
 
                 </a>
@@ -62,8 +61,10 @@
                         Dashboard
                     </a>
 
-                    <a href="company-posts.html"
-                    class="active">
+                    <a
+                        href="company-posts.html"
+                        class="active"
+                    >
                         My Posts
                     </a>
 
@@ -96,13 +97,15 @@
 
         <main class="post-internship-page">
 
-<a
-    href="company-posts.html"
-    class="back-to-posts"
-    id="back-to-posts"
->
-    ← Back to My Posts
-</a>
+            <a
+                href="company-posts.html"
+                class="back-to-posts"
+                id="back-to-posts"
+            >
+                ← Back to My Posts
+            </a>
+
+
             <!-- PAGE HEADER -->
 
             <div class="post-header">
@@ -161,84 +164,83 @@
 
 
 
-                    
-<!-- FIELD -->
+                        <!-- FIELD -->
 
-<div class="post-field">
+                        <div class="post-field">
 
-    <label for="internship-field">
-        Field / Category
-    </label>
+                            <label for="internship-field">
+                                Field / Category
+                            </label>
 
-    <select id="internship-field">
+                            <select id="internship-field">
 
-        <option value="">
-            Select a field
-        </option>
+                                <option value="">
+                                    Select a field
+                                </option>
 
-        <option value="Web Development">
-            Web Development
-        </option>
+                                <option value="Web Development">
+                                    Web Development
+                                </option>
 
-        <option value="Systems Administration">
-            Systems Administration
-        </option>
+                                <option value="Systems Administration">
+                                    Systems Administration
+                                </option>
 
-        <option value="Software & IT">
-            Software & IT
-        </option>
+                                <option value="Software & IT">
+                                    Software & IT
+                                </option>
 
-        <option value="Telecommunications & IT">
-            Telecommunications & IT
-        </option>
+                                <option value="Telecommunications & IT">
+                                    Telecommunications & IT
+                                </option>
 
-        <option value="Software Testing">
-            Software Testing
-        </option>
+                                <option value="Software Testing">
+                                    Software Testing
+                                </option>
 
-        <option value="Mobile App Development">
-            Mobile App Development
-        </option>
+                                <option value="Mobile App Development">
+                                    Mobile App Development
+                                </option>
 
-        <option value="Networking">
-            Networking
-        </option>
+                                <option value="Networking">
+                                    Networking
+                                </option>
 
-        <option value="Software Engineering">
-            Software Engineering
-        </option>
+                                <option value="Software Engineering">
+                                    Software Engineering
+                                </option>
 
-        <option value="Software Development">
-            Software Development
-        </option>
+                                <option value="Software Development">
+                                    Software Development
+                                </option>
 
-        <option value="UI/UX Design">
-            UI/UX Design
-        </option>
+                                <option value="UI/UX Design">
+                                    UI/UX Design
+                                </option>
 
-        <option value="IT Support">
-            IT Support
-        </option>
+                                <option value="IT Support">
+                                    IT Support
+                                </option>
 
-        <option value="Telecommunications & Networking">
-            Telecommunications & Networking
-        </option>
+                                <option value="Telecommunications & Networking">
+                                    Telecommunications & Networking
+                                </option>
 
-        <option value="IT & Technology">
-            IT & Technology
-        </option>
+                                <option value="IT & Technology">
+                                    IT & Technology
+                                </option>
 
-        <option value="IT & Telecommunications">
-            IT & Telecommunications
-        </option>
+                                <option value="IT & Telecommunications">
+                                    IT & Telecommunications
+                                </option>
 
-        <option value="IT Security">
-            IT Security
-        </option>
+                                <option value="IT Security">
+                                    IT Security
+                                </option>
 
-    </select>
+                            </select>
 
-</div>
+                        </div>
 
 
 
@@ -398,7 +400,7 @@
         <footer class="home-footer">
 
             <p>
-                ©️ 2026 Internship Management System
+                ©️ 2026 PathLink
             </p>
 
         </footer>
@@ -424,13 +426,16 @@
 
     <script>
 
+
         const params =
             new URLSearchParams(
                 window.location.search
             );
 
+
         const editId =
             params.get("edit");
+
 
 
         const titleInput =
@@ -438,45 +443,54 @@
                 "internship-title"
             );
 
+
         const fieldInput =
             document.getElementById(
                 "internship-field"
             );
+
 
         const locationInput =
             document.getElementById(
                 "internship-location"
             );
 
+
         const descriptionInput =
             document.getElementById(
                 "internship-description"
             );
+
 
         const requirementsInput =
             document.getElementById(
                 "internship-requirements"
             );
 
+
         const startDateInput =
             document.getElementById(
                 "start-date"
             );
+
 
         const endDateInput =
             document.getElementById(
                 "end-date"
             );
 
+
         const submitButton =
             document.getElementById(
                 "submit-internship"
-                
             );
-const backToPostsButton =
-    document.getElementById(
-        "back-to-posts"
-    );
+
+
+        const backToPostsButton =
+            document.getElementById(
+                "back-to-posts"
+            );
+
 
 
         /* =========================================
@@ -536,6 +550,99 @@ const backToPostsButton =
 
 
         /* =========================================
+           CALCULATE INTERNSHIP STATUS
+        ========================================== */
+
+        function calculateInternshipStatus(
+            startDate,
+            endDate
+        ) {
+
+            /*
+               If dates are missing,
+               keep the internship active.
+            */
+
+            if (
+                !startDate ||
+                !endDate
+            ) {
+
+                return "active";
+
+            }
+
+
+            /*
+               Get today's date in local time.
+            */
+
+            const today =
+                new Date();
+
+
+            const todayDate =
+                new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    today.getDate()
+                );
+
+
+            /*
+               Convert database dates
+               to local dates.
+            */
+
+            const start =
+                new Date(
+                    `${startDate}T00:00:00`
+                );
+
+
+            const end =
+                new Date(
+                    `${endDate}T00:00:00`
+                );
+
+
+            /*
+               Upcoming
+            */
+
+            if (
+                todayDate < start
+            ) {
+
+                return "upcoming";
+
+            }
+
+
+            /*
+               Completed
+            */
+
+            if (
+                todayDate > end
+            ) {
+
+                return "completed";
+
+            }
+
+
+            /*
+               Active
+            */
+
+            return "active";
+
+        }
+
+
+
+        /* =========================================
            LOAD INTERNSHIP FOR EDIT
         ========================================== */
 
@@ -546,12 +653,14 @@ const backToPostsButton =
                 return;
 
             }
+
+
             if (backToPostsButton) {
 
-    backToPostsButton.style.display =
-        "inline-flex";
+                backToPostsButton.style.display =
+                    "inline-flex";
 
-}
+            }
 
 
             try {
@@ -574,7 +683,8 @@ const backToPostsButton =
                         description,
                         requirements,
                         start_date,
-                        end_date
+                        end_date,
+                        status
                     `)
                     .eq(
                         "id",
@@ -647,6 +757,7 @@ const backToPostsButton =
                     document.querySelector(
                         ".post-header h1"
                     );
+
 
                 const paragraph =
                     document.querySelector(
@@ -735,6 +846,17 @@ const backToPostsButton =
                 };
 
 
+                /* =========================================
+                   CALCULATE STATUS FROM DATES
+                ========================================== */
+
+                const internshipStatus =
+                    calculateInternshipStatus(
+                        internshipData.start_date,
+                        internshipData.end_date
+                    );
+
+
 
                 /* =========================
                    EDIT EXISTING INTERNSHIP
@@ -746,9 +868,14 @@ const backToPostsButton =
                         error
                     } = await db
                         .from("internships")
-                        .update(
-                            internshipData
-                        )
+                        .update({
+
+                            ...internshipData,
+
+                            status:
+                                internshipStatus
+
+                        })
                         .eq(
                             "id",
                             editId
@@ -781,7 +908,7 @@ const backToPostsButton =
 
 
 
-                /* =========================
+                /* =========================================
                    CREATE NEW INTERNSHIP
                 ========================================== */
 
@@ -797,7 +924,7 @@ const backToPostsButton =
                         ...internshipData,
 
                         status:
-                            "active"
+                            internshipStatus
 
                     });
 
@@ -807,6 +934,64 @@ const backToPostsButton =
                     throw error;
 
                 }
+
+
+
+                /* =========================================
+                   CREATE ACTIVITY LOG
+                ========================================== */
+
+                const {
+                    data: {
+                        user
+                    }
+                } = await db.auth.getUser();
+
+
+                if (user) {
+
+                    const companyName =
+                        company.name ||
+                        "Company";
+
+
+                    const internshipTitle =
+                        internshipData.title ||
+                        "New Internship";
+
+
+                    const {
+                        error: activityError
+                    } = await db
+                        .from("activity_logs")
+                        .insert({
+
+                            user_id:
+                                user.id,
+
+                            activity_type:
+                                "internship_posted",
+
+                            title:
+                                "Internship Posted",
+
+                            description:
+                                `${companyName} posted a new internship opportunity: ${internshipTitle}.`
+
+                        });
+
+
+                    if (activityError) {
+
+                        console.error(
+                            "Activity log error:",
+                            activityError
+                        );
+
+                    }
+
+                }
+
 
 
                 alert(
@@ -859,6 +1044,7 @@ const backToPostsButton =
         loadInternshipForEdit();
 
     </script>
+
 
 </body>
 

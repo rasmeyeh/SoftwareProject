@@ -43,11 +43,11 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                     <span>
-                        Internship Management System
+                        PathLink
                     </span>
 
                 </a>
@@ -391,7 +391,7 @@
         <footer class="home-footer">
 
             <p>
-                © 2026 Internship Management System
+                © 2026 PathLink
             </p>
 
         </footer>
@@ -403,7 +403,7 @@
 
     <!-- =========================================
          SUPABASE
-    ========================================== -->
+         ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -428,28 +428,48 @@
         // MESSAGE
         // =========================================
 
-        function showMessage(message, isError = false) {
+        function showMessage(
+            message,
+            isError = false
+        ) {
 
             const formMessage =
-                document.getElementById("formMessage");
+                document.getElementById(
+                    "formMessage"
+                );
 
-            formMessage.textContent = message;
 
-            formMessage.style.display = "block";
+            formMessage.textContent =
+                message;
 
-            formMessage.style.marginTop = "15px";
 
-            formMessage.style.padding = "10px";
+            formMessage.style.display =
+                "block";
 
-            formMessage.style.borderRadius = "6px";
+
+            formMessage.style.marginTop =
+                "15px";
+
+
+            formMessage.style.padding =
+                "10px";
+
+
+            formMessage.style.borderRadius =
+                "6px";
+
 
             if (isError) {
 
-                formMessage.style.color = "#b42318";
+                formMessage.style.color =
+                    "#b42318";
 
-            } else {
+            }
 
-                formMessage.style.color = "#216e39";
+            else {
+
+                formMessage.style.color =
+                    "#216e39";
 
             }
 
@@ -500,7 +520,9 @@
 
 
             const internshipId =
-                urlParams.get("internship_id");
+                urlParams.get(
+                    "internship_id"
+                );
 
 
             if (!internshipId) {
@@ -510,10 +532,12 @@
                 ).textContent =
                     "Internship not found";
 
+
                 document.getElementById(
                     "applicationForm"
                 ).style.display =
                     "none";
+
 
                 return;
 
@@ -539,8 +563,10 @@
                     company_id,
                     status
                 `)
-                .eq("id", internshipId)
-                .eq("status", "active")
+                .eq(
+                    "id",
+                    internshipId
+                )
                 .maybeSingle();
 
 
@@ -551,10 +577,12 @@
                     internshipError
                 );
 
+
                 showMessage(
                     "Unable to load this internship.",
                     true
                 );
+
 
                 return;
 
@@ -568,17 +596,54 @@
                 ).textContent =
                     "Internship not found";
 
+
                 document.getElementById(
                     "applicationForm"
                 ).style.display =
                     "none";
+
 
                 return;
 
             }
 
 
-            currentInternship = internship;
+
+            // =====================================
+            // CHECK COMPLETED INTERNSHIP
+            // =====================================
+
+            if (
+                internship.status ===
+                "completed"
+            ) {
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    "Internship Opportunity Ended";
+
+
+                document.getElementById(
+                    "applicationForm"
+                ).style.display =
+                    "none";
+
+
+                showMessage(
+                    "This internship opportunity has ended.",
+                    true
+                );
+
+
+                return;
+
+            }
+
+
+
+            currentInternship =
+                internship;
 
 
 
@@ -612,10 +677,12 @@
                     companyError
                 );
 
+
                 showMessage(
                     "Unable to load company information.",
                     true
                 );
+
 
                 return;
 
@@ -629,12 +696,14 @@
                     true
                 );
 
+
                 return;
 
             }
 
 
-            currentCompany = company;
+            currentCompany =
+                company;
 
 
 
@@ -680,14 +749,18 @@
                 companyLogo.src =
                     company.logo_url;
 
+
                 companyLogo.alt =
                     company.name +
                     " Logo";
 
+
                 companyLogo.style.display =
                     "block";
 
-            } else {
+            }
+
+            else {
 
                 companyLogo.style.display =
                     "none";
@@ -739,10 +812,12 @@
                     true
                 );
 
+
                 document.getElementById(
                     "applicationForm"
                 ).style.display =
                     "none";
+
 
                 return;
 
@@ -781,10 +856,12 @@
                     profileError
                 );
 
+
                 showMessage(
                     "Unable to load your profile.",
                     true
                 );
+
 
                 return;
 
@@ -798,6 +875,7 @@
                     true
                 );
 
+
                 return;
 
             }
@@ -808,17 +886,22 @@
             // ROLE
             // =====================================
 
-            if (profile.role !== "student") {
+            if (
+                profile.role !==
+                "student"
+            ) {
 
                 showMessage(
                     "Only students can submit internship applications.",
                     true
                 );
 
+
                 document.getElementById(
                     "applicationForm"
                 ).style.display =
                     "none";
+
 
                 return;
 
@@ -856,10 +939,12 @@
                     studentError
                 );
 
+
                 showMessage(
                     "Unable to load your student information.",
                     true
                 );
+
 
                 return;
 
@@ -872,6 +957,7 @@
                     "Your student profile could not be found.",
                     true
                 );
+
 
                 return;
 
@@ -890,7 +976,8 @@
             document.getElementById(
                 "fullName"
             ).value =
-                profile.full_name || "";
+                profile.full_name ||
+                "";
 
 
             document.getElementById(
@@ -903,13 +990,15 @@
             document.getElementById(
                 "major"
             ).value =
-                student.major || "";
+                student.major ||
+                "";
 
 
             document.getElementById(
                 "phone"
             ).value =
-                profile.phone || "";
+                profile.phone ||
+                "";
 
 
             document.getElementById(
@@ -944,7 +1033,9 @@
                 error
             } = await db
                 .from("applications")
-                .select("id,status")
+                .select(
+                    "id,status"
+                )
                 .eq(
                     "student_id",
                     currentUser.id
@@ -963,6 +1054,7 @@
                     error
                 );
 
+
                 return false;
 
             }
@@ -975,10 +1067,12 @@
                     true
                 );
 
+
                 document.getElementById(
                     "submitButton"
                 ).disabled =
                     true;
+
 
                 return true;
 
@@ -995,7 +1089,9 @@
         // UPLOAD CV
         // =========================================
 
-        async function uploadCV(file) {
+        async function uploadCV(
+            file
+        ) {
 
             if (!file) {
 
@@ -1076,6 +1172,7 @@
                     uploadError
                 );
 
+
                 throw new Error(
                     "Unable to upload your CV."
                 );
@@ -1103,7 +1200,9 @@
         // SUBMIT APPLICATION
         // =========================================
 
-        async function submitApplication(event) {
+        async function submitApplication(
+            event
+        ) {
 
             event.preventDefault();
 
@@ -1114,6 +1213,7 @@
                     "Please log in before submitting your application.",
                     true
                 );
+
 
                 return;
 
@@ -1127,6 +1227,7 @@
                     true
                 );
 
+
                 return;
 
             }
@@ -1138,6 +1239,28 @@
                     "Internship information is not available.",
                     true
                 );
+
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // EXTRA STATUS SAFETY CHECK
+            // =====================================
+
+            if (
+                currentInternship.status ===
+                "completed"
+            ) {
+
+                showMessage(
+                    "This internship opportunity has ended.",
+                    true
+                );
+
 
                 return;
 
@@ -1194,7 +1317,6 @@
                     : "";
 
 
-
             const cvFile =
                 document.getElementById(
                     "cv"
@@ -1218,6 +1340,7 @@
                     "Please fill in all required fields.",
                     true
                 );
+
 
                 return;
 
@@ -1302,13 +1425,16 @@
                             studentUpdateError
                         );
 
+
                         throw new Error(
                             "Your CV was uploaded, but your student profile could not be updated."
                         );
 
                     }
 
-                } else {
+                }
+
+                else {
 
                     const {
                         error: studentUpdateError
@@ -1330,6 +1456,7 @@
                             "Student update error:",
                             studentUpdateError
                         );
+
 
                         throw new Error(
                             "Unable to update your student information."
@@ -1365,6 +1492,7 @@
                         "Profile update error:",
                         profileUpdateError
                     );
+
 
                     throw new Error(
                         "Unable to update your profile information."
@@ -1426,6 +1554,7 @@
                         applicationError
                     );
 
+
                     throw new Error(
                         applicationError.message ||
                         "Unable to submit your application."
@@ -1438,6 +1567,42 @@
                     "Application saved:",
                     insertedApplication
                 );
+
+
+
+                // =================================
+                // ACTIVITY LOG
+                // =================================
+
+                const {
+                    error: activityError
+                } = await db
+                    .from("activity_logs")
+                    .insert({
+
+                        user_id:
+                            currentUser.id,
+
+                        activity_type:
+                            "application_submitted",
+
+                        title:
+                            "Application Submitted",
+
+                        description:
+                            "A student submitted an internship application."
+
+                    });
+
+
+                if (activityError) {
+
+                    console.error(
+                        "Activity log error:",
+                        activityError
+                    );
+
+                }
 
 
 
@@ -1474,7 +1639,9 @@
                 );
 
 
-            } catch (error) {
+            }
+
+            catch (error) {
 
                 console.error(
                     "Submit application error:",
@@ -1538,12 +1705,14 @@
         // FORM EVENT
         // =========================================
 
-        document.getElementById(
-            "applicationForm"
-        ).addEventListener(
-            "submit",
-            submitApplication
-        );
+        document
+            .getElementById(
+                "applicationForm"
+            )
+            .addEventListener(
+                "submit",
+                submitApplication
+            );
 
 
 

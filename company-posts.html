@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>My Posts - Internship Management System</title>
+    <title>My Posts - PathLink</title>
 
     <link
         rel="stylesheet"
@@ -44,11 +43,11 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                     <span>
-                        Internship Management System
+                        PathLink
                     </span>
 
                 </a>
@@ -197,7 +196,7 @@
         <footer class="home-footer">
 
             <p>
-                ©️ 2026 Internship Management System
+                ©️ 2026 PathLink
             </p>
 
         </footer>
@@ -436,6 +435,17 @@
                 internships.forEach(
                     internship => {
 
+
+                        /* =================================
+                           GET STATUS FROM DATABASE
+                        ================================= */
+
+                        const currentStatus =
+                            internship.status ||
+                            "active";
+
+
+
                         const card =
                             document.createElement("div");
 
@@ -471,8 +481,7 @@
 
                                     <span class="my-post-status">
                                         ${escapeHTML(
-                                            internship.status ||
-                                            "active"
+                                            currentStatus
                                         )}
                                     </span>
 
@@ -774,4 +783,3 @@
 </body>
 
 </html>
-

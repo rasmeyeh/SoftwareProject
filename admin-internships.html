@@ -12,7 +12,42 @@
 
     <title>Manage Internships</title>
 
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+
+    <style>
+
+        /* =========================================
+           NO FILTER RESULTS MESSAGE
+        ========================================== */
+
+        #noFilterResults {
+            grid-column: 1 / -1 !important;
+            display: block !important;
+            width: 100% !important;
+        }
+
+        #noFilterResults .admin-internship-info {
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+
+        #noFilterResults .admin-internship-info h3 {
+            white-space: normal !important;
+            display: block !important;
+            width: 100% !important;
+        }
+
+        #noFilterResults .admin-internship-info p {
+            white-space: normal !important;
+            display: block !important;
+            width: 100% !important;
+        }
+
+    </style>
 
 </head>
 
@@ -26,15 +61,18 @@
 
         <div class="nav-content">
 
-            <a href="admin-dashboard.html" class="brand">
+            <a
+                href="admin-dashboard.html"
+                class="brand"
+            >
 
                 <img
                     src="./images/logo.png"
-                    alt="Internship Management System"
+                    alt="PathLink Logo"
                 >
 
                 <span>
-                    Internship Management System
+                    PathLink
                 </span>
 
             </a>
@@ -46,11 +84,22 @@
                     Dashboard
                 </a>
 
+                <a
+                    href="admin-internships.html"
+                    class="active"
+                >
+                    Internships
+                </a>
+
                 <a href="admin-profile.html">
                     Profile
                 </a>
 
-                <a href="index.html">
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutButton"
+                >
                     Logout
                 </a>
 
@@ -66,9 +115,16 @@
 
     <main class="admin-internships-page">
 
-      <a href="admin-dashboard.html" class="admin-back">
+
+        <a
+            href="admin-dashboard.html"
+            class="admin-back"
+        >
             ← Back to Dashboard
         </a>
+
+
+
         <!-- ================= PAGE HEADER ================= -->
 
         <div class="admin-internships-header">
@@ -120,16 +176,16 @@
                         All Status
                     </option>
 
+                    <option value="upcoming">
+                        Upcoming
+                    </option>
+
                     <option value="active">
                         Active
                     </option>
 
-                    <option value="pending">
-                        Pending
-                    </option>
-
-                    <option value="closed">
-                        Closed
+                    <option value="completed">
+                        Completed
                     </option>
 
                 </select>
@@ -144,18 +200,6 @@
                         All Fields
                     </option>
 
-                    <option value="telecommunications">
-                        Telecommunications & IT
-                    </option>
-
-                    <option value="networking">
-                        Networking
-                    </option>
-
-                    <option value="electronics">
-                        Electronics
-                    </option>
-
                 </select>
 
 
@@ -166,26 +210,6 @@
 
                     <option value="all">
                         All Cities
-                    </option>
-
-                    <option value="ramallah">
-                        Ramallah
-                    </option>
-
-                    <option value="nablus">
-                        Nablus
-                    </option>
-
-                    <option value="hebron">
-                        Hebron
-                    </option>
-
-                    <option value="bethlehem">
-                        Bethlehem
-                    </option>
-
-                    <option value="jerusalem">
-                        Jerusalem
                     </option>
 
                 </select>
@@ -201,319 +225,37 @@
                 id="internshipList"
             >
 
-
-                <!-- Internship 1 -->
-
-                <div
-                    class="admin-internship-item"
-                    data-status="active"
-                    data-field="telecommunications"
-                    data-city="ramallah"
-                >
-
-                    <div class="admin-internship-icon">
-                        💼
-                    </div>
-
+                <div class="admin-internship-item">
 
                     <div class="admin-internship-info">
 
                         <h3>
-                            IT Support Intern
+                            Loading internships...
                         </h3>
 
                         <p>
-                            Ooredoo Palestine
+                            Please wait
                         </p>
-
-                        <div class="admin-internship-meta">
-
-                            <span>
-                                Telecommunications & IT
-                            </span>
-
-                            <span>
-                                Ramallah
-                            </span>
-
-                            <span>
-                                Aug 1 – Oct 1, 2026
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-internship-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-internship-actions">
-
-                        <a
-                            href="#"
-                            class="admin-internship-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-internship-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            class="admin-internship-delete"
-                            onclick="deleteInternship(this)"
-                        >
-                            Delete
-                        </button>
 
                     </div>
 
                 </div>
-
-
-
-                <!-- Internship 2 -->
-
-                <div
-                    class="admin-internship-item"
-                    data-status="active"
-                    data-field="networking"
-                    data-city="ramallah"
-                >
-
-                    <div class="admin-internship-icon">
-                        🌐
-                    </div>
-
-
-                    <div class="admin-internship-info">
-
-                        <h3>
-                            Network Intern
-                        </h3>
-
-                        <p>
-                            Network Pro
-                        </p>
-
-                        <div class="admin-internship-meta">
-
-                            <span>
-                                Networking
-                            </span>
-
-                            <span>
-                                Ramallah
-                            </span>
-
-                            <span>
-                                Aug 10 – Oct 10, 2026
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-internship-status active">
-                        Active
-                    </div>
-
-
-                    <div class="admin-internship-actions">
-
-                        <a
-                            href="#"
-                            class="admin-internship-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-internship-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            class="admin-internship-delete"
-                            onclick="deleteInternship(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Internship 3 -->
-
-                <div
-                    class="admin-internship-item"
-                    data-status="pending"
-                    data-field="telecommunications"
-                    data-city="ramallah"
-                >
-
-                    <div class="admin-internship-icon">
-                        📡
-                    </div>
-
-
-                    <div class="admin-internship-info">
-
-                        <h3>
-                            Telecommunications Intern
-                        </h3>
-
-                        <p>
-                            Jawwal
-                        </p>
-
-                        <div class="admin-internship-meta">
-
-                            <span>
-                                Telecommunications & IT
-                            </span>
-
-                            <span>
-                                Ramallah
-                            </span>
-
-                            <span>
-                                Aug 5 – Oct 5, 2026
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-internship-status pending">
-                        Pending
-                    </div>
-
-
-                    <div class="admin-internship-actions">
-
-                        <a
-                            href="#"
-                            class="admin-internship-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-internship-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            class="admin-internship-delete"
-                            onclick="deleteInternship(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Internship 4 -->
-
-                <div
-                    class="admin-internship-item"
-                    data-status="closed"
-                    data-field="electronics"
-                    data-city="bethlehem"
-                >
-
-                    <div class="admin-internship-icon">
-                        ⚡
-                    </div>
-
-
-                    <div class="admin-internship-info">
-
-                        <h3>
-                            Electronics Engineering Intern
-                        </h3>
-
-                        <p>
-                            Electronics Hub
-                        </p>
-
-                        <div class="admin-internship-meta">
-
-                            <span>
-                                Electronics
-                            </span>
-
-                            <span>
-                                Bethlehem
-                            </span>
-
-                            <span>
-                                Jun 1 – Aug 1, 2026
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-internship-status closed">
-                        Closed
-                    </div>
-
-
-                    <div class="admin-internship-actions">
-
-                        <a
-                            href="#"
-                            class="admin-internship-view"
-                        >
-                            View
-                        </a>
-
-                        <a
-                            href="#"
-                            class="admin-internship-edit"
-                        >
-                            Edit
-                        </a>
-
-                        <button
-                            class="admin-internship-delete"
-                            onclick="deleteInternship(this)"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
 
             </div>
 
+
         </section>
 
+
     </main>
+
+
+
+    <!-- ================= SUPABASE ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
 
 
 
@@ -521,87 +263,1285 @@
 
     <script>
 
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
         const searchInput =
-            document.getElementById("internshipSearch");
+            document.getElementById(
+                "internshipSearch"
+            );
+
 
         const statusFilter =
-            document.getElementById("internshipStatus");
+            document.getElementById(
+                "internshipStatus"
+            );
+
 
         const fieldFilter =
-            document.getElementById("internshipField");
+            document.getElementById(
+                "internshipField"
+            );
+
 
         const cityFilter =
-            document.getElementById("internshipCity");
+            document.getElementById(
+                "internshipCity"
+            );
 
-        const internships =
-            document.querySelectorAll(".admin-internship-item");
 
+        const internshipList =
+            document.getElementById(
+                "internshipList"
+            );
+
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+
+
+        /* =========================================
+           STORE INTERNSHIPS
+        ========================================= */
+
+        let internshipItems = [];
+
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================= */
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        /* =========================================
+           FORMAT DATE
+        ========================================= */
+
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+
+                return "Date not specified";
+
+            }
+
+
+            const date =
+                new Date(
+                    dateValue + "T00:00:00"
+                );
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "Date not specified";
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-US",
+                {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           GET INTERNSHIP STATUS
+        ========================================= */
+
+        function getInternshipStatus(
+            startDate,
+            endDate
+        ) {
+
+            if (
+                !startDate ||
+                !endDate
+            ) {
+
+                return "active";
+
+            }
+
+
+            const today =
+                new Date();
+
+
+            today.setHours(
+                0,
+                0,
+                0,
+                0
+            );
+
+
+            const start =
+                new Date(
+                    startDate + "T00:00:00"
+                );
+
+
+            const end =
+                new Date(
+                    endDate + "T00:00:00"
+                );
+
+
+            if (
+                today < start
+            ) {
+
+                return "upcoming";
+
+            }
+
+
+            if (
+                today > end
+            ) {
+
+                return "completed";
+
+            }
+
+
+            return "active";
+
+        }
+
+
+
+        /* =========================================
+           STATUS TEXT
+        ========================================= */
+
+        function getStatusText(
+            status
+        ) {
+
+            if (
+                status === "upcoming"
+            ) {
+
+                return "Upcoming";
+
+            }
+
+
+            if (
+                status === "completed"
+            ) {
+
+                return "Completed";
+
+            }
+
+
+            return "Active";
+
+        }
+
+
+
+        /* =========================================
+           LOAD FILTER OPTIONS
+        ========================================= */
+
+        function loadFilterOptions() {
+
+
+            /* =====================================
+               FIELDS
+            ===================================== */
+
+            const fields =
+                [
+                    ...new Set(
+                        internshipItems
+                            .map(
+                                internship =>
+                                    internship.field
+                            )
+                            .filter(Boolean)
+                    )
+                ]
+                .sort(
+                    (a, b) =>
+                        a.localeCompare(b)
+                );
+
+
+            fieldFilter.innerHTML = `
+
+                <option value="all">
+                    All Fields
+                </option>
+
+            `;
+
+
+            fields.forEach(
+                function (field) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        field;
+
+                    option.textContent =
+                        field;
+
+                    fieldFilter.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+
+            /* =====================================
+               CITIES
+            ===================================== */
+
+            const cities =
+                [
+                    ...new Set(
+                        internshipItems
+                            .map(
+                                internship =>
+                                    internship.city
+                            )
+                            .filter(Boolean)
+                    )
+                ]
+                .sort(
+                    (a, b) =>
+                        a.localeCompare(b)
+                );
+
+
+            cityFilter.innerHTML = `
+
+                <option value="all">
+                    All Cities
+                </option>
+
+            `;
+
+
+            cities.forEach(
+                function (city) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        city;
+
+                    option.textContent =
+                        city;
+
+                    cityFilter.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================
+           LOAD INTERNSHIPS
+        ========================================= */
+
+        async function loadInternships() {
+
+            try {
+
+
+                /* =====================================
+                   CHECK LOGIN
+                ===================================== */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: userError
+                } = await db.auth.getUser();
+
+
+                if (
+                    userError ||
+                    !user
+                ) {
+
+                    alert(
+                        "Please login first."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   CHECK ADMIN
+                ===================================== */
+
+                const {
+                    data: adminProfile,
+                    error: adminError
+                } = await db
+
+                    .from("profiles")
+
+                    .select(
+                        "id, role"
+                    )
+
+                    .eq(
+                        "id",
+                        user.id
+                    )
+
+                    .maybeSingle();
+
+
+                if (
+                    adminError ||
+                    !adminProfile ||
+                    adminProfile.role !== "admin"
+                ) {
+
+                    alert(
+                        "Access denied."
+                    );
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   GET INTERNSHIPS
+                ===================================== */
+
+                const {
+                    data: internships,
+                    error: internshipsError
+                } = await db
+
+                    .from("internships")
+
+                    .select(`
+                        id,
+                        company_id,
+                        title,
+                        field,
+                        city,
+                        description,
+                        requirements,
+                        start_date,
+                        end_date,
+                        status,
+                        created_at,
+                        working_hours
+                    `)
+
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+                if (
+                    internshipsError
+                ) {
+
+                    console.error(
+                        "Internships loading error:",
+                        internshipsError
+                    );
+
+
+                    showMessage(
+                        "Unable to load internships",
+                        "Please try again."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   NO INTERNSHIPS
+                ===================================== */
+
+                if (
+                    !internships ||
+                    internships.length === 0
+                ) {
+
+                    internshipItems = [];
+
+                    loadFilterOptions();
+
+
+                    showMessage(
+                        "No internships found",
+                        "No internship opportunities have been posted yet."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   GET COMPANY IDS
+                ===================================== */
+
+                const companyIds =
+                    [
+                        ...new Set(
+                            internships
+                                .map(
+                                    internship =>
+                                        internship.company_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+
+                /* =====================================
+                   GET COMPANIES
+                ===================================== */
+
+                let companies = [];
+
+
+                if (
+                    companyIds.length > 0
+                ) {
+
+                    const {
+                        data,
+                        error: companiesError
+                    } = await db
+
+                        .from("companies")
+
+                        .select(`
+                            id,
+                            name,
+                            city,
+                            field,
+                            logo_url
+                        `)
+
+                        .in(
+                            "id",
+                            companyIds
+                        );
+
+
+                    if (
+                        companiesError
+                    ) {
+
+                        console.error(
+                            "Companies loading error:",
+                            companiesError
+                        );
+
+                    }
+
+
+                    companies =
+                        data || [];
+
+                }
+
+
+
+                /* =====================================
+                   CREATE COMPANY MAP
+                ===================================== */
+
+                const companyMap =
+                    new Map();
+
+
+                companies.forEach(
+                    function (company) {
+
+                        companyMap.set(
+                            company.id,
+                            company
+                        );
+
+                    }
+                );
+
+
+
+                /* =====================================
+                   PREPARE DATA
+                ===================================== */
+
+                internshipItems =
+                    internships.map(
+                        function (internship) {
+
+                            const company =
+                                companyMap.get(
+                                    internship.company_id
+                                );
+
+
+                            const status =
+                                getInternshipStatus(
+                                    internship.start_date,
+                                    internship.end_date
+                                );
+
+
+                            return {
+
+                                ...internship,
+
+                                company:
+                                    company || null,
+
+                                displayStatus:
+                                    status
+
+                            };
+
+                        }
+                    );
+
+
+
+                /* =====================================
+                   FILTER OPTIONS
+                ===================================== */
+
+                loadFilterOptions();
+
+
+
+                /* =====================================
+                   DISPLAY
+                ===================================== */
+
+                renderInternships();
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unexpected internships error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Unable to load internships",
+                    "An unexpected error occurred."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SHOW MESSAGE
+        ========================================= */
+
+        function showMessage(
+            title,
+            message
+        ) {
+
+            internshipList.innerHTML = `
+
+                <div class="admin-internship-item">
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            ${escapeHtml(title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(message)}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        /* =========================================
+           RENDER INTERNSHIPS
+        ========================================= */
+
+        function renderInternships() {
+
+
+            internshipList.innerHTML = "";
+
+
+            if (
+                internshipItems.length === 0
+            ) {
+
+                showMessage(
+                    "No internships found",
+                    "No internship opportunities are available."
+                );
+
+                return;
+
+            }
+
+
+
+            internshipItems.forEach(
+                function (internship) {
+
+
+                    const company =
+                        internship.company;
+
+
+                    const companyName =
+                        company?.name ||
+                        "Unknown Company";
+
+
+                    const field =
+                        internship.field ||
+                        company?.field ||
+                        "Not specified";
+
+
+                    const city =
+                        internship.city ||
+                        company?.city ||
+                        "Not specified";
+
+
+                    const status =
+                        internship.displayStatus;
+
+
+                    const statusText =
+                        getStatusText(
+                            status
+                        );
+
+
+                    const startDate =
+                        formatDate(
+                            internship.start_date
+                        );
+
+
+                    const endDate =
+                        formatDate(
+                            internship.end_date
+                        );
+
+
+
+                    /* =====================================
+                       CREATE ITEM
+                    ===================================== */
+
+                    const internshipItem =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    internshipItem.className =
+                        "admin-internship-item";
+
+
+                    internshipItem.dataset.status =
+                        status;
+
+
+                    internshipItem.dataset.field =
+                        field;
+
+
+                    internshipItem.dataset.city =
+                        city;
+
+
+                    internshipItem.dataset.id =
+                        internship.id;
+
+
+
+                    /* =====================================
+                       COMPANY INITIAL
+                    ===================================== */
+
+                    const companyInitial =
+                        companyName
+                            .charAt(0)
+                            .toUpperCase() ||
+                        "I";
+
+
+
+                    internshipItem.innerHTML = `
+
+                        <div class="admin-internship-icon">
+                            ${escapeHtml(companyInitial)}
+                        </div>
+
+
+                        <div class="admin-internship-info">
+
+                            <h3>
+                                ${escapeHtml(
+                                    internship.title ||
+                                    "Untitled Internship"
+                                )}
+                            </h3>
+
+                            <p>
+                                ${escapeHtml(
+                                    companyName
+                                )}
+                            </p>
+
+
+                            <div class="admin-internship-meta">
+
+                                <span>
+                                    ${escapeHtml(
+                                        field
+                                    )}
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        city
+                                    )}
+                                </span>
+
+                                <span>
+                                    ${escapeHtml(
+                                        startDate
+                                    )}
+                                    –
+                                    ${escapeHtml(
+                                        endDate
+                                    )}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="admin-internship-status ${status}">
+                            ${statusText}
+                        </div>
+
+
+                        <div class="admin-internship-actions">
+
+                            <button
+                                type="button"
+                                class="admin-internship-delete"
+                                onclick="deleteInternship(
+                                    this,
+                                    '${escapeHtml(
+                                        internship.id
+                                    )}'
+                                )"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    internshipList.appendChild(
+                        internshipItem
+                    );
+
+                }
+            );
+
+
+            filterInternships();
+
+        }
+
+
+
+        /* =========================================
+           FILTER INTERNSHIPS
+        ========================================= */
 
         function filterInternships() {
 
             const searchValue =
-                searchInput.value.toLowerCase();
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
 
             const selectedStatus =
                 statusFilter.value;
 
+
             const selectedField =
                 fieldFilter.value;
+
 
             const selectedCity =
                 cityFilter.value;
 
 
-            internships.forEach(function (internship) {
-
-                const text =
-                    internship.textContent.toLowerCase();
-
-                const status =
-                    internship.dataset.status;
-
-                const field =
-                    internship.dataset.field;
-
-                const city =
-                    internship.dataset.city;
+            const items =
+                document.querySelectorAll(
+                    ".admin-internship-item"
+                );
 
 
-                const matchesSearch =
-                    text.includes(searchValue);
-
-                const matchesStatus =
-                    selectedStatus === "all" ||
-                    status === selectedStatus;
-
-                const matchesField =
-                    selectedField === "all" ||
-                    field === selectedField;
-
-                const matchesCity =
-                    selectedCity === "all" ||
-                    city === selectedCity;
+            let visibleCount = 0;
 
 
-                if (
-                    matchesSearch &&
-                    matchesStatus &&
-                    matchesField &&
-                    matchesCity
-                ) {
+            items.forEach(
+                function (internship) {
 
-                    internship.style.display = "grid";
 
-                } else {
+                    /*
+                       Ignore the "No matching internships"
+                       message while filtering.
+                    */
 
-                    internship.style.display = "none";
+                    if (
+                        internship.id ===
+                        "noFilterResults"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const text =
+                        internship.textContent
+                            .toLowerCase();
+
+
+                    const status =
+                        internship.dataset.status;
+
+
+                    const field =
+                        internship.dataset.field;
+
+
+                    const city =
+                        internship.dataset.city;
+
+
+
+                    /* =====================================
+                       SEARCH
+                    ===================================== */
+
+                    const matchesSearch =
+                        text.includes(
+                            searchValue
+                        );
+
+
+
+                    /* =====================================
+                       STATUS
+                    ===================================== */
+
+                    const matchesStatus =
+                        selectedStatus === "all" ||
+                        status === selectedStatus;
+
+
+
+                    /* =====================================
+                       FIELD
+                    ===================================== */
+
+                    const matchesField =
+                        selectedField === "all" ||
+                        field === selectedField;
+
+
+
+                    /* =====================================
+                       CITY
+                    ===================================== */
+
+                    const matchesCity =
+                        selectedCity === "all" ||
+                        city === selectedCity;
+
+
+
+                    /* =====================================
+                       DISPLAY
+                    ===================================== */
+
+                    if (
+                        matchesSearch &&
+                        matchesStatus &&
+                        matchesField &&
+                        matchesCity
+                    ) {
+
+                        internship.style.display =
+                            "grid";
+
+                        visibleCount++;
+
+                    }
+
+                    else {
+
+                        internship.style.display =
+                            "none";
+
+                    }
 
                 }
+            );
 
-            });
+
+
+            /* =====================================
+               REMOVE OLD MESSAGE
+            ===================================== */
+
+            const existingMessage =
+                document.getElementById(
+                    "noFilterResults"
+                );
+
+
+            if (
+                existingMessage
+            ) {
+
+                existingMessage.remove();
+
+            }
+
+
+
+            /* =====================================
+               SHOW NO RESULTS MESSAGE
+            ===================================== */
+
+            if (
+                visibleCount === 0 &&
+                internshipItems.length > 0
+            ) {
+
+                const message =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                message.id =
+                    "noFilterResults";
+
+
+                message.className =
+                    "admin-internship-item";
+
+
+                message.innerHTML = `
+
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            No matching internships
+                        </h3>
+
+                        <p>
+                            Try changing the search or filters.
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                internshipList.appendChild(
+                    message
+                );
+
+            }
 
         }
 
+
+
+        /* =========================================
+           DELETE INTERNSHIP
+        ========================================= */
+
+        async function deleteInternship(
+            button,
+            internshipId
+        ) {
+
+
+            const internshipItem =
+                button.closest(
+                    ".admin-internship-item"
+                );
+
+
+            if (
+                !internshipItem
+            ) {
+
+                return;
+
+            }
+
+
+
+            const title =
+                internshipItem
+                    .querySelector(
+                        ".admin-internship-info h3"
+                    )
+                    ?.textContent
+                    ?.trim() ||
+                "this internship";
+
+
+
+            /* =====================================
+               CONFIRM
+            ===================================== */
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete " +
+                    title +
+                    "?"
+                );
+
+
+            if (
+                !confirmed
+            ) {
+
+                return;
+
+            }
+
+
+
+            try {
+
+
+                /* =====================================
+                   DELETE FROM DATABASE
+                ===================================== */
+
+                const {
+                    error
+                } = await db
+
+                    .from("internships")
+
+                    .delete()
+
+                    .eq(
+                        "id",
+                        internshipId
+                    );
+
+
+                if (
+                    error
+                ) {
+
+                    console.error(
+                        "Delete internship error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Unable to delete this internship."
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =====================================
+                   REMOVE FROM LOCAL DATA
+                ===================================== */
+
+                internshipItems =
+                    internshipItems.filter(
+                        internship =>
+                            internship.id !==
+                            internshipId
+                    );
+
+
+                loadFilterOptions();
+
+
+                internshipItem.remove();
+
+
+                filterInternships();
+
+
+                alert(
+                    "Internship deleted successfully."
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unexpected delete error:",
+                    error
+                );
+
+
+                alert(
+                    "An error occurred while deleting the internship."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SEARCH EVENT
+        ========================================= */
 
         searchInput.addEventListener(
             "input",
@@ -609,17 +1549,32 @@
         );
 
 
+
+        /* =========================================
+           STATUS EVENT
+        ========================================= */
+
         statusFilter.addEventListener(
             "change",
             filterInternships
         );
 
 
+
+        /* =========================================
+           FIELD EVENT
+        ========================================= */
+
         fieldFilter.addEventListener(
             "change",
             filterInternships
         );
 
+
+
+        /* =========================================
+           CITY EVENT
+        ========================================= */
 
         cityFilter.addEventListener(
             "change",
@@ -628,23 +1583,55 @@
 
 
 
-        function deleteInternship(button) {
+        /* =========================================
+           LOGOUT
+        ========================================= */
 
-            const confirmed =
-                confirm(
-                    "Are you sure you want to delete this internship?"
+        logoutButton.addEventListener(
+            "click",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                try {
+
+                    await db.auth.signOut();
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                }
+
+
+                localStorage.removeItem(
+                    "username"
+                );
+
+                localStorage.removeItem(
+                    "role"
                 );
 
 
-            if (confirmed) {
-
-                button
-                    .closest(".admin-internship-item")
-                    .remove();
+                window.location.href =
+                    "index.html";
 
             }
+        );
 
-        }
+
+
+        /* =========================================
+           START
+        ========================================= */
+
+        loadInternships();
 
     </script>
 

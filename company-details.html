@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Company Details - Internship Management System</title>
+    <title>Company Details - PathLink</title>
 
     <link
         rel="stylesheet"
@@ -43,11 +43,11 @@
 
                     <img
                         src="./images/logo.png"
-                        alt="Internship Management System Logo"
+                        alt="PathLink Logo"
                     >
 
                     <span>
-                        Internship Management System
+                        PathLink
                     </span>
 
                 </a>
@@ -145,6 +145,7 @@
                     >
                         📍 Loading...
                     </p>
+
 
                     <!-- Company Website -->
 
@@ -377,7 +378,10 @@
                     </a>
 
 
-                    <p class="apply-note">
+                    <p
+                        class="apply-note"
+                        id="applyNote"
+                    >
 
                         You can review your application
                         status from My Applications.
@@ -401,7 +405,7 @@
         <footer class="home-footer">
 
             <p>
-                © 2026 Internship Management System
+                © 2026 PathLink
             </p>
 
         </footer>
@@ -437,18 +441,22 @@
                     window.location.search
                 );
 
+
             const companyId =
                 urlParams.get("id");
 
 
             if (!companyId) {
 
-                document.getElementById("companyName")
-                    .textContent =
+                document.getElementById(
+                    "companyName"
+                ).textContent =
                     "Company not found";
 
                 return;
+
             }
+
 
 
             // =====================================
@@ -459,7 +467,9 @@
                 data: company,
                 error: companyError
             } = await db
+
                 .from("companies")
+
                 .select(`
                     id,
                     name,
@@ -469,8 +479,14 @@
                     logo_url,
                     description
                 `)
-                .eq("id", companyId)
+
+                .eq(
+                    "id",
+                    companyId
+                )
+
                 .maybeSingle();
+
 
 
             if (companyError) {
@@ -480,49 +496,66 @@
                     companyError
                 );
 
-                document.getElementById("companyName")
-                    .textContent =
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
                     "Unable to load company";
 
                 return;
+
             }
+
 
 
             if (!company) {
 
-                document.getElementById("companyName")
-                    .textContent =
+                document.getElementById(
+                    "companyName"
+                ).textContent =
                     "Company not found";
 
                 return;
+
             }
+
 
 
             // =====================================
             // DISPLAY COMPANY
             // =====================================
 
-            document.getElementById("companyName")
-                .textContent =
-                company.name || "Company";
+            document.getElementById(
+                "companyName"
+            ).textContent =
+                company.name ||
+                "Company";
 
 
-            document.getElementById("companyField")
-                .textContent =
-                company.field || "Technology";
+            document.getElementById(
+                "companyField"
+            ).textContent =
+                company.field ||
+                "Technology";
 
 
-            document.getElementById("companyLocation")
-                .textContent =
+            document.getElementById(
+                "companyLocation"
+            ).textContent =
                 "📍 " +
-                (company.city || "Palestine") +
+                (
+                    company.city ||
+                    "Palestine"
+                ) +
                 ", Palestine";
 
 
-            document.getElementById("companyDescription")
-                .textContent =
+            document.getElementById(
+                "companyDescription"
+            ).textContent =
                 company.description ||
                 "No company description available.";
+
 
 
             // =====================================
@@ -541,15 +574,19 @@
                     company.website.trim();
 
 
-                // Add https:// if it is missing
-
                 if (
-                    !websiteUrl.startsWith("http://") &&
-                    !websiteUrl.startsWith("https://")
+                    !websiteUrl.startsWith(
+                        "http://"
+                    ) &&
+                    !websiteUrl.startsWith(
+                        "https://"
+                    )
                 ) {
 
                     websiteUrl =
-                        "https://" + websiteUrl;
+                        "https://" +
+                        websiteUrl;
+
                 }
 
 
@@ -564,11 +601,15 @@
                 companyWebsite.style.display =
                     "inline-block";
 
-            } else {
+            }
+
+            else {
 
                 companyWebsite.style.display =
                     "none";
+
             }
+
 
 
             // =====================================
@@ -586,28 +627,50 @@
                 companyLogo.src =
                     company.logo_url;
 
+
                 companyLogo.alt =
-                    company.name + " Logo";
+                    company.name +
+                    " Logo";
+
 
                 companyLogo.style.display =
                     "block";
 
-            } else {
+            }
+
+            else {
 
                 companyLogo.style.display =
                     "none";
+
             }
 
 
+
             // =====================================
-            // LOAD INTERNSHIPS
+            // LOAD ALL INTERNSHIPS
             // =====================================
+
+            /*
+                IMPORTANT:
+
+                We intentionally DO NOT filter
+                internships by status.
+
+                All opportunities are displayed:
+
+                - upcoming
+                - active
+                - completed
+            */
 
             const {
                 data: internships,
                 error: internshipError
             } = await db
+
                 .from("internships")
+
                 .select(`
                     id,
                     title,
@@ -621,11 +684,19 @@
                     status,
                     created_at
                 `)
-                .eq("company_id", company.id)
-                .eq("status", "active")
-                .order("created_at", {
-                    ascending: true
-                });
+
+                .eq(
+                    "company_id",
+                    company.id
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
+                );
+
 
 
             // =====================================
@@ -639,6 +710,7 @@
                     internshipError
                 );
 
+
                 document.getElementById(
                     "availablePositions"
                 ).innerHTML = `
@@ -648,7 +720,9 @@
                 `;
 
                 return;
+
             }
+
 
 
             // =====================================
@@ -661,7 +735,9 @@
                 );
 
 
-            positionsList.innerHTML = "";
+            positionsList.innerHTML =
+                "";
+
 
 
             // =====================================
@@ -674,14 +750,18 @@
             ) {
 
                 const li =
-                    document.createElement("li");
+                    document.createElement(
+                        "li"
+                    );
 
 
                 li.textContent =
                     "No internship opportunities are currently available.";
 
 
-                positionsList.appendChild(li);
+                positionsList.appendChild(
+                    li
+                );
 
 
                 document.getElementById(
@@ -737,11 +817,14 @@
                     );
 
 
-                requirementsList.innerHTML = "";
+                requirementsList.innerHTML =
+                    "";
 
 
                 const requirement =
-                    document.createElement("li");
+                    document.createElement(
+                        "li"
+                    );
 
 
                 requirement.textContent =
@@ -759,24 +842,48 @@
                     "none";
 
 
+                document.getElementById(
+                    "applyNote"
+                ).textContent =
+                    "No internship opportunities are currently available.";
+
+
                 return;
+
             }
+
 
 
             // =====================================
             // FORMAT DATE
             // =====================================
 
-            function formatDate(dateValue) {
+            function formatDate(
+                dateValue
+            ) {
 
                 if (!dateValue) {
 
                     return "Not specified";
+
                 }
 
 
                 const date =
-                    new Date(dateValue);
+                    new Date(
+                        `${dateValue}T00:00:00`
+                    );
+
+
+                if (
+                    Number.isNaN(
+                        date.getTime()
+                    )
+                ) {
+
+                    return dateValue;
+
+                }
 
 
                 return date.toLocaleDateString(
@@ -787,21 +894,22 @@
                         year: "numeric"
                     }
                 );
+
             }
 
 
+
             // =====================================
-            // DISPLAY ONE INTERNSHIP
+            // DISPLAY SELECTED INTERNSHIP
             // =====================================
 
-            function displayInternship(
+            async function displayInternship(
                 internship
             ) {
 
 
                 // =================================
                 // FIELD
-                // Changes for each internship
                 // =================================
 
                 document.getElementById(
@@ -813,9 +921,9 @@
                     "Not specified";
 
 
+
                 // =================================
                 // LOCATION
-                // Fixed for this company
                 // =================================
 
                 document.getElementById(
@@ -823,15 +931,16 @@
                 ).textContent =
 
                     (
+                        internship.city ||
                         company.city ||
                         "Palestine"
                     ) +
                     ", Palestine";
 
 
+
                 // =================================
                 // START DATE
-                // Fixed for this company
                 // =================================
 
                 document.getElementById(
@@ -839,13 +948,13 @@
                 ).textContent =
 
                     formatDate(
-                        internships[0].start_date
+                        internship.start_date
                     );
+
 
 
                 // =================================
                 // END DATE
-                // Fixed for this company
                 // =================================
 
                 document.getElementById(
@@ -853,13 +962,13 @@
                 ).textContent =
 
                     formatDate(
-                        internships[0].end_date
+                        internship.end_date
                     );
+
 
 
                 // =================================
                 // DURATION
-                // Fixed for this company
                 // =================================
 
                 document.getElementById(
@@ -868,22 +977,22 @@
                     "8 Weeks";
 
 
+
                 // =================================
                 // WORKING HOURS
-                // Fixed for this company
                 // =================================
 
                 document.getElementById(
                     "infoWorkingHours"
                 ).textContent =
 
-                    internships[0].working_hours ||
+                    internship.working_hours ||
                     "Not specified";
+
 
 
                 // =================================
                 // REQUIREMENTS
-                // Changes for each internship
                 // =================================
 
                 const requirementsList =
@@ -892,19 +1001,24 @@
                     );
 
 
-                requirementsList.innerHTML = "";
+                requirementsList.innerHTML =
+                    "";
 
 
-                if (internship.requirements) {
+                if (
+                    internship.requirements
+                ) {
 
                     const requirements =
                         internship.requirements
                             .split("\n")
                             .map(
-                                item => item.trim()
+                                item =>
+                                    item.trim()
                             )
                             .filter(
-                                item => item !== ""
+                                item =>
+                                    item !== ""
                             );
 
 
@@ -922,12 +1036,16 @@
 
 
                             requirementsList
-                                .appendChild(li);
+                                .appendChild(
+                                    li
+                                );
 
                         }
                     );
 
-                } else {
+                }
+
+                else {
 
                     const li =
                         document.createElement(
@@ -940,13 +1058,16 @@
 
 
                     requirementsList
-                        .appendChild(li);
+                        .appendChild(
+                            li
+                        );
+
                 }
+
 
 
                 // =================================
                 // DESCRIPTION
-                // Changes for each internship
                 // =================================
 
                 document.getElementById(
@@ -957,10 +1078,9 @@
                     "No internship description available.";
 
 
+
                 // =================================
                 // APPLY BUTTON
-                // Changes according to selected
-                // internship
                 // =================================
 
                 const applyButton =
@@ -968,6 +1088,130 @@
                         "applyButton"
                     );
 
+
+                const applyNote =
+                    document.getElementById(
+                        "applyNote"
+                    );
+
+
+
+                // =================================
+                // COMPLETED INTERNSHIP
+                // =================================
+
+                if (
+                    internship.status ===
+                    "completed"
+                ) {
+
+                    applyButton.style.display =
+                        "none";
+
+
+                    applyButton.removeAttribute(
+                        "href"
+                    );
+
+
+                    applyNote.textContent =
+                        "This internship opportunity has ended.";
+
+
+                    return;
+
+                }
+
+
+
+                // =================================
+                // CHECK IF STUDENT ALREADY APPLIED
+                // =================================
+
+                try {
+
+                    const {
+                        data: {
+                            user
+                        }
+                    } = await db.auth.getUser();
+
+
+                    if (user) {
+
+                        const {
+                            data: studentApplication,
+                            error: applicationError
+                        } = await db
+
+                            .from("applications")
+
+                            .select("id")
+
+                            .eq(
+                                "student_id",
+                                user.id
+                            )
+
+                            .eq(
+                                "internship_id",
+                                internship.id
+                            )
+
+                            .maybeSingle();
+
+
+                        if (
+                            applicationError
+                        ) {
+
+                            console.error(
+                                "Application check error:",
+                                applicationError
+                            );
+
+                        }
+
+
+                        if (
+                            studentApplication
+                        ) {
+
+                            applyButton.style.display =
+                                "none";
+
+
+                            applyButton.removeAttribute(
+                                "href"
+                            );
+
+
+                            applyNote.textContent =
+                                "You can review your application status from My Applications.";
+
+
+                            return;
+
+                        }
+
+                    }
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Application check error:",
+                        error
+                    );
+
+                }
+
+
+
+                // =================================
+                // UPCOMING / ACTIVE
+                // =================================
 
                 applyButton.href =
                     "apply.html?internship_id=" +
@@ -979,7 +1223,12 @@
                 applyButton.style.display =
                     "flex";
 
+
+                applyNote.textContent =
+                    "You can review your application status from My Applications.";
+
             }
+
 
 
             // =====================================
@@ -987,7 +1236,7 @@
             // =====================================
 
             internships.forEach(
-                (internship) => {
+                function (internship) {
 
                     const li =
                         document.createElement(
@@ -998,6 +1247,10 @@
                     li.textContent =
                         internship.title ||
                         "Internship Opportunity";
+
+
+                    li.style.cursor =
+                        "pointer";
 
 
                     li.addEventListener(
@@ -1012,10 +1265,13 @@
                     );
 
 
-                    positionsList.appendChild(li);
+                    positionsList.appendChild(
+                        li
+                    );
 
                 }
             );
+
 
 
             // =====================================
@@ -1029,6 +1285,7 @@
         }
 
 
+
         // =========================================
         // START
         // =========================================
@@ -1036,6 +1293,7 @@
         loadCompany();
 
     </script>
+
 
 </body>
 
