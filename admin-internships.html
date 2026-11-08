@@ -1,28 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Internships</title>
 
-    <link
-        rel="stylesheet"
-        href="./css/style.css"
-    >
-
+    <link rel="stylesheet" href="./css/style.css">
 
     <style>
-
-        /* =========================================
-           NO FILTER RESULTS MESSAGE
-        ========================================== */
+        /* NO FILTER RESULTS MESSAGE */
 
         #noFilterResults {
             grid-column: 1 / -1 !important;
@@ -35,48 +23,119 @@
             min-width: 0 !important;
         }
 
-        #noFilterResults .admin-internship-info h3 {
-            white-space: normal !important;
-            display: block !important;
-            width: 100% !important;
-        }
-
+        #noFilterResults .admin-internship-info h3,
         #noFilterResults .admin-internship-info p {
             white-space: normal !important;
             display: block !important;
             width: 100% !important;
         }
 
+        /* APPROVAL STATUS */
+
+        .admin-approval-status {
+            display: inline-block;
+            width: fit-content;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        .admin-approval-status.pending {
+            background: #fff1d6;
+            color: #95620b;
+        }
+
+        .admin-approval-status.approved {
+            background: #e1f3e7;
+            color: #287744;
+        }
+
+        .admin-approval-status.rejected {
+            background: #fbe5e5;
+            color: #a83232;
+        }
+
+        .admin-internship-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+            min-width: 220px;
+        }
+
+        .admin-internship-actions button {
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+
+        .admin-internship-item {
+            min-width: 0;
+        }
+
+        .admin-internship-info {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-approval-button {
+            border: none;
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .admin-approval-button.approve {
+            background: #e1f3e7;
+            color: #287744;
+        }
+
+        .admin-approval-button.reject {
+            background: #fbe5e5;
+            color: #a83232;
+        }
+
+        .admin-approval-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .admin-approval-button:not(:disabled):hover {
+            filter: brightness(0.95);
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
-    <!-- ================= NAVBAR ================= -->
+    <!-- NAVBAR -->
 
     <header class="navbar">
 
         <div class="nav-content">
 
-            <a
-                href="admin-dashboard.html"
-                class="brand"
-            >
+            <a href="admin-dashboard.html" class="brand">
+
+                <img
+                    src="./images/alquds-university-logo.png"
+                    alt="Al-Quds University Logo"
+                    class="university-navbar-logo"
+                >
 
                 <img
                     src="./images/logo.png"
                     alt="PathLink Logo"
                 >
 
-                <span>
-                    PathLink
-                </span>
+                <span>PathLink</span>
 
             </a>
-
 
             <nav class="nav-links">
 
@@ -84,10 +143,7 @@
                     Dashboard
                 </a>
 
-                <a
-                    href="admin-internships.html"
-                    class="active"
-                >
+                <a href="admin-internships.html" class="active">
                     Internships
                 </a>
 
@@ -110,22 +166,16 @@
     </header>
 
 
-
-    <!-- ================= MAIN ================= -->
+    <!-- MAIN -->
 
     <main class="admin-internships-page">
 
-
-        <a
-            href="admin-dashboard.html"
-            class="admin-back"
-        >
+        <a href="admin-dashboard.html" class="admin-back">
             ← Back to Dashboard
         </a>
 
 
-
-        <!-- ================= PAGE HEADER ================= -->
+        <!-- PAGE HEADER -->
 
         <div class="admin-internships-header">
 
@@ -135,9 +185,7 @@
                     INTERNSHIP MANAGEMENT
                 </p>
 
-                <h1>
-                    Manage Internships
-                </h1>
+                <h1>Manage Internships</h1>
 
                 <p>
                     View and manage internship opportunities posted by companies.
@@ -148,16 +196,13 @@
         </div>
 
 
-
-        <!-- ================= INTERNSHIPS CARD ================= -->
+        <!-- INTERNSHIPS CARD -->
 
         <section class="admin-internships-card">
 
-
-            <!-- ================= TOOLBAR ================= -->
+            <!-- TOOLBAR -->
 
             <div class="admin-internships-toolbar">
-
 
                 <input
                     type="text"
@@ -166,59 +211,63 @@
                     placeholder="Search internships or companies..."
                 >
 
+                <!-- APPLICATION PERIOD STATUS -->
 
                 <select
                     id="internshipStatus"
                     class="admin-internship-filter"
                 >
 
-                    <option value="all">
-                        All Status
-                    </option>
-
-                    <option value="upcoming">
-                        Upcoming
-                    </option>
-
-                    <option value="active">
-                        Active
-                    </option>
-
-                    <option value="completed">
-                        Completed
-                    </option>
+                    <option value="all">All Application Status</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="active">Active</option>
+                    <option value="ended">Ended</option>
 
                 </select>
 
+
+                <!-- APPROVAL STATUS -->
+
+                <select
+                    id="approvalFilter"
+                    class="admin-internship-filter"
+                >
+
+                    <option value="all">All Approval Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+
+                </select>
+
+
+                <!-- FIELD -->
 
                 <select
                     id="internshipField"
                     class="admin-internship-filter"
                 >
 
-                    <option value="all">
-                        All Fields
-                    </option>
+                    <option value="all">All Fields</option>
 
                 </select>
 
+
+                <!-- CITY -->
 
                 <select
                     id="internshipCity"
                     class="admin-internship-filter"
                 >
 
-                    <option value="all">
-                        All Cities
-                    </option>
+                    <option value="all">All Cities</option>
 
                 </select>
 
             </div>
 
 
-
-            <!-- ================= INTERNSHIP LIST ================= -->
+            <!-- INTERNSHIP LIST -->
 
             <div
                 class="admin-internships-list"
@@ -229,13 +278,9 @@
 
                     <div class="admin-internship-info">
 
-                        <h3>
-                            Loading internships...
-                        </h3>
+                        <h3>Loading internships...</h3>
 
-                        <p>
-                            Please wait
-                        </p>
+                        <p>Please wait</p>
 
                     </div>
 
@@ -243,66 +288,58 @@
 
             </div>
 
-
         </section>
-
 
     </main>
 
 
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
 
-    <!-- ================= SUPABASE ================= -->
+    <footer class="home-footer">
+
+        <p>
+            © 2026 PathLink
+        </p>
+
+    </footer>
+
+</div>
+    <!-- SUPABASE -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="./js/supabase.js"></script>
 
 
-
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- JAVASCRIPT -->
 
     <script>
-
 
         /* =========================================
            ELEMENTS
         ========================================= */
 
         const searchInput =
-            document.getElementById(
-                "internshipSearch"
-            );
-
+            document.getElementById("internshipSearch");
 
         const statusFilter =
-            document.getElementById(
-                "internshipStatus"
-            );
+            document.getElementById("internshipStatus");
 
+        const approvalFilter =
+            document.getElementById("approvalFilter");
 
         const fieldFilter =
-            document.getElementById(
-                "internshipField"
-            );
-
+            document.getElementById("internshipField");
 
         const cityFilter =
-            document.getElementById(
-                "internshipCity"
-            );
-
+            document.getElementById("internshipCity");
 
         const internshipList =
-            document.getElementById(
-                "internshipList"
-            );
-
+            document.getElementById("internshipList");
 
         const logoutButton =
-            document.getElementById(
-                "logoutButton"
-            );
-
+            document.getElementById("logoutButton");
 
 
         /* =========================================
@@ -312,194 +349,147 @@
         let internshipItems = [];
 
 
-
         /* =========================================
            ESCAPE HTML
         ========================================= */
 
         function escapeHtml(value) {
 
-            if (
-                value === null ||
-                value === undefined
-            ) {
-
+            if (value === null || value === undefined) {
                 return "";
-
             }
 
-
             return String(value)
-
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
-
 
 
         /* =========================================
            FORMAT DATE
+           DD/MM/YYYY
         ========================================= */
 
         function formatDate(dateValue) {
 
             if (!dateValue) {
-
                 return "Date not specified";
-
             }
 
+            const parts = dateValue.split("-");
 
-            const date =
-                new Date(
-                    dateValue + "T00:00:00"
-                );
-
-
-            if (
-                Number.isNaN(
-                    date.getTime()
-                )
-            ) {
-
+            if (parts.length !== 3) {
                 return "Date not specified";
-
             }
 
+            const [year, month, day] = parts;
 
-            return date.toLocaleDateString(
-                "en-US",
-                {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric"
-                }
-            );
-
+            return `${day}/${month}/${year}`;
         }
-
 
 
         /* =========================================
-           GET INTERNSHIP STATUS
+           GET TODAY'S DATE
+           HEBRON TIMEZONE
+        ========================================= */
+
+        function getTodayDate() {
+
+            const parts = new Intl.DateTimeFormat(
+                "en-CA",
+                {
+                    timeZone: "Asia/Hebron",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit"
+                }
+            ).formatToParts(new Date());
+
+            const values = {};
+
+            parts.forEach(part => {
+                values[part.type] = part.value;
+            });
+
+            return `${values.year}-${values.month}-${values.day}`;
+        }
+
+
+        /* =========================================
+           GET APPLICATION STATUS
+
+           Status depends ONLY on:
+           application_start_date
+           application_end_date
         ========================================= */
 
         function getInternshipStatus(
-            startDate,
-            endDate
+            applicationStartDate,
+            applicationEndDate
         ) {
 
             if (
-                !startDate ||
-                !endDate
+                !applicationStartDate ||
+                !applicationEndDate
             ) {
-
-                return "active";
-
+                return "unavailable";
             }
 
+            const today = getTodayDate();
 
-            const today =
-                new Date();
-
-
-            today.setHours(
-                0,
-                0,
-                0,
-                0
-            );
-
-
-            const start =
-                new Date(
-                    startDate + "T00:00:00"
-                );
-
-
-            const end =
-                new Date(
-                    endDate + "T00:00:00"
-                );
-
-
-            if (
-                today < start
-            ) {
-
+            if (today < applicationStartDate) {
                 return "upcoming";
-
             }
 
-
-            if (
-                today > end
-            ) {
-
-                return "completed";
-
+            if (today > applicationEndDate) {
+                return "ended";
             }
-
 
             return "active";
-
         }
-
 
 
         /* =========================================
            STATUS TEXT
         ========================================= */
 
-        function getStatusText(
-            status
-        ) {
+        function getStatusText(status) {
 
-            if (
-                status === "upcoming"
-            ) {
-
+            if (status === "upcoming") {
                 return "Upcoming";
-
             }
 
-
-            if (
-                status === "completed"
-            ) {
-
-                return "Completed";
-
+            if (status === "ended") {
+                return "Ended";
             }
 
+            if (status === "unavailable") {
+                return "Dates Not Set";
+            }
 
             return "Active";
-
         }
 
+
+        /* =========================================
+           APPROVAL STATUS TEXT
+        ========================================= */
+
+        function getApprovalStatusText(status) {
+
+            if (status === "approved") {
+                return "Approved";
+            }
+
+            if (status === "rejected") {
+                return "Rejected";
+            }
+
+            return "Pending";
+        }
 
 
         /* =========================================
@@ -508,113 +498,60 @@
 
         function loadFilterOptions() {
 
+            /* FIELDS */
 
-            /* =====================================
-               FIELDS
-            ===================================== */
-
-            const fields =
-                [
-                    ...new Set(
-                        internshipItems
-                            .map(
-                                internship =>
-                                    internship.field
-                            )
-                            .filter(Boolean)
-                    )
-                ]
-                .sort(
-                    (a, b) =>
-                        a.localeCompare(b)
-                );
+            const fields = [
+                ...new Set(
+                    internshipItems
+                        .map(internship => internship.field)
+                        .filter(Boolean)
+                )
+            ].sort((a, b) => a.localeCompare(b));
 
 
             fieldFilter.innerHTML = `
-
-                <option value="all">
-                    All Fields
-                </option>
-
+                <option value="all">All Fields</option>
             `;
 
+            fields.forEach(field => {
 
-            fields.forEach(
-                function (field) {
+                const option = document.createElement("option");
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+                option.value = field;
+                option.textContent = field;
 
-                    option.value =
-                        field;
+                fieldFilter.appendChild(option);
 
-                    option.textContent =
-                        field;
-
-                    fieldFilter.appendChild(
-                        option
-                    );
-
-                }
-            );
+            });
 
 
+            /* CITIES */
 
-            /* =====================================
-               CITIES
-            ===================================== */
-
-            const cities =
-                [
-                    ...new Set(
-                        internshipItems
-                            .map(
-                                internship =>
-                                    internship.city
-                            )
-                            .filter(Boolean)
-                    )
-                ]
-                .sort(
-                    (a, b) =>
-                        a.localeCompare(b)
-                );
+            const cities = [
+                ...new Set(
+                    internshipItems
+                        .map(internship => internship.city)
+                        .filter(Boolean)
+                )
+            ].sort((a, b) => a.localeCompare(b));
 
 
             cityFilter.innerHTML = `
-
-                <option value="all">
-                    All Cities
-                </option>
-
+                <option value="all">All Cities</option>
             `;
 
+            cities.forEach(city => {
 
-            cities.forEach(
-                function (city) {
+                const option = document.createElement("option");
 
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
+                option.value = city;
+                option.textContent = city;
 
-                    option.value =
-                        city;
+                cityFilter.appendChild(option);
 
-                    option.textContent =
-                        city;
-
-                    cityFilter.appendChild(
-                        option
-                    );
-
-                }
-            );
+            });
 
         }
-
 
 
         /* =========================================
@@ -625,40 +562,26 @@
 
             try {
 
-
-                /* =====================================
-                   CHECK LOGIN
-                ===================================== */
+                /* CHECK LOGIN */
 
                 const {
-                    data: {
-                        user
-                    },
+                    data: { user },
                     error: userError
                 } = await db.auth.getUser();
 
 
-                if (
-                    userError ||
-                    !user
-                ) {
+                if (userError || !user) {
 
-                    alert(
-                        "Please login first."
-                    );
+                    alert("Please login first.");
 
-                    window.location.href =
-                        "index.html";
+                    window.location.href = "index.html";
 
                     return;
 
                 }
 
 
-
-                /* =====================================
-                   CHECK ADMIN
-                ===================================== */
+                /* CHECK ADMIN */
 
                 const {
                     data: adminProfile,
@@ -667,14 +590,9 @@
 
                     .from("profiles")
 
-                    .select(
-                        "id, role"
-                    )
+                    .select("id, role")
 
-                    .eq(
-                        "id",
-                        user.id
-                    )
+                    .eq("id", user.id)
 
                     .maybeSingle();
 
@@ -685,22 +603,16 @@
                     adminProfile.role !== "admin"
                 ) {
 
-                    alert(
-                        "Access denied."
-                    );
+                    alert("Access denied.");
 
-                    window.location.href =
-                        "index.html";
+                    window.location.href = "index.html";
 
                     return;
 
                 }
 
 
-
-                /* =====================================
-                   GET INTERNSHIPS
-                ===================================== */
+                /* GET INTERNSHIPS */
 
                 const {
                     data: internships,
@@ -717,30 +629,27 @@
                         city,
                         description,
                         requirements,
+                        application_start_date,
+                        application_end_date,
                         start_date,
                         end_date,
                         status,
+                        approval_status,
                         created_at,
                         working_hours
                     `)
 
-                    .order(
-                        "created_at",
-                        {
-                            ascending: false
-                        }
-                    );
+                    .order("created_at", {
+                        ascending: false
+                    });
 
 
-                if (
-                    internshipsError
-                ) {
+                if (internshipsError) {
 
                     console.error(
                         "Internships loading error:",
                         internshipsError
                     );
-
 
                     showMessage(
                         "Unable to load internships",
@@ -752,20 +661,13 @@
                 }
 
 
+                /* NO INTERNSHIPS */
 
-                /* =====================================
-                   NO INTERNSHIPS
-                ===================================== */
-
-                if (
-                    !internships ||
-                    internships.length === 0
-                ) {
+                if (!internships || internships.length === 0) {
 
                     internshipItems = [];
 
                     loadFilterOptions();
-
 
                     showMessage(
                         "No internships found",
@@ -777,35 +679,22 @@
                 }
 
 
+                /* GET COMPANY IDS */
 
-                /* =====================================
-                   GET COMPANY IDS
-                ===================================== */
-
-                const companyIds =
-                    [
-                        ...new Set(
-                            internships
-                                .map(
-                                    internship =>
-                                        internship.company_id
-                                )
-                                .filter(Boolean)
-                        )
-                    ];
+                const companyIds = [
+                    ...new Set(
+                        internships
+                            .map(internship => internship.company_id)
+                            .filter(Boolean)
+                    )
+                ];
 
 
-
-                /* =====================================
-                   GET COMPANIES
-                ===================================== */
+                /* GET COMPANIES */
 
                 let companies = [];
 
-
-                if (
-                    companyIds.length > 0
-                ) {
+                if (companyIds.length > 0) {
 
                     const {
                         data,
@@ -822,15 +711,10 @@
                             logo_url
                         `)
 
-                        .in(
-                            "id",
-                            companyIds
-                        );
+                        .in("id", companyIds);
 
 
-                    if (
-                        companiesError
-                    ) {
+                    if (companiesError) {
 
                         console.error(
                             "Companies loading error:",
@@ -839,87 +723,58 @@
 
                     }
 
-
-                    companies =
-                        data || [];
+                    companies = data || [];
 
                 }
 
 
+                /* CREATE COMPANY MAP */
 
-                /* =====================================
-                   CREATE COMPANY MAP
-                ===================================== */
+                const companyMap = new Map();
 
-                const companyMap =
-                    new Map();
+                companies.forEach(company => {
 
+                    companyMap.set(company.id, company);
 
-                companies.forEach(
-                    function (company) {
-
-                        companyMap.set(
-                            company.id,
-                            company
-                        );
-
-                    }
-                );
+                });
 
 
+                /* PREPARE DATA */
 
-                /* =====================================
-                   PREPARE DATA
-                ===================================== */
+                internshipItems = internships.map(internship => {
 
-                internshipItems =
-                    internships.map(
-                        function (internship) {
+                    const company =
+                        companyMap.get(internship.company_id);
 
-                            const company =
-                                companyMap.get(
-                                    internship.company_id
-                                );
-
-
-                            const status =
-                                getInternshipStatus(
-                                    internship.start_date,
-                                    internship.end_date
-                                );
-
-
-                            return {
-
-                                ...internship,
-
-                                company:
-                                    company || null,
-
-                                displayStatus:
-                                    status
-
-                            };
-
-                        }
+                    const status = getInternshipStatus(
+                        internship.application_start_date,
+                        internship.application_end_date
                     );
 
+                    return {
+
+                        ...internship,
+
+                        company: company || null,
+
+                        displayStatus: status,
+
+                        approval_status:
+                            internship.approval_status || "pending"
+
+                    };
+
+                });
 
 
-                /* =====================================
-                   FILTER OPTIONS
-                ===================================== */
+                /* FILTER OPTIONS */
 
                 loadFilterOptions();
 
 
-
-                /* =====================================
-                   DISPLAY
-                ===================================== */
+                /* DISPLAY */
 
                 renderInternships();
-
 
             }
 
@@ -929,7 +784,6 @@
                     "Unexpected internships error:",
                     error
                 );
-
 
                 showMessage(
                     "Unable to load internships",
@@ -941,15 +795,11 @@
         }
 
 
-
         /* =========================================
            SHOW MESSAGE
         ========================================= */
 
-        function showMessage(
-            title,
-            message
-        ) {
+        function showMessage(title, message) {
 
             internshipList.innerHTML = `
 
@@ -957,13 +807,9 @@
 
                     <div class="admin-internship-info">
 
-                        <h3>
-                            ${escapeHtml(title)}
-                        </h3>
+                        <h3>${escapeHtml(title)}</h3>
 
-                        <p>
-                            ${escapeHtml(message)}
-                        </p>
+                        <p>${escapeHtml(message)}</p>
 
                     </div>
 
@@ -974,20 +820,16 @@
         }
 
 
-
         /* =========================================
            RENDER INTERNSHIPS
         ========================================= */
 
         function renderInternships() {
 
-
             internshipList.innerHTML = "";
 
 
-            if (
-                internshipItems.length === 0
-            ) {
+            if (internshipItems.length === 0) {
 
                 showMessage(
                     "No internships found",
@@ -999,187 +841,187 @@
             }
 
 
+            internshipItems.forEach(internship => {
 
-            internshipItems.forEach(
-                function (internship) {
+                const company = internship.company;
 
+                const companyName =
+                    company?.name || "Unknown Company";
 
-                    const company =
-                        internship.company;
+                const field =
+                    internship.field ||
+                    company?.field ||
+                    "Not specified";
 
-
-                    const companyName =
-                        company?.name ||
-                        "Unknown Company";
-
-
-                    const field =
-                        internship.field ||
-                        company?.field ||
-                        "Not specified";
+                const city =
+                    internship.city ||
+                    company?.city ||
+                    "Not specified";
 
 
-                    const city =
-                        internship.city ||
-                        company?.city ||
-                        "Not specified";
+                /* APPLICATION STATUS */
+
+                const status = internship.displayStatus;
+
+                const statusText = getStatusText(status);
 
 
-                    const status =
-                        internship.displayStatus;
+                /* APPROVAL STATUS */
+
+                const approvalStatus =
+                    internship.approval_status;
+
+                const approvalText =
+                    getApprovalStatusText(approvalStatus);
 
 
-                    const statusText =
-                        getStatusText(
-                            status
-                        );
+                /* TRAINING DATES */
+
+                const startDate =
+                    formatDate(internship.start_date);
+
+                const endDate =
+                    formatDate(internship.end_date);
 
 
-                    const startDate =
-                        formatDate(
-                            internship.start_date
-                        );
+                /* APPLICATION DATES */
+
+                const applicationStartDate =
+                    formatDate(internship.application_start_date);
+
+                const applicationEndDate =
+                    formatDate(internship.application_end_date);
 
 
-                    const endDate =
-                        formatDate(
-                            internship.end_date
-                        );
+                /* CREATE ITEM */
+
+                const internshipItem =
+                    document.createElement("div");
+
+                internshipItem.className =
+                    "admin-internship-item";
+
+                internshipItem.dataset.status = status;
+
+                internshipItem.dataset.approval =
+                    approvalStatus;
+
+                internshipItem.dataset.field = field;
+
+                internshipItem.dataset.city = city;
+
+                internshipItem.dataset.id = internship.id;
 
 
+                /* COMPANY INITIAL */
 
-                    /* =====================================
-                       CREATE ITEM
-                    ===================================== */
-
-                    const internshipItem =
-                        document.createElement(
-                            "div"
-                        );
+                const companyInitial =
+                    companyName.charAt(0).toUpperCase() || "I";
 
 
-                    internshipItem.className =
-                        "admin-internship-item";
+                internshipItem.innerHTML = `
+
+                    <div class="admin-internship-icon">
+                        ${escapeHtml(companyInitial)}
+                    </div>
 
 
-                    internshipItem.dataset.status =
-                        status;
+                    <div class="admin-internship-info">
+
+                        <h3>
+                            ${escapeHtml(
+                                internship.title || "Untitled Internship"
+                            )}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(companyName)}
+                        </p>
 
 
-                    internshipItem.dataset.field =
-                        field;
+                        <div class="admin-internship-meta">
 
+                            <span>
+                                ${escapeHtml(field)}
+                            </span>
 
-                    internshipItem.dataset.city =
-                        city;
+                            <span>
+                                ${escapeHtml(city)}
+                            </span>
 
+                            <span>
+                                Training:
+                                ${escapeHtml(startDate)}
+                                –
+                                ${escapeHtml(endDate)}
+                            </span>
 
-                    internshipItem.dataset.id =
-                        internship.id;
-
-
-
-                    /* =====================================
-                       COMPANY INITIAL
-                    ===================================== */
-
-                    const companyInitial =
-                        companyName
-                            .charAt(0)
-                            .toUpperCase() ||
-                        "I";
-
-
-
-                    internshipItem.innerHTML = `
-
-                        <div class="admin-internship-icon">
-                            ${escapeHtml(companyInitial)}
-                        </div>
-
-
-                        <div class="admin-internship-info">
-
-                            <h3>
-                                ${escapeHtml(
-                                    internship.title ||
-                                    "Untitled Internship"
-                                )}
-                            </h3>
-
-                            <p>
-                                ${escapeHtml(
-                                    companyName
-                                )}
-                            </p>
-
-
-                            <div class="admin-internship-meta">
-
-                                <span>
-                                    ${escapeHtml(
-                                        field
-                                    )}
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        city
-                                    )}
-                                </span>
-
-                                <span>
-                                    ${escapeHtml(
-                                        startDate
-                                    )}
-                                    –
-                                    ${escapeHtml(
-                                        endDate
-                                    )}
-                                </span>
-
-                            </div>
+                            <span>
+                                Application:
+                                ${escapeHtml(applicationStartDate)}
+                                –
+                                ${escapeHtml(applicationEndDate)}
+                            </span>
 
                         </div>
 
-
-                        <div class="admin-internship-status ${status}">
-                            ${statusText}
-                        </div>
+                    </div>
 
 
-                        <div class="admin-internship-actions">
-
-                            <button
-                                type="button"
-                                class="admin-internship-delete"
-                                onclick="deleteInternship(
-                                    this,
-                                    '${escapeHtml(
-                                        internship.id
-                                    )}'
-                                )"
-                            >
-                                Delete
-                            </button>
-
-                        </div>
-
-                    `;
+                    <div class="admin-internship-status ${escapeHtml(status)}">
+                        ${escapeHtml(statusText)}
+                    </div>
 
 
-                    internshipList.appendChild(
-                        internshipItem
-                    );
+                    <div class="admin-approval-status ${escapeHtml(approvalStatus)}">
+                        ${escapeHtml(approvalText)}
+                    </div>
 
-                }
-            );
+
+                    <div class="admin-internship-actions">
+
+                        <button
+                            type="button"
+                            class="admin-approval-button approve"
+                            data-action="approve"
+                            data-id="${escapeHtml(internship.id)}"
+                            ${approvalStatus !== "pending" ? "disabled" : ""}
+                        >
+                            Approve
+                        </button>
+
+                        <button
+                            type="button"
+                            class="admin-approval-button reject"
+                            data-action="reject"
+                            data-id="${escapeHtml(internship.id)}"
+                            ${approvalStatus !== "pending" ? "disabled" : ""}
+                        >
+                            Reject
+                        </button>
+
+                        <button
+                            type="button"
+                            class="admin-internship-delete"
+                            data-action="delete"
+                            data-id="${escapeHtml(internship.id)}"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                internshipList.appendChild(internshipItem);
+
+            });
 
 
             filterInternships();
 
         }
-
 
 
         /* =========================================
@@ -1189,163 +1031,122 @@
         function filterInternships() {
 
             const searchValue =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
+                searchInput.value.toLowerCase().trim();
 
             const selectedStatus =
                 statusFilter.value;
 
+            const selectedApproval =
+                approvalFilter.value;
 
             const selectedField =
                 fieldFilter.value;
-
 
             const selectedCity =
                 cityFilter.value;
 
 
-            const items =
-                document.querySelectorAll(
-                    ".admin-internship-item"
-                );
+            const items = internshipList.querySelectorAll(
+                ".admin-internship-item"
+            );
 
 
             let visibleCount = 0;
 
 
-            items.forEach(
-                function (internship) {
+            items.forEach(internship => {
+
+                if (internship.id === "noFilterResults") {
+                    return;
+                }
 
 
-                    /*
-                       Ignore the "No matching internships"
-                       message while filtering.
-                    */
+                const text =
+                    internship.textContent.toLowerCase();
 
-                    if (
-                        internship.id ===
-                        "noFilterResults"
-                    ) {
+                const status =
+                    internship.dataset.status;
 
-                        return;
+                const approval =
+                    internship.dataset.approval;
 
-                    }
+                const field =
+                    internship.dataset.field;
 
-
-                    const text =
-                        internship.textContent
-                            .toLowerCase();
+                const city =
+                    internship.dataset.city;
 
 
-                    const status =
-                        internship.dataset.status;
+                /* SEARCH */
+
+                const matchesSearch =
+                    text.includes(searchValue);
 
 
-                    const field =
-                        internship.dataset.field;
+                /* APPLICATION STATUS */
+
+                const matchesStatus =
+                    selectedStatus === "all" ||
+                    status === selectedStatus;
 
 
-                    const city =
-                        internship.dataset.city;
+                /* APPROVAL STATUS */
+
+                const matchesApproval =
+                    selectedApproval === "all" ||
+                    approval === selectedApproval;
 
 
+                /* FIELD */
 
-                    /* =====================================
-                       SEARCH
-                    ===================================== */
-
-                    const matchesSearch =
-                        text.includes(
-                            searchValue
-                        );
+                const matchesField =
+                    selectedField === "all" ||
+                    field === selectedField;
 
 
+                /* CITY */
 
-                    /* =====================================
-                       STATUS
-                    ===================================== */
-
-                    const matchesStatus =
-                        selectedStatus === "all" ||
-                        status === selectedStatus;
+                const matchesCity =
+                    selectedCity === "all" ||
+                    city === selectedCity;
 
 
+                /* DISPLAY */
 
-                    /* =====================================
-                       FIELD
-                    ===================================== */
+                if (
+                    matchesSearch &&
+                    matchesStatus &&
+                    matchesApproval &&
+                    matchesField &&
+                    matchesCity
+                ) {
 
-                    const matchesField =
-                        selectedField === "all" ||
-                        field === selectedField;
+                    internship.style.display = "grid";
 
-
-
-                    /* =====================================
-                       CITY
-                    ===================================== */
-
-                    const matchesCity =
-                        selectedCity === "all" ||
-                        city === selectedCity;
-
-
-
-                    /* =====================================
-                       DISPLAY
-                    ===================================== */
-
-                    if (
-                        matchesSearch &&
-                        matchesStatus &&
-                        matchesField &&
-                        matchesCity
-                    ) {
-
-                        internship.style.display =
-                            "grid";
-
-                        visibleCount++;
-
-                    }
-
-                    else {
-
-                        internship.style.display =
-                            "none";
-
-                    }
+                    visibleCount++;
 
                 }
-            );
+
+                else {
+
+                    internship.style.display = "none";
+
+                }
+
+            });
 
 
-
-            /* =====================================
-               REMOVE OLD MESSAGE
-            ===================================== */
+            /* REMOVE OLD MESSAGE */
 
             const existingMessage =
-                document.getElementById(
-                    "noFilterResults"
-                );
+                document.getElementById("noFilterResults");
 
-
-            if (
-                existingMessage
-            ) {
-
+            if (existingMessage) {
                 existingMessage.remove();
-
             }
 
 
-
-            /* =====================================
-               SHOW NO RESULTS MESSAGE
-            ===================================== */
+            /* SHOW NO RESULTS MESSAGE */
 
             if (
                 visibleCount === 0 &&
@@ -1353,26 +1154,17 @@
             ) {
 
                 const message =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
+                message.id = "noFilterResults";
 
-                message.id =
-                    "noFilterResults";
-
-
-                message.className =
-                    "admin-internship-item";
-
+                message.className = "admin-internship-item";
 
                 message.innerHTML = `
 
                     <div class="admin-internship-info">
 
-                        <h3>
-                            No matching internships
-                        </h3>
+                        <h3>No matching internships</h3>
 
                         <p>
                             Try changing the search or filters.
@@ -1382,15 +1174,136 @@
 
                 `;
 
-
-                internshipList.appendChild(
-                    message
-                );
+                internshipList.appendChild(message);
 
             }
 
         }
 
+
+        /* =========================================
+           UPDATE APPROVAL STATUS
+        ========================================= */
+
+        async function updateApprovalStatus(
+            button,
+            internshipId,
+            newStatus
+        ) {
+
+            const internship =
+                internshipItems.find(
+                    item => item.id === internshipId
+                );
+
+            if (!internship) {
+                return;
+            }
+
+
+            const actionText =
+                newStatus === "approved" ? "approve" : "reject";
+
+
+            const confirmed = confirm(
+                `Are you sure you want to ${actionText} "${internship.title}"?`
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            button.disabled = true;
+
+            const originalText = button.textContent;
+
+            button.textContent = "Saving...";
+
+
+            try {
+
+                /* UPDATE APPROVAL STATUS */
+
+                const {
+                    data: updatedInternship,
+                    error
+                } = await db
+
+                    .from("internships")
+
+                    .update({
+                        approval_status: newStatus
+                    })
+
+                    .eq("id", internshipId)
+
+                    .select("id, approval_status")
+
+                    .maybeSingle();
+
+
+                /* CHECK UPDATE RESULT */
+
+                if (error || !updatedInternship) {
+
+                    console.error(
+                        "Approval update error:",
+                        error
+                    );
+
+                    alert(
+                        error
+                            ? `Update failed: ${error.message}`
+                            : "No internship was updated. Check the Admin permissions."
+                    );
+
+                    button.disabled = false;
+
+                    button.textContent = originalText;
+
+                    return;
+
+                }
+
+
+                /* UPDATE LOCAL DATA */
+
+                internship.approval_status =
+                    updatedInternship.approval_status;
+
+
+                /* RENDER UPDATED DATA */
+
+                renderInternships();
+
+
+                alert(
+                    newStatus === "approved"
+                        ? "Internship approved successfully."
+                        : "Internship rejected successfully."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unexpected approval error:",
+                    error
+                );
+
+                alert(
+                    `An unexpected error occurred: ${error.message}`
+                );
+
+                button.disabled = false;
+
+                button.textContent = originalText;
+
+            }
+
+        }
 
 
         /* =========================================
@@ -1402,62 +1315,29 @@
             internshipId
         ) {
 
-
-            const internshipItem =
-                button.closest(
-                    ".admin-internship-item"
+            const internship =
+                internshipItems.find(
+                    item => item.id === internshipId
                 );
 
-
-            if (
-                !internshipItem
-            ) {
-
+            if (!internship) {
                 return;
-
             }
 
 
+            const confirmed = confirm(
+                `Are you sure you want to delete "${internship.title}"?`
+            );
 
-            const title =
-                internshipItem
-                    .querySelector(
-                        ".admin-internship-info h3"
-                    )
-                    ?.textContent
-                    ?.trim() ||
-                "this internship";
-
-
-
-            /* =====================================
-               CONFIRM
-            ===================================== */
-
-            const confirmed =
-                confirm(
-                    "Are you sure you want to delete " +
-                    title +
-                    "?"
-                );
-
-
-            if (
-                !confirmed
-            ) {
-
+            if (!confirmed) {
                 return;
-
             }
 
+
+            button.disabled = true;
 
 
             try {
-
-
-                /* =====================================
-                   DELETE FROM DATABASE
-                ===================================== */
 
                 const {
                     error
@@ -1467,57 +1347,43 @@
 
                     .delete()
 
-                    .eq(
-                        "id",
-                        internshipId
-                    );
+                    .eq("id", internshipId);
 
 
-                if (
-                    error
-                ) {
+                if (error) {
 
                     console.error(
                         "Delete internship error:",
                         error
                     );
 
-
                     alert(
                         "Unable to delete this internship."
                     );
+
+                    button.disabled = false;
 
                     return;
 
                 }
 
 
-
-                /* =====================================
-                   REMOVE FROM LOCAL DATA
-                ===================================== */
+                /* REMOVE FROM LOCAL DATA */
 
                 internshipItems =
                     internshipItems.filter(
-                        internship =>
-                            internship.id !==
-                            internshipId
+                        item => item.id !== internshipId
                     );
 
 
                 loadFilterOptions();
 
-
-                internshipItem.remove();
-
-
-                filterInternships();
+                renderInternships();
 
 
                 alert(
                     "Internship deleted successfully."
                 );
-
 
             }
 
@@ -1528,15 +1394,71 @@
                     error
                 );
 
-
                 alert(
                     "An error occurred while deleting the internship."
                 );
+
+                button.disabled = false;
 
             }
 
         }
 
+
+        /* =========================================
+           ACTION BUTTONS
+        ========================================= */
+
+        internshipList.addEventListener(
+            "click",
+            async function(event) {
+
+                const button =
+                    event.target.closest("button[data-action]");
+
+                if (!button) {
+                    return;
+                }
+
+
+                const action = button.dataset.action;
+
+                const internshipId = button.dataset.id;
+
+
+                if (action === "approve") {
+
+                    await updateApprovalStatus(
+                        button,
+                        internshipId,
+                        "approved"
+                    );
+
+                }
+
+
+                if (action === "reject") {
+
+                    await updateApprovalStatus(
+                        button,
+                        internshipId,
+                        "rejected"
+                    );
+
+                }
+
+
+                if (action === "delete") {
+
+                    await deleteInternship(
+                        button,
+                        internshipId
+                    );
+
+                }
+
+            }
+        );
 
 
         /* =========================================
@@ -1549,9 +1471,8 @@
         );
 
 
-
         /* =========================================
-           STATUS EVENT
+           APPLICATION STATUS EVENT
         ========================================= */
 
         statusFilter.addEventListener(
@@ -1559,6 +1480,15 @@
             filterInternships
         );
 
+
+        /* =========================================
+           APPROVAL STATUS EVENT
+        ========================================= */
+
+        approvalFilter.addEventListener(
+            "change",
+            filterInternships
+        );
 
 
         /* =========================================
@@ -1571,7 +1501,6 @@
         );
 
 
-
         /* =========================================
            CITY EVENT
         ========================================= */
@@ -1582,17 +1511,15 @@
         );
 
 
-
         /* =========================================
            LOGOUT
         ========================================= */
 
         logoutButton.addEventListener(
             "click",
-            async function (event) {
+            async function(event) {
 
                 event.preventDefault();
-
 
                 try {
 
@@ -1610,21 +1537,15 @@
                 }
 
 
-                localStorage.removeItem(
-                    "username"
-                );
+                localStorage.removeItem("username");
 
-                localStorage.removeItem(
-                    "role"
-                );
+                localStorage.removeItem("role");
 
 
-                window.location.href =
-                    "index.html";
+                window.location.href = "index.html";
 
             }
         );
-
 
 
         /* =========================================
@@ -1634,7 +1555,6 @@
         loadInternships();
 
     </script>
-
 
 </body>
 

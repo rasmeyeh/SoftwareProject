@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>External Request - PathLink</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        .external-page-content {
+            width: min(1100px, 92%);
+            margin: 40px auto;
+        }
+
+        .external-intro {
+            margin-bottom: 28px;
+        }
+
+        .external-intro h1 {
+            margin-bottom: 10px;
+        }
+
+        .external-intro p {
+            line-height: 1.7;
+        }
+
+        .external-card {
+            background: #F3EEE6;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+
+        .external-card h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        .external-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .external-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .external-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .external-form-group label {
+            font-weight: 600;
+        }
+
+        .external-form-group input,
+        .external-form-group select,
+        .external-form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #d8d0c4;
+            border-radius: 8px;
+            background: #fff;
+            color: #333;
+            font: inherit;
+        }
+
+        .external-form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .external-help {
+            font-size: 13px;
+            color: #6b6375;
+            line-height: 1.5;
+        }
+
+        .external-submit {
+            margin-top: 22px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #326D7A;
+            color: white;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .external-submit:hover {
+            background: #285965;
+        }
+
+        .external-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .external-message {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .external-message.success {
+            display: block;
+            background: #e3f3e7;
+            color: #215c34;
+        }
+
+        .external-message.error {
+            display: block;
+            background: #fbe6e4;
+            color: #922d27;
+        }
+
+        .external-request-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .external-request-item {
+            background: #fff;
+            border: 1px solid #e3ddd3;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        .external-request-item h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .external-request-item p {
+            line-height: 1.6;
+        }
+
+        .external-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #eee9df;
+            color: #514a40;
+        }
+
+        .external-status.approved {
+            background: #e0f1e5;
+            color: #21643b;
+        }
+
+        .external-status.rejected {
+            background: #f8e3e1;
+            color: #922d27;
+        }
+
+        .external-status.pending {
+            background: #fff0d2;
+            color: #805d17;
+        }
+
+        .external-empty {
+            padding: 22px;
+            text-align: center;
+            color: #6b6375;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+        .external-request-meta {
+            color: #6b6375;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .external-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .external-form-group.full-width {
+                grid-column: auto;
+            }
+
+            .external-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="home-page">
+
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-content">
+
+                <a href="home.html" class="brand">
+                    <img
+    src="./images/alquds-university-logo.png"
+    alt="Al-Quds University Logo"
+    class="university-navbar-logo"
+>
+                    <img src="./images/logo.png" alt="PathLink Logo">
+                    <span>PathLink</span>
+                </a>
+
+                <nav class="nav-links">
+
+                    <a href="home.html">
+                        Home
+                    </a>
+
+                    <a href="my-applications.html">
+                        My Internship Applications
+                    </a>
+
+                    <a href="my-tasks.html">
+                        My Tasks
+                    </a>
+
+                    <a href="external-request.html" class="active">
+                        External Request
+                    </a>
+
+                    <a href="profile.html">
+                        Profile
+                    </a>
+
+                    <a href="index.html" class="logout" id="logoutLink">
+                        Logout
+                    </a>
+
+                </nav>
+            </div>
+        </header>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="external-page-content">
+
+            <section class="external-intro">
+                <p class="section-label">EXTERNAL INTERNSHIP</p>
+
+                <h1>External Internship Request</h1>
+
+                <p>
+                    Found an internship opportunity outside PathLink?
+                    Submit your request to your university supervisor
+                    for review and follow its status here.
+                </p>
+            </section>
+
+
+            <!-- SUBMISSION FORM -->
+            <section class="external-card">
+
+                <h2>Submit a Request</h2>
+
+                <div
+                    id="formMessage"
+                    class="external-message"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+                <form id="externalRequestForm">
+
+                    <div class="external-form-grid">
+
+                        <div class="external-form-group">
+                            <label for="companyName">
+                                Company Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="companyName"
+                                name="company_name"
+                                maxlength="150"
+                                required
+                                placeholder="Enter company name">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="field">
+                                Internship Field *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="field"
+                                name="field"
+                                maxlength="150"
+                                required
+                                placeholder="e.g. Computer Engineering">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="contactName">
+                                Contact Person
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactName"
+                                name="contact_name"
+                                maxlength="150"
+                                placeholder="Optional">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="contactEmail">
+                                Company Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="contactEmail"
+                                name="contact_email"
+                                maxlength="254"
+                                placeholder="Optional">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="contactPhone">
+                                Company Phone
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="contactPhone"
+                                name="contact_phone"
+                                maxlength="40"
+                                placeholder="Optional">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="opportunityUrl">
+                                Opportunity Website
+                            </label>
+
+                            <input
+                                type="url"
+                                id="opportunityUrl"
+                                name="opportunity_url"
+                                maxlength="2000"
+                                placeholder="https://example.com">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="startDate">
+                                Expected Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="startDate"
+                                name="start_date">
+                        </div>
+
+
+                        <div class="external-form-group">
+                            <label for="endDate">
+                                Expected End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="endDate"
+                                name="end_date">
+                        </div>
+
+
+                        <div class="external-form-group full-width">
+                            <label for="description">
+                                Opportunity Description *
+                            </label>
+
+                            <textarea
+                                id="description"
+                                name="description"
+                                maxlength="5000"
+                                required
+                                placeholder="Describe the internship opportunity and any relevant details."></textarea>
+
+                            <span class="external-help">
+                                Explain what the opportunity involves and
+                                why you would like to pursue it.
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="submitButton"
+                        class="external-submit">
+                        Submit Request
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- PREVIOUS REQUESTS -->
+            <section class="external-card">
+
+                <h2>My External Requests</h2>
+
+                <p>
+                    Check your submitted requests and your supervisor's decision.
+                </p>
+
+                <div
+                    id="requestsMessage"
+                    class="external-message"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+                <div
+                    id="requestsList"
+                    class="external-request-list">
+
+                    <div class="external-empty">
+                        Loading your requests...
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+        <footer class="home-footer">
+            <p>© 2026 PathLink</p>
+        </footer>
+
+    </div>
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase.js"></script>
+
+
+    <script>
+        const form =
+            document.getElementById("externalRequestForm");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+        const formMessage =
+            document.getElementById("formMessage");
+
+        const requestsMessage =
+            document.getElementById("requestsMessage");
+
+        const requestsList =
+            document.getElementById("requestsList");
+
+        let currentUserId = null;
+
+
+        // DISPLAY MESSAGE
+        function showMessage(element, message, type) {
+            element.textContent = message;
+            element.className = "external-message " + type;
+        }
+
+
+        // ESCAPE HTML
+        function escapeHTML(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        // FORMAT DATE
+        function formatDate(dateValue) {
+            if (!dateValue) {
+                return "Not specified";
+            }
+
+            const parts = dateValue.split("-");
+
+            if (parts.length !== 3) {
+                return escapeHTML(dateValue);
+            }
+
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+
+
+        // DISPLAY REQUESTS
+        function displayRequests(requests) {
+
+            requestsList.innerHTML = "";
+
+            if (!requests || requests.length === 0) {
+                requestsList.innerHTML = `
+                    <div class="external-empty">
+                        You have not submitted any external requests yet.
+                    </div>
+                `;
+                return;
+            }
+
+            requests.forEach(request => {
+
+                const status =
+                    String(request.status || "Pending");
+
+                const normalizedStatus =
+                    status.toLowerCase();
+
+                const statusClass =
+                    ["pending", "approved", "rejected"]
+                        .includes(normalizedStatus)
+                        ? normalizedStatus
+                        : "pending";
+
+                const item =
+                    document.createElement("article");
+
+                item.className = "external-request-item";
+
+                const supervisorNote = request.supervisor_note
+                    ? `
+                        <p>
+                            <strong>Supervisor Note:</strong><br>
+                            ${escapeHTML(request.supervisor_note)}
+                        </p>
+                    `
+                    : "";
+
+                const opportunityLink = request.opportunity_url
+                    ? `
+                        <p>
+                            <strong>Opportunity Link:</strong>
+                            <a
+                                href="${escapeHTML(request.opportunity_url)}"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                View Opportunity
+                            </a>
+                        </p>
+                    `
+                    : "";
+
+                item.innerHTML = `
+                    <div>
+                        <span class="external-status ${statusClass}">
+                            ${escapeHTML(status)}
+                        </span>
+                    </div>
+
+                    <h3>${escapeHTML(request.company_name)}</h3>
+
+                    <p>
+                        <strong>Field:</strong>
+                        ${escapeHTML(request.field)}
+                    </p>
+
+                    <p>
+                        <strong>Expected Period:</strong>
+                        ${formatDate(request.start_date)}
+                        &ndash;
+                        ${formatDate(request.end_date)}
+                    </p>
+
+                    <p>
+                        <strong>Description:</strong><br>
+                        ${escapeHTML(request.description)}
+                    </p>
+
+                    ${opportunityLink}
+
+                    ${supervisorNote}
+
+                    <p class="external-request-meta">
+                        Submitted:
+                        ${formatDate(
+                            request.created_at
+                                ? request.created_at.substring(0, 10)
+                                : null
+                        )}
+                    </p>
+                `;
+
+                requestsList.appendChild(item);
+            });
+        }
+
+
+        // LOAD STUDENT REQUESTS
+        async function loadRequests() {
+
+            requestsList.innerHTML = `
+                <div class="external-empty">
+                    Loading your requests...
+                </div>
+            `;
+
+            const { data, error } = await db
+                .from("external_requests")
+                .select(`
+                    id,
+                    company_name,
+                    field,
+                    start_date,
+                    end_date,
+                    description,
+                    opportunity_url,
+                    status,
+                    supervisor_note,
+                    created_at
+                `)
+                .eq("student_id", currentUserId)
+                .order("created_at", {
+                    ascending: false
+                });
+
+            if (error) {
+                console.error("Error loading requests:", error);
+
+                requestsList.innerHTML = `
+                    <div class="external-empty">
+                        Could not load your requests.
+                        Please refresh the page and try again.
+                    </div>
+                `;
+
+                return;
+            }
+
+            displayRequests(data || []);
+        }
+
+
+        // INITIALIZE PAGE
+        async function initializePage() {
+
+            if (typeof db === "undefined" || !db) {
+                showMessage(
+                    formMessage,
+                    "Supabase connection was not initialized. Check js/supabase.js.",
+                    "error"
+                );
+
+                submitButton.disabled = true;
+                requestsList.innerHTML = `
+                    <div class="external-empty">
+                        Database connection unavailable.
+                    </div>
+                `;
+
+                return;
+            }
+
+            const { data: authData, error: authError } =
+                await db.auth.getUser();
+
+            if (authError || !authData.user) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            currentUserId = authData.user.id;
+
+            // Ensure the logged-in account is a student.
+            const { data: profile, error: profileError } = await db
+                .from("profiles")
+                .select("role")
+                .eq("id", currentUserId)
+                .maybeSingle();
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "student"
+            ) {
+                showMessage(
+                    formMessage,
+                    "This page is available to student accounts only.",
+                    "error"
+                );
+
+                form.querySelectorAll("input, textarea, button")
+                    .forEach(element => {
+                        element.disabled = true;
+                    });
+
+                requestsList.innerHTML = `
+                    <div class="external-empty">
+                        Student access is required.
+                    </div>
+                `;
+
+                return;
+            }
+
+            await loadRequests();
+        }
+
+
+        // SUBMIT EXTERNAL REQUEST
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            if (!currentUserId) {
+                showMessage(
+                    formMessage,
+                    "Please log in again before submitting your request.",
+                    "error"
+                );
+                return;
+            }
+
+            const companyName =
+                document.getElementById("companyName").value.trim();
+
+            const field =
+                document.getElementById("field").value.trim();
+
+            const contactName =
+                document.getElementById("contactName").value.trim();
+
+            const contactEmail =
+                document.getElementById("contactEmail").value.trim();
+
+            const contactPhone =
+                document.getElementById("contactPhone").value.trim();
+
+            const opportunityUrl =
+                document.getElementById("opportunityUrl").value.trim();
+
+            const startDate =
+                document.getElementById("startDate").value || null;
+
+            const endDate =
+                document.getElementById("endDate").value || null;
+
+            const description =
+                document.getElementById("description").value.trim();
+
+
+            if (!companyName || !field || !description) {
+                showMessage(
+                    formMessage,
+                    "Please fill in all required fields.",
+                    "error"
+                );
+                return;
+            }
+
+            if (startDate && endDate && endDate < startDate) {
+                showMessage(
+                    formMessage,
+                    "The end date cannot be earlier than the start date.",
+                    "error"
+                );
+                return;
+            }
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+
+            showMessage(
+                formMessage,
+                "Submitting your request...",
+                "success"
+            );
+
+            const requestData = {
+                student_id: currentUserId,
+                company_name: companyName,
+                field: field,
+                contact_name: contactName || null,
+                contact_email: contactEmail || null,
+                contact_phone: contactPhone || null,
+                start_date: startDate,
+                end_date: endDate,
+                description: description,
+                opportunity_url: opportunityUrl || null,
+                status: "Pending"
+            };
+
+            try {
+
+                const { error } = await db
+                    .from("external_requests")
+                    .insert(requestData);
+
+                if (error) {
+                    console.error(
+                        "Error submitting external request:",
+                        error
+                    );
+
+                    showMessage(
+                        formMessage,
+                        "Your request could not be submitted. Please try again. If the problem continues, check the Supabase permissions.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                form.reset();
+
+                showMessage(
+                    formMessage,
+                    "Your external internship request was submitted successfully. You can follow its status below.",
+                    "success"
+                );
+
+                await loadRequests();
+
+            } catch (error) {
+
+                console.error(error);
+
+                showMessage(
+                    formMessage,
+                    "An unexpected error occurred. Please try again.",
+                    "error"
+                );
+
+            } finally {
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit Request";
+
+            }
+        });
+
+
+        // LOGOUT
+        document.getElementById("logoutLink")
+            .addEventListener("click", async function (event) {
+
+                event.preventDefault();
+
+                await db.auth.signOut();
+
+                localStorage.removeItem("username");
+                localStorage.removeItem("role");
+
+                window.location.href = "index.html";
+            });
+
+
+        // START
+        initializePage();
+    </script>
+
+</body>
+</html>

@@ -33,7 +33,11 @@
                 href="admin-dashboard.html"
                 class="brand"
             >
-
+   <img
+    src="./images/alquds-university-logo.png"
+    alt="Al-Quds University Logo"
+    class="university-navbar-logo"
+>
                 <img
                     src="./images/logo.png"
                     alt="PathLink Logo"
@@ -189,9 +193,7 @@
 
                 <div>
 
-                    <span>
-                        Internships
-                    </span>
+                   <span>Approved Internships</span>
 
                     <strong id="internshipsCount">
                         ...
@@ -420,7 +422,19 @@
 
     </main>
 
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
 
+    <footer class="home-footer">
+
+        <p>
+            © 2026 PathLink
+        </p>
+
+    </footer>
+
+</div>
 
     <!-- ================= SUPABASE ================= -->
 
@@ -694,19 +708,16 @@
                 /* =========================================
                    INTERNSHIPS
                 ========================================== */
-
-                const {
-                    count: internships,
-                    error: internshipsError
-                } = await db
-
-                    .from("internships")
-
-                    .select("id", {
-                        count: "exact",
-                        head: true
-                    });
-
+const {
+    count: internships,
+    error: internshipsError
+} = await db
+    .from("internships")
+    .select("id", {
+        count: "exact",
+        head: true
+    })
+    .eq("approval_status", "approved");
 
 
                 /* =========================================

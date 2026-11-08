@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +41,12 @@
                     href="company-dashboard.html"
                     class="brand"
                 >
+
+                    <img
+                        src="./images/alquds-university-logo.png"
+                        alt="Al-Quds University Logo"
+                        class="university-navbar-logo"
+                    >
 
                     <img
                         src="./images/logo.png"
@@ -261,6 +268,27 @@
                         </div>
 
 
+
+                        <!-- NUMBER OF STUDENTS REQUIRED -->
+
+                        <div class="post-field">
+
+                            <label for="students-required">
+                                Number of Students Required
+                            </label>
+
+                            <input
+                                type="number"
+                                id="students-required"
+                                min="1"
+                                step="1"
+                                placeholder="e.g. 3"
+                                required
+                            >
+
+                        </div>
+
+
                     </div>
 
                 </div>
@@ -310,50 +338,108 @@
 
 
                 <!-- =====================================
-                     INTERNSHIP SCHEDULE
+                     APPLICATION PERIOD
                 ====================================== -->
 
                 <div class="post-section">
 
                     <h2>
-                        Internship Schedule
+                        Application Period
                     </h2>
 
 
                     <div class="post-grid">
 
 
-                        <!-- START DATE -->
+                        <!-- APPLICATION START DATE -->
+
+                        <div class="post-field">
+
+                            <label for="application-start-date">
+                                Application Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="application-start-date"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- APPLICATION END DATE -->
+
+                        <div class="post-field">
+
+                            <label for="application-end-date">
+                                Application End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="application-end-date"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =====================================
+                     INTERNSHIP PERIOD
+                ====================================== -->
+
+                <div class="post-section">
+
+                    <h2>
+                        Internship Period
+                    </h2>
+
+
+                    <div class="post-grid">
+
+
+                        <!-- INTERNSHIP START DATE -->
 
                         <div class="post-field">
 
                             <label for="start-date">
-                                Start Date
+                                Internship Start Date
                             </label>
 
                             <input
                                 type="date"
                                 id="start-date"
+                                required
                             >
 
                         </div>
 
 
 
-                        <!-- END DATE -->
+                        <!-- INTERNSHIP END DATE -->
 
                         <div class="post-field">
 
                             <label for="end-date">
-                                End Date
+                                Internship End Date
                             </label>
 
                             <input
                                 type="date"
                                 id="end-date"
+                                required
                             >
 
                         </div>
+
 
                     </div>
 
@@ -456,6 +542,12 @@
             );
 
 
+        const studentsRequiredInput =
+            document.getElementById(
+                "students-required"
+            );
+
+
         const descriptionInput =
             document.getElementById(
                 "internship-description"
@@ -467,6 +559,22 @@
                 "internship-requirements"
             );
 
+
+        // APPLICATION PERIOD
+
+        const applicationStartDateInput =
+            document.getElementById(
+                "application-start-date"
+            );
+
+
+        const applicationEndDateInput =
+            document.getElementById(
+                "application-end-date"
+            );
+
+
+        // INTERNSHIP PERIOD
 
         const startDateInput =
             document.getElementById(
@@ -551,31 +659,23 @@
 
         /* =========================================
            CALCULATE INTERNSHIP STATUS
+           BASED ON APPLICATION PERIOD
         ========================================== */
 
         function calculateInternshipStatus(
-            startDate,
-            endDate
+            applicationStartDate,
+            applicationEndDate
         ) {
 
-            /*
-               If dates are missing,
-               keep the internship active.
-            */
-
             if (
-                !startDate ||
-                !endDate
+                !applicationStartDate ||
+                !applicationEndDate
             ) {
 
-                return "active";
+                return "upcoming";
 
             }
 
-
-            /*
-               Get today's date in local time.
-            */
 
             const today =
                 new Date();
@@ -589,29 +689,22 @@
                 );
 
 
-            /*
-               Convert database dates
-               to local dates.
-            */
-
-            const start =
+            const applicationStart =
                 new Date(
-                    `${startDate}T00:00:00`
+                    `${applicationStartDate}T00:00:00`
                 );
 
 
-            const end =
+            const applicationEnd =
                 new Date(
-                    `${endDate}T00:00:00`
+                    `${applicationEndDate}T00:00:00`
                 );
 
 
-            /*
-               Upcoming
-            */
+            // UPCOMING
 
             if (
-                todayDate < start
+                todayDate < applicationStart
             ) {
 
                 return "upcoming";
@@ -619,26 +712,94 @@
             }
 
 
-            /*
-               Completed
-            */
+            // ENDED
 
             if (
-                todayDate > end
+                todayDate > applicationEnd
             ) {
 
-                return "completed";
+                return "ended";
 
             }
 
 
-            /*
-               Active
-            */
+            // ACTIVE
 
             return "active";
 
         }
+
+
+
+        /* =========================================
+           VALIDATE DATES
+        ========================================== */
+function validateInternshipDates(internshipData) {
+
+    if (
+        !internshipData.application_start_date ||
+        !internshipData.application_end_date ||
+        !internshipData.start_date ||
+        !internshipData.end_date
+    ) {
+
+        alert("Please enter all four dates.");
+        return false;
+
+    }
+
+
+    // Validate Application Period
+
+    if (
+        internshipData.application_end_date <
+        internshipData.application_start_date
+    ) {
+
+        alert(
+            "Application End Date must be after Application Start Date."
+        );
+
+        return false;
+
+    }
+
+
+    // Validate Internship Period
+
+    if (
+        internshipData.end_date <
+        internshipData.start_date
+    ) {
+
+        alert(
+            "Internship End Date must be after Internship Start Date."
+        );
+
+        return false;
+
+    }
+
+
+    // Application Period must end before Internship starts
+
+    if (
+        internshipData.application_end_date >
+        internshipData.start_date
+    ) {
+
+        alert(
+            "Application End Date must be before or on Internship Start Date."
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
 
 
 
@@ -680,10 +841,13 @@
                         title,
                         field,
                         city,
+                        students_required,
                         description,
                         requirements,
                         start_date,
                         end_date,
+                        application_start_date,
+                        application_end_date,
                         status
                     `)
                     .eq(
@@ -732,6 +896,10 @@
                     internship.city || "";
 
 
+                studentsRequiredInput.value =
+                    internship.students_required ?? "";
+
+
                 descriptionInput.value =
                     internship.description || "";
 
@@ -739,6 +907,18 @@
                 requirementsInput.value =
                     internship.requirements || "";
 
+
+                // APPLICATION PERIOD
+
+                applicationStartDateInput.value =
+                    internship.application_start_date || "";
+
+
+                applicationEndDateInput.value =
+                    internship.application_end_date || "";
+
+
+                // INTERNSHIP PERIOD
 
                 startDateInput.value =
                     internship.start_date || "";
@@ -831,11 +1011,28 @@
                     city:
                         locationInput.value.trim(),
 
+                    students_required:
+                        Number(
+                            studentsRequiredInput.value
+                        ),
+
                     description:
                         descriptionInput.value.trim(),
 
                     requirements:
                         requirementsInput.value.trim(),
+
+
+                    // APPLICATION PERIOD
+
+                    application_start_date:
+                        applicationStartDateInput.value || null,
+
+                    application_end_date:
+                        applicationEndDateInput.value || null,
+
+
+                    // INTERNSHIP PERIOD
 
                     start_date:
                         startDateInput.value || null,
@@ -847,64 +1044,105 @@
 
 
                 /* =========================================
-                   CALCULATE STATUS FROM DATES
+                   VALIDATE ALL FOUR DATES
                 ========================================== */
 
-                const internshipStatus =
-                    calculateInternshipStatus(
-                        internshipData.start_date,
-                        internshipData.end_date
-                    );
-
-
-
-                /* =========================
-                   EDIT EXISTING INTERNSHIP
-                ========================= */
-
-                if (editId) {
-
-                    const {
-                        error
-                    } = await db
-                        .from("internships")
-                        .update({
-
-                            ...internshipData,
-
-                            status:
-                                internshipStatus
-
-                        })
-                        .eq(
-                            "id",
-                            editId
-                        )
-                        .eq(
-                            "company_id",
-                            company.id
-                        );
-
-
-                    if (error) {
-
-                        throw error;
-
-                    }
-
-
-                    alert(
-                        "Internship updated successfully."
-                    );
-
-
-                    window.location.href =
-                        "company-posts.html";
-
+                if (
+                    !validateInternshipDates(
+                        internshipData
+                    )
+                ) {
 
                     return;
 
                 }
+
+
+
+                /* =========================================
+                   CALCULATE STATUS FROM APPLICATION DATES
+                ========================================== */
+
+                const internshipStatus =
+                    calculateInternshipStatus(
+                        internshipData.application_start_date,
+                        internshipData.application_end_date
+                    );
+
+
+console.log("Today's date:", new Date());
+
+console.log(
+    "Application Start:",
+    internshipData.application_start_date
+);
+
+console.log(
+    "Application End:",
+    internshipData.application_end_date
+);
+
+console.log(
+    "Calculated Status:",
+    internshipStatus
+);
+                /* =========================
+                   EDIT EXISTING INTERNSHIP
+                ========================= */
+
+              if (editId) {
+
+    const {
+        data: updatedInternship,
+        error
+    } = await db
+        .from("internships")
+        .update({
+
+            ...internshipData,
+
+            status: internshipStatus
+
+        })
+        .eq(
+            "id",
+            editId
+        )
+        .eq(
+            "company_id",
+            company.id
+        )
+        .select("id, application_start_date, application_end_date, status")
+        .single();
+
+
+    if (error) {
+
+        throw error;
+
+    }
+
+
+    console.log(
+        "Updated internship:",
+        updatedInternship
+    );
+
+
+    alert(
+        "Internship updated successfully.\n\n" +
+        "New Status: " +
+        updatedInternship.status
+    );
+
+
+    window.location.href =
+        "company-posts.html";
+
+
+    return;
+
+}
 
 
 

@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Tasks - PathLink</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        /* =========================================
+           MY TASKS PAGE
+        ========================================== */
+
+        .tasks-page {
+            width: min(1100px, 92%);
+            margin: 36px auto 56px;
+        }
+
+        .tasks-header {
+            margin-bottom: 26px;
+        }
+
+        .tasks-eyebrow {
+            color: #4F8D99;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .tasks-header h1 {
+            color: #234B57;
+            font-size: clamp(26px, 4vw, 34px);
+            margin: 0 0 10px;
+        }
+
+        .tasks-header p {
+            color: #6b7280;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .tasks-summary {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .tasks-summary-card {
+            background: #F3EEE6;
+            border: 1px solid #e8e0d4;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .tasks-summary-label {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .tasks-summary-value {
+            color: #234B57;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .tasks-summary-note {
+            color: #777777;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .tasks-progress-track {
+            width: 100%;
+            height: 9px;
+            background: #e5ddd1;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 13px;
+        }
+
+        .tasks-progress-fill {
+            width: 0;
+            height: 100%;
+            background: #4F8D99;
+            border-radius: 20px;
+            transition: width 0.25s ease;
+        }
+
+        .tasks-card {
+            background: #ffffff;
+            border: 1px solid #e8e3db;
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 26px;
+            box-shadow: 0 4px 16px rgba(35, 75, 87, 0.04);
+        }
+
+        .tasks-card-header {
+            margin-bottom: 22px;
+        }
+
+        .tasks-card-header h2 {
+            color: #234B57;
+            font-size: 21px;
+            margin: 0 0 8px;
+        }
+
+        .tasks-card-header p {
+            color: #777777;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .tasks-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .tasks-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tasks-field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .tasks-field label {
+            color: #234B57;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tasks-field input,
+        .tasks-field select,
+        .tasks-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #d9d5ce;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #333333;
+            font: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .tasks-field input:focus,
+        .tasks-field select:focus,
+        .tasks-field textarea:focus {
+            border-color: #4F8D99;
+            box-shadow: 0 0 0 3px rgba(79, 141, 153, 0.12);
+        }
+
+        .tasks-field textarea {
+            min-height: 115px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .tasks-field input:disabled,
+        .tasks-field select:disabled {
+            background: #f6f4f0;
+            color: #777777;
+            cursor: not-allowed;
+        }
+
+        .tasks-hint {
+            color: #777777;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .tasks-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .tasks-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 43px;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 9px;
+            background: #234B57;
+            color: #ffffff;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .tasks-button:hover {
+            background: #326D7A;
+        }
+
+        .tasks-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .tasks-message {
+            display: none;
+            padding: 13px 15px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .tasks-message.success {
+            display: block;
+            background: #edf7ef;
+            color: #27633a;
+            border: 1px solid #cfe7d4;
+        }
+
+        .tasks-message.error {
+            display: block;
+            background: #fff0ef;
+            color: #a3322b;
+            border: 1px solid #f0ceca;
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .task-item {
+            border: 1px solid #e7e2da;
+            border-radius: 12px;
+            padding: 19px;
+            background: #ffffff;
+        }
+
+        .task-item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .task-item h3 {
+            color: #234B57;
+            font-size: 16px;
+            margin: 0 0 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .task-item-date {
+            color: #777777;
+            font-size: 13px;
+        }
+
+        .task-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .task-status.pending {
+            background: #fff4d9;
+            color: #8b6415;
+        }
+
+        .task-status.verified {
+            background: #e7f5eb;
+            color: #28663a;
+        }
+
+        .task-status.rejected {
+            background: #ffeded;
+            color: #a33232;
+        }
+
+        .task-description {
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            margin: 0 0 13px;
+        }
+
+        .task-item-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 22px;
+            padding-top: 13px;
+            border-top: 1px solid #eeeae4;
+            color: #555555;
+            font-size: 13px;
+        }
+
+        .task-feedback {
+            margin-top: 13px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f7f5f1;
+            color: #555555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tasks-empty {
+            text-align: center;
+            padding: 28px 18px;
+            border: 1px dashed #d8d2c8;
+            border-radius: 12px;
+            background: #faf9f6;
+            color: #777777;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tasks-section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .tasks-section-heading h2 {
+            color: #234B57;
+            font-size: 21px;
+            margin: 0;
+        }
+
+        .tasks-count {
+            color: #777777;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 760px) {
+            .tasks-page {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .tasks-summary {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .tasks-summary-card {
+                padding: 18px;
+            }
+
+            .tasks-form-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .tasks-field.full-width {
+                grid-column: auto;
+            }
+
+            .tasks-card {
+                padding: 20px 16px;
+            }
+
+            .task-item-top {
+                flex-direction: column;
+            }
+
+            .tasks-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tasks-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="home-page">
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+        <div class="nav-content">
+
+            <a href="home.html" class="brand">
+                <img
+    src="./images/alquds-university-logo.png"
+    alt="Al-Quds University Logo"
+    class="university-navbar-logo"
+>
+                <img src="./images/logo.png" alt="PathLink Logo">
+                <span>PathLink</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="home.html">Home</a>
+
+                <a href="my-applications.html">
+                    My Internship Applications
+                </a>
+
+                <a href="my-tasks.html" class="active">
+                    My Tasks
+                </a>
+                     
+<a href="external-request.html">
+                        External Request
+                    </a>
+                <a href="profile.html">Profile</a>
+
+                <a href="index.html" class="logout" id="logoutButton">
+                    Logout
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="tasks-page">
+
+        <section class="tasks-header">
+            <p class="tasks-eyebrow">INTERNSHIP TRACKING</p>
+
+            <h1>My Tasks</h1>
+
+            <p>
+                Record your internship activities, track your training hours,
+                and follow your progress toward the required 135 hours.
+            </p>
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <section class="tasks-summary">
+
+            <div class="tasks-summary-card">
+                <div class="tasks-summary-label">Recorded Hours</div>
+
+                <div class="tasks-summary-value" id="verifiedHours">
+                    0
+                </div>
+
+                <div class="tasks-summary-note">
+                    Total hours you have recorded
+                </div>
+
+                <div
+                    class="tasks-progress-track"
+                    role="progressbar"
+                    aria-label="Training hours progress"
+                    aria-valuemin="0"
+                    aria-valuemax="135"
+                    aria-valuenow="0"
+                    id="hoursProgress"
+                >
+                    <div
+                        class="tasks-progress-fill"
+                        id="hoursProgressFill"
+                    ></div>
+                </div>
+            </div>
+
+
+            <div class="tasks-summary-card">
+                <div class="tasks-summary-label">Hours Remaining</div>
+
+                <div class="tasks-summary-value" id="pendingHours">
+                    135
+                </div>
+
+                <div class="tasks-summary-note">
+                    Hours remaining to reach 135
+                </div>
+            </div>
+
+
+            <div class="tasks-summary-card">
+                <div class="tasks-summary-label">Recorded Tasks</div>
+
+                <div class="tasks-summary-value" id="totalTasks">
+                    0
+                </div>
+
+                <div class="tasks-summary-note">
+                    Total activities you have submitted
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ADD TASK FORM -->
+
+        <section class="tasks-card">
+
+            <div class="tasks-card-header">
+                <h2>Record a New Task</h2>
+
+                <p>
+                    Add the activity you completed during your internship.
+                    Your recorded hours will count immediately.
+                </p>
+            </div>
+
+            <div
+                class="tasks-message"
+                id="formMessage"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+            <form id="taskForm">
+
+                <div class="tasks-form-grid">
+
+                    <div class="tasks-field full-width">
+                        <label for="applicationId">
+                            Accepted Internship
+                        </label>
+
+                        <select
+                            id="applicationId"
+                            name="applicationId"
+                            required
+                        >
+                            <option value="">
+                                Loading accepted internships...
+                            </option>
+                        </select>
+
+                        <span class="tasks-hint">
+                            Select the internship related to this activity.
+                        </span>
+                    </div>
+
+
+                    <div class="tasks-field">
+                        <label for="activityDate">
+                            Activity Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="activityDate"
+                            name="activityDate"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="tasks-field">
+                        <label for="activityHours">
+                            Hours Completed
+                        </label>
+
+                        <input
+                            type="number"
+                            id="activityHours"
+                            name="activityHours"
+                            min="0.25"
+                            max="24"
+                            step="0.25"
+                            placeholder="e.g. 4"
+                            required
+                        >
+
+                        <span class="tasks-hint">
+                            Enter the number of hours you completed.
+                        </span>
+                    </div>
+
+
+                    <div class="tasks-field full-width">
+                        <label for="activityDescription">
+                            Task Description
+                        </label>
+
+                        <textarea
+                            id="activityDescription"
+                            name="activityDescription"
+                            maxlength="2000"
+                            placeholder="Describe the activity or task you completed..."
+                            required
+                        ></textarea>
+                    </div>
+
+                </div>
+
+
+                <div class="tasks-actions">
+                    <button
+                        type="submit"
+                        class="tasks-button"
+                        id="submitTaskButton"
+                    >
+                        Save Task
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- TASK HISTORY -->
+
+        <section class="tasks-card">
+
+            <div class="tasks-section-heading">
+                <h2>My Recorded Tasks</h2>
+
+                <span class="tasks-count" id="tasksCountLabel">
+                    0 tasks
+                </span>
+            </div>
+
+            <div
+                class="tasks-message"
+                id="listMessage"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+            <div class="tasks-list" id="tasksList">
+
+                <div class="tasks-empty">
+                    Loading your recorded tasks...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="home-footer">
+        <p>© 2026 PathLink</p>
+    </footer>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./js/supabase.js"></script>
+<script>
+    /* =========================================
+       CONFIGURATION
+    ========================================== */
+
+    const REQUIRED_HOURS = 135;
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================== */
+
+    const taskForm =
+        document.getElementById("taskForm");
+
+    const applicationSelect =
+        document.getElementById("applicationId");
+
+    const activityDateInput =
+        document.getElementById("activityDate");
+
+    const activityHoursInput =
+        document.getElementById("activityHours");
+
+    const activityDescriptionInput =
+        document.getElementById("activityDescription");
+
+    const submitTaskButton =
+        document.getElementById("submitTaskButton");
+
+    const verifiedHoursElement =
+        document.getElementById("verifiedHours");
+
+    const pendingHoursElement =
+        document.getElementById("pendingHours");
+
+    const totalTasksElement =
+        document.getElementById("totalTasks");
+
+    const hoursProgress =
+        document.getElementById("hoursProgress");
+
+    const hoursProgressFill =
+        document.getElementById("hoursProgressFill");
+
+    const tasksList =
+        document.getElementById("tasksList");
+
+    const tasksCountLabel =
+        document.getElementById("tasksCountLabel");
+
+    const formMessage =
+        document.getElementById("formMessage");
+
+    const listMessage =
+        document.getElementById("listMessage");
+
+
+    /* =========================================
+       STATE
+    ========================================== */
+
+    let currentUser = null;
+    let currentStudent = null;
+    let recordedTasks = [];
+
+
+    /* =========================================
+       MESSAGE HELPERS
+    ========================================== */
+
+    function showMessage(element, message, type) {
+        element.textContent = message;
+        element.className = "tasks-message " + type;
+    }
+
+
+    function hideMessage(element) {
+        element.textContent = "";
+        element.className = "tasks-message";
+    }
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================== */
+
+    function escapeHTML(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =========================================
+       FORMAT DATE
+    ========================================== */
+
+    function formatDate(value) {
+        if (!value) {
+            return "Not specified";
+        }
+
+        const date = new Date(value + "T00:00:00");
+
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+
+        return date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+        });
+    }
+
+
+    /* =========================================
+       FORMAT HOURS
+    ========================================== */
+
+    function formatHours(value) {
+        const number = Number(value) || 0;
+
+        return Number.isInteger(number)
+            ? String(number)
+            : number.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+    }
+
+
+    /* =========================================
+       CHECK LOGIN
+    ========================================== */
+
+    async function checkLogin() {
+        const {
+            data: { user },
+            error
+        } = await db.auth.getUser();
+
+        if (error || !user) {
+            alert("Please login first.");
+            window.location.href = "index.html";
+            return false;
+        }
+
+        currentUser = user;
+
+        return true;
+    }
+
+
+    /* =========================================
+       LOAD STUDENT RECORD
+    ========================================== */
+
+   async function loadStudentRecord() {
+    const {
+        data: student,
+        error
+    } = await db
+        .from("students")
+        .select("id, major, university")
+        .eq("id", currentUser.id)
+        .maybeSingle();
+
+    if (error) {
+        console.error("Student record error:", error);
+
+        throw new Error(
+            "Could not load your student record: " + error.message
+        );
+    }
+
+    if (!student) {
+        throw new Error(
+            "No student record was found for your account."
+        );
+    }
+
+    currentStudent = student;
+}
+    /* =========================================
+       LOAD ACCEPTED INTERNSHIPS
+    ========================================== */
+
+    async function loadAcceptedApplications() {
+        applicationSelect.innerHTML = `
+            <option value="">Loading accepted internships...</option>
+        `;
+
+        const {
+            data: applications,
+            error
+        } = await db
+            .from("applications")
+            .select(`
+                id,
+                student_id,
+                status,
+                internship_id,
+                internships (
+                    id,
+                    title,
+                    company_id,
+                    companies (
+                        name
+                    )
+                )
+            `)
+            .eq("student_id", currentUser.id)
+            .eq("status", "accepted");
+
+        if (error) {
+            console.error("Applications loading error:", error);
+
+            applicationSelect.innerHTML = `
+                <option value="">Unable to load internships</option>
+            `;
+
+            throw new Error("Could not load your accepted internships.");
+        }
+
+        if (!applications || applications.length === 0) {
+            applicationSelect.innerHTML = `
+                <option value="">No accepted internships found</option>
+            `;
+
+            applicationSelect.disabled = true;
+            submitTaskButton.disabled = true;
+
+            return;
+        }
+
+        applicationSelect.disabled = false;
+        submitTaskButton.disabled = false;
+
+        applicationSelect.innerHTML = `
+            <option value="">Select an internship</option>
+        `;
+
+        applications.forEach(application => {
+            const internship = application.internships;
+
+            const internshipTitle =
+                internship?.title || "Internship";
+
+            const companyName =
+                internship?.companies?.name || "Company";
+
+            const option = document.createElement("option");
+
+            option.value = application.id;
+           option.textContent = internshipTitle;
+            applicationSelect.appendChild(option);
+        });
+    }
+
+
+    /* =========================================
+       LOAD TASKS
+    ========================================== */
+
+    async function loadTasks() {
+        tasksList.innerHTML = `
+            <div class="tasks-empty">
+                Loading your recorded tasks...
+            </div>
+        `;
+
+        const {
+            data: tasks,
+            error
+        } = await db
+            .from("training_activities")
+            .select(`
+                id,
+                application_id,
+                student_id,
+                activity_date,
+                description,
+                hours,
+                verification_status,
+                created_at,
+                company_feedback
+            `)
+            .eq("student_id", currentUser.id)
+            .order("activity_date", { ascending: false });
+
+        if (error) {
+            console.error("Tasks loading error:", error);
+
+            tasksList.innerHTML = `
+                <div class="tasks-empty">
+                    Unable to load your recorded tasks. Please refresh the page.
+                </div>
+            `;
+
+            throw new Error("Could not load your recorded tasks.");
+        }
+
+        recordedTasks = tasks || [];
+
+        renderTasks();
+        updateSummary();
+    }
+
+
+    /* =========================================
+       UPDATE HOURS SUMMARY
+    ========================================== */
+
+    function updateSummary() {
+        /*
+           All hours entered by the student count immediately.
+           Company approval is not required for the total.
+        */
+
+        const totalHours = recordedTasks.reduce(
+            (total, task) => total + (Number(task.hours) || 0),
+            0
+        );
+
+        const remainingHours = Math.max(
+            0,
+            REQUIRED_HOURS - totalHours
+        );
+
+        const progressPercentage = Math.min(
+            100,
+            (totalHours / REQUIRED_HOURS) * 100
+        );
+
+        verifiedHoursElement.textContent =
+            formatHours(totalHours);
+
+        pendingHoursElement.textContent =
+            formatHours(remainingHours);
+
+        totalTasksElement.textContent =
+            String(recordedTasks.length);
+
+        hoursProgressFill.style.width =
+            progressPercentage + "%";
+
+        hoursProgress.setAttribute(
+            "aria-valuenow",
+            String(Math.min(REQUIRED_HOURS, totalHours))
+        );
+
+        tasksCountLabel.textContent =
+            recordedTasks.length +
+            (recordedTasks.length === 1 ? " task" : " tasks");
+    }
+
+
+    /* =========================================
+       RENDER TASKS
+    ========================================== */
+
+    function renderTasks() {
+        if (!recordedTasks.length) {
+            tasksList.innerHTML = `
+                <div class="tasks-empty">
+                    You have not recorded any tasks yet.
+                    Use the form above to add your first activity.
+                </div>
+            `;
+
+            return;
+        }
+
+        tasksList.innerHTML = recordedTasks.map(task => {
+            const description =
+                escapeHTML(task.description || "No description provided.");
+
+            const date =
+                escapeHTML(formatDate(task.activity_date));
+
+            const hours =
+                escapeHTML(formatHours(task.hours));
+
+            /*
+               Status is displayed as recorded/verified for this workflow.
+               Hours are counted regardless of any old pending status.
+            */
+
+            return `
+                <article class="task-item">
+
+                    <div class="task-item-top">
+                        <div>
+                            <h3>${date}</h3>
+
+                            <div class="task-item-date">
+                                Activity recorded
+                            </div>
+                        </div>
+
+                        <span class="task-status verified">
+                            Recorded
+                        </span>
+                    </div>
+
+                    <p class="task-description">
+                        ${description}
+                    </p>
+
+                    <div class="task-item-bottom">
+                        <span>
+                            <strong>Hours:</strong> ${hours}
+                        </span>
+
+                        <span>
+                            <strong>Status:</strong> Counted toward total
+                        </span>
+                    </div>
+
+                    ${
+                        task.company_feedback
+                            ? `
+                                <div class="task-feedback">
+                                    <strong>Company feedback:</strong>
+                                    ${escapeHTML(task.company_feedback)}
+                                </div>
+                            `
+                            : ""
+                    }
+
+                </article>
+            `;
+        }).join("");
+    }
+
+
+    /* =========================================
+       SAVE NEW TASK
+    ========================================== */
+
+    taskForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        hideMessage(formMessage);
+
+        if (!currentUser || !currentStudent) {
+            showMessage(
+                formMessage,
+                "Your student information is not ready. Refresh the page and try again.",
+                "error"
+            );
+
+            return;
+        }
+
+        const applicationId =
+            applicationSelect.value;
+
+        const activityDate =
+            activityDateInput.value;
+
+        const activityHours =
+            Number(activityHoursInput.value);
+
+        const description =
+            activityDescriptionInput.value.trim();
+
+        if (!applicationId) {
+            showMessage(
+                formMessage,
+                "Please select an accepted internship.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (!activityDate) {
+            showMessage(
+                formMessage,
+                "Please select the activity date.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (
+            !Number.isFinite(activityHours) ||
+            activityHours <= 0 ||
+            activityHours > 24
+        ) {
+            showMessage(
+                formMessage,
+                "Enter a valid number of hours between 0.25 and 24.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (!description) {
+            showMessage(
+                formMessage,
+                "Please describe the activity you completed.",
+                "error"
+            );
+
+            return;
+        }
+
+        submitTaskButton.disabled = true;
+        submitTaskButton.textContent = "Saving...";
+
+        try {
+            const {
+                data: application,
+                error: applicationError
+            } = await db
+                .from("applications")
+                .select("id, student_id, status")
+                .eq("id", applicationId)
+                .eq("student_id", currentUser.id)
+                .eq("status", "accepted")
+                .maybeSingle();
+
+            if (applicationError) {
+                throw applicationError;
+            }
+
+            if (!application) {
+                throw new Error(
+                    "The selected internship is not an accepted application."
+                );
+            }
+
+            const {
+                error: insertError
+            } = await db
+                .from("training_activities")
+                .insert({
+                    application_id: applicationId,
+                    student_id: currentUser.id,
+                    activity_date: activityDate,
+                    description: description,
+                    hours: activityHours,
+                    verification_status: "verified",
+                    verified_at: new Date().toISOString()
+                });
+
+            if (insertError) {
+                console.error("Task insert error:", insertError);
+                throw insertError;
+            }
+
+            showMessage(
+                formMessage,
+                "Task saved successfully. Your hours have been added to your total.",
+                "success"
+            );
+
+            taskForm.reset();
+
+            activityDateInput.value =
+                new Date().toISOString().split("T")[0];
+
+            await loadTasks();
+
+        } catch (error) {
+            console.error("Save task error:", error);
+
+            showMessage(
+                formMessage,
+                error.message ||
+                    "Unable to save this task. Please try again.",
+                "error"
+            );
+
+        } finally {
+            submitTaskButton.disabled =
+                applicationSelect.disabled;
+
+            submitTaskButton.textContent =
+                "Save Task";
+        }
+    });
+
+
+    /* =========================================
+       LOGOUT
+    ========================================== */
+
+    document
+        .getElementById("logoutButton")
+        .addEventListener("click", async function(event) {
+            event.preventDefault();
+
+            try {
+                await db.auth.signOut();
+            } catch (error) {
+                console.error("Logout error:", error);
+            }
+
+            localStorage.removeItem("username");
+            localStorage.removeItem("role");
+
+            window.location.href = "index.html";
+        });
+
+
+    /* =========================================
+       INITIALIZE PAGE
+    ========================================== */
+
+    async function initializePage() {
+        try {
+            const isLoggedIn = await checkLogin();
+
+            if (!isLoggedIn) {
+                return;
+            }
+
+            await loadStudentRecord();
+            await loadAcceptedApplications();
+
+            activityDateInput.value =
+                new Date().toISOString().split("T")[0];
+
+            await loadTasks();
+
+        } catch (error) {
+            console.error("Page initialization error:", error);
+
+            showMessage(
+                listMessage,
+                error.message ||
+                    "Something went wrong while loading this page.",
+                "error"
+            );
+        }
+    }
+
+    initializePage();
+
+</script>
+
+</body>
+</html>

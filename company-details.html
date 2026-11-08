@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,13 +34,16 @@
 
             <div class="nav-content">
 
-
-                <!-- Logo -->
-
                 <a
                     href="home.html"
                     class="brand"
                 >
+
+                    <img
+                        src="./images/alquds-university-logo.png"
+                        alt="Al-Quds University Logo"
+                        class="university-navbar-logo"
+                    >
 
                     <img
                         src="./images/logo.png"
@@ -53,8 +57,6 @@
                 </a>
 
 
-                <!-- Navigation -->
-
                 <nav class="nav-links">
 
                     <a href="home.html">
@@ -63,6 +65,10 @@
 
                     <a href="my-applications.html">
                         My Internship Applications
+                    </a>
+
+                    <a href="my-tasks.html">
+                        My Tasks
                     </a>
 
                     <a href="profile.html">
@@ -83,6 +89,7 @@
         </header>
 
 
+
         <!-- =========================================
              COMPANY DETAILS PAGE
         ========================================== -->
@@ -100,6 +107,7 @@
             </a>
 
 
+
             <!-- =====================================
                  COMPANY HEADER
             ====================================== -->
@@ -107,7 +115,7 @@
             <section class="company-header">
 
 
-                <!-- Company Logo -->
+                <!-- COMPANY LOGO -->
 
                 <div class="details-logo">
 
@@ -120,7 +128,8 @@
                 </div>
 
 
-                <!-- Company Information -->
+
+                <!-- COMPANY INFORMATION -->
 
                 <div class="company-header-info">
 
@@ -147,7 +156,8 @@
                     </p>
 
 
-                    <!-- Company Website -->
+
+                    <!-- COMPANY WEBSITE -->
 
                     <a
                         id="companyWebsite"
@@ -162,6 +172,7 @@
                 </div>
 
             </section>
+
 
 
             <!-- =====================================
@@ -193,6 +204,7 @@
                     </div>
 
 
+
                     <!-- INTERNSHIP INFORMATION -->
 
                     <div class="details-card">
@@ -203,6 +215,40 @@
 
                         <div class="info-grid">
 
+
+                            <!-- APPLICATION START DATE -->
+
+                            <div class="info-item">
+
+                                <span>
+                                    Application Start Date
+                                </span>
+
+                                <strong id="infoApplicationStartDate">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- APPLICATION END DATE -->
+
+                            <div class="info-item">
+
+                                <span>
+                                    Application End Date
+                                </span>
+
+                                <strong id="infoApplicationEndDate">
+                                    Loading...
+                                </strong>
+
+                            </div>
+
+
+
+                            <!-- FIELD -->
 
                             <div class="info-item">
 
@@ -217,6 +263,9 @@
                             </div>
 
 
+
+                            <!-- LOCATION -->
+
                             <div class="info-item">
 
                                 <span>
@@ -230,10 +279,13 @@
                             </div>
 
 
+
+                            <!-- INTERNSHIP START DATE -->
+
                             <div class="info-item">
 
                                 <span>
-                                    Start Date
+                                    Internship Start Date
                                 </span>
 
                                 <strong id="infoStartDate">
@@ -243,10 +295,13 @@
                             </div>
 
 
+
+                            <!-- INTERNSHIP END DATE -->
+
                             <div class="info-item">
 
                                 <span>
-                                    End Date
+                                    Internship End Date
                                 </span>
 
                                 <strong id="infoEndDate">
@@ -255,6 +310,9 @@
 
                             </div>
 
+
+
+                            <!-- DURATION -->
 
                             <div class="info-item">
 
@@ -268,6 +326,9 @@
 
                             </div>
 
+
+
+                            <!-- WORKING HOURS -->
 
                             <div class="info-item">
 
@@ -285,6 +346,7 @@
                         </div>
 
                     </div>
+
 
 
                     <!-- AVAILABLE POSITIONS -->
@@ -309,6 +371,7 @@
                     </div>
 
 
+
                     <!-- REQUIREMENTS -->
 
                     <div class="details-card">
@@ -331,6 +394,7 @@
                     </div>
 
 
+
                     <!-- INTERNSHIP DESCRIPTION -->
 
                     <div class="details-card">
@@ -347,6 +411,7 @@
 
 
                 </section>
+
 
 
                 <!-- =================================
@@ -373,6 +438,7 @@
                         id="applyButton"
                         href="#"
                         class="apply-button"
+                        style="display: none;"
                     >
                         Apply Now
                     </a>
@@ -383,8 +449,7 @@
                         id="applyNote"
                     >
 
-                        You can review your application
-                        status from My Applications.
+                        Checking application availability...
 
                     </p>
 
@@ -396,6 +461,7 @@
 
 
         </main>
+
 
 
         <!-- =========================================
@@ -414,6 +480,7 @@
     </div>
 
 
+
     <!-- =========================================
          SUPABASE
     ========================================== -->
@@ -423,11 +490,98 @@
     <script src="./js/supabase.js"></script>
 
 
+
     <!-- =========================================
          LOAD COMPANY + INTERNSHIPS DATA
     ========================================== -->
 
     <script>
+
+        // =========================================
+        // FORMAT DATE
+        // =========================================
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "Not specified";
+    }
+
+    const parts = dateValue.split("-");
+
+    if (parts.length !== 3) {
+        return "Not specified";
+    }
+
+    const [year, month, day] = parts;
+
+    return `${day}/${month}/${year}`;
+
+}
+
+
+
+        // =========================================
+        // CALCULATE APPLICATION STATUS
+        // =========================================
+
+        function calculateApplicationStatus(
+            applicationStartDate,
+            applicationEndDate
+        ) {
+
+            if (
+                !applicationStartDate ||
+                !applicationEndDate
+            ) {
+
+                return "unavailable";
+
+            }
+
+
+            const today = new Date();
+
+
+            const todayString =
+
+                today.getFullYear() + "-" +
+
+                String(
+                    today.getMonth() + 1
+                ).padStart(2, "0") + "-" +
+
+                String(
+                    today.getDate()
+                ).padStart(2, "0");
+
+
+            if (
+                todayString < applicationStartDate
+            ) {
+
+                return "upcoming";
+
+            }
+
+
+            if (
+                todayString > applicationEndDate
+            ) {
+
+                return "ended";
+
+            }
+
+
+            return "active";
+
+        }
+
+
+
+        // =========================================
+        // LOAD COMPANY
+        // =========================================
 
         async function loadCompany() {
 
@@ -575,12 +729,8 @@
 
 
                 if (
-                    !websiteUrl.startsWith(
-                        "http://"
-                    ) &&
-                    !websiteUrl.startsWith(
-                        "https://"
-                    )
+                    !websiteUrl.startsWith("http://") &&
+                    !websiteUrl.startsWith("https://")
                 ) {
 
                     websiteUrl =
@@ -646,56 +796,50 @@
             }
 
 
+// =====================================
+// LOAD APPROVED INTERNSHIPS ONLY
+// =====================================
 
-            // =====================================
-            // LOAD ALL INTERNSHIPS
-            // =====================================
+const {
+    data: internships,
+    error: internshipError
+} = await db
 
-            /*
-                IMPORTANT:
+    .from("internships")
 
-                We intentionally DO NOT filter
-                internships by status.
+    .select(`
+        id,
+        title,
+        field,
+        city,
+        description,
+        requirements,
+        application_start_date,
+        application_end_date,
+        start_date,
+        end_date,
+        working_hours,
+        status,
+        approval_status,
+        created_at
+    `)
 
-                All opportunities are displayed:
+    .eq(
+        "company_id",
+        company.id
+    )
 
-                - upcoming
-                - active
-                - completed
-            */
+    .eq(
+        "approval_status",
+        "approved"
+    )
 
-            const {
-                data: internships,
-                error: internshipError
-            } = await db
-
-                .from("internships")
-
-                .select(`
-                    id,
-                    title,
-                    field,
-                    city,
-                    description,
-                    requirements,
-                    start_date,
-                    end_date,
-                    working_hours,
-                    status,
-                    created_at
-                `)
-
-                .eq(
-                    "company_id",
-                    company.id
-                )
-
-                .order(
-                    "created_at",
-                    {
-                        ascending: true
-                    }
-                );
+    .order(
+        "created_at",
+        {
+            ascending: true
+        }
+    );
 
 
 
@@ -762,6 +906,18 @@
                 positionsList.appendChild(
                     li
                 );
+
+
+                document.getElementById(
+                    "infoApplicationStartDate"
+                ).textContent =
+                    "Not specified";
+
+
+                document.getElementById(
+                    "infoApplicationEndDate"
+                ).textContent =
+                    "Not specified";
 
 
                 document.getElementById(
@@ -855,57 +1011,40 @@
 
 
             // =====================================
-            // FORMAT DATE
-            // =====================================
-
-            function formatDate(
-                dateValue
-            ) {
-
-                if (!dateValue) {
-
-                    return "Not specified";
-
-                }
-
-
-                const date =
-                    new Date(
-                        `${dateValue}T00:00:00`
-                    );
-
-
-                if (
-                    Number.isNaN(
-                        date.getTime()
-                    )
-                ) {
-
-                    return dateValue;
-
-                }
-
-
-                return date.toLocaleDateString(
-                    "en-GB",
-                    {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric"
-                    }
-                );
-
-            }
-
-
-
-            // =====================================
             // DISPLAY SELECTED INTERNSHIP
             // =====================================
 
             async function displayInternship(
                 internship
             ) {
+
+
+                // =================================
+                // APPLICATION START DATE
+                // =================================
+
+                document.getElementById(
+                    "infoApplicationStartDate"
+                ).textContent =
+
+                    formatDate(
+                        internship.application_start_date
+                    );
+
+
+
+                // =================================
+                // APPLICATION END DATE
+                // =================================
+
+                document.getElementById(
+                    "infoApplicationEndDate"
+                ).textContent =
+
+                    formatDate(
+                        internship.application_end_date
+                    );
+
 
 
                 // =================================
@@ -940,7 +1079,7 @@
 
 
                 // =================================
-                // START DATE
+                // INTERNSHIP START DATE
                 // =================================
 
                 document.getElementById(
@@ -954,7 +1093,7 @@
 
 
                 // =================================
-                // END DATE
+                // INTERNSHIP END DATE
                 // =================================
 
                 document.getElementById(
@@ -1095,28 +1234,40 @@
                     );
 
 
+                // Hide button by default
+
+                applyButton.style.display =
+                    "none";
+
+
+                applyButton.removeAttribute(
+                    "href"
+                );
+
+
 
                 // =================================
-                // COMPLETED INTERNSHIP
+                // CHECK APPLICATION PERIOD
                 // =================================
 
-                if (
-                    internship.status ===
-                    "completed"
-                ) {
-
-                    applyButton.style.display =
-                        "none";
-
-
-                    applyButton.removeAttribute(
-                        "href"
+                const applicationStatus =
+                    calculateApplicationStatus(
+                        internship.application_start_date,
+                        internship.application_end_date
                     );
 
 
-                    applyNote.textContent =
-                        "This internship opportunity has ended.";
 
+                // =================================
+                // MISSING APPLICATION DATES
+                // =================================
+
+                if (
+                    applicationStatus === "unavailable"
+                ) {
+
+                    applyNote.textContent =
+                        "Application dates are not available for this internship.";
 
                     return;
 
@@ -1125,7 +1276,41 @@
 
 
                 // =================================
-                // CHECK IF STUDENT ALREADY APPLIED
+                // UPCOMING
+                // =================================
+
+                if (
+                    applicationStatus === "upcoming"
+                ) {
+
+                    applyNote.textContent =
+                        "Applications have not opened yet. Please check back on the Application Start Date.";
+
+                    return;
+
+                }
+
+
+
+                // =================================
+                // ENDED
+                // =================================
+
+                if (
+                    applicationStatus === "ended"
+                ) {
+
+                    applyNote.textContent =
+                        "The application period for this internship has ended.";
+
+                    return;
+
+                }
+
+
+
+                // =================================
+                // ACTIVE - CHECK PREVIOUS APPLICATION
                 // =================================
 
                 try {
@@ -1133,8 +1318,16 @@
                     const {
                         data: {
                             user
-                        }
+                        },
+                        error: userError
                     } = await db.auth.getUser();
+
+
+                    if (userError) {
+
+                        throw userError;
+
+                    }
 
 
                     if (user) {
@@ -1161,34 +1354,17 @@
                             .maybeSingle();
 
 
-                        if (
-                            applicationError
-                        ) {
+                        if (applicationError) {
 
-                            console.error(
-                                "Application check error:",
-                                applicationError
-                            );
+                            throw applicationError;
 
                         }
 
 
-                        if (
-                            studentApplication
-                        ) {
-
-                            applyButton.style.display =
-                                "none";
-
-
-                            applyButton.removeAttribute(
-                                "href"
-                            );
-
+                        if (studentApplication) {
 
                             applyNote.textContent =
-                                "You can review your application status from My Applications.";
-
+                                "You have already applied for this internship. You can review your application status from My Applications.";
 
                             return;
 
@@ -1198,6 +1374,11 @@
 
                 }
 
+
+                // =================================
+                // APPLICATION CHECK ERROR
+                // =================================
+
                 catch (error) {
 
                     console.error(
@@ -1205,12 +1386,17 @@
                         error
                     );
 
+                    applyNote.textContent =
+                        "Unable to check your application. Please try again.";
+
+                    return;
+
                 }
 
 
 
                 // =================================
-                // UPCOMING / ACTIVE
+                // ACTIVE - SHOW APPLY BUTTON
                 // =================================
 
                 applyButton.href =

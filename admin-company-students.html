@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Accepted Students - PathLink</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
+    <style>
+
+        /* =====================================
+           COMPANY STUDENTS PAGE
+        ===================================== */
+
+        .admin-company-students-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        .admin-company-students-header {
+            margin-bottom: 25px;
+        }
+
+        .admin-company-students-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .admin-company-students-header p {
+            color: #666;
+        }
+
+        .admin-company-students-card {
+            background: #F3EEE6;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .students-count {
+            color: #326D7A;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================
+           STUDENTS TABLE
+        ===================================== */
+
+        .students-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        .students-table th {
+            background: #326D7A;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .students-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #DED6C9;
+            color: #333;
+            text-align: left;
+        }
+
+        .students-table tbody tr:hover {
+            background: #F1E9DA;
+        }
+
+
+        /* =====================================
+           MESSAGES
+        ===================================== */
+
+        .students-message {
+            text-align: center;
+            padding: 30px 15px;
+            color: #666;
+        }
+
+        .students-error {
+            color: #B42318;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ===================================== */
+
+        @media (max-width: 600px) {
+
+            .admin-company-students-page {
+                padding: 0 15px;
+                margin-top: 25px;
+            }
+
+            .admin-company-students-card {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         NAVBAR
+    ===================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-content">
+
+            <a
+                href="admin-dashboard.html"
+                class="brand"
+            >
+
+                <img
+                    src="./images/alquds-university-logo.png"
+                    class="university-navbar-logo"
+                    alt="Al-Quds University"
+                >
+
+                <img
+                    src="./images/logo.png"
+                    alt="PathLink Logo"
+                >
+
+                <span>PathLink</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="admin-dashboard.html">
+                    Dashboard
+                </a>
+
+                <a
+                    href="admin-companies.html"
+                    class="active"
+                >
+                    Companies
+                </a>
+
+                <a href="admin-profile.html">
+                    Profile
+                </a>
+
+                <a
+                    href="index.html"
+                    class="logout"
+                    id="logoutBtn"
+                >
+                    Logout
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ===================================== -->
+
+    <main class="admin-company-students-page">
+
+
+        <a
+            href="admin-companies.html"
+            class="admin-back"
+        >
+            ← Back to Companies
+        </a>
+
+
+        <div class="admin-company-students-header">
+
+            <h1>Accepted Students</h1>
+
+            <p id="companyName">
+                Loading company information...
+            </p>
+
+        </div>
+
+
+        <div class="admin-company-students-card">
+
+
+            <div
+                class="students-count"
+                id="studentsCount"
+            >
+                Accepted Students: 0
+            </div>
+
+
+            <div id="studentsContent">
+
+                <p class="students-message">
+                    Loading accepted students...
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="home-footer">
+
+        <p>
+            © 2026 PathLink
+        </p>
+
+    </footer>
+
+</div>
+
+    <!-- =====================================
+         SUPABASE
+    ===================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./js/supabase.js"></script>
+
+
+
+    <script>
+
+
+        // =====================================
+        // GET COMPANY ID
+        // =====================================
+
+        const params = new URLSearchParams(
+            window.location.search
+        );
+
+        const companyId = params.get("id");
+
+
+
+        // =====================================
+        // ESCAPE HTML
+        // =====================================
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+
+        // =====================================
+        // CHECK ADMIN
+        // =====================================
+
+        async function checkAdmin() {
+
+            const {
+                data: { user },
+                error
+            } = await db.auth.getUser();
+
+
+            if (error || !user) {
+
+                window.location.href = "index.html";
+
+                return false;
+
+            }
+
+
+            const {
+                data: profile,
+                error: profileError
+            } = await db
+                .from("profiles")
+                .select("role")
+                .eq("id", user.id)
+                .single();
+
+
+            if (
+                profileError ||
+                !profile ||
+                profile.role !== "admin"
+            ) {
+
+                window.location.href = "index.html";
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // =====================================
+        // LOAD ACCEPTED STUDENTS
+        // =====================================
+
+        async function loadAcceptedStudents() {
+
+            const content = document.getElementById(
+                "studentsContent"
+            );
+
+
+            try {
+
+
+                if (!companyId) {
+
+                    throw new Error(
+                        "Company ID is missing."
+                    );
+
+                }
+
+
+                // GET COMPANY NAME
+
+                const {
+                    data: company,
+                    error: companyError
+                } = await db
+                    .from("companies")
+                    .select("name")
+                    .eq("id", companyId)
+                    .single();
+
+
+                if (companyError) {
+                    throw companyError;
+                }
+
+
+                document.getElementById(
+                    "companyName"
+                ).textContent = company.name;
+
+
+
+                // GET COMPANY INTERNSHIPS
+
+                const {
+                    data: internships,
+                    error: internshipsError
+                } = await db
+                    .from("internships")
+                    .select("id, title")
+                    .eq("company_id", companyId);
+
+
+                if (internshipsError) {
+                    throw internshipsError;
+                }
+
+
+                if (!internships || internships.length === 0) {
+
+                    showEmptyMessage(
+                        "This company has no internships yet."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // CREATE INTERNSHIP MAP
+
+                const internshipMap = {};
+
+
+                const internshipIds = internships.map(
+                    internship => {
+
+                        internshipMap[internship.id] =
+                            internship.title;
+
+                        return internship.id;
+
+                    }
+                );
+
+
+
+                // GET ACCEPTED APPLICATIONS
+
+                const {
+                    data: applications,
+                    error: applicationsError
+                } = await db
+                    .from("applications")
+                    .select(
+                        "student_id, internship_id"
+                    )
+                    .in("internship_id", internshipIds)
+                    .eq("status", "accepted");
+
+
+                if (applicationsError) {
+                    throw applicationsError;
+                }
+
+
+                if (!applications || applications.length === 0) {
+
+                    showEmptyMessage(
+                        "No students have been accepted into this company's internships yet."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // GET UNIQUE STUDENT IDS
+
+                const studentIds = [
+                    ...new Set(
+                        applications
+                            .map(app => app.student_id)
+                            .filter(Boolean)
+                    )
+                ];
+
+
+                if (studentIds.length === 0) {
+
+                    showEmptyMessage(
+                        "No accepted students were found."
+                    );
+
+                    return;
+
+                }
+
+
+
+                // GET STUDENT SUPERVISOR IDS
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+                    .from("students")
+                    .select("id, supervisor_id")
+                    .in("id", studentIds);
+
+
+                if (studentsError) {
+                    throw studentsError;
+                }
+
+
+
+                // GET STUDENT AND SUPERVISOR PROFILES
+
+                const supervisorIds = [
+                    ...new Set(
+                        (students || [])
+                            .map(student => student.supervisor_id)
+                            .filter(Boolean)
+                    )
+                ];
+
+
+                const profileIds = [
+                    ...new Set([
+                        ...studentIds,
+                        ...supervisorIds
+                    ])
+                ];
+
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+                    .from("profiles")
+                    .select("id, full_name, email")
+                    .in("id", profileIds);
+
+
+                if (profilesError) {
+                    throw profilesError;
+                }
+
+
+
+                // CREATE STUDENT MAP
+
+                const studentsMap = {};
+
+                (students || []).forEach(student => {
+
+                    studentsMap[student.id] = student;
+
+                });
+
+
+
+                // CREATE PROFILE MAP
+
+                const profilesMap = {};
+
+                (profiles || []).forEach(profile => {
+
+                    profilesMap[profile.id] = profile;
+
+                });
+
+
+
+                // UPDATE COUNT
+
+                document.getElementById(
+                    "studentsCount"
+                ).textContent =
+                    `Accepted Students: ${studentIds.length}`;
+
+
+
+                // RENDER TABLE
+
+                renderStudents(
+                    applications,
+                    studentsMap,
+                    profilesMap,
+                    internshipMap
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading accepted students:",
+                    error
+                );
+
+                content.innerHTML = `
+
+                    <p class="students-message students-error">
+                        Failed to load accepted students.
+                        Please try again.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // =====================================
+        // RENDER STUDENTS
+        // =====================================
+
+        function renderStudents(
+            applications,
+            studentsMap,
+            profilesMap,
+            internshipMap
+        ) {
+
+            const content = document.getElementById(
+                "studentsContent"
+            );
+
+
+            let rows = "";
+
+
+            applications.forEach(application => {
+
+                const studentId = application.student_id;
+
+                const student = studentsMap[studentId];
+
+                const profile = profilesMap[studentId];
+
+
+                if (!student || !profile) {
+                    return;
+                }
+
+
+                const supervisor = student.supervisor_id
+                    ? profilesMap[student.supervisor_id]
+                    : null;
+
+
+                rows += `
+
+                    <tr>
+
+                        <td>
+                            ${escapeHTML(
+                                profile.full_name || "Not specified"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                profile.email || "Not specified"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                supervisor?.full_name || "Not Assigned"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                internshipMap[
+                                    application.internship_id
+                                ] || "Not specified"
+                            )}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            });
+
+
+            if (!rows) {
+
+                showEmptyMessage(
+                    "No student information is available."
+                );
+
+                return;
+
+            }
+
+
+            content.innerHTML = `
+
+                <div class="students-table-container">
+
+                    <table class="students-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Student Name</th>
+
+                                <th>Email</th>
+
+                                <th>Supervisor</th>
+
+                                <th>Internship</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            ${rows}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        // =====================================
+        // EMPTY MESSAGE
+        // =====================================
+
+        function showEmptyMessage(message) {
+
+            document.getElementById(
+                "studentsCount"
+            ).textContent = "Accepted Students: 0";
+
+
+            document.getElementById(
+                "studentsContent"
+            ).innerHTML = `
+
+                <p class="students-message">
+                    ${escapeHTML(message)}
+                </p>
+
+            `;
+
+        }
+
+
+
+        // =====================================
+        // LOGOUT
+        // =====================================
+
+        document.getElementById(
+            "logoutBtn"
+        ).addEventListener("click", async function(event) {
+
+            event.preventDefault();
+
+            await db.auth.signOut();
+
+            window.location.href = "index.html";
+
+        });
+
+
+
+        // =====================================
+        // INITIALIZE PAGE
+        // =====================================
+
+        async function initializePage() {
+
+            const isAdmin = await checkAdmin();
+
+            if (!isAdmin) {
+                return;
+            }
+
+            await loadAcceptedStudents();
+
+        }
+
+
+        initializePage();
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -14,6 +14,292 @@
 
     <link rel="stylesheet" href="./css/style.css">
 
+    <style>
+
+        /* =========================================
+           TWO-COLUMN LOGIN PAGE
+        ========================================== */
+
+        .login-page {
+            position: relative;
+            min-height: 100vh;
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            grid-template-areas: "about login";
+            align-items: stretch;
+            overflow: hidden;
+        }
+
+        .login-container {
+            grid-area: login;
+        }
+
+        .about-side {
+            grid-area: about;
+        }
+
+        .login-page .overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+
+        /* =========================================
+           LOGIN SIDE
+        ========================================== */
+
+        .login-container {
+            position: relative;
+            z-index: 1;
+            width: 100% !important;
+            min-height: 100vh;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            padding: 45px 35px;
+            box-sizing: border-box;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 390px;
+            padding: 30px 32px;
+            box-sizing: border-box;
+            border-radius: 16px;
+        }
+
+
+        /* =========================================
+           ABOUT SIDE
+        ========================================== */
+
+        .about-side {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 55px 60px 30px;
+            box-sizing: border-box;
+            text-align: center;
+            color: #234B57;
+        }
+
+        .university-logo-container {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .university-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .university-name {
+            margin: 0 0 8px;
+            font-size: 27px;
+            font-weight: 700;
+            color: #234B57;
+        }
+
+        .university-faculty {
+            margin: 0;
+            font-size: 16px;
+           color: #405F66;
+        }
+
+
+        /* =========================================
+           ABOUT PROJECT
+        ========================================== */
+
+        .about-project {
+            width: 100%;
+            max-width: 520px;
+            margin-top: 18px;
+        }
+
+        .about-project h2 {
+            margin: 0 0 18px;
+            font-size: 30px;
+            font-weight: 700;
+            color: #234B57;
+        }
+
+        .about-project h2 span {
+            color: #4F8D99;
+        }
+
+        .about-project p {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.9;
+           color: #405F66;
+        }
+
+
+        /* =========================================
+           DEPARTMENT FOOTER
+        ========================================== */
+
+        .department-info {
+            margin-top: auto;
+            padding-top: 45px;
+            text-align: center;
+        }
+
+        .department-info p {
+            margin: 5px 0;
+            color: #405F66;
+            font-size: 14px;
+        }
+
+        .department-info .department-name {
+            color: #234B57;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+
+        /* =========================================
+           SMOOTH ENTRANCE ANIMATIONS
+        ========================================== */
+
+        @keyframes fadeInUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .university-logo-container {
+            animation: fadeInUp 0.8s ease both;
+            transition: transform 0.3s ease;
+        }
+
+        .university-logo-container:hover {
+            transform: scale(1.06);
+        }
+
+        .university-heading {
+            animation: fadeInUp 0.9s ease 0.2s both;
+        }
+
+        .about-project {
+            animation: fadeInUp 0.9s ease 0.4s both;
+        }
+
+        .department-info {
+            animation: fadeInUp 0.9s ease 0.6s both;
+        }
+
+
+        /* =========================================
+           REDUCED MOTION ACCESSIBILITY
+        ========================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .university-logo-container,
+            .university-heading,
+            .about-project,
+            .department-info {
+                animation: none;
+                transition: none;
+            }
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .login-page {
+                grid-template-columns: 1fr;
+                overflow: visible;
+            }
+
+            .login-container {
+                min-height: auto;
+                padding: 45px 25px;
+            }
+
+            .login-box {
+                max-width: 420px;
+                padding: 28px 30px;
+            }
+
+            .about-side {
+                min-height: auto;
+                padding: 45px 25px 30px;
+            }
+
+            .about-project {
+                margin-top: 30px;
+            }
+
+            .department-info {
+                margin-top: 45px;
+                padding-top: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .login-container {
+                padding: 35px 18px;
+            }
+
+            .login-box {
+                max-width: 100%;
+                padding: 25px 22px;
+            }
+
+            .about-side {
+                padding: 35px 22px 25px;
+            }
+
+            .university-logo-container {
+                width: 115px;
+                height: 115px;
+            }
+
+            .university-name {
+                font-size: 22px;
+            }
+
+            .about-project h2 {
+                font-size: 25px;
+            }
+
+            .about-project p {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -25,13 +311,16 @@
         <div class="overlay"></div>
 
 
-        <!-- Login Container -->
+        <!-- =========================================
+             LOGIN SIDE
+        ========================================== -->
+
         <section class="login-container">
 
             <div class="login-box">
 
 
-                <!-- Logo -->
+                <!-- PathLink Logo -->
 
                 <div class="logo-container">
 
@@ -145,14 +434,93 @@
 
                 </p>
 
+
             </div>
 
         </section>
 
+
+
+        <!-- =========================================
+             UNIVERSITY AND ABOUT SIDE
+        ========================================== -->
+
+        <section class="about-side">
+
+
+            <!-- University Logo -->
+
+            <div class="university-logo-container">
+
+                <img
+                    src="./images/alquds-university-logo.png"
+                    alt="Al-Quds University Logo"
+                >
+
+            </div>
+
+
+            <!-- University Name -->
+
+            <div class="university-heading">
+
+                <h1 class="university-name">
+                    Al-Quds University
+                </h1>
+
+                <p class="university-faculty">
+                    Faculty of Engineering
+                </p>
+
+            </div>
+
+
+            <!-- About PathLink -->
+
+            <div class="about-project">
+
+                <h2>
+                    About <span>PathLink</span>
+                </h2>
+
+                <p>
+                    PathLink is a web-based platform designed
+                    to organize and manage university internship
+                    programs. It connects students, training
+                    companies, and university supervisors in
+                    one place, making it easier to manage
+                    internship opportunities, applications,
+                    student progress, and evaluations.
+                </p>
+
+            </div>
+
+
+            <!-- Department Information -->
+
+            <div class="department-info">
+
+                <p class="department-name">
+                    Computer Engineering Department
+                </p>
+
+                <p>
+                    © 2026 PathLink
+                </p>
+
+            </div>
+
+
+        </section>
+
+
     </main>
 
 
-    <!-- Supabase -->
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,13 +34,16 @@
 
             <div class="nav-content">
 
-
-                <!-- LOGO -->
-
                 <a
                     href="home.html"
                     class="brand"
                 >
+
+                    <img
+                        src="./images/alquds-university-logo.png"
+                        alt="Al-Quds University Logo"
+                        class="university-navbar-logo"
+                    >
 
                     <img
                         src="./images/logo.png"
@@ -53,8 +57,6 @@
                 </a>
 
 
-                <!-- NAVIGATION -->
-
                 <nav class="nav-links">
 
                     <a href="home.html">
@@ -63,6 +65,10 @@
 
                     <a href="my-applications.html">
                         My Internship Applications
+                    </a>
+
+                    <a href="my-tasks.html">
+                        My Tasks
                     </a>
 
                     <a href="profile.html">
@@ -403,7 +409,7 @@
 
     <!-- =========================================
          SUPABASE
-         ========================================== -->
+    ========================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -418,8 +424,11 @@
     <script>
 
         let currentUser = null;
+
         let currentStudent = null;
+
         let currentInternship = null;
+
         let currentCompany = null;
 
 
@@ -472,6 +481,150 @@
                     "#216e39";
 
             }
+
+        }
+
+
+
+        // =========================================
+        // HIDE APPLICATION FORM
+        // =========================================
+
+        function hideApplicationForm(
+            message
+        ) {
+
+            document.getElementById(
+                "applicationForm"
+            ).style.display =
+                "none";
+
+
+            showMessage(
+                message,
+                true
+            );
+
+        }
+
+
+
+        // =========================================
+        // CALCULATE APPLICATION STATUS
+        // =========================================
+
+        function calculateApplicationStatus(
+            applicationStartDate,
+            applicationEndDate
+        ) {
+
+            if (
+                !applicationStartDate ||
+                !applicationEndDate
+            ) {
+
+                return "unavailable";
+
+            }
+
+
+            const today =
+                new Date();
+
+
+            const todayString =
+
+                today.getFullYear() + "-" +
+
+                String(
+                    today.getMonth() + 1
+                ).padStart(2, "0") + "-" +
+
+                String(
+                    today.getDate()
+                ).padStart(2, "0");
+
+
+
+            if (
+                todayString < applicationStartDate
+            ) {
+
+                return "upcoming";
+
+            }
+
+
+            if (
+                todayString > applicationEndDate
+            ) {
+
+                return "ended";
+
+            }
+
+
+            return "active";
+
+        }
+
+
+
+        // =========================================
+        // CHECK APPLICATION PERIOD
+        // =========================================
+
+        function checkApplicationPeriod(
+            internship
+        ) {
+
+            const status =
+                calculateApplicationStatus(
+                    internship.application_start_date,
+                    internship.application_end_date
+                );
+
+
+            if (status === "unavailable") {
+
+                return {
+                    allowed: false,
+
+                    message:
+                        "Application dates are not available for this internship."
+                };
+
+            }
+
+
+            if (status === "upcoming") {
+
+                return {
+                    allowed: false,
+
+                    message:
+                        "Applications have not opened yet. Please check back on the Application Start Date."
+                };
+
+            }
+
+
+            if (status === "ended") {
+
+                return {
+                    allowed: false,
+
+                    message:
+                        "The application period for this internship has ended."
+                };
+
+            }
+
+
+            return {
+                allowed: true,
+                message: ""
+            };
 
         }
 
@@ -533,13 +686,12 @@
                     "Internship not found";
 
 
-                document.getElementById(
-                    "applicationForm"
-                ).style.display =
-                    "none";
+                hideApplicationForm(
+                    "No internship was selected. Please return to the home page."
+                );
 
 
-                return;
+                return false;
 
             }
 
@@ -553,7 +705,9 @@
                 data: internship,
                 error: internshipError
             } = await db
+
                 .from("internships")
+
                 .select(`
                     id,
                     title,
@@ -561,13 +715,20 @@
                     city,
                     description,
                     company_id,
+                    application_start_date,
+                    application_end_date,
+                    start_date,
+                    end_date,
                     status
                 `)
+
                 .eq(
                     "id",
                     internshipId
                 )
+
                 .maybeSingle();
+
 
 
             if (internshipError) {
@@ -578,15 +739,15 @@
                 );
 
 
-                showMessage(
-                    "Unable to load this internship.",
-                    true
+                hideApplicationForm(
+                    "Unable to load this internship."
                 );
 
 
-                return;
+                return false;
 
             }
+
 
 
             if (!internship) {
@@ -597,46 +758,12 @@
                     "Internship not found";
 
 
-                document.getElementById(
-                    "applicationForm"
-                ).style.display =
-                    "none";
-
-
-                return;
-
-            }
-
-
-
-            // =====================================
-            // CHECK COMPLETED INTERNSHIP
-            // =====================================
-
-            if (
-                internship.status ===
-                "completed"
-            ) {
-
-                document.getElementById(
-                    "companyName"
-                ).textContent =
-                    "Internship Opportunity Ended";
-
-
-                document.getElementById(
-                    "applicationForm"
-                ).style.display =
-                    "none";
-
-
-                showMessage(
-                    "This internship opportunity has ended.",
-                    true
+                hideApplicationForm(
+                    "This internship could not be found."
                 );
 
 
-                return;
+                return false;
 
             }
 
@@ -655,7 +782,9 @@
                 data: company,
                 error: companyError
             } = await db
+
                 .from("companies")
+
                 .select(`
                     id,
                     name,
@@ -663,11 +792,14 @@
                     city,
                     logo_url
                 `)
+
                 .eq(
                     "id",
                     internship.company_id
                 )
+
                 .maybeSingle();
+
 
 
             if (companyError) {
@@ -678,28 +810,28 @@
                 );
 
 
-                showMessage(
-                    "Unable to load company information.",
-                    true
+                hideApplicationForm(
+                    "Unable to load company information."
                 );
 
 
-                return;
+                return false;
 
             }
+
 
 
             if (!company) {
 
-                showMessage(
-                    "Company information could not be found.",
-                    true
+                hideApplicationForm(
+                    "Company information could not be found."
                 );
 
 
-                return;
+                return false;
 
             }
+
 
 
             currentCompany =
@@ -791,6 +923,32 @@
             ).href =
                 backUrl;
 
+
+
+            // =====================================
+            // CHECK APPLICATION PERIOD
+            // =====================================
+
+            const periodCheck =
+                checkApplicationPeriod(
+                    internship
+                );
+
+
+            if (!periodCheck.allowed) {
+
+                hideApplicationForm(
+                    periodCheck.message
+                );
+
+
+                return false;
+
+            }
+
+
+            return true;
+
         }
 
 
@@ -807,19 +965,12 @@
 
             if (!currentUser) {
 
-                showMessage(
-                    "Please log in before applying.",
-                    true
+                hideApplicationForm(
+                    "Please log in before applying."
                 );
 
 
-                document.getElementById(
-                    "applicationForm"
-                ).style.display =
-                    "none";
-
-
-                return;
+                return false;
 
             }
 
@@ -833,7 +984,9 @@
                 data: profile,
                 error: profileError
             } = await db
+
                 .from("profiles")
+
                 .select(`
                     id,
                     full_name,
@@ -842,11 +995,14 @@
                     phone,
                     role
                 `)
+
                 .eq(
                     "id",
                     currentUser.id
                 )
+
                 .maybeSingle();
+
 
 
             if (profileError) {
@@ -857,26 +1013,25 @@
                 );
 
 
-                showMessage(
-                    "Unable to load your profile.",
-                    true
+                hideApplicationForm(
+                    "Unable to load your profile."
                 );
 
 
-                return;
+                return false;
 
             }
 
 
+
             if (!profile) {
 
-                showMessage(
-                    "Your profile could not be found.",
-                    true
+                hideApplicationForm(
+                    "Your profile could not be found."
                 );
 
 
-                return;
+                return false;
 
             }
 
@@ -891,19 +1046,12 @@
                 "student"
             ) {
 
-                showMessage(
-                    "Only students can submit internship applications.",
-                    true
+                hideApplicationForm(
+                    "Only students can submit internship applications."
                 );
 
 
-                document.getElementById(
-                    "applicationForm"
-                ).style.display =
-                    "none";
-
-
-                return;
+                return false;
 
             }
 
@@ -917,7 +1065,9 @@
                 data: student,
                 error: studentError
             } = await db
+
                 .from("students")
+
                 .select(`
                     id,
                     major,
@@ -925,11 +1075,14 @@
                     cv_url,
                     supervisor_id
                 `)
+
                 .eq(
                     "id",
                     currentUser.id
                 )
+
                 .maybeSingle();
+
 
 
             if (studentError) {
@@ -940,28 +1093,28 @@
                 );
 
 
-                showMessage(
-                    "Unable to load your student information.",
-                    true
+                hideApplicationForm(
+                    "Unable to load your student information."
                 );
 
 
-                return;
+                return false;
 
             }
+
 
 
             if (!student) {
 
-                showMessage(
-                    "Your student profile could not be found.",
-                    true
+                hideApplicationForm(
+                    "Your student profile could not be found."
                 );
 
 
-                return;
+                return false;
 
             }
+
 
 
             currentStudent =
@@ -1008,6 +1161,9 @@
                 currentUser.email ||
                 "";
 
+
+            return true;
+
         }
 
 
@@ -1023,7 +1179,9 @@
                 !currentInternship
             ) {
 
-                return false;
+                throw new Error(
+                    "User or internship information is missing."
+                );
 
             }
 
@@ -1032,19 +1190,25 @@
                 data: existingApplication,
                 error
             } = await db
+
                 .from("applications")
+
                 .select(
                     "id,status"
                 )
+
                 .eq(
                     "student_id",
                     currentUser.id
                 )
+
                 .eq(
                     "internship_id",
                     currentInternship.id
                 )
+
                 .maybeSingle();
+
 
 
             if (error) {
@@ -1055,24 +1219,15 @@
                 );
 
 
-                return false;
+                throw new Error(
+                    "Unable to check whether you have already applied. Please try again."
+                );
 
             }
 
 
+
             if (existingApplication) {
-
-                showMessage(
-                    "You have already applied for this internship.",
-                    true
-                );
-
-
-                document.getElementById(
-                    "submitButton"
-                ).disabled =
-                    true;
-
 
                 return true;
 
@@ -1155,7 +1310,9 @@
             const {
                 error: uploadError
             } = await db.storage
+
                 .from("cvs")
+
                 .upload(
                     filePath,
                     file,
@@ -1163,6 +1320,7 @@
                         upsert: true
                     }
                 );
+
 
 
             if (uploadError) {
@@ -1184,13 +1342,100 @@
             const {
                 data: publicUrlData
             } = db.storage
+
                 .from("cvs")
+
                 .getPublicUrl(
                     filePath
                 );
 
 
             return publicUrlData.publicUrl;
+
+        }
+
+
+
+        // =========================================
+        // RECHECK INTERNSHIP FROM DATABASE
+        // =========================================
+
+        async function recheckInternshipAvailability() {
+
+            const {
+                data: latestInternship,
+                error
+            } = await db
+
+                .from("internships")
+
+                .select(`
+                    id,
+                    application_start_date,
+                    application_end_date
+                `)
+
+                .eq(
+                    "id",
+                    currentInternship.id
+                )
+
+                .maybeSingle();
+
+
+
+            if (error) {
+
+                console.error(
+                    "Error rechecking internship:",
+                    error
+                );
+
+
+                throw new Error(
+                    "Unable to verify the application period. Please try again."
+                );
+
+            }
+
+
+
+            if (!latestInternship) {
+
+                throw new Error(
+                    "This internship could not be found."
+                );
+
+            }
+
+
+
+            // Update the current internship dates
+
+            currentInternship.application_start_date =
+                latestInternship.application_start_date;
+
+
+            currentInternship.application_end_date =
+                latestInternship.application_end_date;
+
+
+
+            // Check the latest dates
+
+            const periodCheck =
+                checkApplicationPeriod(
+                    latestInternship
+                );
+
+
+            if (!periodCheck.allowed) {
+
+                throw new Error(
+                    periodCheck.message
+                );
+
+            }
 
         }
 
@@ -1248,27 +1493,6 @@
 
 
             // =====================================
-            // EXTRA STATUS SAFETY CHECK
-            // =====================================
-
-            if (
-                currentInternship.status ===
-                "completed"
-            ) {
-
-                showMessage(
-                    "This internship opportunity has ended.",
-                    true
-                );
-
-
-                return;
-
-            }
-
-
-
-            // =====================================
             // GET VALUES
             // =====================================
 
@@ -1302,19 +1526,10 @@
                 ).value.trim();
 
 
-            // IMPORTANT:
-            // Read Cover Letter directly from textarea
-
-            const coverLetterElement =
+            const coverLetter =
                 document.getElementById(
                     "coverLetter"
-                );
-
-
-            const coverLetter =
-                coverLetterElement
-                    ? coverLetterElement.value.trim()
-                    : "";
+                ).value.trim();
 
 
             const cvFile =
@@ -1349,23 +1564,7 @@
 
 
             // =====================================
-            // CHECK APPLICATION
-            // =====================================
-
-            const alreadyApplied =
-                await checkExistingApplication();
-
-
-            if (alreadyApplied) {
-
-                return;
-
-            }
-
-
-
-            // =====================================
-            // BUTTON
+            // DISABLE BUTTON
             // =====================================
 
             const submitButton =
@@ -1387,6 +1586,32 @@
 
 
                 // =================================
+                // RECHECK APPLICATION DATES
+                // =================================
+
+                await recheckInternshipAvailability();
+
+
+
+                // =================================
+                // CHECK EXISTING APPLICATION
+                // =================================
+
+                const alreadyApplied =
+                    await checkExistingApplication();
+
+
+                if (alreadyApplied) {
+
+                    throw new Error(
+                        "You have already applied for this internship."
+                    );
+
+                }
+
+
+
+                // =================================
                 // CV
                 // =================================
 
@@ -1402,67 +1627,48 @@
                             cvFile
                         );
 
-
-                    const {
-                        error: studentUpdateError
-                    } = await db
-                        .from("students")
-                        .update({
-                            major: major,
-                            university: university,
-                            cv_url: cvUrl
-                        })
-                        .eq(
-                            "id",
-                            currentUser.id
-                        );
-
-
-                    if (studentUpdateError) {
-
-                        console.error(
-                            "Student update error:",
-                            studentUpdateError
-                        );
-
-
-                        throw new Error(
-                            "Your CV was uploaded, but your student profile could not be updated."
-                        );
-
-                    }
-
                 }
 
-                else {
-
-                    const {
-                        error: studentUpdateError
-                    } = await db
-                        .from("students")
-                        .update({
-                            major: major,
-                            university: university
-                        })
-                        .eq(
-                            "id",
-                            currentUser.id
-                        );
 
 
-                    if (studentUpdateError) {
+                // =================================
+                // STUDENT UPDATE
+                // =================================
 
-                        console.error(
-                            "Student update error:",
-                            studentUpdateError
-                        );
+                const {
+                    error: studentUpdateError
+                } = await db
+
+                    .from("students")
+
+                    .update({
+
+                        major: major,
+
+                        university: university,
+
+                        cv_url: cvUrl
+
+                    })
+
+                    .eq(
+                        "id",
+                        currentUser.id
+                    );
 
 
-                        throw new Error(
-                            "Unable to update your student information."
-                        );
 
-                    }
+                if (studentUpdateError) {
+
+                    console.error(
+                        "Student update error:",
+                        studentUpdateError
+                    );
+
+
+                    throw new Error(
+                        "Unable to update your student information."
+                    );
 
                 }
 
@@ -1475,15 +1681,22 @@
                 const {
                     error: profileUpdateError
                 } = await db
+
                     .from("profiles")
+
                     .update({
+
                         full_name: fullName,
+
                         phone: phone
+
                     })
+
                     .eq(
                         "id",
                         currentUser.id
                     );
+
 
 
                 if (profileUpdateError) {
@@ -1539,12 +1752,17 @@
                     data: insertedApplication,
                     error: applicationError
                 } = await db
+
                     .from("applications")
+
                     .insert(
                         applicationData
                     )
+
                     .select()
+
                     .single();
+
 
 
                 if (applicationError) {
@@ -1563,6 +1781,7 @@
                 }
 
 
+
                 console.log(
                     "Application saved:",
                     insertedApplication
@@ -1577,7 +1796,9 @@
                 const {
                     error: activityError
                 } = await db
+
                     .from("activity_logs")
+
                     .insert({
 
                         user_id:
@@ -1593,6 +1814,7 @@
                             "A student submitted an internship application."
 
                     });
+
 
 
                 if (activityError) {
@@ -1675,27 +1897,79 @@
 
         async function initializePage() {
 
-            await loadInternship();
+
+            // =====================================
+            // LOAD INTERNSHIP
+            // =====================================
+
+            const internshipLoaded =
+                await loadInternship();
 
 
-            if (!currentInternship) {
-
-                return;
-
-            }
-
-
-            await loadStudent();
-
-
-            if (!currentStudent) {
+            if (!internshipLoaded) {
 
                 return;
 
             }
 
 
-            await checkExistingApplication();
+
+            // =====================================
+            // LOAD STUDENT
+            // =====================================
+
+            const studentLoaded =
+                await loadStudent();
+
+
+            if (!studentLoaded) {
+
+                return;
+
+            }
+
+
+
+            // =====================================
+            // CHECK EXISTING APPLICATION
+            // =====================================
+
+            try {
+
+                const alreadyApplied =
+                    await checkExistingApplication();
+
+
+                if (alreadyApplied) {
+
+                    document.getElementById(
+                        "submitButton"
+                    ).disabled =
+                        true;
+
+
+                    showMessage(
+                        "You have already applied for this internship. You can review your application status from My Applications.",
+                        true
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Initial application check error:",
+                    error
+                );
+
+
+                hideApplicationForm(
+                    error.message
+                );
+
+            }
 
         }
 
@@ -1706,9 +1980,11 @@
         // =========================================
 
         document
+
             .getElementById(
                 "applicationForm"
             )
+
             .addEventListener(
                 "submit",
                 submitApplication

@@ -1,0 +1,1009 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>External Requests | PathLink</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        /* Main page - use the same layout as the other supervisor pages */
+        .external-requests-page {
+            width: min(1100px, 92%);
+            margin: 36px auto 50px;
+            min-height: 65vh;
+        }
+
+        /* Page heading */
+        .requests-heading {
+            margin-bottom: 28px;
+        }
+
+        .requests-heading .profile-label {
+            margin-bottom: 10px;
+        }
+
+        .requests-heading h1 {
+            margin: 10px 0 8px;
+            line-height: 1.3;
+        }
+
+        .requests-heading > p:not(.profile-label) {
+            color: #6b6375;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Filter buttons */
+        .requests-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .filter-button {
+            padding: 10px 18px;
+            border: 1px solid #ded7ca;
+            border-radius: 8px;
+            background: #f3eee6;
+            color: #326d7a;
+            font: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .filter-button:hover {
+            border-color: #4f8d99;
+            background: #f1e9da;
+        }
+
+        .filter-button.active {
+            background: #326d7a;
+            border-color: #326d7a;
+            color: #ffffff;
+        }
+
+        /* External request card */
+        .external-request-card {
+            background: #f3eee6;
+            border: 1px solid #e5ded2;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(50, 65, 65, 0.04);
+        }
+
+        .request-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid #e5ded2;
+        }
+
+        .request-card-header h2 {
+            margin: 0 0 7px;
+            font-size: 20px;
+            line-height: 1.4;
+            color: #08060d;
+        }
+
+        .request-company {
+            color: #6b6375;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Status labels */
+        .request-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .request-status.pending {
+            background: #f5e8c9;
+            color: #785b20;
+        }
+
+        .request-status.approved {
+            background: #e1eee4;
+            color: #356448;
+        }
+
+        .request-status.rejected {
+            background: #f2e2df;
+            color: #994b43;
+        }
+
+        /* Request details */
+        .request-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px 28px;
+            margin-bottom: 22px;
+        }
+
+        .request-detail {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .request-detail strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #326d7a;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .request-detail span,
+        .request-detail p {
+            margin: 0;
+            color: #393642;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Opportunity description */
+        .request-description {
+            padding: 17px 18px;
+            background: #f8f5ef;
+            border: 1px solid #ebe4d8;
+            border-radius: 9px;
+            margin-bottom: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .request-description strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #326d7a;
+            font-size: 14px;
+        }
+
+        .request-description p {
+            margin: 0;
+            color: #393642;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .request-link {
+            display: inline-block;
+            margin: 0 0 18px;
+            color: #326d7a;
+            font-size: 14px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+            text-decoration: none;
+        }
+
+        .request-link:hover {
+            color: #4f8d99;
+            text-decoration: underline;
+        }
+
+        /* Review section */
+        .review-area {
+            border-top: 1px solid #e5ded2;
+            padding-top: 20px;
+            margin-top: 5px;
+        }
+
+        .review-area label {
+            display: block;
+            margin-bottom: 9px;
+            color: #393642;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .review-area textarea {
+            display: block;
+            width: 100%;
+            min-height: 95px;
+            padding: 12px 14px;
+            border: 1px solid #ded7ca;
+            border-radius: 8px;
+            background: #fffdf9;
+            color: #393642;
+            font: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 14px;
+        }
+
+        .review-area textarea:focus {
+            outline: none;
+            border-color: #4f8d99;
+            box-shadow: 0 0 0 2px rgba(79, 141, 153, 0.12);
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .request-action {
+            border: none;
+            padding: 10px 17px;
+            border-radius: 8px;
+            color: #ffffff;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, background 0.2s;
+        }
+
+        .request-action:hover {
+            opacity: 0.88;
+        }
+
+        .request-action:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .approve-button {
+            background: #326d7a;
+        }
+
+        .approve-button:hover {
+            background: #285b65;
+        }
+
+        .reject-button {
+            background: #a9504b;
+        }
+
+        .reject-button:hover {
+            background: #913f3b;
+        }
+
+        /* Previously reviewed requests */
+        .supervisor-note {
+            padding: 15px 17px;
+            background: #f8f5ef;
+            border: 1px solid #ebe4d8;
+            border-radius: 9px;
+            margin-top: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .supervisor-note strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #326d7a;
+            font-size: 14px;
+        }
+
+        .supervisor-note p {
+            margin: 0 0 7px;
+            color: #393642;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .supervisor-note small {
+            color: #6b6375;
+            font-size: 12px;
+        }
+
+        /* Loading, empty and error messages */
+        .requests-message {
+            padding: 24px;
+            background: #f3eee6;
+            border: 1px solid #e5ded2;
+            border-radius: 10px;
+            color: #6b6375;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 600px) {
+            .external-requests-page {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .requests-heading h1 {
+                font-size: 25px;
+            }
+
+            .external-request-card {
+                padding: 17px;
+            }
+
+            .request-details {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .filter-button {
+                padding: 9px 13px;
+            }
+
+            .review-actions {
+                flex-direction: column;
+            }
+
+            .request-action {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="nav-content">
+
+            <a href="supervisor-dashboard.html" class="brand">
+                <img
+    src="./images/alquds-university-logo.png"
+    alt="Al-Quds University Logo"
+    class="university-navbar-logo"
+>
+                <img src="./images/logo.png" alt="PathLink">
+                <span>PathLink</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="supervisor-dashboard.html">Dashboard</a>
+                <a href="supervisor-students.html">My Students</a>
+                <a href="supervisor-external-requests.html" class="active">
+                    External Requests
+                </a>
+                <a href="supervisor-profile.html">Profile</a>
+                <a href="index.html" class="logout" id="logoutLink">
+                    Logout
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="external-requests-page">
+
+        <section class="requests-heading">
+            <p class="profile-label">SUPERVISOR PROFILE</p>
+
+            <h1>External Internship Requests</h1>
+
+            <p>
+                Review internship opportunities arranged independently
+                by your students.
+            </p>
+        </section>
+
+        <!-- Request filters -->
+        <section class="requests-filters" aria-label="Filter requests">
+
+            <button
+                type="button"
+                class="filter-button active"
+                data-filter="All">
+                All Requests
+            </button>
+
+            <button
+                type="button"
+                class="filter-button"
+                data-filter="Pending">
+                Pending
+            </button>
+
+            <button
+                type="button"
+                class="filter-button"
+                data-filter="Approved">
+                Approved
+            </button>
+
+            <button
+                type="button"
+                class="filter-button"
+                data-filter="Rejected">
+                Rejected
+            </button>
+
+        </section>
+
+        <!-- Requests are loaded here -->
+        <section id="requestsList" aria-live="polite">
+            <p class="requests-message">
+                Loading external requests...
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+        <p>© 2026 PathLink</p>
+    </footer>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./js/supabase.js"></script>
+
+    <script>
+        let currentSupervisorId = null;
+        let allRequests = [];
+        let currentFilter = "All";
+
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            // Logout
+            document
+                .getElementById("logoutLink")
+                .addEventListener("click", async event => {
+                    event.preventDefault();
+
+                    await db.auth.signOut();
+
+                    window.location.href = "index.html";
+                });
+
+            // Filter requests
+            document.querySelectorAll(".filter-button").forEach(button => {
+                button.addEventListener("click", () => {
+
+                    currentFilter = button.dataset.filter;
+
+                    document.querySelectorAll(".filter-button").forEach(item => {
+                        item.classList.toggle("active", item === button);
+                    });
+
+                    renderRequests();
+                });
+            });
+
+            await loadExternalRequests();
+        });
+
+        // Escape HTML values before displaying database content
+        function escapeHTML(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Format dates
+        function formatDate(value) {
+            if (!value) return "Not specified";
+
+            const date = new Date(value);
+
+            if (Number.isNaN(date.getTime())) {
+                return "Not specified";
+            }
+
+            return date.toLocaleDateString();
+        }
+
+        // Allow only HTTP and HTTPS opportunity links
+        function safeExternalUrl(value) {
+            if (!value) return null;
+
+            try {
+                const url = new URL(value);
+
+                if (
+                    url.protocol === "https:" ||
+                    url.protocol === "http:"
+                ) {
+                    return url.href;
+                }
+            } catch (_) {
+                return null;
+            }
+
+            return null;
+        }
+
+        // Load requests visible to the current supervisor
+        async function loadExternalRequests() {
+
+            const container = document.getElementById("requestsList");
+
+            container.innerHTML = `
+                <p class="requests-message">
+                    Loading external requests...
+                </p>
+            `;
+
+            try {
+
+                // Verify the logged-in user
+                const {
+                    data: { user },
+                    error: userError
+                } = await db.auth.getUser();
+
+                if (userError) throw userError;
+
+                if (!user) {
+                    window.location.href = "index.html";
+                    return;
+                }
+
+                // Verify supervisor role
+                const {
+                    data: supervisor,
+                    error: supervisorError
+                } = await db
+                    .from("profiles")
+                    .select("id, role")
+                    .eq("id", user.id)
+                    .eq("role", "supervisor")
+                    .maybeSingle();
+
+                if (supervisorError) throw supervisorError;
+
+                if (!supervisor) {
+                    container.innerHTML = `
+                        <p class="requests-message">
+                            A supervisor profile could not be found.
+                        </p>
+                    `;
+                    return;
+                }
+
+                currentSupervisorId = supervisor.id;
+
+                // Fetch requests allowed by Supabase RLS
+                const {
+                    data: requests,
+                    error: requestsError
+                } = await db
+                    .from("external_requests")
+                    .select("*")
+                    .order("created_at", { ascending: false });
+
+                if (requestsError) throw requestsError;
+
+                allRequests = requests || [];
+
+                // Get student IDs from requests
+                const studentIds = [
+                    ...new Set(
+                        allRequests
+                            .map(request => request.student_id)
+                            .filter(Boolean)
+                    )
+                ];
+
+                let profiles = [];
+
+                // Fetch student profiles
+                if (studentIds.length > 0) {
+
+                    const {
+                        data,
+                        error
+                    } = await db
+                        .from("profiles")
+                        .select("id, full_name, username, email")
+                        .in("id", studentIds);
+
+                    if (error) throw error;
+
+                    profiles = data || [];
+                }
+
+                // Match each request with its student profile
+                const profileMap = {};
+
+                profiles.forEach(profile => {
+                    profileMap[profile.id] = profile;
+                });
+
+                allRequests = allRequests.map(request => ({
+                    ...request,
+                    studentProfile:
+                        profileMap[request.student_id] || null
+                }));
+
+                renderRequests();
+
+            } catch (error) {
+
+                console.error(
+                    "External requests loading error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <p class="requests-message">
+                        Unable to load external requests.
+                        Please check your connection and the Supabase
+                        table permissions. If the problem continues,
+                        check the browser console for details.
+                    </p>
+                `;
+            }
+        }
+
+        // Display requests according to the selected filter
+        function renderRequests() {
+
+            const container = document.getElementById("requestsList");
+
+            const visibleRequests = allRequests.filter(request =>
+                currentFilter === "All" ||
+                request.status === currentFilter
+            );
+
+            if (visibleRequests.length === 0) {
+
+                container.innerHTML = `
+                    <p class="requests-message">
+                        No ${
+                            currentFilter === "All"
+                                ? ""
+                                : escapeHTML(currentFilter.toLowerCase()) + " "
+                        }external requests found.
+                    </p>
+                `;
+
+                return;
+            }
+
+            container.innerHTML = visibleRequests.map(request => {
+
+                const profile = request.studentProfile || {};
+
+                const studentName =
+                    profile.full_name ||
+                    profile.username ||
+                    "Student";
+
+                const status = [
+                    "Pending",
+                    "Approved",
+                    "Rejected"
+                ].includes(request.status)
+                    ? request.status
+                    : "Pending";
+
+                const statusClass = status.toLowerCase();
+
+                const opportunityUrl =
+                    safeExternalUrl(request.opportunity_url);
+
+                const contactDetails = [
+                    request.contact_name
+                        ? `Contact: ${request.contact_name}`
+                        : "",
+
+                    request.contact_email
+                        ? `Email: ${request.contact_email}`
+                        : "",
+
+                    request.contact_phone
+                        ? `Phone: ${request.contact_phone}`
+                        : ""
+                ]
+                    .filter(Boolean)
+                    .join(" | ");
+
+                // Show review controls only for pending requests
+                const reviewSection = status === "Pending"
+                    ? `
+                        <div class="review-area">
+
+                            <label for="note-${escapeHTML(request.id)}">
+                                Supervisor Note (optional)
+                            </label>
+
+                            <textarea
+                                id="note-${escapeHTML(request.id)}"
+                                placeholder="Write feedback or instructions for the student..."
+                            ></textarea>
+
+                            <div class="review-actions">
+
+                                <button
+                                    type="button"
+                                    class="request-action approve-button"
+                                    data-id="${escapeHTML(request.id)}"
+                                    data-status="Approved">
+                                    Approve Request
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="request-action reject-button"
+                                    data-id="${escapeHTML(request.id)}"
+                                    data-status="Rejected">
+                                    Reject Request
+                                </button>
+
+                            </div>
+                        </div>
+                    `
+                    : `
+                        <div class="supervisor-note">
+
+                            <strong>Supervisor Note</strong>
+
+                            <p>
+                                ${escapeHTML(
+                                    request.supervisor_note ||
+                                    "No note was added."
+                                )}
+                            </p>
+
+                            ${
+                                request.reviewed_at
+                                    ? `
+                                        <small>
+                                            Reviewed:
+                                            ${escapeHTML(
+                                                formatDate(request.reviewed_at)
+                                            )}
+                                        </small>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+                    `;
+
+                return `
+                    <article class="external-request-card">
+
+                        <div class="request-card-header">
+
+                            <div>
+                                <h2>
+                                    ${escapeHTML(
+                                        request.field ||
+                                        "Internship Opportunity"
+                                    )}
+                                </h2>
+
+                                <p class="request-company">
+                                    ${escapeHTML(
+                                        request.company_name ||
+                                        "Company not specified"
+                                    )}
+                                </p>
+                            </div>
+
+                            <span class="request-status ${statusClass}">
+                                ${escapeHTML(status)}
+                            </span>
+
+                        </div>
+
+                        <div class="request-details">
+
+                            <div class="request-detail">
+                                <strong>Student</strong>
+                                <span>${escapeHTML(studentName)}</span>
+                            </div>
+
+                            <div class="request-detail">
+                                <strong>Student Email</strong>
+                                <span>
+                                    ${escapeHTML(
+                                        profile.email || "Not available"
+                                    )}
+                                </span>
+                            </div>
+
+                            <div class="request-detail">
+                                <strong>Submitted On</strong>
+                                <span>
+                                    ${escapeHTML(
+                                        formatDate(request.created_at)
+                                    )}
+                                </span>
+                            </div>
+
+                            <div class="request-detail">
+                                <strong>Internship Period</strong>
+                                <span>
+                                    ${escapeHTML(
+                                        formatDate(request.start_date)
+                                    )}
+                                    –
+                                    ${escapeHTML(
+                                        formatDate(request.end_date)
+                                    )}
+                                </span>
+                            </div>
+
+                            <div class="request-detail">
+                                <strong>Company Contact</strong>
+                                <span>
+                                    ${escapeHTML(
+                                        contactDetails || "Not provided"
+                                    )}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="request-description">
+
+                            <strong>Opportunity Description</strong>
+
+                            <p>
+                                ${escapeHTML(
+                                    request.description ||
+                                    "No description provided."
+                                )}
+                            </p>
+
+                        </div>
+
+                        ${
+                            opportunityUrl
+                                ? `
+                                    <a
+                                        class="request-link"
+                                        href="${escapeHTML(opportunityUrl)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        Open Opportunity Link ↗
+                                    </a>
+                                `
+                                : ""
+                        }
+
+                        ${reviewSection}
+
+                    </article>
+                `;
+
+            }).join("");
+
+            // Attach approval and rejection handlers
+            container
+                .querySelectorAll("button[data-status]")
+                .forEach(button => {
+
+                    button.addEventListener("click", () => {
+
+                        reviewRequest(
+                            button.dataset.id,
+                            button.dataset.status,
+                            button
+                        );
+
+                    });
+
+                });
+        }
+
+        // Approve or reject an external request
+        async function reviewRequest(
+            requestId,
+            newStatus,
+            button
+        ) {
+
+            if (!["Approved", "Rejected"].includes(newStatus)) {
+                return;
+            }
+
+            const noteElement =
+                document.getElementById(`note-${requestId}`);
+
+            const note = noteElement
+                ? noteElement.value.trim()
+                : "";
+
+            const confirmation = newStatus === "Approved"
+                ? "Are you sure you want to approve this external internship request?"
+                : "Are you sure you want to reject this external internship request?";
+
+            if (!window.confirm(confirmation)) {
+                return;
+            }
+
+            button.disabled = true;
+
+            try {
+
+                // Verify current user before updating
+                const {
+                    data: { user },
+                    error: userError
+                } = await db.auth.getUser();
+
+                if (userError) throw userError;
+
+                if (
+                    !user ||
+                    user.id !== currentSupervisorId
+                ) {
+                    throw new Error(
+                        "Supervisor authentication could not be verified."
+                    );
+                }
+
+                // Update only a pending request
+                const {
+                    data,
+                    error
+                } = await db
+                    .from("external_requests")
+                    .update({
+                        status: newStatus,
+                        supervisor_note: note || null,
+                        reviewed_by: user.id,
+                        reviewed_at: new Date().toISOString()
+                    })
+                    .eq("id", requestId)
+                    .eq("status", "Pending")
+                    .select("id");
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+
+                    alert(
+                        "The request was not updated. It may already " +
+                        "have been reviewed, or your supervisor " +
+                        "permissions may not allow this action."
+                    );
+
+                    await loadExternalRequests();
+
+                    return;
+                }
+
+                alert(
+                    `Request ${newStatus.toLowerCase()} successfully.`
+                );
+
+                await loadExternalRequests();
+
+            } catch (error) {
+
+                console.error("Review request error:", error);
+
+                alert(
+                    "Unable to update this request. Please check the " +
+                    "Supabase UPDATE policy for external_requests."
+                );
+
+            } finally {
+
+                button.disabled = false;
+
+            }
+        }
+    </script>
+
+</body>
+</html>

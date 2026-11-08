@@ -17,6 +17,46 @@
         href="./css/style.css"
     >
 
+    <style>
+
+        /* =========================================
+           INTERNSHIP APPROVAL STATUS
+        ========================================= */
+
+        .my-post-status-group {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .my-post-approval-status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .my-post-approval-status.pending {
+            background: #FFF1D6;
+            color: #A66A00;
+        }
+
+        .my-post-approval-status.approved {
+            background: #DDF2E3;
+            color: #287A43;
+        }
+
+        .my-post-approval-status.rejected {
+            background: #F8DEDE;
+            color: #B43B3B;
+        }
+
+    </style>
+
 </head>
 
 
@@ -33,13 +73,18 @@
 
             <div class="nav-content">
 
-
                 <!-- LOGO -->
 
                 <a
                     href="company-dashboard.html"
                     class="brand"
                 >
+
+                    <img
+                        src="./images/alquds-university-logo.png"
+                        alt="Al-Quds University Logo"
+                        class="university-navbar-logo"
+                    >
 
                     <img
                         src="./images/logo.png"
@@ -196,7 +241,7 @@
         <footer class="home-footer">
 
             <p>
-                ©️ 2026 PathLink
+                © 2026 PathLink
             </p>
 
         </footer>
@@ -357,9 +402,12 @@
                         city,
                         description,
                         requirements,
+                        application_start_date,
+                        application_end_date,
                         start_date,
                         end_date,
                         status,
+                        approval_status,
                         working_hours,
                         created_at
                     `)
@@ -437,7 +485,7 @@
 
 
                         /* =================================
-                           GET STATUS FROM DATABASE
+                           GET INTERNSHIP STATUS
                         ================================= */
 
                         const currentStatus =
@@ -445,6 +493,67 @@
                             "active";
 
 
+                        /* =================================
+                           GET APPROVAL STATUS
+                        ================================= */
+
+                        const approvalStatus =
+                            internship.approval_status ||
+                            "pending";
+
+
+                        let approvalLabel = "";
+                        let approvalClass = "";
+
+
+                        if (
+                            approvalStatus === "pending"
+                        ) {
+
+                            approvalLabel =
+                                "Pending Review";
+
+                            approvalClass =
+                                "pending";
+
+                        }
+
+                        else if (
+                            approvalStatus === "approved"
+                        ) {
+
+                            approvalLabel =
+                                "Approved";
+
+                            approvalClass =
+                                "approved";
+
+                        }
+
+                        else if (
+                            approvalStatus === "rejected"
+                        ) {
+
+                            approvalLabel =
+                                "Rejected";
+
+                            approvalClass =
+                                "rejected";
+
+                        }
+
+                        else {
+
+                            approvalLabel =
+                                "Unknown";
+
+                        }
+
+
+
+                        /* =================================
+                           CREATE CARD
+                        ================================= */
 
                         const card =
                             document.createElement("div");
@@ -479,11 +588,19 @@
                                     </div>
 
 
-                                    <span class="my-post-status">
-                                        ${escapeHTML(
-                                            currentStatus
-                                        )}
-                                    </span>
+                                    <div class="my-post-status-group">
+
+                                        <span class="my-post-status">
+                                            ${escapeHTML(
+                                                currentStatus
+                                            )}
+                                        </span>
+
+                                        <span class="my-post-approval-status ${approvalClass}">
+                                            ${approvalLabel}
+                                        </span>
+
+                                    </div>
 
                                 </div>
 
@@ -529,7 +646,7 @@
                                     <button
                                         type="button"
                                         class="my-post-edit"
-                                        onclick="editPost('${internship.id}')"
+                                        onclick="editPost('${escapeHTML(internship.id)}')"
                                     >
                                         Edit
                                     </button>
@@ -538,7 +655,7 @@
                                     <button
                                         type="button"
                                         class="my-post-delete"
-                                        onclick="deletePost('${internship.id}')"
+                                        onclick="deletePost('${escapeHTML(internship.id)}')"
                                     >
                                         Delete
                                     </button>
@@ -686,39 +803,23 @@
            FORMAT DATE
         ========================================== */
 
-        function formatDate(
-            dateValue
-        ) {
+        function formatDate(dateValue) {
 
             if (!dateValue) {
-
                 return "Not specified";
-
             }
 
+            const date = new Date(`${dateValue}T00:00:00`);
 
-            const date =
-                new Date(
-                    dateValue
-                );
-
-
-            if (
-                Number.isNaN(
-                    date.getTime()
-                )
-            ) {
-
+            if (Number.isNaN(date.getTime())) {
                 return "Not specified";
-
             }
-
 
             return date.toLocaleDateString(
                 "en-GB",
                 {
                     day: "2-digit",
-                    month: "short",
+                    month: "2-digit",
                     year: "numeric"
                 }
             );
