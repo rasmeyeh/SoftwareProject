@@ -82,6 +82,9 @@
         <nav class="nav-links">
             <a href="supervisor-dashboard.html">Dashboard</a>
             <a href="supervisor-students.html" class="active">My Students</a>
+              <a href="supervisor-external-requests.html">
+                    External Requests
+                </a>
             <a href="supervisor-profile.html">Profile</a>
             <a href="index.html" class="logout" id="logoutLink">Logout</a>
         </nav>
@@ -570,10 +573,20 @@ async function loadStudentProgress() {
                 company = companyData;
             }
 
-            const {data:evaluationData,error:evaluationError} = await db.from("evaluations")
-                .select("id,application_id,pdf_url,status,submitted_at,reviewed_at,created_at,form_url,form_name,company_file_url,company_file_name,company_evaluation_score,written_report_score,oral_presentation_score,academic_supervisor_score,final_grade,grade_confirmed,grade_confirmed_at,company_evaluation_responses,grading_weights")
-                .eq("application_id",application.id).maybeSingle();
+            const { data: evaluationData, error: evaluationError } = await db
+                .from("evaluations")
+.select("id,application_id,pdf_url,status,submitted_at,reviewed_at,created_at,form_url,form_name,company_file_url,company_file_name,company_evaluation_score,written_report_score,oral_presentation_score,academic_supervisor_score,final_grade,grade_confirmed,grade_confirmed_at,company_evaluation_responses,grading_weights")
+                .eq("application_id", application.id)
+                .maybeSingle();
+
             if (evaluationError) throw evaluationError;
+
+            console.log("SUPERVISOR APPLICATION ID:", application.id);
+            console.log("SUPERVISOR EVALUATION:", evaluationData);
+            console.log("SUPERVISOR EVALUATION ERROR:", evaluationError);
+            console.log("SUPERVISOR GRADE CONFIRMED:", evaluationData?.grade_confirmed);
+            console.log("SUPERVISOR FINAL GRADE:", evaluationData?.final_grade);
+
             evaluation = evaluationData;
         }
 
@@ -1097,20 +1110,22 @@ body{font-family:Arial,sans-serif;margin:40px;color:#234B57}h1,h2{color:#326D7A}
 <table><thead><tr><th>Assessment Component</th><th>Score</th><th>Maximum</th></tr></thead><tbody>${rows}</tbody></table>
 <p class="total">Final Grade: ${escapeHTML(formatScore(evaluation.final_grade))} / 100</p>
 <p class="confirmed">Final grade confirmed on: ${escapeHTML(evaluation.grade_confirmed_at ? new Date(evaluation.grade_confirmed_at).toLocaleString() : "-")}</p>
-<button onclick="window.print()">Print / Save as PDF</button>
+
 </body></html>`;
 
-    const blob = new Blob([reportHTML],{type:"text/html;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "PathLink-Evaluation-Report.html";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
+// OPEN REPORT
+
+const reportWindow = window.open("", "_blank");
+
+if (!reportWindow) {
+    alert("Please allow pop-ups to open the report.");
+    return;
 }
 
+reportWindow.document.open();
+reportWindow.document.write(reportHTML);
+reportWindow.document.close();
+}
 /* LOGOUT */
 
 document.getElementById("logoutLink").addEventListener("click",async event=>{

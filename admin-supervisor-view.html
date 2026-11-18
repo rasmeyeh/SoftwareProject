@@ -1,24 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Supervisor Profile</title>
 
-    <link
-        rel="stylesheet"
-        href="./css/style.css"
-    >
+    <link rel="stylesheet" href="./css/style.css">
 
     <style>
-
         .cancel-profile-button {
             background: #234B57 !important;
             color: #ffffff !important;
@@ -29,17 +21,13 @@
             background: #234B57 !important;
         }
 
-
-        /* =========================================
-           VIEW ALL STUDENTS BUTTON
-        ========================================== */
+        /* VIEW ALL STUDENTS BUTTON */
 
         .view-all-students-wrapper {
             display: flex;
             justify-content: center;
             margin-top: 4px;
         }
-
 
         .view-all-students-button {
             display: inline-flex;
@@ -54,49 +42,137 @@
             font-weight: 500;
         }
 
-
         .view-all-students-button:hover {
             background: #234B57;
         }
 
+        /* STUDENT EVALUATION REPORT BUTTON */
+
+        .student-report-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        .student-report-button {
+            padding: 9px 14px;
+            border: none;
+            border-radius: 8px;
+            background: #234B57;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .student-report-button:hover:not(:disabled) {
+            background: #326D7A;
+        }
+
+        .student-report-button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .student-report-status {
+            color: #9b5a16;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .student-report-status.ready {
+            color: #27623b;
+        }
+
+        @media (max-width: 600px) {
+            .student-report-actions {
+                width: 100%;
+                margin-left: 0;
+                align-items: flex-start;
+            }
+
+            .student-report-status {
+                text-align: left;
+            }
+        }
+
+        /* ASSIGNED STUDENTS HEADER */
+
+        .assigned-students-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .assigned-students-header h2 {
+            margin: 0;
+        }
+
+        .download-all-students-button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #234B57;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .download-all-students-button:hover:not(:disabled) {
+            background: #326D7A;
+        }
+
+        .download-all-students-button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+            .assigned-students-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .download-all-students-button {
+                width: 100%;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
     <div class="home-page">
 
-
-        <!-- =========================================
-             NAVBAR
-        ========================================== -->
+        <!-- NAVBAR -->
 
         <header class="navbar">
 
             <div class="nav-content">
 
-                <a
-                    href="admin-dashboard.html"
-                    class="brand"
-                >
-<img
-    src="./images/alquds-university-logo.png"
-    alt="Al-Quds University Logo"
-    class="university-navbar-logo"
->
+                <a href="admin-dashboard.html" class="brand">
+
+                    <img
+                        src="./images/alquds-university-logo.png"
+                        alt="Al-Quds University Logo"
+                        class="university-navbar-logo"
+                    >
+
                     <img
                         src="./images/logo.png"
                         alt="PathLink Logo"
                     >
 
-                    <span>
-                        PathLink
-                    </span>
+                    <span>PathLink</span>
 
                 </a>
-
 
                 <nav class="nav-links">
 
@@ -104,10 +180,7 @@
                         Dashboard
                     </a>
 
-                    <a
-                        href="admin-supervisors.html"
-                        class="active"
-                    >
+                    <a href="admin-supervisors.html" class="active">
                         Supervisors
                     </a>
 
@@ -130,19 +203,13 @@
         </header>
 
 
-
-        <!-- =========================================
-             SUPERVISOR PROFILE PAGE
-        ========================================== -->
+        <!-- SUPERVISOR PROFILE PAGE -->
 
         <main class="profile-page">
 
-
             <div class="profile-header">
 
-                <h1>
-                    Supervisor Profile
-                </h1>
+                <h1>Supervisor Profile</h1>
 
                 <p>
                     View supervisor personal and academic information.
@@ -151,15 +218,9 @@
             </div>
 
 
-
-            <!-- =========================================
-                 PROFILE CARD
-            ========================================== -->
+            <!-- PROFILE CARD -->
 
             <section class="profile-card">
-
-
-                <!-- PROFILE TOP -->
 
                 <div class="profile-top">
 
@@ -169,7 +230,6 @@
                     >
                         U
                     </div>
-
 
                     <div class="profile-intro">
 
@@ -186,26 +246,16 @@
                 </div>
 
 
-
                 <div class="profile-divider"></div>
 
 
-
-                <!-- =====================================
-                     PERSONAL INFORMATION
-                ====================================== -->
+                <!-- PERSONAL INFORMATION -->
 
                 <div class="profile-section">
 
-                    <h2>
-                        Personal Information
-                    </h2>
-
+                    <h2>Personal Information</h2>
 
                     <div class="profile-grid">
-
-
-                        <!-- FULL NAME -->
 
                         <div class="profile-field">
 
@@ -222,9 +272,6 @@
 
                         </div>
 
-
-                        <!-- USERNAME -->
-
                         <div class="profile-field">
 
                             <label for="profile-username">
@@ -240,9 +287,6 @@
 
                         </div>
 
-
-                        <!-- EMAIL -->
-
                         <div class="profile-field">
 
                             <label for="profile-email">
@@ -257,9 +301,6 @@
                             >
 
                         </div>
-
-
-                        <!-- PHONE -->
 
                         <div class="profile-field">
 
@@ -281,22 +322,13 @@
                 </div>
 
 
-
-                <!-- =====================================
-                     ACADEMIC INFORMATION
-                ====================================== -->
+                <!-- ACADEMIC INFORMATION -->
 
                 <div class="profile-section">
 
-                    <h2>
-                        Academic Information
-                    </h2>
-
+                    <h2>Academic Information</h2>
 
                     <div class="profile-grid">
-
-
-                        <!-- DEPARTMENT -->
 
                         <div class="profile-field">
 
@@ -313,9 +345,6 @@
 
                         </div>
 
-
-                        <!-- SPECIALIZATION -->
-
                         <div class="profile-field">
 
                             <label for="profile-specialization">
@@ -331,9 +360,6 @@
 
                         </div>
 
-
-                        <!-- ACCOUNT STATUS -->
-
                         <div class="profile-field">
 
                             <label for="profile-status">
@@ -348,9 +374,6 @@
                             >
 
                         </div>
-
-
-                        <!-- ASSIGNED STUDENTS -->
 
                         <div class="profile-field">
 
@@ -372,17 +395,23 @@
                 </div>
 
 
-
-                <!-- =====================================
-                     ASSIGNED STUDENTS
-                ====================================== -->
+                <!-- ASSIGNED STUDENTS -->
 
                 <div class="profile-section">
 
-                    <h2>
-                        Assigned Students
-                    </h2>
+                    <div class="assigned-students-header">
 
+                        <h2>Assigned Students</h2>
+
+                        <button
+                            type="button"
+                            class="download-all-students-button"
+                            id="downloadAllStudentsReportButton"
+                        >
+                            Download All Students Report
+                        </button>
+
+                    </div>
 
                     <div
                         class="admin-students-list"
@@ -393,13 +422,9 @@
 
                             <div class="admin-student-info">
 
-                                <h3>
-                                    Loading students...
-                                </h3>
+                                <h3>Loading students...</h3>
 
-                                <p>
-                                    Please wait
-                                </p>
+                                <p>Please wait</p>
 
                             </div>
 
@@ -410,10 +435,7 @@
                 </div>
 
 
-
-                <!-- =====================================
-                     ACTIONS
-                ====================================== -->
+                <!-- ACTIONS -->
 
                 <div class="profile-actions">
 
@@ -427,117 +449,69 @@
 
                 </div>
 
-
             </section>
-
 
         </main>
 
 
-
-        <!-- =========================================
-             FOOTER
-        ========================================== -->
+        <!-- FOOTER -->
 
         <footer class="home-footer">
 
-            <p>
-                © 2026 PathLink
-            </p>
+            <p>© 2026 PathLink</p>
 
         </footer>
-
 
     </div>
 
 
-
-    <!-- =========================================
-         SUPABASE
-    ========================================== -->
+    <!-- SUPABASE -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="./js/supabase.js"></script>
 
 
-
-    <!-- =========================================
-         ADMIN SUPERVISOR VIEW JAVASCRIPT
-    ========================================== -->
+    <!-- ADMIN SUPERVISOR VIEW JAVASCRIPT -->
 
     <script>
-
 
         // =========================================
         // ELEMENTS
         // =========================================
 
         const profileDisplayName =
-            document.getElementById(
-                "profileDisplayName"
-            );
-
+            document.getElementById("profileDisplayName");
 
         const profileAvatar =
-            document.getElementById(
-                "profileAvatar"
-            );
-
+            document.getElementById("profileAvatar");
 
         const profileName =
-            document.getElementById(
-                "profile-name"
-            );
-
+            document.getElementById("profile-name");
 
         const profileUsername =
-            document.getElementById(
-                "profile-username"
-            );
-
+            document.getElementById("profile-username");
 
         const profileEmail =
-            document.getElementById(
-                "profile-email"
-            );
-
+            document.getElementById("profile-email");
 
         const profilePhone =
-            document.getElementById(
-                "profile-phone"
-            );
-
+            document.getElementById("profile-phone");
 
         const profileDepartment =
-            document.getElementById(
-                "profile-department"
-            );
-
+            document.getElementById("profile-department");
 
         const profileSpecialization =
-            document.getElementById(
-                "profile-specialization"
-            );
-
+            document.getElementById("profile-specialization");
 
         const profileStatus =
-            document.getElementById(
-                "profile-status"
-            );
-
+            document.getElementById("profile-status");
 
         const profileStudentsCount =
-            document.getElementById(
-                "profile-students-count"
-            );
-
+            document.getElementById("profile-students-count");
 
         const assignedStudentsList =
-            document.getElementById(
-                "assignedStudentsList"
-            );
-
+            document.getElementById("assignedStudentsList");
 
 
         // =========================================
@@ -545,14 +519,10 @@
         // =========================================
 
         const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
+            new URLSearchParams(window.location.search);
 
         const supervisorId =
             params.get("id");
-
 
 
         // =========================================
@@ -563,55 +533,33 @@
 
             try {
 
-
-                // =====================================
                 // CHECK LOGIN
-                // =====================================
 
                 const {
-                    data: {
-                        user
-                    },
+                    data: { user },
                     error: userError
                 } = await db.auth.getUser();
 
+                if (userError || !user) {
 
-                if (
-                    userError ||
-                    !user
-                ) {
+                    alert("Please login first.");
 
-                    alert(
-                        "Please login first."
-                    );
-
-                    window.location.href =
-                        "index.html";
+                    window.location.href = "index.html";
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // CHECK ADMIN
-                // =====================================
 
                 const {
                     data: adminProfile,
                     error: adminError
                 } = await db
                     .from("profiles")
-                    .select(
-                        "id, role"
-                    )
-                    .eq(
-                        "id",
-                        user.id
-                    )
+                    .select("id, role")
+                    .eq("id", user.id)
                     .maybeSingle();
-
 
                 if (
                     adminError ||
@@ -619,22 +567,15 @@
                     adminProfile.role !== "admin"
                 ) {
 
-                    alert(
-                        "Access denied."
-                    );
+                    alert("Access denied.");
 
-                    window.location.href =
-                        "index.html";
+                    window.location.href = "index.html";
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // CHECK SUPERVISOR ID
-                // =====================================
 
                 if (!supervisorId) {
 
@@ -646,14 +587,10 @@
                         "admin-supervisors.html";
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // GET SUPERVISOR PROFILE
-                // =====================================
 
                 const {
                     data: profile,
@@ -661,16 +598,9 @@
                 } = await db
                     .from("profiles")
                     .select("*")
-                    .eq(
-                        "id",
-                        supervisorId
-                    )
-                    .eq(
-                        "role",
-                        "supervisor"
-                    )
+                    .eq("id", supervisorId)
+                    .eq("role", "supervisor")
                     .maybeSingle();
-
 
                 if (profileError) {
 
@@ -684,9 +614,7 @@
                     );
 
                     return;
-
                 }
-
 
                 if (!profile) {
 
@@ -698,51 +626,36 @@
                         "admin-supervisors.html";
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // DISPLAY PERSONAL INFORMATION
-                // =====================================
 
                 const supervisorName =
                     profile.full_name ||
                     profile.username ||
                     "Supervisor";
 
-
                 profileDisplayName.textContent =
                     supervisorName;
 
-
                 profileAvatar.textContent =
-                    supervisorName
-                        .charAt(0)
-                        .toUpperCase();
-
+                    supervisorName.charAt(0).toUpperCase();
 
                 profileName.value =
                     profile.full_name || "";
 
-
                 profileUsername.value =
                     profile.username || "";
 
-
                 profileEmail.value =
                     profile.email || "";
-
 
                 profilePhone.value =
                     profile.phone || "";
 
 
-
-                // =====================================
                 // GET SUPERVISOR DETAILS
-                // =====================================
 
                 const {
                     data: supervisor,
@@ -750,12 +663,8 @@
                 } = await db
                     .from("supervisors")
                     .select("*")
-                    .eq(
-                        "id",
-                        supervisorId
-                    )
+                    .eq("id", supervisorId)
                     .maybeSingle();
-
 
                 if (supervisorError) {
 
@@ -763,14 +672,10 @@
                         "Supervisor details error:",
                         supervisorError
                     );
-
                 }
 
 
-
-                // =====================================
                 // DEPARTMENT
-                // =====================================
 
                 profileDepartment.value =
                     profile.department ||
@@ -778,10 +683,7 @@
                     "";
 
 
-
-                // =====================================
                 // SPECIALIZATION
-                // =====================================
 
                 profileSpecialization.value =
                     profile.specialization ||
@@ -789,26 +691,16 @@
                     "Not specified";
 
 
-
-                // =====================================
                 // PHONE FALLBACK
-                // =====================================
 
-                if (
-                    !profilePhone.value
-                ) {
+                if (!profilePhone.value) {
 
                     profilePhone.value =
-                        supervisor?.phone ||
-                        "";
-
+                        supervisor?.phone || "";
                 }
 
 
-
-                // =====================================
                 // ACCOUNT STATUS
-                // =====================================
 
                 profileStatus.value =
                     profile.status ||
@@ -816,10 +708,7 @@
                     "Active";
 
 
-
-                // =====================================
                 // LOAD ASSIGNED STUDENTS
-                // =====================================
 
                 await loadAssignedStudents();
 
@@ -835,11 +724,8 @@
                 alert(
                     "Something went wrong while loading the supervisor profile."
                 );
-
             }
-
         }
-
 
 
         // =========================================
@@ -850,10 +736,7 @@
 
             try {
 
-
-                // =====================================
                 // GET ASSIGNED STUDENTS
-                // =====================================
 
                 const {
                     data: students,
@@ -865,11 +748,7 @@
                         major,
                         supervisor_id
                     `)
-                    .eq(
-                        "supervisor_id",
-                        supervisorId
-                    );
-
+                    .eq("supervisor_id", supervisorId);
 
                 if (studentsError) {
 
@@ -878,101 +757,55 @@
                         studentsError
                     );
 
-                    profileStudentsCount.value =
-                        "0";
-
+                    profileStudentsCount.value = "0";
 
                     assignedStudentsList.innerHTML = `
-
                         <div class="admin-student-item">
-
                             <div class="admin-student-info">
-
-                                <h3>
-                                    Unable to load students
-                                </h3>
-
-                                <p>
-                                    Please try again.
-                                </p>
-
+                                <h3>Unable to load students</h3>
+                                <p>Please try again.</p>
                             </div>
-
                         </div>
-
                     `;
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // NO STUDENTS
-                // =====================================
 
-                if (
-                    !students ||
-                    students.length === 0
-                ) {
+                if (!students || students.length === 0) {
 
-                    profileStudentsCount.value =
-                        "0";
-
+                    profileStudentsCount.value = "0";
 
                     assignedStudentsList.innerHTML = `
-
                         <div class="admin-student-item">
-
                             <div class="admin-student-info">
-
-                                <h3>
-                                    No assigned students
-                                </h3>
-
+                                <h3>No assigned students</h3>
                                 <p>
                                     No students are currently assigned to this supervisor.
                                 </p>
-
                             </div>
-
                         </div>
-
                     `;
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // STUDENT COUNT
-                // =====================================
 
                 profileStudentsCount.value =
-                    String(
-                        students.length
-                    );
+                    String(students.length);
 
 
-
-                // =====================================
                 // GET STUDENT PROFILE IDS
-                // =====================================
 
                 const studentIds =
-                    students.map(
-                        student =>
-                            student.id
-                    );
+                    students.map(student => student.id);
 
 
-
-                // =====================================
                 // GET STUDENT PROFILES
-                // =====================================
 
                 const {
                     data: profiles,
@@ -985,11 +818,7 @@
                         username,
                         email
                     `)
-                    .in(
-                        "id",
-                        studentIds
-                    );
-
+                    .in("id", studentIds);
 
                 if (profilesError) {
 
@@ -998,153 +827,135 @@
                         profilesError
                     );
 
-
                     assignedStudentsList.innerHTML = `
-
                         <div class="admin-student-item">
-
                             <div class="admin-student-info">
-
-                                <h3>
-                                    Unable to load student profiles
-                                </h3>
-
-                                <p>
-                                    Please try again.
-                                </p>
-
+                                <h3>Unable to load student profiles</h3>
+                                <p>Please try again.</p>
                             </div>
-
                         </div>
-
                     `;
 
                     return;
-
                 }
 
 
-
-                // =====================================
                 // CLEAR LIST
-                // =====================================
 
-                assignedStudentsList.innerHTML =
-                    "";
+                assignedStudentsList.innerHTML = "";
 
 
-
-                // =====================================
                 // DISPLAY FIRST STUDENT ONLY
-                // =====================================
 
                 const visibleStudents =
                     students.slice(0, 1);
 
+                visibleStudents.forEach(function(student) {
 
-                visibleStudents.forEach(
-                    function (student) {
-
-                        const studentProfile =
-                            profiles?.find(
-                                profile =>
-                                    profile.id ===
-                                    student.id
-                            );
-
-
-                        const studentName =
-                            studentProfile?.full_name ||
-                            studentProfile?.username ||
-                            "Student";
-
-
-                        const studentEmail =
-                            studentProfile?.email ||
-                            "No email";
-
-
-                        const studentMajor =
-                            student.major ||
-                            "No major";
-
-
-                        const initials =
-                            studentName
-                                .split(" ")
-                                .filter(Boolean)
-                                .slice(0, 2)
-                                .map(
-                                    word =>
-                                        word
-                                            .charAt(0)
-                                            .toUpperCase()
-                                )
-                                .join("");
-
-
-                        const studentItem =
-                            document.createElement(
-                                "div"
-                            );
-
-
-                        studentItem.className =
-                            "admin-student-item";
-
-
-                        studentItem.innerHTML = `
-
-                            <div class="admin-student-avatar">
-                                ${escapeHtml(initials)}
-                            </div>
-
-
-                            <div class="admin-student-info">
-
-                                <h3>
-                                    ${escapeHtml(studentName)}
-                                </h3>
-
-                                <p>
-                                    ${escapeHtml(studentMajor)}
-                                </p>
-
-                                <span>
-                                    ${escapeHtml(studentEmail)}
-                                </span>
-
-                            </div>
-
-                        `;
-
-
-                        assignedStudentsList.appendChild(
-                            studentItem
+                    const studentProfile =
+                        profiles?.find(
+                            profile => profile.id === student.id
                         );
 
-                    }
-                );
+                    const studentName =
+                        studentProfile?.full_name ||
+                        studentProfile?.username ||
+                        "Student";
+
+                    const studentEmail =
+                        studentProfile?.email ||
+                        "No email";
+
+                    const studentMajor =
+                        student.major ||
+                        "No major";
+
+                    const initials =
+                        studentName
+                            .split(" ")
+                            .filter(Boolean)
+                            .slice(0, 2)
+                            .map(word =>
+                                word.charAt(0).toUpperCase()
+                            )
+                            .join("");
+
+                    const studentItem =
+                        document.createElement("div");
+
+                    studentItem.className =
+                        "admin-student-item";
+
+                    studentItem.innerHTML = `
+
+                        <div class="admin-student-avatar">
+                            ${escapeHtml(initials)}
+                        </div>
+
+                        <div class="admin-student-info">
+
+                            <h3>
+                                ${escapeHtml(studentName)}
+                            </h3>
+
+                            <p>
+                                ${escapeHtml(studentMajor)}
+                            </p>
+
+                            <span>
+                                ${escapeHtml(studentEmail)}
+                            </span>
+
+                        </div>
+
+                        <div class="student-report-actions">
+
+                            <button
+                                type="button"
+                                class="student-report-button"
+                                disabled
+                            >
+                                Checking Report...
+                            </button>
+
+                            <span class="student-report-status">
+                                Checking supervisor confirmation...
+                            </span>
+
+                        </div>
+                    `;
+
+                    assignedStudentsList.appendChild(studentItem);
+
+                    const reportButton =
+                        studentItem.querySelector(
+                            ".student-report-button"
+                        );
+
+                    const reportStatus =
+                        studentItem.querySelector(
+                            ".student-report-status"
+                        );
+
+                    setupStudentReportButton(
+                        student.id,
+                        studentName,
+                        reportButton,
+                        reportStatus
+                    );
+
+                });
 
 
-
-                // =====================================
                 // VIEW ALL STUDENTS BUTTON
-                // =====================================
 
-                if (
-                    students.length > 1
-                ) {
+                if (students.length > 1) {
 
                     const viewAllWrapper =
-                        document.createElement(
-                            "div"
-                        );
-
+                        document.createElement("div");
 
                     viewAllWrapper.className =
                         "view-all-students-wrapper";
-
 
                     viewAllWrapper.innerHTML = `
 
@@ -1157,11 +968,9 @@
 
                     `;
 
-
                     assignedStudentsList.appendChild(
                         viewAllWrapper
                     );
-
                 }
 
             }
@@ -1173,35 +982,859 @@
                     error
                 );
 
-
-                profileStudentsCount.value =
-                    "0";
-
+                profileStudentsCount.value = "0";
 
                 assignedStudentsList.innerHTML = `
-
                     <div class="admin-student-item">
-
                         <div class="admin-student-info">
-
-                            <h3>
-                                Unable to load students
-                            </h3>
-
-                            <p>
-                                An unexpected error occurred.
-                            </p>
-
+                            <h3>Unable to load students</h3>
+                            <p>An unexpected error occurred.</p>
                         </div>
-
                     </div>
-
                 `;
+            }
+        }
+
+
+        // =========================================
+        // REPORT WEIGHTS AND SCORE FORMATTING
+        // =========================================
+
+        const DEFAULT_REPORT_WEIGHTS = {
+            written_report: 15,
+            oral_presentation: 15,
+            academic_supervisor: 30
+        };
+
+
+        function formatReportScore(value) {
+
+            if (
+                value === null ||
+                value === undefined ||
+                value === ""
+            ) {
+                return "--";
+            }
+
+            const number = Number(value);
+
+            if (!Number.isFinite(number)) {
+                return "--";
+            }
+
+            return number.toFixed(2).replace(/\.00$/, "");
+        }
+
+
+        function getReportWeights(evaluation) {
+
+            const saved = evaluation?.grading_weights;
+
+            if (
+                !saved ||
+                typeof saved !== "object" ||
+                Array.isArray(saved)
+            ) {
+                return { ...DEFAULT_REPORT_WEIGHTS };
+            }
+
+            const weights = {
+                written_report: Number(
+                    saved.written_report ??
+                    DEFAULT_REPORT_WEIGHTS.written_report
+                ),
+
+                oral_presentation: Number(
+                    saved.oral_presentation ??
+                    DEFAULT_REPORT_WEIGHTS.oral_presentation
+                ),
+
+                academic_supervisor: Number(
+                    saved.academic_supervisor ??
+                    DEFAULT_REPORT_WEIGHTS.academic_supervisor
+                )
+            };
+
+            if (
+                Object.values(weights).some(value =>
+                    !Number.isFinite(value) || value < 0
+                )
+            ) {
+                return { ...DEFAULT_REPORT_WEIGHTS };
+            }
+
+            return weights;
+        }
+
+
+        // =========================================
+        // LOAD STUDENT EVALUATION FOR ADMIN
+        // =========================================
+
+        async function loadStudentEvaluationForAdmin(studentId) {
+
+            // GET STUDENT APPLICATIONS
+
+            const {
+                data: applications,
+                error: applicationsError
+            } = await db
+                .from("applications")
+                .select(`
+                    id,
+                    internship_id,
+                    status,
+                    applied_at
+                `)
+                .eq("student_id", studentId)
+                .order("applied_at", { ascending: false });
+
+            if (applicationsError) {
+                console.error(
+                    "ADMIN APPLICATIONS ERROR:",
+                    applicationsError
+                );
+                throw applicationsError;
+            }
+
+            const applicationList = applications || [];
+
+            const acceptedApplications =
+                applicationList.filter(item =>
+                    String(item.status || "").toLowerCase() === "accepted"
+                );
+
+            const application =
+                acceptedApplications[0] ||
+                applicationList[0] ||
+                null;
+
+            console.log("ADMIN APPLICATIONS:", applicationList);
+            console.log("ADMIN SELECTED APPLICATION:", application);
+            console.log("ADMIN SELECTED APPLICATION ID:", application?.id);
+
+            if (!application) {
+
+                return {
+                    evaluation: null,
+                    companyName: "Company"
+                };
+            }
+
+
+            // GET INTERNSHIP AND COMPANY
+
+            let companyName = "Company";
+
+            if (application.internship_id) {
+
+                const {
+                    data: internship,
+                    error: internshipError
+                } = await db
+                    .from("internships")
+                    .select("id, company_id")
+                    .eq("id", application.internship_id)
+                    .maybeSingle();
+
+                if (internshipError) {
+                    console.error(
+                        "ADMIN INTERNSHIP ERROR:",
+                        internshipError
+                    );
+                    throw internshipError;
+                }
+
+                if (internship?.company_id) {
+
+                    const {
+                        data: company,
+                        error: companyError
+                    } = await db
+                        .from("companies")
+                        .select("id, name")
+                        .eq("id", internship.company_id)
+                        .maybeSingle();
+
+                    if (companyError) {
+                        console.error(
+                            "ADMIN COMPANY ERROR:",
+                            companyError
+                        );
+                        throw companyError;
+                    }
+
+                    companyName = company?.name || "Company";
+                }
+            }
+
+
+            // GET EVALUATION
+
+            const {
+                data: evaluation,
+                error: evaluationError
+            } = await db
+                .from("evaluations")
+                .select(`
+                    id,
+                    application_id,
+                    company_evaluation_score,
+                    written_report_score,
+                    oral_presentation_score,
+                    academic_supervisor_score,
+                    final_grade,
+                    grade_confirmed,
+                    grade_confirmed_at,
+                    grading_weights
+                `)
+                .eq("application_id", application.id)
+                .maybeSingle();
+
+            console.log("ADMIN EVALUATION APPLICATION ID:", application.id);
+            console.log("ADMIN EVALUATION RESULT:", evaluation);
+            console.log("ADMIN EVALUATION ERROR:", evaluationError);
+
+            if (evaluationError) {
+                throw evaluationError;
+            }
+
+            return {
+                evaluation,
+                companyName
+            };
+        }
+
+
+        // =========================================
+        // DOWNLOAD ALL STUDENTS REPORT
+        // =========================================
+
+        async function downloadAllStudentsReport() {
+
+            const button = document.getElementById(
+                "downloadAllStudentsReportButton"
+            );
+
+            const originalText = button.textContent;
+
+            button.disabled = true;
+            button.textContent = "Preparing Report...";
+
+            try {
+
+                // GET ALL STUDENTS ASSIGNED TO THIS SUPERVISOR
+
+                const {
+                    data: students,
+                    error: studentsError
+                } = await db
+                    .from("students")
+                    .select("id")
+                    .eq("supervisor_id", supervisorId);
+
+                if (studentsError) {
+                    throw studentsError;
+                }
+
+                if (!students || students.length === 0) {
+
+                    alert("This supervisor has no assigned students.");
+
+                    return;
+                }
+
+
+                // GET STUDENT PROFILES
+
+                const studentIds =
+                    students.map(student => student.id);
+
+                const {
+                    data: profiles,
+                    error: profilesError
+                } = await db
+                    .from("profiles")
+                    .select("id, full_name, username")
+                    .in("id", studentIds);
+
+                if (profilesError) {
+                    throw profilesError;
+                }
+
+
+                // GET REPORT DATA FOR ALL STUDENTS
+
+                const reportStudents = await Promise.all(
+
+                    students.map(async (student) => {
+
+                        const studentProfile = profiles?.find(
+                            profile => profile.id === student.id
+                        );
+
+                        const studentName =
+                            studentProfile?.full_name ||
+                            studentProfile?.username ||
+                            "Student";
+
+                        const result =
+                            await loadStudentEvaluationForAdmin(student.id);
+
+                        const evaluation = result.evaluation;
+
+                        const isConfirmed =
+                            evaluation?.grade_confirmed === true;
+
+                        return {
+                            studentName,
+
+                            companyName:
+                                result.companyName || "Company",
+
+                            companyScore: isConfirmed
+                                ? formatReportScore(
+                                    evaluation.company_evaluation_score
+                                )
+                                : "—",
+
+                            writtenScore: isConfirmed
+                                ? formatReportScore(
+                                    evaluation.written_report_score
+                                )
+                                : "—",
+
+                            oralScore: isConfirmed
+                                ? formatReportScore(
+                                    evaluation.oral_presentation_score
+                                )
+                                : "—",
+
+                            supervisorScore: isConfirmed
+                                ? formatReportScore(
+                                    evaluation.academic_supervisor_score
+                                )
+                                : "—",
+
+                            finalGrade: isConfirmed
+                                ? formatReportScore(
+                                    evaluation.final_grade
+                                )
+                                : "—"
+                        };
+
+                    })
+
+                );
+
+
+                // CREATE REPORT ROWS
+
+                const rows = reportStudents.map((student, index) => `
+
+                    <tr>
+
+                        <td>${index + 1}</td>
+
+                        <td>${escapeHtml(student.studentName)}</td>
+
+                        <td>${escapeHtml(student.companyName)}</td>
+
+                        <td>${escapeHtml(student.companyScore)}</td>
+
+                        <td>${escapeHtml(student.writtenScore)}</td>
+
+                        <td>${escapeHtml(student.oralScore)}</td>
+
+                        <td>${escapeHtml(student.supervisorScore)}</td>
+
+                        <td>${escapeHtml(student.finalGrade)}</td>
+
+                    </tr>
+
+                `).join("");
+
+
+                // CREATE REPORT HTML
+
+                const reportHTML = `<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Students Grades</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            color: #292B2D;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #d8d8d8;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #234B57;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #F3EEE6;
+        }
+
+        td:nth-child(2),
+        td:nth-child(3) {
+            text-align: left;
+        }
+
+        .print-button {
+            background: #234B57;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        @media print {
+
+            body {
+                margin: 10px;
+            }
+
+            .print-button {
+                display: none;
+            }
+
+            th {
+                background: #234B57 !important;
+                color: white !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            tr:nth-child(even) {
+                background: #F3EEE6 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Company</th>
+                <th>Company Evaluation /40</th>
+                <th>Written Report /15</th>
+                <th>Oral Presentation /15</th>
+                <th>Academic Supervisor /30</th>
+                <th>Final Grade /100</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            ${rows}
+
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>`;
+
+
+                // OPEN REPORT
+
+                const reportWindow =
+                    window.open("", "_blank");
+
+                if (!reportWindow) {
+
+                    alert("Please allow pop-ups to open the report.");
+
+                    return;
+                }
+
+                reportWindow.document.open();
+                reportWindow.document.write(reportHTML);
+                reportWindow.document.close();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "All students report error:",
+                    error
+                );
+
+                alert(
+                    "Could not generate the students report. Please try again."
+                );
+
+            }
+
+            finally {
+
+                button.disabled = false;
+                button.textContent = originalText;
 
             }
 
         }
 
+
+        // =========================================
+        // DOWNLOAD ADMIN EVALUATION REPORT
+        // =========================================
+
+        function downloadAdminEvaluationReport(
+            studentName,
+            companyName,
+            evaluation
+        ) {
+
+            if (
+                !evaluation ||
+                evaluation.grade_confirmed !== true ||
+                evaluation.final_grade === null ||
+                evaluation.final_grade === undefined ||
+                !Number.isFinite(Number(evaluation.final_grade))
+            ) {
+                return;
+            }
+
+            const weights =
+                getReportWeights(evaluation);
+
+            const components = [
+
+                {
+                    label: "Company Supervisor Evaluation",
+                    score: evaluation.company_evaluation_score,
+                    maximum: 40
+                },
+
+                {
+                    label: "Written Internship Report",
+                    score: evaluation.written_report_score,
+                    maximum: weights.written_report
+                },
+
+                {
+                    label: "Oral Presentation",
+                    score: evaluation.oral_presentation_score,
+                    maximum: weights.oral_presentation
+                },
+
+                {
+                    label: "Academic Supervisor Evaluation",
+                    score: evaluation.academic_supervisor_score,
+                    maximum: weights.academic_supervisor
+                }
+
+            ];
+
+            const rows = components.map(item => `
+                <tr>
+                    <td>${escapeHtml(item.label)}</td>
+                    <td>${escapeHtml(formatReportScore(item.score))}</td>
+                    <td>${escapeHtml(formatReportScore(item.maximum))}</td>
+                </tr>
+            `).join("");
+
+
+            // CREATE INDIVIDUAL REPORT
+
+            const reportHTML = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PathLink Evaluation Report</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    color: #234B57;
+}
+
+h1, h2 {
+    color: #326D7A;
+}
+
+.details {
+    line-height: 1.8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+th, td {
+    border: 1px solid #d6ccb9;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #f3eee6;
+}
+
+.total {
+    margin-top: 24px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.confirmed {
+    margin-top: 16px;
+    color: #326D7A;
+}
+
+@media print {
+    body {
+        margin: 15mm;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>PathLink</h1>
+
+<h2>Internship Evaluation Report</h2>
+
+<div class="details">
+
+<p>
+<strong>Student:</strong>
+${escapeHtml(studentName)}
+</p>
+
+<p>
+<strong>Company:</strong>
+${escapeHtml(companyName)}
+</p>
+
+<p>
+<strong>Report Date:</strong>
+${escapeHtml(new Date().toLocaleDateString())}
+</p>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Assessment Component</th>
+    <th>Score</th>
+    <th>Maximum</th>
+</tr>
+
+</thead>
+
+<tbody>
+${rows}
+</tbody>
+
+</table>
+
+<p class="total">
+Final Grade:
+${escapeHtml(formatReportScore(evaluation.final_grade))} / 100
+</p>
+
+<p class="confirmed">
+Final grade confirmed on:
+${escapeHtml(
+    evaluation.grade_confirmed_at
+        ? new Date(evaluation.grade_confirmed_at).toLocaleString()
+        : "-"
+)}
+</p>
+
+</body>
+
+</html>`;
+
+
+         // OPEN REPORT
+
+const reportWindow =
+    window.open("", "_blank");
+
+if (!reportWindow) {
+
+    alert("Please allow pop-ups to open the report.");
+
+    return;
+}
+
+reportWindow.document.open();
+reportWindow.document.write(reportHTML);
+reportWindow.document.close();
+}
+
+        // =========================================
+        // CHECK SUPERVISOR FINAL GRADE CONFIRMATION
+        // =========================================
+
+        async function setupStudentReportButton(
+            studentId,
+            studentName,
+            button,
+            status
+        ) {
+
+            button.disabled = true;
+
+            button.textContent =
+                "Checking Report...";
+
+            status.textContent =
+                "Checking supervisor confirmation...";
+
+            status.className =
+                "student-report-status";
+
+            try {
+
+                const result =
+                    await loadStudentEvaluationForAdmin(studentId);
+
+                const evaluation =
+                    result.evaluation;
+
+                const companyName =
+                    result.companyName;
+
+                console.log("ADMIN REPORT CHECK:");
+                console.log("Student ID:", studentId);
+                console.log("Evaluation:", evaluation);
+                console.log("Grade Confirmed:", evaluation?.grade_confirmed);
+                console.log("Final Grade:", evaluation?.final_grade);
+                console.log("Company:", companyName);
+
+                const isConfirmed =
+                    evaluation &&
+                    evaluation.grade_confirmed === true &&
+                    evaluation.final_grade !== null &&
+                    evaluation.final_grade !== undefined &&
+                    evaluation.final_grade !== "" &&
+                    Number.isFinite(Number(evaluation.final_grade));
+
+
+                button.textContent =
+                    "Final Grade Report";
+
+
+                // NOT CONFIRMED YET
+
+                if (!isConfirmed) {
+
+                    button.disabled = true;
+
+                    status.textContent =
+                        "Pending Supervisor Confirmation";
+
+                    status.className =
+                        "student-report-status";
+
+                    return;
+                }
+
+
+                // CONFIRMED
+
+                button.disabled = false;
+
+                status.textContent =
+                    "Final Grade Confirmed";
+
+                status.className =
+                    "student-report-status ready";
+
+
+                button.addEventListener("click", function() {
+
+                    downloadAdminEvaluationReport(
+                        studentName,
+                        companyName,
+                        evaluation
+                    );
+
+                });
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Error loading student evaluation report:",
+                    error
+                );
+
+                button.disabled = true;
+
+                button.textContent =
+                    "Final Grade Report";
+
+                status.textContent =
+                    "Report status unavailable";
+
+                status.className =
+                    "student-report-status";
+            }
+        }
 
 
         // =========================================
@@ -1211,36 +1844,16 @@
         function escapeHtml(value) {
 
             if (!value) {
-
                 return "";
-
             }
 
-
             return String(value)
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
-
 
 
         // =========================================
@@ -1249,16 +1862,12 @@
 
         document
             .getElementById("backButton")
-            .addEventListener(
-                "click",
-                function () {
+            .addEventListener("click", function() {
 
-                    window.location.href =
-                        "admin-supervisors.html";
+                window.location.href =
+                    "admin-supervisors.html";
 
-                }
-            );
-
+            });
 
 
         // =========================================
@@ -1267,32 +1876,20 @@
 
         document
             .getElementById("logoutButton")
-            .addEventListener(
-                "click",
-                async function (event) {
+            .addEventListener("click", async function(event) {
 
-                    event.preventDefault();
+                event.preventDefault();
 
+                await db.auth.signOut();
 
-                    await db.auth.signOut();
+                localStorage.removeItem("username");
 
+                localStorage.removeItem("role");
 
-                    localStorage.removeItem(
-                        "username"
-                    );
+                window.location.href =
+                    "index.html";
 
-
-                    localStorage.removeItem(
-                        "role"
-                    );
-
-
-                    window.location.href =
-                        "index.html";
-
-                }
-            );
-
+            });
 
 
         // =========================================
@@ -1301,8 +1898,11 @@
 
         loadSupervisor();
 
-    </script>
+        document
+            .getElementById("downloadAllStudentsReportButton")
+            .addEventListener("click", downloadAllStudentsReport);
 
+    </script>
 
 </body>
 

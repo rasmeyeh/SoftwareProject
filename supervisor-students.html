@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +14,37 @@
     <title>My Students</title>
 
     <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+
+        .supervisor-report-section {
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 0;
+        }
+
+        .supervisor-report-button {
+            background: #234B57;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .supervisor-report-button:hover {
+            background: #326D7A;
+        }
+
+        .supervisor-report-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+    </style>
 
 </head>
 
@@ -30,11 +62,13 @@
                 href="supervisor-dashboard.html"
                 class="brand"
             >
-<img
-    src="./images/alquds-university-logo.png"
-    alt="Al-Quds University Logo"
-    class="university-navbar-logo"
->
+
+                <img
+                    src="./images/alquds-university-logo.png"
+                    alt="Al-Quds University Logo"
+                    class="university-navbar-logo"
+                >
+
                 <img
                     src="./images/logo.png"
                     alt="PathLink"
@@ -59,9 +93,11 @@
                 >
                     My Students
                 </a>
-<a href="supervisor-external-requests.html">
-    External Requests
-</a>
+
+                <a href="supervisor-external-requests.html">
+                    External Requests
+                </a>
+
                 <a href="supervisor-profile.html">
                     Profile
                 </a>
@@ -111,10 +147,26 @@
 
 
 
+        <!-- ================= SUPERVISOR REPORT ================= -->
+
+        <section class="supervisor-report-section">
+
+            <button
+                type="button"
+                class="supervisor-report-button"
+                id="downloadSupervisorReportButton"
+                disabled
+            >
+                Download All Students Report
+            </button>
+
+        </section>
+
+
+
         <!-- ================= SEARCH & FILTER ================= -->
 
         <section class="applicants-filter">
-
 
             <div class="applicants-search">
 
@@ -224,6 +276,7 @@
         }
 
 
+
         /* =========================================
            LOAD SUPERVISOR STUDENTS
         ========================================= */
@@ -297,6 +350,11 @@
                         "noStudents"
                     ).style.display =
                         "block";
+
+
+                    document.getElementById(
+                        "downloadSupervisorReportButton"
+                    ).disabled = true;
 
 
                     return;
@@ -458,6 +516,61 @@
                 }
 
 
+
+                /* =========================================
+                   GET STUDENT EVALUATIONS
+                ========================================= */
+
+                let evaluations = [];
+
+                const applicationIds =
+                    applicationList.map(
+                        application => application.id
+                    );
+
+
+                if (
+                    applicationIds.length > 0
+                ) {
+
+                    const {
+                        data: evaluationData,
+                        error: evaluationError
+                    } = await db
+                        .from("evaluations")
+                        .select(`
+                            id,
+                            application_id,
+                            company_evaluation_score,
+                            written_report_score,
+                            oral_presentation_score,
+                            academic_supervisor_score,
+                            final_grade,
+                            grade_confirmed,
+                            grade_confirmed_at
+                        `)
+                        .in(
+                            "application_id",
+                            applicationIds
+                        );
+
+
+                    if (evaluationError) {
+                        throw evaluationError;
+                    }
+
+
+                    evaluations =
+                        evaluationData || [];
+
+                }
+
+
+
+                /* =========================================
+                   CREATE DATA MAPS
+                ========================================= */
+
                 const profileMap = {};
 
 
@@ -499,6 +612,25 @@
                     }
                 );
 
+
+                const evaluationMap = {};
+
+
+                evaluations.forEach(
+                    evaluation => {
+
+                        evaluationMap[
+                            evaluation.application_id
+                        ] = evaluation;
+
+                    }
+                );
+
+
+
+                /* =========================================
+                   BUILD STUDENTS DATA
+                ========================================= */
 
                 allStudents =
                     studentList.map(
@@ -563,6 +695,14 @@
                                     : null;
 
 
+                            const evaluation =
+                                application
+                                    ? evaluationMap[
+                                        application.id
+                                    ] || null
+                                    : null;
+
+
                             return {
 
                                 id: student.id,
@@ -580,6 +720,10 @@
                                     student.major ||
                                     "Major not specified",
 
+                                email:
+                                    profile.email ||
+                                    "—",
+
                                 company:
                                     company
                                         ? company.name
@@ -591,12 +735,28 @@
                                         : "pending",
 
                                 internship:
-                                    internship || null
+                                    internship || null,
+
+                                internshipTitle:
+                                    internship
+                                        ? internship.title ||
+                                          internship.field ||
+                                          "—"
+                                        : "—",
+
+                                evaluation:
+                                    evaluation
 
                             };
 
                         }
                     );
+
+
+                document.getElementById(
+                    "downloadSupervisorReportButton"
+                ).disabled =
+                    allStudents.length === 0;
 
 
                 renderStudents();
@@ -608,6 +768,11 @@
                     "Supervisor students error:",
                     error
                 );
+
+
+                document.getElementById(
+                    "downloadSupervisorReportButton"
+                ).disabled = true;
 
 
                 document.getElementById(
@@ -627,6 +792,7 @@
             }
 
         }
+
 
 
         /* =========================================
@@ -671,6 +837,7 @@
             return "active";
 
         }
+
 
 
         /* =========================================
@@ -876,6 +1043,312 @@
         }
 
 
+
+        /* =========================================
+           DOWNLOAD ALL STUDENTS REPORT
+        ========================================= */
+
+        function downloadSupervisorReport() {
+
+            if (allStudents.length === 0) {
+
+                alert(
+                    "There are no students to include in the report."
+                );
+
+                return;
+
+            }
+
+
+            function displayScore(value, confirmed) {
+
+                if (
+                    !confirmed ||
+                    value === null ||
+                    value === undefined
+                ) {
+
+                    return "—";
+
+                }
+
+                return escapeHTML(value);
+
+            }
+
+
+            const tableRows =
+                allStudents.map(
+                    (student, index) => {
+
+                        const evaluation =
+                            student.evaluation;
+
+
+                        const isConfirmed =
+                            evaluation &&
+                            evaluation.grade_confirmed === true;
+
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    ${index + 1}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(student.name)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(student.company)}
+                                </td>
+
+                                <td>
+                                    ${displayScore(
+                                        evaluation?.company_evaluation_score,
+                                        isConfirmed
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${displayScore(
+                                        evaluation?.written_report_score,
+                                        isConfirmed
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${displayScore(
+                                        evaluation?.oral_presentation_score,
+                                        isConfirmed
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${displayScore(
+                                        evaluation?.academic_supervisor_score,
+                                        isConfirmed
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${displayScore(
+                                        evaluation?.final_grade,
+                                        isConfirmed
+                                    )}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("");
+
+
+
+            const reportHTML = `
+
+                <!DOCTYPE html>
+
+                <html lang="en">
+
+                <head>
+
+                    <meta charset="UTF-8">
+
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1.0"
+                    >
+
+                    <title>
+                        Students Grades
+                    </title>
+
+
+                    <style>
+
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 30px;
+                            color: #292B2D;
+                        }
+
+
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 13px;
+                            margin-top: 20px;
+                        }
+
+
+                        th,
+                        td {
+                            border: 1px solid #d8d8d8;
+                            padding: 12px 8px;
+                            text-align: center;
+                        }
+
+
+                        th {
+                            background: #234B57;
+                            color: white;
+                            font-weight: 600;
+                        }
+
+
+                        tr:nth-child(even) {
+                            background: #F3EEE6;
+                        }
+
+
+                        td:nth-child(2),
+                        td:nth-child(3) {
+                            text-align: left;
+                        }
+
+
+                        .print-button {
+                            background: #234B57;
+                            color: white;
+                            border: none;
+                            padding: 11px 20px;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 14px;
+                            margin-bottom: 15px;
+                        }
+
+
+                        @media print {
+
+                            body {
+                                margin: 10px;
+                            }
+
+                            .print-button {
+                                display: none;
+                            }
+
+                            th {
+                                background: #234B57 !important;
+                                color: white !important;
+                                print-color-adjust: exact;
+                                -webkit-print-color-adjust: exact;
+                            }
+
+                            tr:nth-child(even) {
+                                background: #F3EEE6 !important;
+                                print-color-adjust: exact;
+                                -webkit-print-color-adjust: exact;
+                            }
+
+                        }
+
+                    </style>
+
+                </head>
+
+
+                <body>
+
+
+                  
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>
+                                    Student Name
+                                </th>
+
+                                <th>
+                                    Company
+                                </th>
+
+                                <th>
+                                    Company Evaluation /40
+                                </th>
+
+                                <th>
+                                    Written Report /15
+                                </th>
+
+                                <th>
+                                    Oral Presentation /15
+                                </th>
+
+                                <th>
+                                    Academic Supervisor /30
+                                </th>
+
+                                <th>
+                                    Final Grade /100
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            ${tableRows}
+
+                        </tbody>
+
+                    </table>
+
+
+                </body>
+
+                </html>
+
+            `;
+
+
+            const reportWindow =
+                window.open(
+                    "",
+                    "_blank"
+                );
+
+
+            if (!reportWindow) {
+
+                alert(
+                    "Please allow pop-ups to open the report."
+                );
+
+                return;
+
+            }
+
+
+            reportWindow.document.open();
+
+            reportWindow.document.write(
+                reportHTML
+            );
+
+            reportWindow.document.close();
+
+        }
+
+
+
         /* =========================================
            SEARCH
         ========================================= */
@@ -888,6 +1361,7 @@
             );
 
 
+
         /* =========================================
            STATUS FILTER
         ========================================= */
@@ -898,6 +1372,20 @@
                 "change",
                 renderStudents
             );
+
+
+
+        /* =========================================
+           SUPERVISOR REPORT BUTTON
+        ========================================= */
+
+        document
+            .getElementById("downloadSupervisorReportButton")
+            .addEventListener(
+                "click",
+                downloadSupervisorReport
+            );
+
 
 
         /* =========================================
@@ -919,6 +1407,7 @@
 
                 }
             );
+
 
 
         /* =========================================

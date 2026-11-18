@@ -16,12 +16,9 @@
 
 </head>
 
-
 <body>
 
-
 <div class="home-page">
-
 
     <!-- =========================
          NAVBAR
@@ -35,11 +32,13 @@
                 href="supervisor-dashboard.html"
                 class="brand"
             >
-<img
-    src="./images/alquds-university-logo.png"
-    alt="Al-Quds University Logo"
-    class="university-navbar-logo"
->
+
+                <img
+                    src="./images/alquds-university-logo.png"
+                    alt="Al-Quds University Logo"
+                    class="university-navbar-logo"
+                >
+
                 <img
                     src="./images/logo.png"
                     alt="PathLink Logo"
@@ -64,9 +63,11 @@
                 <a href="supervisor-students.html">
                     My Students
                 </a>
-<a href="supervisor-external-requests.html">
-    External Requests
-</a>
+
+                <a href="supervisor-external-requests.html">
+                    External Requests
+                </a>
+
                 <a href="supervisor-profile.html">
                     Profile
                 </a>
@@ -234,40 +235,6 @@
         </section>
 
 
-        <!-- =========================
-             SUBMITTED EVALUATIONS
-        ========================== -->
-
-        <section class="dashboard-section">
-
-            <div class="section-heading">
-
-                <div>
-
-                    <h2>
-                        Submitted Evaluations
-                    </h2>
-
-                    <p>
-                        Evaluation files submitted by companies.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div id="evaluationsList">
-
-                <p>
-                    Loading evaluations...
-                </p>
-
-            </div>
-
-        </section>
-
-
     </main>
 
 
@@ -282,7 +249,6 @@
         </p>
 
     </footer>
-
 
 </div>
 
@@ -469,14 +435,6 @@ async function loadSupervisorDashboard() {
                 "submittedEvaluationsCount"
             ).textContent = "0";
 
-
-            document.getElementById(
-                "evaluationsList"
-            ).innerHTML = `
-                <p>
-                    No submitted evaluations yet.
-                </p>
-            `;
 
             return;
 
@@ -881,7 +839,7 @@ async function loadSupervisorDashboard() {
 
 
         /* =====================================
-           EVALUATIONS
+           SUBMITTED EVALUATIONS COUNT
         ===================================== */
 
         const acceptedApplicationIds =
@@ -897,7 +855,7 @@ async function loadSupervisorDashboard() {
                 );
 
 
-        let evaluations = [];
+        let submittedEvaluationsCount = 0;
 
 
         if (
@@ -905,20 +863,11 @@ async function loadSupervisorDashboard() {
         ) {
 
             const {
-                data: evaluationData,
-                error: evaluationError
+                data: evaluations,
+                error: evaluationsError
             } = await db
                 .from("evaluations")
-                .select(`
-                    id,
-                    application_id,
-                    form_url,
-                    pdf_url,
-                    status,
-                    submitted_at,
-                    reviewed_at,
-                    created_at
-                `)
+                .select("id")
                 .in(
                     "application_id",
                     acceptedApplicationIds
@@ -929,17 +878,17 @@ async function loadSupervisorDashboard() {
                 );
 
 
-            if (evaluationError) {
+            if (evaluationsError) {
 
                 console.error(
-                    "Evaluation error:",
-                    evaluationError
+                    "Evaluations count error:",
+                    evaluationsError
                 );
 
             } else {
 
-                evaluations =
-                    evaluationData || [];
+                submittedEvaluationsCount =
+                    evaluations.length;
 
             }
 
@@ -949,13 +898,7 @@ async function loadSupervisorDashboard() {
         document.getElementById(
             "submittedEvaluationsCount"
         ).textContent =
-            evaluations.length;
-
-
-        renderEvaluations(
-            evaluations,
-            studentRows
-        );
+            submittedEvaluationsCount;
 
 
     } catch (error) {
@@ -1208,183 +1151,6 @@ function renderStudents(
 
 
 /* =========================================
-   RENDER EVALUATIONS
-========================================= */
-
-function renderEvaluations(
-    evaluations,
-    studentRows
-) {
-
-    const container =
-        document.getElementById(
-            "evaluationsList"
-        );
-
-
-    if (
-        !evaluations.length
-    ) {
-
-        container.innerHTML = `
-            <p>
-                No submitted evaluations yet.
-            </p>
-        `;
-
-        return;
-
-    }
-
-
-    const applicationMap = {};
-
-
-    studentRows.forEach(
-        row => {
-
-            if (
-                row.application
-            ) {
-
-                applicationMap[
-                    row.application.id
-                ] = row;
-
-            }
-
-        }
-    );
-
-
-    const visibleEvaluations =
-        evaluations.slice(
-            0,
-            2
-        );
-
-
-    container.innerHTML =
-        visibleEvaluations
-            .map(
-                evaluation => {
-
-                    const row =
-                        applicationMap[
-                            evaluation.application_id
-                        ];
-
-
-                    if (!row) {
-                        return "";
-                    }
-
-
-                    const studentName =
-                        row.profile.full_name ||
-                        row.profile.username ||
-                        "Student";
-
-
-                    const companyName =
-                        row.company
-                            ? row.company.name
-                            : "Company";
-
-
-                    let pdfButton = `
-
-                        <span
-                            class="review-button"
-                        >
-                            PDF unavailable
-                        </span>
-
-                    `;
-
-
-                    if (
-                        evaluation.pdf_url
-                    ) {
-
-                        pdfButton = `
-
-                            <a
-                                href="${escapeHTML(
-                                    evaluation.pdf_url
-                                )}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="review-button"
-                            >
-                                View PDF
-                            </a>
-
-                        `;
-
-                    }
-
-
-                    return `
-
-                        <div
-                            class="evaluation-row"
-                        >
-
-                            <div
-                                class="evaluation-icon"
-                            >
-                                PDF
-                            </div>
-
-
-                            <div
-                                class="evaluation-info"
-                            >
-
-                                <h3>
-
-                                    ${escapeHTML(
-                                        studentName
-                                    )}
-
-                                    –
-
-                                    ${escapeHTML(
-                                        companyName
-                                    )}
-
-                                </h3>
-
-
-                                <p>
-                                    Student Evaluation Form
-                                </p>
-
-                            </div>
-
-
-                            <span
-                                class="application-status accepted"
-                            >
-                                Submitted
-                            </span>
-
-
-                            ${pdfButton}
-
-                        </div>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-}
-
-
-/* =========================================
    LOGOUT
 ========================================= */
 
@@ -1407,7 +1173,6 @@ document
     );
 
 </script>
-
 
 </body>
 

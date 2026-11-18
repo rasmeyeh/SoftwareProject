@@ -441,18 +441,31 @@ const OFFICIAL_EVALUATION_FORM = "Official Company Evaluation Form";
    Total: 40
 ========================================= */
 
-const companyEvaluationCriteria = [
-    { key: "technical_knowledge", label: "Technical Knowledge" },
-    { key: "quality_of_work", label: "Quality of Work" },
-    { key: "problem_solving", label: "Problem-Solving Skills" },
-    { key: "communication", label: "Communication Skills" },
-    { key: "teamwork", label: "Teamwork and Collaboration" },
-    { key: "punctuality", label: "Punctuality and Attendance" },
-    { key: "initiative", label: "Initiative and Motivation" },
-    { key: "learning", label: "Ability to Learn" },
-    { key: "professionalism", label: "Professionalism" },
-    { key: "following_instructions", label: "Following Instructions" }
-];
+
+let companyEvaluationCriteria = [];
+
+/*
+ * Load the active evaluation questions from Supabase.
+ * The same keys are used when saving and reading evaluation responses.
+ */
+async function loadCompanyEvaluationCriteria() {
+    const { data, error } = await db
+        .from("evaluation_criteria")
+        .select("key, label, display_order")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+
+    if (error) {
+        console.error("Load evaluation criteria error:", error);
+        throw new Error("Unable to load the company evaluation questions.");
+    }
+
+    if (!data || data.length === 0) {
+        throw new Error("No active company evaluation questions were found.");
+    }
+
+    companyEvaluationCriteria = data;
+}
 
 const companyScoreLabels = {
     1: "Acceptable",
@@ -971,7 +984,7 @@ function displayCompanyRubric(container, evaluation) {
             <h3>Official Company Evaluation Form</h3>
             <p class="rubric-description">
                 Complete the training information and rate the student
-                using all ten criteria. All fields are required.
+using all ${companyEvaluationCriteria.length} criteria. All fields are required.
             </p>
 
             <h3>Training Information</h3>
@@ -1036,7 +1049,7 @@ function displayCompanyRubric(container, evaluation) {
 
             <div class="rubric-total">
                 <span>Total Company Score</span>
-                <strong id="companyRubricTotal">0 / 40</strong>
+<strong id="companyRubricTotal">0 / ${companyEvaluationCriteria.length * 4}</strong>
             </div>
 
             <button
@@ -1097,8 +1110,7 @@ function displaySubmittedEvaluation(container, evaluation) {
 
             <div class="rubric-total">
                 <span>Total Company Score</span>
-                <strong>${escapeHTML(evaluation.company_evaluation_score)} / 40</strong>
-            </div>
+<strong>${escapeHTML(evaluation.company_evaluation_score)} / ${companyEvaluationCriteria.length * 4}</strong>            </div>
 
             <div class="rubric-result">
                 Submitted on: ${escapeHTML(formatDate(evaluation.submitted_at))}
@@ -1126,7 +1138,7 @@ function updateCompanyRubricTotal() {
     const totalElement = document.getElementById("companyRubricTotal");
 
     if (totalElement) {
-        totalElement.textContent = `${total} / 40`;
+        totalElement.textContent = `${total} / ${companyEvaluationCriteria.length * 4}`;
     }
 
     return total;
@@ -1224,7 +1236,7 @@ async function submitCompanyRubric() {
 
         if (!select || select.value === "") {
             showEvaluationMessage(
-                "Please select a score for all ten criteria.",
+               `Please select a score for all ${companyEvaluationCriteria.length} criteria`,
                 true
             );
             select?.focus();
@@ -1335,9 +1347,8 @@ async function submitCompanyRubric() {
         }
 
         displayEvaluation(savedEvaluation);
-
-        reviewStatusMessage.textContent =
-            `Company evaluation submitted successfully: ${total}/40.`;
+reviewStatusMessage.textContent =
+    `Company evaluation submitted successfully: ${total}/${companyEvaluationCriteria.length * 4}.`;
         reviewStatusMessage.style.color = "#315b66";
 
     } catch (error) {
@@ -1633,7 +1644,22 @@ statusFilter.addEventListener("change", displayApplicants);
    START
 ========================================= */
 
-loadApplicants();
+async function initializeApplicantsPage() {
+    try {
+        await loadCompanyEvaluationCriteria();
+        await loadApplicants();
+    } catch (error) {
+        console.error("Initialize applicants page error:", error);
+
+        applicantsList.innerHTML = "";
+        applicantsMessage.style.display = "block";
+
+        applicantsMessage.textContent =
+            error.message || "Unable to initialize the applicants page.";
+    }
+}
+
+initializeApplicantsPage();
 </script>
 
 </body>
